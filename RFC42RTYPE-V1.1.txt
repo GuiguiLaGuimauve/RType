@@ -1,0 +1,492 @@
+﻿###########################################################,.`..`,,,,,,;#######
+##########################################################;..,,,,,,,,,,:'######
+#########################################################:.,,,:::::,,,,,;;#####
+#######################################################:,,:'''+++,'';;,,;''####
+#####################################################';;;;+######+,+'';;;''####
+###################################################;,:'''####:....;';;:::;;''##
+#################################################'.,;''+###,,,,++'';,,,,,,:;'';
+################################################.`.:;'++##',;+';;;':,``..,,,;'+
+###############################################:`.,;'+;#+:,;+':,,:;:,..`.`.,:''
+##############################################;.`,,;+#,+,,;+',,.,:';,..```.,:;'
+##############################################``,:;+,+,;,;+';,`,,;'';,,.```,:;'
+#############################################;..,;'+,';.,'+':`,,;;''';,,.`.,:;'
+#############################################,'.++#;.:;.;+';,.:,;'+++'',,,,,;;'
+############################################`.:.+++:';',;';;,:;;'+++++'';::;;''
+###########################################..;.+;:'':+,:'';;;''++'##+;++''''''+
+##########################################;.;.,+.'''';`,;'''++;;+@#####;++''+++
+#########################################..,+`,+'.`+';`.,;''+;#''+##,:@@;'+++++
+########################################;`:'#+.,''+,;.`,,;;+';:#++++'@####''+++
+#######################################@`,#####..,,+,.,,,;;+','''''+'';,,###'';
+#######################################;.'#####,,.,::,:;;''+++;';:+###++''#####
+#########++'''#########################;.'#@:@#;,.,,`  '+++'',:''#':;'+++++;;##
+########@+'.,++########################`:'####:;;:,;'';''+'+..,++,+;''###++''+'
+#########+',:+'########################@,+##;,'+++'++,,+#@+'.,',,;,;@#;:;'@#+'+
+#########''''';#########################,,+#,'#####,,..+##+;##'..:;+:;:'';::;'+
+##########+;;'#########################@,;;,'#########.,'@:+####++,,,:;'##+'',#
+########################################...'#########'.,,,;######`.,,;;+,++''':
+######@;```############################@..;,########..,:+++#######+;;'+''''+###
+######;',;`;.:;+########################`'.';######'..,+#############::;;;'++,:
+######,:'',.,:::.'@######################`@#.######'.,'#############.`,,;'++++'
+#######'::##';,,,.##########################'###+.++.:+,,+##########@;:;'+;;;''
+######,''';;;'##'+############+:,@,  #########@##:';;'+':::####  .###@#:,,,:;;;
+################################################++##+''+``:+##,   @###@..,,,,+:
+#####################################################',.::+###,  .####@`..,:;+`
+####################################################':;;;;;###`':@#####'.,:+''`
+################################################    ; +    ;############''''''.
+################################################@+;;:::::::+####+#######.,;;''.
+#####################################################;.``.'####@##:'#@#:..,;;'`
+######################################################:.'`@@#####:,:`` :..,;'':
+###################################################'';++.,:+######,:```',,,;''+
+################################################:,,,'::::,+#######+'.:;###+,;,'
+#####################################################.############',:;``##'##,'
+##################################################################`,;:,..;+'#:'
+#################################################################'+`.,,.,:,.;`;
+###################################################################``;' `;;:'',
+###################################################################.;'',';.;...
+#####:```  .#######........+#';#####,###,.....+####,.....+##########,;,,;,`;:::
+#### +##++#+`#####.++++@#++:##'`### '## ;++++#. ## ;+++++:###########+`#.,'`;'.
+#### +#####; `########.+######':`# ;'## ,#####+,## +@###############`##:#';:.:,
+#### ######;.;#  `,### +#######;;`:'### '#####`,+#,+#################++:;.@`'.;
+#### '#+  `,## '`##### ;########+;'#### `#.   ,'##.;   `'#################':;;.
+####`;# #''+## ;..'### :########,:;#### .#':.,'###`#++++;##################;'..
+####`;#,; ####,.#'.### :########,.;#### +######### '#######################,::.
+####.'##';, ####++#### ;########,;+#### :######### '##########@';@########.,,:,
+####.+####`;:.######## '########,:##### :######### '`   `+####'':.+#######,,,,,
+####+:######++########.##########;#####.##########+';:,,:'###';',.:#######,,,,;
+#############################################################:::..;..`:'#@,,,;+
+RType							   Guimauve shoot'em up
+Request for Comments: 42						Page[1]
+Category: Limited
+
+
+			RType client/server communication
+
+Status of this memo
+
+	This document specifies a client server communication for
+	the community, and request discussion and suggestion for
+	improvements. Distribution of this memo is unlimited.
+
+
+Table of Contents
+
+   1.   Introduction . . . . . . . . . . . . . . . . . . . . . . . . 1
+   2.   Motivation . . . . . . . . . . . . . . . . . . . . . . . . . 1
+   3.   Packet exchange. . . . . . . . . . . . . . . . . . . . . . . 1
+   3a.	  TCP socket packet exchange . . . . . . . . . . . . . . . . 1
+   3b.    UDP socket packet exchange . . . . . . . . . . . . . . . . 2
+   4.	Data container . . . . . . . . . . . . . . . . . . . . . . . 4
+   4a.	  TCP Packet in ID orders. . . . . . . . . . . . . . . . . . 4
+   4b.    UDP Packet in ID orders. . . . . . . . . . . . . . . . . . 5
+   5. 	TCP connection handshake . . . . . . . . . . . . . . . . . . 6
+
+1. Introduction
+
+	This document talk about a client/server communication on
+	the EPITECH project nammed RType.
+
+	This discuss about all the communication methods (TCP/UDP)
+	and how this protocol works in the project.
+
+2. Motivation
+
+	This is mandatory
+
+
+3. Packet exchange
+
+	The project use TCP and UDP socket, this part is composed of
+	two parts, one present the TCP socket packet exchange, and a
+	other one on UDP socket packet exchange.
+
+
+
+3a. TCP socket packet exchange
+
+	/------\	TCP	 /------\
+	|Server| <-------------> |Client|
+	\------/		 \------/
+
+	The server and the client exchange packet from TCP connection
+	the packet, we use TCP to exchange packet before the game,
+	inside the menu, to avoid packet loss, this packet is
+	serialized like this :
+
+	*-----*---------------*------*------------------------------*
+	|Type |microTimeStamp |Size  | Data			    |
+	*-----*---------------*------*------------------------------*
+
+		- uint8_t	Type		Packet's type ID
+		- uint64_t	microTimeStamp	Clock verification
+		- uint32_t	Size		Size of the data
+		- uint8_t[]	Data		Data maxsize uint32_t
+
+
+\-----------------------------------------------------------------------------/
+RType							   Guimauve shoot'em up
+Request for Comments: 42						Page[2]
+Category: Limited
+/-----------------------------------------------------------------------------\
+
+	The list of packet send with TCP socket is :
+
+	/-----------------------------------------------------------\
+	|   ID	| NAME		| Descrpition		   |  Way   |
+	|-------|---------------|--------------------------|--------|
+	| 0x00  | ERROR		| Packet send when a 	   | S-C    |
+	|	|		| general error happened   |  /     |
+	|	|		|			   | C-S    |
+	|-------|---------------|--------------------------|--------|
+	| 0x01  | WELCOME	| Welcome message from the | S-C    |
+	|	|		| server when a client     |        |
+	|	|		| connect		   |	    |
+	|-------|---------------|--------------------------|--------|
+	| 0x02  | CONNECT	| The client send his 	   | C-S    |
+	|	|		| version number to the    |        |
+	|	|		| server		   |	    |
+	|-------|---------------|--------------------------|--------|
+	| 0x03  | ROOMS		| Send information about   | S-C    |
+	|	|		| number of player 	   |        |
+	|	|		| connected to the server  |	    |
+	|-------|---------------|--------------------------|--------|
+	| 0x04  | CREATE_GAME	| Ask the server to create | C-S    |
+	|	|		| to create a new game 	   |        |
+	|-------|---------------|--------------------------|--------|
+	| 0x05  | JOIN_GAME	| Ask the server to join   | C-S    |
+	|	|		| a selected game 	   |        |
+	|-------|---------------|--------------------------|--------|
+	| 0x06  | JOIN_ERROR	| Error when a player try  | S-C    |
+	|	|		| to join a full game 	   |        |
+	|-------|---------------|--------------------------|--------|
+	| 0x07  | START_GAME	| Ask to start a game      | C-S    |
+	|	|		| number of player 	   |        |
+	|	|		| connected to the server  |	    |
+	|-------|---------------|--------------------------|--------|
+	| 0x08  | START_ERROR	| Error when the transition| S-C    |
+	|	|		| between TCP and UDP 	   |        |
+	|	|		| failed		   |	    |
+	|-------|---------------|--------------------------|--------|
+	| 0x09  | LEAVE_GAME	| Ask the server to quit   | C-S    |
+	|	|		| the room	 	   |        |
+	|	|		|   			   |	    |
+	|-------|---------------|--------------------------|--------|
+	| 0x10  | UDP_DATA	| Send information for UDP | C-S    |
+	|	|		| connection	 	   |  /     |
+	|	|		|   			   | S-C    |
+	|-------|---------------|--------------------------|--------|
+	| 0x11  | UDP_DATA_FREE	| Ask the client to delete | S-C    |
+	|	|		| UDP connection info 	   |        |
+	|	|		|   			   |	    |
+	|-------|---------------|--------------------------|--------|
+	| 0x12  | DATA_ROOM	| Send information about   | S-C    |
+	|	|		| the room you're  	   |        |
+	|	|		| connected into	   |	    |
+	|-------|---------------|--------------------------|--------|
+	| 0x13* | WATCH_GAME	| Ask the server to watch  | C-S    |
+	|	|		| a selected game 	   |        |
+	\-----------------------------------------------------------/
+
+	The data inside each TCP packet may change with time.
+
+	The data will not be incrypted. Packets with an ID like OxXX*
+	is an optionnal packet
+
+3b. UDP socket packet exchange
+
+	/------\	UDP	 /------\
+	|Server| <-------------> |Client|
+	\------/		 \------/
+
+	The server and the client will exchange UDP packet during a
+	game, to avoid any latency between server and client.
+	The UDP packets will be serialized like this :
+
+	*-----*----------------*------*----------------------------*
+	|Type |microsTimeStamp |Size  | Data		           |
+	*-----*----------------*------*----------------------------*
+
+		- uint8_t	Type		Packet's type ID
+		- uint64_t	microTimeStamp	Clock verification
+		- uint32_t	Size		Size of the data
+		- uint8_t[]	Data		Data maxsize uint32_t
+
+
+\-----------------------------------------------------------------------------/
+RType							   Guimauve shoot'em up
+Request for Comments: 42						Page[3]
+Category: Limited
+/-----------------------------------------------------------------------------\
+
+
+	The list of packet send with UDP socket is :
+
+	/-----------------------------------------------------------\
+	|   ID	| NAME		| Descrpition		   |  Way   |
+	|-------|---------------|--------------------------|--------|
+	| 0x20  | DISCONNNECT	| Client disconnect during | C-S    |
+	|	|		| the game 	           |        |
+	|-------|---------------|--------------------------|--------|
+	| 0x21  | LEFT		| Client ask the server to | C-S    |
+	|	|		| update his position      |        |
+	|	|		| (+1 left)		   |	    |
+	|-------|---------------|--------------------------|--------|
+	| 0x22  | RIGHT		| Client ask the server to | C-S    |
+	|	|		| update his position      |        |
+	|	|		| (+1 right)		   |	    |
+	|-------|---------------|--------------------------|--------|
+	| 0x23  | TOP		| Client ask the server to | C-S    |
+	|	|		| update his position      |        |
+	|	|		| (+1 top)		   | 	    |
+	|-------|---------------|--------------------------|--------|
+	| 0x24  | BOTTOM	| Client ask the server to | C-S    |
+	|	|		| update his position	   |        |
+	|	|		| (+1 bottom)		   |        |
+	|-------|---------------|--------------------------|--------|
+	| 0x25  | SHOOT		| Packet send when the     | C-S    |
+	|	|		| shoot key is press 	   |        |
+	\-----------------------------------------------------------/
+	| 0x81  | PLAYERS	| Packet which contains    | S-C    |
+	|	|		| intels about players in  |        |
+	|	|		| the game		   |	    |
+	|-------|---------------|--------------------------|--------|
+	| 0x82  | SHOOTS	| Packet which contains    | S-C    |
+	|	|		| intels about shoots in   |        |
+	|	|		| the game		   |        |
+	|-------|---------------|--------------------------|--------|
+	| 0x83  | ENNEMY	| Packet which contains    | S-C    |
+	|	|		| intels about ennemies in |        |
+	|	|		| the game		   |        |
+	|-------|---------------|--------------------------|--------|
+	| 0x84  | BACKGROUND	| Packet which contains    | S-C    |
+	|	|		| intels about	 	   |        |
+	|	|		| environnement in the     |        |
+	|	|		| game			   |        |
+	|-------|---------------|--------------------------|--------|
+	| 0x85  | MUSIC		| Packet which contains    | S-C    |
+	|	|		| intels about the music   |        |
+	|-------|---------------|--------------------------|--------|
+	| 0x86  | SOUND 	| Packet which contains    | S-C    |
+	|	|		| intels about the sound   |        |
+	|	|		| in the game		   |	    |
+	\-----------------------------------------------------------/
+
+	The data inside each UDP packet may change with time.
+
+	The data will not be incrypted.
+
+\-----------------------------------------------------------------------------/
+RType							   Guimauve shoot'em up
+Request for Comments: 42						Page[4]
+Category: Limited
+/-----------------------------------------------------------------------------\
+
+
+4. Data container
+
+	Each packet's data is stock in a uint8_t[] but each is serialize from 
+	different structure of data.
+	This is the definition implemented in our structure to serialize
+
+
+4a. TCP Packet in ID orders :
+
+	Packet ERROR 		0x00 :
+		uint16_t Size of message
+		int8_t[] Message
+		uint8_t ID from the last packet which failed
+
+	Packet WELCOME 		0x01 :
+		uint16_t Size of the message
+		int8_t[] Message
+
+	Packet CONNECT 		0x02 :
+		uint8_t Protocol version + People in the group + Date
+
+	Packet ROOMS 		0x03 :
+		uint16_t Number of room
+		 {
+			uint16_t Room name size
+			int8_t[] Room name
+			uint16_t Number of player
+			{
+			 	uint16_t Player name size
+				int8_t[] Player name
+			} []
+			uint8_t Max player allowed
+			uint8_t Level Stage
+		 } [] 
+	
+	Packet CREATE_GAME 	0x04 :
+		uint16_t Game name size
+		int8_t[] Game name
+		uint8_t  Allowed player in game
+		uint8_t  Level stage
+
+	Packet JOIN_GAME 	0x05 :
+		uint16_t Game name size
+		int8_t[] Game name
+		uint16_t Player name size
+		int8_t[] Player name
+
+
+\-----------------------------------------------------------------------------/
+RType							   Guimauve shoot'em up
+Request for Comments: 42						Page[5]
+Category: Limited
+/-----------------------------------------------------------------------------\
+
+	Packet JOIN_ERROR	0x06 :
+		uint16_t Game name size
+		int8_t[] Game name
+
+	Packet START_GAME 	0x07 :
+		uint16_t Game name size
+		int8_t[] Game name
+		uint16_t Player UDP port
+
+	Packet START_ERROR	0x08 :
+		uint16_t Game name size
+		int8_t[] Game name					
+
+	Packet LEAVE_ROOM	0x09 :
+		uint16_t Game name size
+		int8_t[] Game name					
+		uint16_t Player name size
+		int8_t[] Player name
+
+	Packet UDP_DATA		0x10 :
+		uint8_t[4] IP adress
+		uint16_t   Port adress
+
+	Packet UDP_DATA_FREE	0x11 :
+		None
+
+	Packet ROOM_DATA	0x12 :
+		uint16_t Number of player
+			{
+			 	uint16_t Player name size
+				int8_t[] Player name
+				*uint16_t Stage suceed
+				*uint16_t Game played
+			} []
+		uint8_t Max player allowed
+		uint8_t Level Stage		
+
+
+	Packet WATCH_GAME	0x13*:
+		uint16_t Game name size
+		int8_t[] Game name
+	
+4b. UDP Packet in ID orders :
+
+	Packet LEFT 		0x20 :
+		uint16_t Player name size
+		int8_t[] Player name				
+
+	Packet LEFT 		0x21 :
+		None		
+
+	Packet RIGHT 		0x22 :
+		None
+	
+
+\-----------------------------------------------------------------------------/
+RType							   Guimauve shoot'em up
+Request for Comments: 42						Page[6]
+Category: Limited
+/-----------------------------------------------------------------------------\
+
+
+	Packet TOP		0x23 :
+		None
+
+	Packet BOTTOM		0x24 :
+		None
+
+	Packet SHOOT		0x25 :
+		None
+
+	Packet PLAYERS		0x81 :
+		uint16_t Number of player
+			{	
+				uint8_t  Player ID
+				uint8_t	 Position X
+				uint8_t	 Position Y
+				uint8_t	 Player health
+			} []
+
+	Packet SHOOTS		0x82 :
+		uint16_t Number of shots
+			{	
+				uint16_t Size shot name
+				int8_t[] Shot name
+				uint8_t	 Position X
+				uint8_t	 Position Y
+				uint8_t	 Damage
+			} []
+
+	Packet ENNEMY		0x83 :
+		uint16_t Number of enemies
+			{	
+				uint8_t  Enemy type
+				uint8_t	 Position X
+				uint8_t	 Position Y
+			} []
+
+	Packet BACKGROUND	0x84 :
+		uint16_t Number of background
+			{	
+				uint8_t  Environement type
+				uint8_t	 Position X
+				uint8_t	 Position Y
+			} []
+
+	Packet MUSIC		0x85 :
+		uint16_t Music name size
+		int8_t[] Music name		
+	
+	Packet SOUND		0x86 :
+		uint16_t Sound name size
+		int8_t[] Sound name
+
+5. TCP connection handshake
+
+	For the handshake in TCP connection, when the client is accept
+	the server will begin the handshake.
+	The value of the packet will be the version number add to the
+	number of people in the group (6) and add to the day number.
+	The server will check this number and tell if the client is
+	allowed on the server.
+
+\-----------------------------------------------------------------------------/
+RType							   Guimauve shoot'em up
+Request for Comments: 42						Page[7]
+Category: Limited
+/-----------------------------------------------------------------------------\
+
+
+	The protocol MUST goes like this :
+
+	/----------\				/----------\
+	|  CLIENT  |				|  SERVER  |
+	\----------/				\----------/
+	      |					      |
+	      | <------------|WELCOME|--------------- |
+	      |                                       |
+	      | -------------|CONNECT|--------------> |
+              |					      |
+	      |				      - CHECK SEQUENCE-
+	      |                                       |
+	------------------------------------------------------
+	if sequence OK
+	      |					      |
+	      | <-----------|ROOMS  |---------------- |
+	------------------------------------------------------
+	if sequence not OK
+	      |					      |
+	      | <-----------|ERROR  |---------------- |
+	 DISCONNECT			  	      |
+	------------------------------------------------------
+
+	This is a two-way handshake, the sequence is not crypted in the
+	package.
