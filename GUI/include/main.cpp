@@ -1,4 +1,4 @@
-#include "Widget.hh"
+#include "Window.hh"
 
 int main()
 {
