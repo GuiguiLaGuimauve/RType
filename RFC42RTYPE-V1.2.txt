@@ -414,8 +414,7 @@ Category: Limited
 4b. UDP Packet in ID orders :
 
 	Packet LEFT 		0x20 :
-		uint16_t Player name size
-		int8_t[] Player name				
+		None				
 
 	Packet LEFT 		0x21 :
 		None		
