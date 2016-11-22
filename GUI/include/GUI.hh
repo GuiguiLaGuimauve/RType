@@ -1,14 +1,17 @@
-#define GUI_HH
 #ifndef GUI_HH
+#define GUI_HH
 
 #include <string>
 #include <map>
-#include <vectorm>
+#include <vector>
 
 #include "IGUI.hh"
-#include "IWindow.hh"
 #include "IWidget.hh"
-#include "ISoundManager.hh"
+
+#include "Window.hh"
+#include "SoundManager.hh"
+#include "KeyboardManager.hh"
+#include "EventQueue.hh"
 
 namespace Gui
 {
@@ -23,8 +26,14 @@ namespace Gui
     void        displayStart();
     void        displayMenu();
     void        updateGameInfo(/*const GameInfo &*/);
+    void	setEventQueue(EventPart::IEventQueue *);
   protected:
-    
+    Audio::ISoundManager	*_audio;
+    IWindow			*_win;
+    IKeyboardManager		*_keyboard;
+    //    GameInfo			_gameInfo;
+    EventPart::IEventQueue	*_coreQueue;
+    EventPart::IEventQueue	*_guiQueue;
   };
 }
 
