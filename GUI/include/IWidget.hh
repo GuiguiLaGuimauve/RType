@@ -5,9 +5,7 @@
 
 #include "Click.hh"
 #include "Style.hh"
-//#include "IEventQueue.hh"
-
-class IEventQueue;
+#include "IEventQueue.hh"
 
 namespace Gui
 {
@@ -20,7 +18,7 @@ namespace Gui
     typedef void (IWidget::*ptrFocus)(IWidget *);
 
     virtual void		draw() = 0;
-    virtual void		setEventQueue(IEventQueue *) = 0;
+    virtual void		setEventQueue(EventPart::IEventQueue *) = 0;
     virtual bool		collision(int, int) const = 0;
     virtual void		resize(int, int) = 0;
     virtual void		move(int, int) = 0;

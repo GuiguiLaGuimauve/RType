@@ -15,7 +15,7 @@ namespace Gui
     virtual ~Widget();
 
     void                draw();
-    void                setEventQueue(IEventQueue *);
+    void                setEventQueue(EventPart::IEventQueue *);
     bool                collision(int, int) const;
     void                resize(int, int);
     void                move(int, int);
@@ -34,13 +34,13 @@ namespace Gui
     void                setStyle(const Style &);
     Style               getStyle() const;
   protected:
-    IEventQueue		*_eventQueue;
-    int			_x;
-    int			_y;
-    int			_width;
-    int			_height;
-    Style		_style;
-    sf::Window		*_win;
+    EventPart::IEventQueue		*_eventQueue;
+    int					_x;
+    int					_y;
+    int					_width;
+    int					_height;
+    Style				_style;
+    sf::Window				*_win;
   };
 }
 

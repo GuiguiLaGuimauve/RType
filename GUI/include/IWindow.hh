@@ -18,7 +18,7 @@ namespace Gui
     virtual void		hide(bool) = 0;
     virtual void		resize(int, int) = 0;
     virtual void		setBackground(const std::string &) = 0;
-    virtual void		setEventQueue(IEventQueue *) = 0;
+    virtual void		setEventQueue(EventPart::IEventQueue *) = 0;
     virtual int			getWidth() const = 0;
     virtual int			getHeight() const = 0;
   };

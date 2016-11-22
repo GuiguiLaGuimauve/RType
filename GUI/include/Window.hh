@@ -21,7 +21,7 @@ namespace Gui
     void        hide(bool);
     void        resize(int, int);
     void        setBackground(const std::string &);
-    void	setEventQueue(IEventQueue *);
+    void	setEventQueue(EventPart::IEventQueue *);
     int		getWidth() const;
     int		getHeight() const;
   protected:
@@ -29,7 +29,7 @@ namespace Gui
     std::list<IWidget *>	_list;
     sf::Window			*_win;
     sf::Sprite			_background;
-    IEventQueue			*queue;
+    EventPart::IEventQueue     	*queue;
     int				_width;
     int				_height;
   };
