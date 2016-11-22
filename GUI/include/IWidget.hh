@@ -14,8 +14,8 @@ namespace Gui
   public:
     virtual ~IWidget(){};
 
-    typedef void (IWidget::*ptrClick)(IWidget *, CLICK);
-    typedef void (IWidget::*ptrFocus)(IWidget *);
+    typedef void (*ptrClick)(IWidget *, CLICK);
+    typedef void (*ptrFocus)(IWidget *);
 
     virtual void		draw() = 0;
     virtual void		setEventQueue(EventPart::IEventQueue *) = 0;
@@ -28,9 +28,9 @@ namespace Gui
     virtual int			getY() const = 0;
     virtual int			getWidth() const = 0;
     virtual int			getHeight() const = 0;
-    virtual void		onClick(IWidget *, CLICK) = 0;
-    virtual void		onFocus(IWidget *) = 0;
-    virtual void		onHover(IWidget *) = 0;
+    virtual void		onClick(CLICK) = 0;
+    virtual void		onFocus() = 0;
+    virtual void		onHover() = 0;
     virtual void		setOnClick(ptrClick) = 0;
     virtual void		setOnFocus(ptrFocus) = 0;
     virtual void		setOnHover(ptrFocus) = 0;

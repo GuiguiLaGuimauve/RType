@@ -25,22 +25,27 @@ namespace Gui
     int                 getY() const;
     int                 getWidth() const;
     int                 getHeight() const;
-    void                onClick(IWidget *, CLICK);
-    void                onFocus(IWidget *);
-    void                onHover(IWidget *);
+    void                onClick(CLICK);
+    void                onFocus();
+    void                onHover();
     void                setOnClick(ptrClick);
     void                setOnFocus(ptrFocus);
     void                setOnHover(ptrFocus);
     void                setStyle(const Style &);
     Style               getStyle() const;
   protected:
-    EventPart::IEventQueue		*_eventQueue;
+    sf::Window				*_win;
     int					_x;
     int					_y;
     int					_width;
     int					_height;
+    std::string				_text;
+    ptrClick				_ptrClick;
+    ptrFocus				_ptrFocus;
+    ptrFocus				_ptrHover;
+    EventPart::IEventQueue		*_eventQueue;
     Style				_style;
-    sf::Window				*_win;
+
   };
 }
 

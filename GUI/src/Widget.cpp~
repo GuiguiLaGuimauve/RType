@@ -1,0 +1,11 @@
+#include "Widget.hh"
+
+using namespace Gui;
+
+Widget::Widget(sf::Window *, int x, int y, int width, int height, const std::string &text);
+{
+}
+
+Widget::~Widget()
+{
+}

@@ -1,32 +1,33 @@
 ##
-## Makefile for 301danone in /home/oger_a/rendu3/Maths/301danone/301danone
+## Makefile for test_gui in /home/bertho_i/tek3/RType/GUI
 ## 
-## Made by Antonin Oger
-## Login   <oger_a@epitech.net>
+## Made by Simon BERTHO
+## Login   <bertho_i@epitech.net>
 ## 
-## Started on  Tue Sep 20 14:10:17 2016 Antonin Oger
-## Last update Tue Nov 22 18:16:33 2016 Simon BERTHO
+## Started on  Tue Nov 22 18:23:01 2016 Simon BERTHO
+## Last update Tue Nov 22 18:23:40 2016 Simon BERTHO
 ##
 
-SRCS	= src/main_gui.cpp			\
+SRCS	=	src/main_gui.cpp			\
+		src/Widget.cpp
 
-SFML_REPO = ./lib/
+SFML_REPO =	./lib/
 
-OBJS	= $(SRCS:.cpp=.o)
+OBJS	=	$(SRCS:.cpp=.o)
 
-NAME	= gomoku
+NAME	=	gui_test
 
-CPPFLAGS= -std=c++11 -g -Iinclude -Iinclude/Audio -I../Event/include
+CPPFLAGS= 	-std=c++11 -g -Iinclude -Iinclude/Audio -I../Event/include
 
-BLINUX3 = yes
+BLINUX3 = 	yes
 
 ifeq ($(BLINUX3),yes)
 	LDFLAGS = -Wl,-rpath=$(SFML_REPO) -L $(SFML_REPO)
 endif
 
-LDFLAGS += -lsfml-graphics -lsfml-window -lsfml-system 
+LDFLAGS += 	-lsfml-graphics -lsfml-window -lsfml-system 
 
-CC	= g++
+CC	=	g++
 
 all:	$(NAME)
 
