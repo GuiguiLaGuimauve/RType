@@ -21,6 +21,9 @@ namespace Gui
     virtual void		setEventQueue(EventPart::IEventQueue *) = 0;
     virtual int			getWidth() const = 0;
     virtual int			getHeight() const = 0;
+    virtual void		setTitle(const std::string &) = 0;
+    virtual std::string		getTitle() const = 0;
+    virtual bool		isOpen() = 0;
   };
 }
 

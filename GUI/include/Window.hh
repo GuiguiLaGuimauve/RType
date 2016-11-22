@@ -2,17 +2,20 @@
 #define WINDOW_HH
 
 #include <list>
+#include <algorithm>
 
 #include <SFML/Graphics.hpp>
 
 #include "IWindow.hh"
+
+#include "Widget.hh"
 
 namespace Gui
 {
   class	Window : public IWindow
   {
   public:
-    Window();
+    Window(int w = 500, int h = 350, const std::string &s = "");
     virtual ~Window();
 
     IWidget*	addWidget(int, int, int, int);
@@ -24,14 +27,19 @@ namespace Gui
     void	setEventQueue(EventPart::IEventQueue *);
     int		getWidth() const;
     int		getHeight() const;
+    void	setTitle(const std::string &);
+    std::string	getTitle() const;
+    bool	isOpen();
   protected:
-    bool			_hidden;
-    std::list<IWidget *>	_list;
-    sf::Window			*_win;
-    sf::Sprite			_background;
-    EventPart::IEventQueue     	*queue;
     int				_width;
     int				_height;
+    std::string			_title;
+    bool			_hidden;
+    std::list<IWidget *>	_list;
+    sf::RenderWindow   		*_win;
+    sf::Sprite			_background;
+    sf::Texture			_loadBackground;
+    EventPart::IEventQueue     	*_queue;
   };
 }
 

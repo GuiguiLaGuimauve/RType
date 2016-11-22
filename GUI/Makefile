@@ -5,11 +5,12 @@
 ## Login   <bertho_i@epitech.net>
 ## 
 ## Started on  Tue Nov 22 18:23:01 2016 Simon BERTHO
-## Last update Tue Nov 22 18:23:40 2016 Simon BERTHO
+## Last update Tue Nov 22 18:47:03 2016 Simon BERTHO
 ##
 
 SRCS	=	src/main_gui.cpp			\
-		src/Widget.cpp
+		src/Widget.cpp				\
+		src/Window.cpp				\
 
 SFML_REPO =	./lib/
 
