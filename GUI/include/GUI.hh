@@ -4,6 +4,7 @@
 #include <string>
 #include <map>
 #include <vector>
+#include <iostream>
 
 #include "IGUI.hh"
 #include "IWidget.hh"
@@ -12,6 +13,7 @@
 #include "SoundManager.hh"
 #include "GuiEventManager.hh"
 #include "EventQueue.hh"
+#include "Key.hh"
 
 namespace Gui
 {
@@ -30,7 +32,7 @@ namespace Gui
   protected:
     Audio::ISoundManager	*_audio;
     IWindow			*_win;
-    IGuiEventManager		*_keyboard;
+    IGuiEventManager		*_userEvents;
     //    GameInfo			_gameInfo;
     EventPart::IEventQueue	*_coreQueue;
     EventPart::IEventQueue	*_guiQueue;

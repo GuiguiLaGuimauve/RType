@@ -1,16 +1,19 @@
-#include "Window.hh"
-#include "SoundManager.hh"
-
 #include "GUI.hh"
 
 int main()
 {
-  Gui::IWindow *w = new Gui::Window();
-
-  while (w->isOpen())
+  EventPart::EventQueue eq;
+  Gui::GUI		gui;
+  gui.setEventQueue(&eq);
+  while (1)
     {
-      w->drawAll();
-      static_cast<Gui::Window *> (w)->getSfmlWinPtr();
+      gui.callback();
+      while (!eq.empty())
+	{
+	  auto e = eq.pop();
+	  if (e.type == EventPart::Event::QUIT)
+	    return (1);
+	}
     }
   return (0);
 }

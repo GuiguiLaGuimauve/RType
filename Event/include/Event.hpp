@@ -5,7 +5,7 @@
 // Login   <bertho_i@epitech.net>
 // 
 // Started on  Wed Oct 19 11:16:12 2016 Simon BERTHO
-// Last update Wed Nov 23 12:43:47 2016 Simon BERTHO
+// Last update Wed Nov 23 13:23:29 2016 Simon BERTHO
 //
 
 #ifndef EVENT_HH
@@ -32,7 +32,18 @@ namespace EventPart
 	KEY_UP,
 	KEY_DOWN,
 	KEY_RIGHT,
-	KEY_LEFT
+	KEY_LEFT,
+	// events of the gui to the core
+	QUIT,
+	ATTACK,
+	MOVE_UP,
+	MOVE_DOWN,
+	MOVE_RIGHT,
+	MOVE_LEFT,
+	TRY_CONNECT, // string["IP"] string["PORT"]
+	TRY_LOGIN, // string["LOGIN"] string["PWD"]
+	CREATE_GAME, // string["GAME_NAME"]
+	JOIN_GAME // string["GAME_NAME"]
       };
     
     // constructeur classique

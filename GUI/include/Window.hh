@@ -20,6 +20,7 @@ namespace Gui
 
     IWidget*		addWidget(int, int, int, int);
     void		deleteWidget(IWidget *);
+    IWidget*		isThereWidget(int, int);
     void		drawAll();
     void		hide(bool);
     void		resize(int, int);

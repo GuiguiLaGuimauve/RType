@@ -33,6 +33,13 @@ void        Window::deleteWidget(IWidget *w)
     _list.erase(i);
 }
 
+IWidget*    Window::isThereWidget(int x, int y)
+{
+  for (auto i = _list.begin(); i != _list.end(); i++)
+    if (*i && (*i)->collision(x, y))
+      return (*i);
+  return (NULL);
+}
 
 void        Window::drawAll()
 {

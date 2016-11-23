@@ -14,6 +14,7 @@ namespace Gui
 
     virtual IWidget		*addWidget(int, int, int, int) = 0;
     virtual void		deleteWidget(IWidget *) = 0;
+    virtual IWidget		*isThereWidget(int, int) = 0;
     virtual void		drawAll() = 0;
     virtual void		hide(bool) = 0;
     virtual void		resize(int, int) = 0;

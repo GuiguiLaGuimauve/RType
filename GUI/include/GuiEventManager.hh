@@ -2,6 +2,7 @@
 #define KEYBOARD_MANAGER_HH
 
 #include <map>
+#include <iostream>
 
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
