@@ -36,13 +36,6 @@ void        Window::deleteWidget(IWidget *w)
 
 void        Window::drawAll()
 {
-  /*  sf::Event event;
-  while (_win->pollEvent(event))
-    if (event.type == sf::Event::Closed)
-      {
-	_win->close();
-	return ;
-	}*/
   _win->clear();
   if (!_hidden)
     return ;
@@ -104,4 +97,9 @@ std::string         Window::getTitle() const
 bool		Window::isOpen()
 {
     return (_win->isOpen());
+}
+
+sf::RenderWindow	*Window::getSfmlWinPtr()
+{
+  return (_win);
 }

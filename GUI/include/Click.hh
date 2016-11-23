@@ -3,11 +3,11 @@
 
 namespace Gui
 {
-  enum CLICK
+  enum CLICK : int
     {
-      CLICK_RIGHT,
-      CLICK_LEFT,
-      CLICK_WHEEL
+      CLICK_RIGHT = 1,
+      CLICK_LEFT = 2,
+      CLICK_WHEEL = 3
     };
 }
 

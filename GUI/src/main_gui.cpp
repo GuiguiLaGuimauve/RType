@@ -1,5 +1,4 @@
 #include "Window.hh"
-#include "KeyboardManager.hh"
 #include "SoundManager.hh"
 
 #include "GUI.hh"
@@ -11,6 +10,7 @@ int main()
   while (w->isOpen())
     {
       w->drawAll();
+      static_cast<Gui::Window *> (w)->getSfmlWinPtr();
     }
   return (0);
 }

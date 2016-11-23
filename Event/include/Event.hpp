@@ -5,7 +5,7 @@
 // Login   <bertho_i@epitech.net>
 // 
 // Started on  Wed Oct 19 11:16:12 2016 Simon BERTHO
-// Last update Sat Oct 22 00:34:28 2016 Simon BERTHO
+// Last update Wed Nov 23 12:43:47 2016 Simon BERTHO
 //
 
 #ifndef EVENT_HH
@@ -24,16 +24,18 @@ namespace EventPart
   public:
     enum TYPE
       {
-		DEFAULT,
-		QUIT,
-		UNKNOWN_ERROR,
-		GUI_SEND_CONNECTION,
-		GUI_SEND_LOGIN,
-		GUI_SEND_REGISTER,
-		GUI_SEND_CALL
+	DEFAULT,
+	// interns events of the gui
+	CLOSE_WINDOW,
+	CLICK, // int["X"] int ["Y"] int["CLICK"]
+	KEY_ATTACK,
+	KEY_UP,
+	KEY_DOWN,
+	KEY_RIGHT,
+	KEY_LEFT
       };
     
-    // consteucteur classis
+    // constructeur classique
     Event(TYPE t = DEFAULT)
     {
       type = t;
@@ -46,14 +48,14 @@ namespace EventPart
       type = t;
       setArgs(a ...);
     }
-  private:
+  protected:
     // fonctions pour set les arguments
     // au cas ou
     void	setArgs()
     {
       return ;
     }
-    
+  private:
     // pour quand y a plus de 2 arguments bonus pour int
     template <typename ... Args>
     void	setArgs(const std::string &s, int32_t i, const Args& ... a)
@@ -86,8 +88,8 @@ namespace EventPart
     // attributs
   public:
     TYPE					type;
-    std::map<std::string, int32_t>	dataInt;
-    std::map<std::string, std::string>	dataString;
+    std::map<std::string, int32_t>		dataInt;
+    std::map<std::string, std::string>		dataString;
   };
 };
 

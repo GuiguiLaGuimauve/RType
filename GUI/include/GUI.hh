@@ -10,7 +10,7 @@
 
 #include "Window.hh"
 #include "SoundManager.hh"
-#include "KeyboardManager.hh"
+#include "GuiEventManager.hh"
 #include "EventQueue.hh"
 
 namespace Gui
@@ -30,7 +30,7 @@ namespace Gui
   protected:
     Audio::ISoundManager	*_audio;
     IWindow			*_win;
-    IKeyboardManager		*_keyboard;
+    IGuiEventManager		*_keyboard;
     //    GameInfo			_gameInfo;
     EventPart::IEventQueue	*_coreQueue;
     EventPart::IEventQueue	*_guiQueue;

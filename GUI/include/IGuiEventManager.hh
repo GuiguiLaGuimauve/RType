@@ -7,10 +7,10 @@
 
 namespace Gui
 {
-  class IKeyboardManager
+  class IGuiEventManager
   {
   public:
-    virtual ~IKeyboardManager(){};
+    virtual ~IGuiEventManager(){};
 
     virtual void	callback() = 0;
     virtual void	setEventQueue(EventPart::IEventQueue *) = 0;

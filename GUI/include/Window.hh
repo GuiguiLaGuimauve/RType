@@ -18,18 +18,19 @@ namespace Gui
     Window(int w = 500, int h = 350, const std::string &s = "");
     virtual ~Window();
 
-    IWidget*	addWidget(int, int, int, int);
-    void        deleteWidget(IWidget *);
-    void        drawAll();
-    void        hide(bool);
-    void        resize(int, int);
-    void        setBackground(const std::string &);
-    void	setEventQueue(EventPart::IEventQueue *);
-    int		getWidth() const;
-    int		getHeight() const;
-    void	setTitle(const std::string &);
-    std::string	getTitle() const;
-    bool	isOpen();
+    IWidget*		addWidget(int, int, int, int);
+    void		deleteWidget(IWidget *);
+    void		drawAll();
+    void		hide(bool);
+    void		resize(int, int);
+    void		setBackground(const std::string &);
+    void		setEventQueue(EventPart::IEventQueue *);
+    int			getWidth() const;
+    int			getHeight() const;
+    void		setTitle(const std::string &);
+    std::string		getTitle() const;
+    bool		isOpen();
+    sf::RenderWindow	*getSfmlWinPtr();
   protected:
     int				_width;
     int				_height;

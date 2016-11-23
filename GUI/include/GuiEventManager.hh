@@ -6,23 +6,26 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 
-#include "IKeyboardManager.hh"
+#include "IGuiEventManager.hh"
+
+#include "Click.hh"
 
 namespace Gui
 {
-  class KeyboardManager: public IKeyboardManager
+  class GuiEventManager: public IGuiEventManager
   {
   public:
-    KeyboardManager();
-    virtual ~KeyboardManager();
+    GuiEventManager(sf::Window *);
+    virtual ~GuiEventManager();
 
     void        callback();
     void        setEventQueue(EventPart::IEventQueue *);
     void        bindKey(KEY, EventPart::Event::TYPE);    
   protected:
+    sf::Window					*_win;
     EventPart::IEventQueue			*_queue;
     std::map<KEY, EventPart::Event::TYPE>	_events;
-    //std::map<sf::Keyboard::Key, KEY>	       	_keys;
+    std::map<sf::Keyboard::Key, KEY>	       	_keys;
   };
 }
 
