@@ -45,6 +45,13 @@ void		GUI::callback()
 	case EventPart::Event::CLOSE_WINDOW :
 	  e = EventPart::Event(EventPart::Event::QUIT);
 	  break;
+	case EventPart::Event::CLICK :
+	  {
+	    IWidget *w = _win->isThereWidget(e.dataInt["X"], e.dataInt["Y"]);
+	    if (w)
+	      w->onClick(static_cast<CLICK> (e.dataInt["CLICK"]));
+	    break;
+	  }
 	default :
 	  e.type = EventPart::Event::DEFAULT;
 	}
@@ -70,6 +77,7 @@ void		GUI::displayStart()
   Style		s;
   s = _startWidgets->button->getStyle();
   _startWidgets->button->setText("Connect.");
+  _startWidgets->button->setOnClick([](IWidget *, CLICK){std::cout << "try connect" << std::endl;});
   s.form = RECTANGLE;
   s.backgroundColor = Color(250, 0, 0);
   _startWidgets->button->setStyle(s);
