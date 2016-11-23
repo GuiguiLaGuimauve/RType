@@ -10,8 +10,8 @@ namespace Gui
   class Widget : public IWidget
   {
   public:
-    Widget(sf::Window *, int x = 0, int y = 0, int width = 0, int height = 0,
-	   const std::string &text = "");
+    Widget(sf::RenderWindow *, int x = 0, int y = 0, int width = 0,
+	   int height = 0, const std::string &text = "");
     virtual ~Widget();
 
     void                draw();
@@ -34,7 +34,7 @@ namespace Gui
     void                setStyle(const Style &);
     Style               getStyle() const;
   protected:
-    sf::Window				*_win;
+    sf::RenderWindow	       		*_win;
     int					_x;
     int					_y;
     int					_width;
@@ -45,7 +45,13 @@ namespace Gui
     ptrFocus				_ptrHover;
     EventPart::IEventQueue		*_eventQueue;
     Style				_style;
-
+    // sfml stuffs
+    sf::CircleShape			_circle;
+    sf::RectangleShape			_rectangle;
+    sf::Text				_sfmlText;
+    sf::Font				_font;
+    sf::Sprite				_background;
+    sf::Texture				_loadBackground;
   };
 }
 

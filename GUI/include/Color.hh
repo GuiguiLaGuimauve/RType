@@ -5,9 +5,11 @@ namespace Gui
 {
   struct Color
   {
-    int red = 0;
-    int green = 0;
-    int blue = 0;
+    Color(int r = 0, int g = 0, int b = 0):
+      red(r), green(g), blue(b) {};
+    int red;
+    int green;
+    int blue;
   };
 }
 

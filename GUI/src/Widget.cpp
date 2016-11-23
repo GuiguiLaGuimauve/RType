@@ -2,11 +2,13 @@
 
 using namespace Gui;
 
-Widget::Widget(sf::Window *w, int x, int y, int width, int height, const std::string &text):
+Widget::Widget(sf::RenderWindow *w, int x, int y, int width, int height, const std::string &text):
   _win(w), _x(x), _y(y), _width(width), _height(height), _text(text),
   _ptrClick(NULL), _ptrFocus(NULL), _ptrHover(NULL), _eventQueue(NULL)
 {
-  /*Ici il faudra surement mettre un style de base*/
+  setStyle(_style);
+  move(_x, _y);
+  resize(_width, _height);
 }
 
 Widget::~Widget()
@@ -16,6 +18,14 @@ Widget::~Widget()
 void                Widget::draw()
 {
   // à remplir en fonction du style
+  if (_style.form == CIRCLE)
+    _win->draw(_circle);
+  else if (_style.form == RECTANGLE)
+    _win->draw(_rectangle);
+  if (_style.image != "")
+    _win->draw(_background);
+  if (_text != "")
+    _win->draw(_sfmlText);
 }
 
 void                Widget::setEventQueue(EventPart::IEventQueue *eq)
@@ -35,17 +45,28 @@ void                Widget::resize(int w, int h)
 {
   _width = w;
   _height = h;
+  _rectangle.setSize(sf::Vector2f(_width, _height));
+  // plus tard il y aura un truc pour redimensionner l'image
+  // solution => http://fr.sfml-dev.org/forums/index.php?topic=10739.0
+  if (_width != 0)
+    _circle.setRadius(_width / 2);
+  else
+    _circle.setRadius(0);
 }
 
 void                Widget::move(int x, int y)
 {
   _x = x;
   _y = y;
+  _rectangle.move(_x, _y);
+  _circle.move(_x, _y);
+  _background.move(_x, _y);
 }
 
 void                Widget::setText(const std::string &s)
 {
   _text = s ;
+  _sfmlText.setString(_text);
 }
 
 std::string         Widget::getText() const
@@ -109,6 +130,18 @@ void                Widget::setOnHover(ptrFocus ptrFct)
 void                Widget::setStyle(const Style &s)
 {
   _style = s;
+  // set la font du text
+  _sfmlText.setColor(sf::Color(s.textColor.red,
+			     s.textColor.green,
+			     s.textColor.blue));
+  // load l'image si != ""
+  _circle.setFillColor(sf::Color(s.backgroundColor.red,
+				 s.backgroundColor.green,
+				 s.backgroundColor.blue));
+  _rectangle.setFillColor(sf::Color(s.backgroundColor.red,
+				 s.backgroundColor.green,
+				 s.backgroundColor.blue));
+  // gérer l'opacité
 }
 
 Style               Widget::getStyle() const

@@ -5,6 +5,7 @@ namespace Gui
 {
   enum FORM
     {
+      NO_FORM,
       CIRCLE,
       RECTANGLE
     };

@@ -11,16 +11,16 @@ namespace Gui
 {
   struct Style
   {
-    POLICE	policeType;
-    int		policeSize;
+    POLICE	policeType = CALIBRI;
+    int		policeSize = 12;
     Color	textColor;
-    bool	boldText;
-    bool	italicText;
-    bool	underlineText;
-    std::string	image;
-    FORM	form;
+    bool	boldText = false;
+    bool	italicText = false;
+    bool	underlineText = false;
+    std::string	image = "";
+    FORM	form = NO_FORM;
     Color	backgroundColor;
-    int		opacity;
+    int		opacity = 100;
   };
 }
 

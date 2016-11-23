@@ -5,7 +5,7 @@
 ## Login   <bertho_i@epitech.net>
 ## 
 ## Started on  Tue Nov 22 18:23:01 2016 Simon BERTHO
-## Last update Wed Nov 23 13:11:23 2016 Simon BERTHO
+## Last update Wed Nov 23 15:51:35 2016 Simon BERTHO
 ##
 
 SRCS	=	src/main_gui.cpp			\
@@ -14,6 +14,7 @@ SRCS	=	src/main_gui.cpp			\
 		src/GuiEventManager.cpp			\
 		src/GUI.cpp				\
 		../Event/src/EventQueue.cpp		\
+		src/Audio/SoundManager.cpp		\
 
 SFML_REPO =	./lib/
 

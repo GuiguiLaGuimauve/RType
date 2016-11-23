@@ -5,6 +5,7 @@
 #include <list>
 
 #include <SFML/Audio.hpp>
+#include <SFML/Window.hpp>
 
 #include "ISoundManager.hh"
 
@@ -21,8 +22,8 @@ namespace Gui
       void      playSound(const std::string &, int = 50) ;
       void      stopSound(const std::string &);
     protected:
-      std::map<std::string, sf::SoundBuffer>	_soundsMemory;
-      std::list<sf::Sound>			_soundsInProgress;
+      std::map<std::string, sf::SoundBuffer *>	_soundsMemory;
+      std::list<sf::Sound *>			_soundsInProgress;
     };
   }
 }

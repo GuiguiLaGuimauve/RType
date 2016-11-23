@@ -5,7 +5,7 @@ using namespace Gui;
 GUI::GUI()
 {
   // ptr init
-  _audio = NULL; // à changer quand j'aurai créé l'audio
+  _audio = new Audio::SoundManager;
   _win = new Window;
   _userEvents = new GuiEventManager(static_cast<Window *> (_win)->getSfmlWinPtr());
   _coreQueue = NULL;
@@ -25,7 +25,8 @@ GUI::GUI()
 
 GUI::~GUI()
 {
-  //  delete _audio;
+  deleteWidgets();
+  delete _audio;
   delete _win;
   delete _userEvents;
   delete _guiQueue;
@@ -54,14 +55,36 @@ void		GUI::callback()
 
 void		GUI::displayGame()
 {
+  _gameWidgets = new Game;
 }
 
 void		GUI::displayStart()
 {
+  // custom window
+  //_win->setBackground("/home/bertho_i/Downloads/Patate_pokémon.png");
+  // init
+  _startWidgets = new Start;
+  _startWidgets->imput = _win->addWidget(50, 50, 300, 75);
+  _startWidgets->button = _win->addWidget(50, 150, 300, 75);
+  // custom button
+  Style		s;
+  s = _startWidgets->button->getStyle();
+  _startWidgets->button->setText("Connect.");
+  s.form = RECTANGLE;
+  s.backgroundColor = Color(250, 0, 0);
+  _startWidgets->button->setStyle(s);
+  // custom imput
+  _startWidgets->imput->setStyle(s);
 }
 
 void		GUI::displayMenu()
 {
+  _menuWidgets = new Menu;
+}
+
+void		GUI::displayLogin()
+{
+  _loginWidgets = new Login;
 }
 
 void		GUI::updateGameInfo(/*const GameInfo &*/)
@@ -73,3 +96,28 @@ void		GUI::setEventQueue(EventPart::IEventQueue *eq)
   _coreQueue = eq;
 }
 
+void		GUI::deleteWidgets()
+{
+  if (_startWidgets)
+    {
+      _win->deleteWidget(_startWidgets->imput);
+      _win->deleteWidget(_startWidgets->button);
+      delete _startWidgets;
+      _startWidgets = NULL;
+    }
+  if (_loginWidgets)
+    {
+      delete _loginWidgets;
+      _loginWidgets = NULL;
+    }
+  if (_menuWidgets)
+    {
+      delete _menuWidgets;
+      _menuWidgets = NULL;
+    }
+  if (_gameWidgets)
+    {
+      delete _gameWidgets;
+      _gameWidgets = NULL;
+    }
+}

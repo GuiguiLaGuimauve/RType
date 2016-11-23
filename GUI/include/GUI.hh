@@ -7,8 +7,8 @@
 #include <iostream>
 
 #include "IGUI.hh"
-#include "IWidget.hh"
 
+#include "Widget.hh"
 #include "Window.hh"
 #include "SoundManager.hh"
 #include "GuiEventManager.hh"
@@ -19,6 +19,24 @@ namespace Gui
 {
   class GUI: public IGUI
   {
+  protected:
+    struct Start
+    {
+      IWidget	*imput = NULL;
+      IWidget	*button = NULL;
+    };
+
+    struct Login
+    {
+    };
+
+    struct Menu
+    {
+    };
+
+    struct Game
+    {
+    };
   public:
     GUI();
     virtual ~GUI();
@@ -27,8 +45,11 @@ namespace Gui
     void        displayGame();
     void        displayStart();
     void        displayMenu();
+    void	displayLogin();
     void        updateGameInfo(/*const GameInfo &*/);
     void	setEventQueue(EventPart::IEventQueue *);
+  protected:
+    void	deleteWidgets();
   protected:
     Audio::ISoundManager	*_audio;
     IWindow			*_win;
@@ -36,6 +57,11 @@ namespace Gui
     //    GameInfo			_gameInfo;
     EventPart::IEventQueue	*_coreQueue;
     EventPart::IEventQueue	*_guiQueue;
+    // liste des widgets dans les structures
+    Start	*_startWidgets = NULL;
+    Login	*_loginWidgets = NULL;
+    Menu	*_menuWidgets = NULL;
+    Game	*_gameWidgets = NULL;
   };
 }
 

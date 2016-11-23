@@ -14,6 +14,10 @@ Window::Window(int w, int h, const std::string &s):
 Window::~Window()
 {
   delete _win;
+  for (auto i = _list.begin(); i != _list.end(); i++)
+    if (*i)
+      delete (*i);
+  _list.clear();
 }
 
 IWidget*    Window::addWidget(int x, int y, int w, int h)
@@ -30,7 +34,11 @@ void        Window::deleteWidget(IWidget *w)
     return ;
   auto i = std::find(_list.begin(), _list.end(), w);
   if (i != _list.end())
-    _list.erase(i);
+    {
+      if (*i)
+	delete (*i);
+      _list.erase(i);
+    }
 }
 
 IWidget*    Window::isThereWidget(int x, int y)
@@ -44,7 +52,7 @@ IWidget*    Window::isThereWidget(int x, int y)
 void        Window::drawAll()
 {
   _win->clear();
-  if (!_hidden)
+  if (_hidden)
     return ;
   _win->draw(_background);
   for (auto i = _list.begin(); i != _list.end(); i++)
