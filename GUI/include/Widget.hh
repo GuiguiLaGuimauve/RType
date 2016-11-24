@@ -27,10 +27,14 @@ namespace Gui
     int                 getHeight() const;
     void                onClick(CLICK);
     void                onFocus();
+    void		onLeaveFocus();
     void                onHover();
+    void		onLeaveHover();
     void                setOnClick(ptrClick);
     void                setOnFocus(ptrFocus);
+    void		setOnLeaveFocus(ptrFocus);
     void                setOnHover(ptrFocus);
+    void		setOnLeaveHover(ptrFocus);
     void                setStyle(const Style &);
     Style               getStyle() const;
   protected:
@@ -42,7 +46,9 @@ namespace Gui
     std::string				_text;
     ptrClick				_ptrClick;
     ptrFocus				_ptrFocus;
+    ptrFocus				_ptrLeaveFocus;
     ptrFocus				_ptrHover;
+    ptrFocus				_ptrLeaveHover;
     EventPart::IEventQueue		*_eventQueue;
     Style				_style;
     // sfml stuffs

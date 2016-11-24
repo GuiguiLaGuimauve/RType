@@ -30,10 +30,14 @@ namespace Gui
     virtual int			getHeight() const = 0;
     virtual void		onClick(CLICK) = 0;
     virtual void		onFocus() = 0;
+    virtual void		onLeaveFocus() = 0;
     virtual void		onHover() = 0;
+    virtual void		onLeaveHover() = 0;
     virtual void		setOnClick(ptrClick) = 0;
     virtual void		setOnFocus(ptrFocus) = 0;
+    virtual void		setOnLeaveFocus(ptrFocus) = 0;
     virtual void		setOnHover(ptrFocus) = 0;
+    virtual void		setOnLeaveHover(ptrFocus) = 0;
     virtual void		setStyle(const Style &) = 0;
     virtual Style		getStyle() const = 0;
   };

@@ -82,6 +82,7 @@ void		GUI::displayStart()
   s.backgroundColor = Color(250, 0, 0);
   _startWidgets->button->setStyle(s);
   // custom imput
+  s.backgroundColor = Color(250, 250, 250);
   _startWidgets->imput->setStyle(s);
 }
 

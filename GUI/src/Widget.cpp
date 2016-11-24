@@ -4,7 +4,8 @@ using namespace Gui;
 
 Widget::Widget(sf::RenderWindow *w, int x, int y, int width, int height, const std::string &text):
   _win(w), _x(x), _y(y), _width(width), _height(height), _text(text),
-  _ptrClick(NULL), _ptrFocus(NULL), _ptrHover(NULL), _eventQueue(NULL)
+  _ptrClick(NULL), _ptrFocus(NULL), _ptrLeaveFocus(NULL),
+  _ptrHover(NULL), _ptrLeaveHover(NULL), _eventQueue(NULL)
 {
   setStyle(_style);
   move(_x, _y);
@@ -106,10 +107,22 @@ void                Widget::onFocus()
     _ptrFocus(this);
 }
 
+void                Widget::onLeaveFocus()
+{
+  if (_ptrLeaveFocus)
+    _ptrLeaveFocus(this);
+}
+
 void                Widget::onHover()
 {
   if (_ptrHover)
     _ptrHover(this);
+}
+
+void                Widget::onLeaveHover()
+{
+  if (_ptrLeaveHover)
+    _ptrLeaveHover(this);
 }
 
 void                Widget::setOnClick(ptrClick ptrFct)
@@ -122,9 +135,19 @@ void                Widget::setOnFocus(ptrFocus ptrFct)
   _ptrFocus = ptrFct;
 }
 
+void                Widget::setOnLeaveFocus(ptrFocus ptrFct)
+{
+  _ptrLeaveFocus = ptrFct;
+}
+
 void                Widget::setOnHover(ptrFocus ptrFct)
 {
   _ptrHover = ptrFct;
+}
+
+void                Widget::setOnLeaveHover(ptrFocus ptrFct)
+{
+  _ptrLeaveHover = ptrFct;
 }
 
 void                Widget::setStyle(const Style &s)
