@@ -23,25 +23,33 @@ void		GuiEventManager::callback()
   sf::Event event;
   while (_win->pollEvent(event))
     {
-      if (event.type == sf::Event::Closed)
-	_queue->push(EventPart::Event(EventPart::Event::CLOSE_WINDOW));
-      else if (event.type == sf::Event::MouseButtonPressed)
+      switch (event.type)
 	{
-	  int click = 0;
-	  switch (event.mouseButton.button)
-	    {
-	    case sf::Mouse::Right : click = CLICK_RIGHT;
-	    case sf::Mouse::Left : click = CLICK_LEFT;
-	    case sf::Mouse::Middle: click = CLICK_WHEEL;
-	    }
-	  _queue->push(EventPart::Event(EventPart::Event::CLICK, "X", event.mouseButton.x,
-					"Y", event.mouseButton.y, "CLICK", click));
-	}
-      else if (event.type == sf::Event::KeyPressed)
-	{
-	  auto i = _keys.find(event.key.code);
-	  if (i != _keys.end())
-	    _queue->push(EventPart::Event(_events[_keys[event.key.code]]));
+	case sf::Event::Closed :
+	  _queue->push(EventPart::Event(EventPart::Event::CLOSE_WINDOW));
+	  break;
+	case sf::Event::MouseButtonPressed :
+	  {
+	    int click = 0;
+	    switch (event.mouseButton.button)
+	      {
+	      case sf::Mouse::Right : click = CLICK_RIGHT;
+	      case sf::Mouse::Left : click = CLICK_LEFT;
+	      case sf::Mouse::Middle: click = CLICK_WHEEL;
+	      }
+	    _queue->push(EventPart::Event(EventPart::Event::CLICK, "X", event.mouseButton.x,
+					  "Y", event.mouseButton.y, "CLICK", click));
+	    break;
+	  }
+	case sf::Event::MouseMoved :
+	  _queue->push(EventPart::Event(EventPart::Event::MOUSE_MOVED, "X", event.mouseMove.x,
+					"Y", event.mouseMove.y));
+	case sf::Event::KeyPressed :
+	  {
+	    auto i = _keys.find(event.key.code);
+	    if (i != _keys.end())
+	      _queue->push(EventPart::Event(_events[_keys[event.key.code]]));
+	  }
 	}
     }
 }

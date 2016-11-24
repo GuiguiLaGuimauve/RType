@@ -1,6 +1,8 @@
 #ifndef WIDGET_HH
 #define WIDGET_HH
 
+#include <iostream>
+
 #include <SFML/Graphics.hpp>
 
 #include "IWidget.hh"

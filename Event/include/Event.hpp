@@ -5,7 +5,7 @@
 // Login   <bertho_i@epitech.net>
 // 
 // Started on  Wed Oct 19 11:16:12 2016 Simon BERTHO
-// Last update Wed Nov 23 13:23:29 2016 Simon BERTHO
+// Last update Thu Nov 24 13:27:33 2016 Simon BERTHO
 //
 
 #ifndef EVENT_HH
@@ -28,6 +28,7 @@ namespace EventPart
 	// interns events of the gui
 	CLOSE_WINDOW,
 	CLICK, // int["X"] int ["Y"] int["CLICK"]
+	MOUSE_MOVED, // int["X"] int ["Y"]
 	KEY_ATTACK,
 	KEY_UP,
 	KEY_DOWN,

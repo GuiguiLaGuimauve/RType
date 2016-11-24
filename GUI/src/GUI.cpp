@@ -25,6 +25,7 @@ GUI::GUI()
 
 GUI::~GUI()
 {
+  _coreQueue = NULL;
   deleteWidgets();
   delete _audio;
   delete _win;
@@ -38,12 +39,12 @@ void		GUI::callback()
   _win->drawAll();
   while (!_guiQueue->empty())
     {
-      std::cout << "gui queue se vide" << std::endl;
       EventPart::Event e = _guiQueue->pop();
+      EventPart::Event ep(EventPart::Event(EventPart::Event::DEFAULT));
       switch (e.type)
 	{
 	case EventPart::Event::CLOSE_WINDOW :
-	  e = EventPart::Event(EventPart::Event::QUIT);
+	  ep = EventPart::Event(EventPart::Event::QUIT);
 	  break;
 	case EventPart::Event::CLICK :
 	  {
@@ -52,11 +53,24 @@ void		GUI::callback()
 	      w->onClick(static_cast<CLICK> (e.dataInt["CLICK"]));
 	    break;
 	  }
+	case EventPart::Event::MOUSE_MOVED :
+	  {
+	    IWidget *w = _win->isThereWidget(e.dataInt["X"], e.dataInt["Y"]);
+	    if (w != _hoverWidget)
+	      {
+		if (_hoverWidget)
+		  _hoverWidget->onLeaveHover();
+		if (w)
+		  w->onHover();
+		_hoverWidget = w;
+	      }
+	    break;
+	  }
 	default :
-	  e.type = EventPart::Event::DEFAULT;
+	  ep.type = EventPart::Event::DEFAULT;
 	}
-      if (e.type != EventPart::Event::DEFAULT && _coreQueue)
-	_coreQueue->push(e);
+      if (ep.type != EventPart::Event::DEFAULT && _coreQueue)
+	_coreQueue->push(ep);
     }
 }
 
@@ -78,7 +92,23 @@ void		GUI::displayStart()
   s = _startWidgets->button->getStyle();
   _startWidgets->button->setText("Connect.");
   _startWidgets->button->setOnClick([](IWidget *, CLICK){std::cout << "try connect" << std::endl;});
+  _startWidgets->button->setOnHover([](IWidget *w)
+				    {
+				      Style s = w->getStyle();
+				      s.backgroundColor.blue += 100;
+ 				      s.backgroundColor.green += 100;
+				      w->setStyle(s);
+				    });
+  _startWidgets->button->setOnLeaveHover([](IWidget *w)
+					 {
+					   Style s = w->getStyle();
+					   s.backgroundColor.blue -= 100;
+					   s.backgroundColor.green -= 100;
+					   w->setStyle(s);
+					 });
   s.form = RECTANGLE;
+  s.textColor = Color(0, 0, 250);
+  s.policeSize = 35;
   s.backgroundColor = Color(250, 0, 0);
   _startWidgets->button->setStyle(s);
   // custom imput

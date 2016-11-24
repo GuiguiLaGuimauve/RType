@@ -57,6 +57,9 @@ namespace Gui
     //    GameInfo			_gameInfo;
     EventPart::IEventQueue	*_coreQueue;
     EventPart::IEventQueue	*_guiQueue;
+    // gestion effets graphiques
+    IWidget			*_hoverWidget = NULL;
+    IWidget			*_focusWidget = NULL;
     // liste des widgets dans les structures
     Start	*_startWidgets = NULL;
     Login	*_loginWidgets = NULL;

@@ -7,6 +7,7 @@ Widget::Widget(sf::RenderWindow *w, int x, int y, int width, int height, const s
   _ptrClick(NULL), _ptrFocus(NULL), _ptrLeaveFocus(NULL),
   _ptrHover(NULL), _ptrLeaveHover(NULL), _eventQueue(NULL)
 {
+  _font.loadFromFile("font/arial.ttf");
   setStyle(_style);
   move(_x, _y);
   resize(_width, _height);
@@ -61,12 +62,13 @@ void                Widget::move(int x, int y)
   _y = y;
   _rectangle.move(_x, _y);
   _circle.move(_x, _y);
+  _sfmlText.setPosition(_x, _y);
   _background.move(_x, _y);
 }
 
 void                Widget::setText(const std::string &s)
 {
-  _text = s ;
+  _text = s;
   _sfmlText.setString(_text);
 }
 
@@ -153,17 +155,19 @@ void                Widget::setOnLeaveHover(ptrFocus ptrFct)
 void                Widget::setStyle(const Style &s)
 {
   _style = s;
-  // set la font du text
-  _sfmlText.setColor(sf::Color(s.textColor.red,
-			     s.textColor.green,
-			     s.textColor.blue));
+  _sfmlText.setFont(_font);
+  setText(_text);
+  _sfmlText.setColor(sf::Color(_style.textColor.red,
+			       _style.textColor.green,
+			       _style.textColor.blue));
+  _sfmlText.setCharacterSize(_style.policeSize);
   // load l'image si != ""
-  _circle.setFillColor(sf::Color(s.backgroundColor.red,
-				 s.backgroundColor.green,
-				 s.backgroundColor.blue));
+  _circle.setFillColor(sf::Color(_style.backgroundColor.red,
+				 _style.backgroundColor.green,
+				 _style.backgroundColor.blue));
   _rectangle.setFillColor(sf::Color(s.backgroundColor.red,
-				 s.backgroundColor.green,
-				 s.backgroundColor.blue));
+				 _style.backgroundColor.green,
+				 _style.backgroundColor.blue));
   // gérer l'opacité
 }
 
