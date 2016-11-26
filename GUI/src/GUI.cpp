@@ -51,6 +51,14 @@ void		GUI::callback()
 	    IWidget *w = _win->isThereWidget(e.dataInt["X"], e.dataInt["Y"]);
 	    if (w)
 	      w->onClick(static_cast<CLICK> (e.dataInt["CLICK"]));
+	    if (w != _focusWidget)
+	      {
+		if (_focusWidget)
+		  _focusWidget->onLeaveFocus();
+		if (w)
+		  w->onFocus();
+		_focusWidget = w;
+	      }
 	    break;
 	  }
 	case EventPart::Event::MOUSE_MOVED :
@@ -65,6 +73,12 @@ void		GUI::callback()
 		_hoverWidget = w;
 	      }
 	    break;
+	  }
+	case EventPart::Event::TEXT :
+	  {
+	    if (_focusWidget)
+	      _focusWidget->onTextEntered(e.dataString["CHAR"]);
+	    break ;
 	  }
 	default :
 	  ep.type = EventPart::Event::DEFAULT;
@@ -114,6 +128,20 @@ void		GUI::displayStart()
   // custom imput
   s.backgroundColor = Color(250, 250, 250);
   _startWidgets->imput->setStyle(s);
+  _startWidgets->imput->setOnTextEntered([](IWidget *w, const std::string &c)
+					 {
+					   if (c[0] == 127 || c[0] == 8)
+					     {
+					       std::string tmp = w->getText();
+					       if (tmp.length() > 0)
+						 tmp.pop_back();
+					       w->setText(tmp);
+					     }
+					   else if (isprint(c[0]))
+					     w->setText(w->getText() + c);
+					 });
+  // ergonomie focus
+  _focusWidget = _startWidgets->imput;
 }
 
 void		GUI::displayMenu()

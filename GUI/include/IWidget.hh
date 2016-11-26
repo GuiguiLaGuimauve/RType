@@ -15,6 +15,7 @@ namespace Gui
     virtual ~IWidget(){};
 
     typedef void (*ptrClick)(IWidget *, CLICK);
+    typedef void (*ptrText)(IWidget *, const std::string &c);
     typedef void (*ptrFocus)(IWidget *);
 
     virtual void		draw() = 0;
@@ -33,11 +34,13 @@ namespace Gui
     virtual void		onLeaveFocus() = 0;
     virtual void		onHover() = 0;
     virtual void		onLeaveHover() = 0;
+    virtual void		onTextEntered(const std::string &c) = 0;
     virtual void		setOnClick(ptrClick) = 0;
     virtual void		setOnFocus(ptrFocus) = 0;
     virtual void		setOnLeaveFocus(ptrFocus) = 0;
     virtual void		setOnHover(ptrFocus) = 0;
     virtual void		setOnLeaveHover(ptrFocus) = 0;
+    virtual void		setOnTextEntered(ptrText) = 0;
     virtual void		setStyle(const Style &) = 0;
     virtual Style		getStyle() const = 0;
   };

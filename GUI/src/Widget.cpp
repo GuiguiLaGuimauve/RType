@@ -127,6 +127,12 @@ void                Widget::onLeaveHover()
     _ptrLeaveHover(this);
 }
 
+void		    Widget::onTextEntered(const std::string &c)
+{
+  if (_ptrText)
+    _ptrText(this, c);
+}
+
 void                Widget::setOnClick(ptrClick ptrFct)
 {
   _ptrClick = ptrFct;
@@ -150,6 +156,11 @@ void                Widget::setOnHover(ptrFocus ptrFct)
 void                Widget::setOnLeaveHover(ptrFocus ptrFct)
 {
   _ptrLeaveHover = ptrFct;
+}
+
+void		    Widget::setOnTextEntered(ptrText ptr)
+{
+  _ptrText = ptr;
 }
 
 void                Widget::setStyle(const Style &s)

@@ -3,7 +3,7 @@
 using namespace Gui;
 
 GuiEventManager::GuiEventManager(sf::Window *w):
-  _win(w), _queue(NULL)
+  _win(w), _queue(NULL), _mouseTracking(true), _textTracking(true)
 {
   _keys[sf::Keyboard::Left] = KEY_LEFT;
   _keys[sf::Keyboard::Right] = KEY_RIGHT;
@@ -42,13 +42,28 @@ void		GuiEventManager::callback()
 	    break;
 	  }
 	case sf::Event::MouseMoved :
-	  _queue->push(EventPart::Event(EventPart::Event::MOUSE_MOVED, "X", event.mouseMove.x,
-					"Y", event.mouseMove.y));
+	  {
+	    if (_mouseTracking)
+	      _queue->push(EventPart::Event(EventPart::Event::MOUSE_MOVED, "X", event.mouseMove.x,
+					    "Y", event.mouseMove.y));
+	    break;
+	  }
 	case sf::Event::KeyPressed :
 	  {
 	    auto i = _keys.find(event.key.code);
 	    if (i != _keys.end())
 	      _queue->push(EventPart::Event(_events[_keys[event.key.code]]));
+	    break ;
+	  }
+	case sf::Event::TextEntered:
+	  {
+	    if (_textTracking)
+	      {
+		std::string s;
+		s += (static_cast<char> (event.text.unicode));
+		_queue->push(EventPart::Event(EventPart::Event::TEXT, "CHAR", s));
+	      }
+	    break;
 	  }
 	}
     }
@@ -62,4 +77,14 @@ void		GuiEventManager::setEventQueue(EventPart::IEventQueue *eq)
 void		GuiEventManager::bindKey(KEY k, EventPart::Event::TYPE e)
 {
   _events[k] = e;
+}
+
+void		GuiEventManager::setMouseTracking(bool b)
+{
+  _mouseTracking = b;
+}
+
+void		GuiEventManager::setTextTracking(bool b)
+{
+  _textTracking = b;
 }

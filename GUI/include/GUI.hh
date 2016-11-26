@@ -5,6 +5,8 @@
 #include <map>
 #include <vector>
 #include <iostream>
+#include <cctype>
+#include <cstdio>
 
 #include "IGUI.hh"
 

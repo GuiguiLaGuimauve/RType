@@ -5,7 +5,7 @@
 // Login   <bertho_i@epitech.net>
 // 
 // Started on  Wed Oct 19 11:16:12 2016 Simon BERTHO
-// Last update Thu Nov 24 13:27:33 2016 Simon BERTHO
+// Last update Sat Nov 26 01:36:13 2016 Simon BERTHO
 //
 
 #ifndef EVENT_HH
@@ -29,6 +29,11 @@ namespace EventPart
 	CLOSE_WINDOW,
 	CLICK, // int["X"] int ["Y"] int["CLICK"]
 	MOUSE_MOVED, // int["X"] int ["Y"]
+	TEXT, // string["CHAR"]
+	BUTTON_CONNECT, // string["IP"] string["PORT"]
+	BUTTON_LOGIN, // string["LOGIN"] string["PWD"]
+	BUTTON_JOIN_GAME, // string["GAME_NAME"]
+	BUTTON_CREATE_GAME, // string["GAME_NAME"]
 	KEY_ATTACK,
 	KEY_UP,
 	KEY_DOWN,

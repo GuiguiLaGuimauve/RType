@@ -32,11 +32,13 @@ namespace Gui
     void		onLeaveFocus();
     void                onHover();
     void		onLeaveHover();
+    void		onTextEntered(const std::string &c);
     void                setOnClick(ptrClick);
     void                setOnFocus(ptrFocus);
     void		setOnLeaveFocus(ptrFocus);
     void                setOnHover(ptrFocus);
     void		setOnLeaveHover(ptrFocus);
+    void		setOnTextEntered(ptrText);
     void                setStyle(const Style &);
     Style               getStyle() const;
   protected:
@@ -51,6 +53,7 @@ namespace Gui
     ptrFocus				_ptrLeaveFocus;
     ptrFocus				_ptrHover;
     ptrFocus				_ptrLeaveHover;
+    ptrText				_ptrText;
     EventPart::IEventQueue		*_eventQueue;
     Style				_style;
     // sfml stuffs
