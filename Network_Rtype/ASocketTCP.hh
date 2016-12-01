@@ -18,9 +18,8 @@ namespace Network
 	/* L'Abstract class ASocketTCP définit les méthodes des classes Socket TCP. */
 	class		ASocketTCP : public ISocket {
 	public:
+		ASocketTCP() {};
 		virtual ~ASocketTCP() {};
-		/* La méthode createIt() permet de créé une socket */
-		virtual bool		createIt() = 0;
 		/* La méthode bindIt(const uint32_t &) permet de bind le port du socket. */
 		virtual bool		bindIt(const uint32_t &) = 0;
 		/* La méthode listenIt(const uint32_t &) permet d'écouter sur le socket. */

@@ -13,13 +13,17 @@
 
 #include <iostream>
 #include <string>
-#include "DataClient.hh"
+#include "DataClient.hpp"
 
 #ifdef _WIN32
 	#include <sys\types.h>
 	#include <winsock2.h>
 	#include <Windows.h>
 	#include <WS2tcpip.h>
+	// Disable deprecated API Warning
+	#define _CRT_NONSTDC_NO_WARNINGS
+	#define _WINSOCK_DEPRECATED_NO_WARNINGS
+	#pragma comment(lib, "WS2_32")
 #else
 	#include <sys/socket.h>
 	#include <netinet/in.h>
@@ -33,8 +37,6 @@ namespace Network
   class		ISocket {
   public:
     virtual ~ISocket() {};
-	/* La méthode createIt() permet de créé une socket */
-	virtual bool		createIt() = 0;
     /* La méthode bindIt(const uint32_t &) permet de bind le port du socket. */
     virtual bool		bindIt(const uint32_t &) = 0;
 	/* La méthode listenIt(const uint32_t &) permet d'écouter sur le socket. */

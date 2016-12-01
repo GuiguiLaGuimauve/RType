@@ -1,5 +1,5 @@
 //
-// SocketTCPWindows.hh for SocketTCPWindows.hh in /home/dufren_b/teck3/rendu/CPP/RType
+// SocketTCPUnix.hh for SocketTCPUnix.hh in /home/dufren_b/teck3/rendu/CPP/RType
 // 
 // Made by julien dufrene
 // Login   <dufren_b@epitech.net>
@@ -8,18 +8,18 @@
 // Last update Mon Nov 14 09:47:18 2016 lecoq
 //
 
-#ifndef _SocketTCPWindows_HH_
-#define _SocketTCPWindows_HH_
+#ifndef _SocketTCPUnix_HH_
+#define _SocketTCPUnix_HH_
 
 #include "ASocketTCP.hh"
 
 namespace Network
 {
-	/* La classe SocketTCPWindows définit les méthodes des classes Socket TCP spécifiques à windows. */
-	class		SocketTCPWindows : public ASocketTCP {
+	/* La classe SocketTCPUnix définit les méthodes des classes Socket TCP spécifiques à Unix. */
+	class		SocketTCPUnix : public ASocketTCP {
 	public:
-		SocketTCPWindows();
-		virtual ~SocketTCPWindows() {};
+		SocketTCPUnix();
+		virtual ~SocketTCPUnix() {};
 		/* La méthode createIt() permet de créé une socket */
 		bool		createIt();
 		/* La méthode bindIt(const uint32_t &) permet de bind le port de la socket. */

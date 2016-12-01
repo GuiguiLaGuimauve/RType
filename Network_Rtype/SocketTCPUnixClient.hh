@@ -1,5 +1,5 @@
 //
-// SocketTCPWindows.hh for SocketTCPWindows.hh in /home/dufren_b/teck3/rendu/CPP/RType
+// SocketTCPUnix.hh for SocketTCPUnix.hh in /home/dufren_b/teck3/rendu/CPP/RType
 // 
 // Made by julien dufrene
 // Login   <dufren_b@epitech.net>
@@ -8,18 +8,18 @@
 // Last update Mon Nov 14 09:47:18 2016 lecoq
 //
 
-#ifndef _SocketTCPWindowsClient_HH_
-#define _SocketTCPWindowsClient_HH_
+#ifndef _SocketTCPUnixClient_HH_
+#define _SocketTCPUnixClient_HH_
 
-#include "SocketTCPWindows.hh"
+#include "SocketTCPUnix.hh"
 
 namespace Network
 {
-	/* La classe SocketTCPWindowsClient définit les méthodes de la classe SocketTCPWindows spécifiques aux clients. */
-	class		SocketTCPWindowsClient : public SocketTCPWindows {
+	/* La classe SocketTCPUnixClient définit les méthodes de la classe SocketTCPUnix spécifiques aux clients. */
+	class		SocketTCPUnixClient : public SocketTCPUnix {
 	public:
-		SocketTCPWindowsClient();
-		virtual ~SocketTCPWindowsClient() {};
+		SocketTCPUnixClient();
+		virtual ~SocketTCPUnixClient() {};
 		/* La méthode connectIt(const std::string &, const uint32_t &) permet de se connecter sur une socket TCP. */
 		bool		connectIt(const std::string &ip, const uint32_t &port);
 	};

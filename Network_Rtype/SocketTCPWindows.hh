@@ -15,26 +15,28 @@
 
 namespace Network
 {
-	/* La classe SocketTCPWindows définit les méthodes des classes Socket TCP spécifiques à windows. */
+	/* La classe SocketTCPWindows définit les méthodes des classes Socket TCP spécifiques à windows et aux serveurs. */
 	class		SocketTCPWindows : public ASocketTCP {
 	public:
 		SocketTCPWindows();
-		virtual ~SocketTCPWindows() {};
-		/* La méthode createIt() permet de créé une socket */
-		bool		createIt();
+		virtual ~SocketTCPWindows();
 		/* La méthode bindIt(const uint32_t &) permet de bind le port de la socket. */
 		bool		bindIt(const uint32_t &);
 		/* La méthode listenIt(const uint32_t &) permet d'écouter sur la socket. */
 		bool		listenIt(const uint32_t &);
 		/* La méthode acceptClient(DataClient &) permet d'accepter une connexion */
 		bool		acceptClient(DataClient &d);
-		/* La méthode connectIt(const std::string &, const uint32_t &) permet de se connecter sur une socket TCP. */
-		virtual bool		connectIt(const std::string &ip, const uint32_t &port) = 0;
+		/* La méthode connectIt(const std::string &, const uint32_t &) ne doit pas être utilisée avec un objet de cette classe. */
+		virtual bool		connectIt(const std::string &ip, const uint32_t &port)
+		{
+			(void)ip; (void)port;
+			return (false);
+		}
 		/* La méthode getFdSocket() permet de récupérer le descripteur de la socket. */
 		int32_t		getFdSocket() const;
 		/* La méthode closeIt() permet de fermer la socket */
 		bool		closeIt();
-	private:
+	protected:
 		SOCKET		_sock;
 	};
 };

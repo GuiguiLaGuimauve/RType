@@ -1,34 +1,34 @@
 //
-// SocketUDPWindows.hh for SocketUDPWindows.hh in /home/dufren_b/teck3/rendu/CPP/RType
-// 
+// SocketUDPUnix.hh for SocketUDPUnix.hh in /home/dufren_b/teck3/rendu/CPP/RType
+//
 // Made by julien dufrene
 // Login   <dufren_b@epitech.net>
-// 
+//
 // Started on  Fri Oct 14 11:25:14 2016 julien dufrene
 // Last update Mon Nov 14 09:47:18 2016 lecoq
 //
 
-#ifndef _SocketUDPWindows_HH_
-#define _SocketUDPWindows_HH_
+#ifndef _SocketUDPUnix_HH_
+#define _SocketUDPUnix_HH_
 
 #include "ASocketUDP.hh"
 
 namespace Network
 {
-	/* La classe SocketUDPWindows définit les méthodes des classes Socket UDP spécifiques à windows. */
-	class		SocketUDPWindows : public ASocketUDP {
+	/* La classe SocketUDPUnix dï¿½finit les mï¿½thodes des classes Socket UDP spï¿½cifiques ï¿½ Unix. */
+	class		SocketUDPUnix : public ASocketUDP {
 	public:
-		SocketUDPWindows();
-		virtual ~SocketUDPWindows() {};
-		/* La méthode createIt() permet de créé une socket */
+		SocketUDPUnix();
+		virtual ~SocketUDPUnix() {};
+		/* La mï¿½thode createIt() permet de crï¿½ï¿½ une socket */
 		bool		createIt();
-		/* La méthode bindIt(const uint32_t &) permet de bind le port du socket. */
+		/* La mï¿½thode bindIt(const uint32_t &) permet de bind le port du socket. */
 		bool		bindIt(const uint32_t &);
-		/* La méthode listenIt(const uint32_t &) permet d'écouter sur le socket. */
+		/* La mï¿½thode listenIt(const uint32_t &) permet d'ï¿½couter sur le socket. */
 		bool		listenIt(const uint32_t &)
-		/* La méthode getFdSocket() permet de récupérer le descripteur de la socket. */
+		/* La mï¿½thode getFdSocket() permet de rï¿½cupï¿½rer le descripteur de la socket. */
 		int32_t		getFdSocket() const;
-		/* La méthode closeIt() permet de fermer la socket */
+		/* La mï¿½thode closeIt() permet de fermer la socket */
 		bool		closeIt();
 	private:
 		SOCKET		_sock;

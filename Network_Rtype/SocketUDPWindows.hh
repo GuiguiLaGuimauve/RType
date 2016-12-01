@@ -19,13 +19,11 @@ namespace Network
 	class		SocketUDPWindows : public ASocketUDP {
 	public:
 		SocketUDPWindows();
-		virtual ~SocketUDPWindows() {};
-		/* La méthode createIt() permet de créé une socket */
-		bool		createIt();
+		virtual ~SocketUDPWindows();
 		/* La méthode bindIt(const uint32_t &) permet de bind le port du socket. */
 		bool		bindIt(const uint32_t &);
 		/* La méthode listenIt(const uint32_t &) permet d'écouter sur le socket. */
-		bool		listenIt(const uint32_t &)
+		bool		listenIt(const uint32_t &);
 		/* La méthode getFdSocket() permet de récupérer le descripteur de la socket. */
 		int32_t		getFdSocket() const;
 		/* La méthode closeIt() permet de fermer la socket */
