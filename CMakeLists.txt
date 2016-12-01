@@ -1,0 +1,67 @@
+cmake_minimum_required (VERSION 3.0)
+project (RType)
+
+#Config CMAKE
+set(CMAKE_AUTOMOC ON)
+
+cmake_policy(SET CMP0015 NEW)
+set(CMAKE_INCLUDE_CURRENT_DIR ON)
+
+############################################
+#                   SFML                   #
+############################################
+
+# Detect and add SFML
+find_path(SFML_INCLUDE_DIR Config.hpp)
+set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake_modules" ${CMAKE_MODULE_PATH})
+#Find any version 2.X of SFML
+#See the FindSFML.cmake file for additional details and instructions
+find_package(SFML 2 REQUIRED system window graphics audio)
+if(SFML_FOUND)
+  message("SFML found")
+  include_directories(${SFML_INCLUDE_DIR})
+else(SFML_FOUND)
+  message(WARNING "SFML not found")
+endif()
+
+############################################
+#                  SFML END                #
+############################################
+
+# Flags Unix
+IF (UNIX)
+	add_definitions(-W -Wall -Wextra -Wshadow)
+ENDIF (UNIX)
+
+# Enable C++ 11
+add_definitions(-std=c++11)
+
+# add_executable for WIN32
+IF (WIN32)
+# add_executable("nom_binaire" "source")
+ENDIF (WIN32)
+
+# add_executable for UNIX
+IF (UNIX)
+# add_executable("nom_binaire" "source")
+ENDIF (UNIX)
+
+# Set lib on Unix
+IF (UNIX)
+ENDIF (UNIX)
+
+# Set lib on Windows
+IF (WIN32)
+ENDIF (WIN32)
+
+# Build
+IF (UNIX)
+	link_directories(./build /usr/local/lib/)
+ENDIF (UNIX)
+
+IF (WIN32)
+	link_directories(./lib C:/Windows/System32)
+ENDIF (WIN32)
+
+# Link librairies
+  #target_link_libraries(${EXECUTABLE_NAME} ${SFML_LIBRARIES})
