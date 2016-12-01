@@ -239,24 +239,12 @@ Category: Limited
 	| 0x20  | DISCONNNECT	| Client disconnect during | C-S    |
 	|	|		| the game 	           |        |
 	|-------|---------------|--------------------------|--------|
-	| 0x21  | LEFT		| Client ask the server to | C-S    |
+	| 0x21  | MOVE		| Client ask the server to | C-S    |
 	|	|		| update his position      |        |
-	|	|		| (+1 left)		   |	    |
+	|	|		|         		   |	    |
 	|-------|---------------|--------------------------|--------|
-	| 0x22  | RIGHT		| Client ask the server to | C-S    |
-	|	|		| update his position      |        |
-	|	|		| (+1 right)		   |	    |
-	|-------|---------------|--------------------------|--------|
-	| 0x23  | TOP		| Client ask the server to | C-S    |
-	|	|		| update his position      |        |
-	|	|		| (+1 top)		   | 	    |
-	|-------|---------------|--------------------------|--------|
-	| 0x24  | BOTTOM	| Client ask the server to | C-S    |
-	|	|		| update his position	   |        |
-	|	|		| (+1 bottom)		   |        |
-	|-------|---------------|--------------------------|--------|
-	| 0x25  | SHOOT		| Packet send when the     | C-S    |
-	|	|		| shoot key is press 	   |        |
+	| 0x22  | SHOOT		| Packet send when the     | C-S    |
+	|	|		| shoot key is pressed     |        |
 	\-----------------------------------------------------------/
 	| 0x81  | PLAYERS	| Packet which contains    | S-C    |
 	|	|		| intels about players in  |        |
