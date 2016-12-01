@@ -192,7 +192,7 @@ Category: Limited
 	|	|		| register into the        |        |
 	|	|		| server		   |	    |	
 	|-------|---------------|--------------------------|--------|
-	| 0x15* | LOGOUT	| The client ask to  	   | C-S    |
+	| 0x16* | LOGOUT	| The client ask to  	   | C-S    |
 	|	|		| logout from the          |        |
 	|	|		| server		   |	    |	
 	\-----------------------------------------------------------/
