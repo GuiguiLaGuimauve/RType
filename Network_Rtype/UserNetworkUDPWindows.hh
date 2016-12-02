@@ -11,7 +11,7 @@
 #ifndef _USERNETWORKUDPWINDOWS_HH_
 #define _USERNETWORKUDPWINDOWS_HH_
 
-#include "UserNetworkUDP.hh"
+#include "UserNetworkUDP.hpp"
 
 namespace Network
 {

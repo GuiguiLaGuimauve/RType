@@ -11,7 +11,7 @@
 #ifndef _USERNETWORKTCPWINDOWSCLIENT_HH_
 #define _USERNETWORKTCPWINDOWSCLIENT_HH_
 
-#include "UserNetworkTCPWindows.hh"
+#include "UserNetworkTCPWindows.hpp"
 
 namespace Network
 {

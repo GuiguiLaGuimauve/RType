@@ -11,7 +11,7 @@
 #ifndef _USERNETWORKTCPWINDOWS_HH_
 #define _USERNETWORKTCPWINDOWS_HH_
 
-#include "UserNetworkTCP.hh"
+#include "UserNetworkTCP.hpp"
 
 namespace Network
 {
@@ -21,7 +21,7 @@ namespace Network
 	*/
 	class		UserNetworkTCPWindows : public UserNetworkTCP {
 	public:
-		UserNetworkTCPWindows() {};
+		UserNetworkTCPWindows() : UserNetworkTCP() {};
 		virtual ~UserNetworkTCPWindows() {};
 		/*! La methode readSocket(ISocket *) permet de lire sur une socket et donc de récupérer ce qui à été écris de l'autre côté de la socket. */
 		virtual IUserNetwork	*readSocket(ISocket *) = 0;

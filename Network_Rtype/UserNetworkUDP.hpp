@@ -21,6 +21,7 @@ namespace Network
 	*/
 	class		UserNetworkUDP : public AUserNetwork {
 	public:
+		UserNetworkUDP() : AUserNetwork() {};
 		virtual ~UserNetworkUDP() {};
 		/*! La methode readSocket(ISocket *) permet de lire sur une socket et donc de récupérer ce qui à été écris de l'autre côté de la socket. */
 		virtual IUserNetwork	*readSocket(ISocket *) = 0;
