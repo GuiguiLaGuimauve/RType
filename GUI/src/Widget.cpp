@@ -1,4 +1,5 @@
 #include "Widget.hh"
+#include "SpriteMap.hpp"
 
 using namespace Gui;
 
@@ -25,7 +26,9 @@ void                Widget::draw()
   else if (_style.form == RECTANGLE)
     _win->draw(_rectangle);
   if (_style.image != "")
-    _win->draw(_background);
+    {
+      _win->draw(_background);
+    }
   if (_text != "")
     _win->draw(_sfmlText);
 }
@@ -172,7 +175,6 @@ void                Widget::setStyle(const Style &s)
 			       _style.textColor.green,
 			       _style.textColor.blue));
   _sfmlText.setCharacterSize(_style.policeSize);
-  // load l'image si != ""
   _circle.setFillColor(sf::Color(_style.backgroundColor.red,
 				 _style.backgroundColor.green,
 				 _style.backgroundColor.blue));
@@ -180,6 +182,12 @@ void                Widget::setStyle(const Style &s)
 				 _style.backgroundColor.green,
 				 _style.backgroundColor.blue));
   // gérer l'opacité
+  // load l'image si != ""
+  if (_style.image != "")
+    {
+      _background = SpriteMap::getSprite(_style.image);
+      _background.setPosition(this->getX(), this->getY());
+    }
 }
 
 Style               Widget::getStyle() const

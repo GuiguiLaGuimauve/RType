@@ -62,9 +62,8 @@ namespace Gui
     sf::Text				_sfmlText;
     sf::Font				_font;
     sf::Sprite				_background;
-    sf::Texture				_loadBackground;
+    //    sf::Texture				_loadBackground;
   };
 }
-
 
 #endif

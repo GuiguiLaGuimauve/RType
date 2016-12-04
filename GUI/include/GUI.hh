@@ -30,10 +30,20 @@ namespace Gui
 
     struct Login
     {
+      IWidget	*login = NULL;
+      IWidget	*password = NULL;
+      IWidget	*confirm = NULL;
     };
 
     struct Menu
     {
+      IWidget	*GameContainer = NULL;
+      //std::vector<IWidget*>	Games = NULL;
+      IWidget	*profile = NULL;
+      IWidget	*createGame = NULL;
+      IWidget	*confirm = NULL;
+      /* Vecteur de joueurs connectés */
+      /* Container des joueurs connectés */
     };
 
     struct Game

@@ -5,7 +5,7 @@
 ## Login   <bertho_i@epitech.net>
 ## 
 ## Started on  Tue Nov 22 18:23:01 2016 Simon BERTHO
-## Last update Wed Nov 23 15:51:35 2016 Simon BERTHO
+## Last update Mon Nov 28 12:50:53 2016 Antonin Oger
 ##
 
 SRCS	=	src/main_gui.cpp			\
@@ -27,7 +27,7 @@ CPPFLAGS= 	-std=c++11 -g -Iinclude -Iinclude/Audio -I../Event/include
 BLINUX3 = 	yes
 
 ifeq ($(BLINUX3),yes)
-	LDFLAGS = -Wl,-rpath=$(SFML_REPO) -L $(SFML_REPO)
+	LDFLAGS += -Wl,-rpath=$(SFML_REPO) -L $(SFML_REPO)
 endif
 
 LDFLAGS += 	-lsfml-graphics -lsfml-window -lsfml-system 
@@ -35,6 +35,7 @@ LDFLAGS += 	-lsfml-graphics -lsfml-window -lsfml-system
 CC	=	g++
 
 all:	$(NAME)
+
 
 $(NAME):	  $(OBJS)
 	$(CC) -o $(NAME) $(OBJS) $(LDFLAGS)

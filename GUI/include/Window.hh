@@ -15,7 +15,7 @@ namespace Gui
   class	Window : public IWindow
   {
   public:
-    Window(int w = 500, int h = 350, const std::string &s = "");
+    Window(int w = 1900, int h = 900, const std::string &s = "");
     virtual ~Window();
 
     IWidget*		addWidget(int, int, int, int);

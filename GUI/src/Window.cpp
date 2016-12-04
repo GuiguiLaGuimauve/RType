@@ -9,6 +9,7 @@ Window::Window(int w, int h, const std::string &s):
   _queue = NULL;
   _win = new sf::RenderWindow(sf::VideoMode(_width, _height), _title,
 			      sf::Style::Close | sf::Style::Titlebar);
+  _win->setTitle("RType");
 }
 
 Window::~Window()
