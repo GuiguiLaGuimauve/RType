@@ -5,7 +5,7 @@
 // Login   <oger_a@epitech.net>
 // 
 // Started on  Fri Dec  2 15:23:46 2016 Antonin Oger
-// Last update Sun Dec  4 18:28:03 2016 Antonin Oger
+// Last update Sun Dec  4 22:13:53 2016 Antonin Oger
 //
 
 #ifndef _SPRITEMAP_HPP_
@@ -23,25 +23,56 @@ protected:
 public:
   static void	SpriteMapLoad()
   {
-    /* On charge tous les assets sa mère */
-    sf::Texture	texture;
-
-    /****************************/
-    /*	LOAD	THE	SHIP1	*/
-    /****************************/
-    if (texture.loadFromFile("Assets/r-typesheet42.gif"))
-      {
-	_textureMap["Ship1"] = texture;
-	sf::Sprite sprite(_textureMap["Ship1"], sf::IntRect(0, 0, 34, 20));
-	sprite.setScale(3, 3);
-	_spriteMap["Ship1"] = sprite;
-      }
-    else
-      std::cerr << "Fail to load the file \"Assets/r-typesheet42.gif\"." << std::endl;
+    /********************************************/
+    /*		LOAD	THE	TEXTURES	*/
+    /********************************************/
+    LoadTexture("Assets/r-typesheet42.gif", "Ships");
+    LoadTexture("Assets/r-typesheet3.gif", "PowerUp1");
+    LoadTexture("Assets/r-typesheet30.gif", "Bydos");
+    LoadTexture("Assets/r-typesheet20.gif", "Enemy7");
+    LoadTexture("Assets/r-typesheet19.gif", "Enemy8");
+    LoadTexture("Assets/r-typesheet38.gif", "Boss2");
+    LoadTexture("Assets/r-typesheet37.gif", "SupBoss1");
+    LoadTexture("background1.jpg", "Background");
+    
+    /********************************************/
+    /*		LOAD	THE	SPRITES		*/
+    /********************************************/
+    LoadSpriteFromTexture("Ships", "Ship1", 0, 0, 34, 20, 3, 3);
+    LoadSpriteFromTexture("PowerUp1", "SpherePowerUp", 0, 0, 34, 20, 3, 3);
+    LoadSpriteFromTexture("Bydos", "Bydos", 0, 0, 34, 20, 3, 3);
+    LoadSpriteFromTexture("Enemy7", "Enemy7", 0, 0, 34, 20, 3, 3);
+    LoadSpriteFromTexture("Enemy8", "Enemy8", 0, 0, 34, 20, 3, 3);
+    LoadSpriteFromTexture("Boss2", "Boss2", 0, 0, 34, 20, 3, 3);
+    LoadSpriteFromTexture("SupBoss1", "SupBoss1", 0, 0, 34, 20, 3, 3);
   };
 
   ~SpriteMap()
   {
+  }
+
+  static void	LoadTexture(const std::string &path, const std::string &name)
+  {
+    sf::Texture	texture;
+
+    if (texture.loadFromFile(path))
+      _textureMap[name] = texture;
+    else
+      std::cerr << "[Assets loading] - \"" << path << "\" not found." << std::endl;
+  }
+
+  static void	LoadSpriteFromTexture(const std::string &tname,
+				      const std::string &sname,
+				      int x, int y, int w, int h,
+				      int xScale, int yScale)
+  {
+    if (_textureMap.find(tname) == _textureMap.end())
+      return;
+
+    sf::Sprite	sprite(_textureMap[tname], sf::IntRect(x, y, w, h));
+
+    sprite.setScale(xScale, yScale);
+    _spriteMap[sname] = sprite;
   }
 
   static sf::Texture	&getTexture(const std::string &name)
