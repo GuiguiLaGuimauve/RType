@@ -181,6 +181,7 @@ void		GUI::displayMenu()
 
   s.image = "Ship1";
   _menuWidgets->profile->setStyle(s);
+  _menuWidgets->GameContainer->setStyle(s);
 
   _menuWidgets->confirm->setText("Confirm");
   _menuWidgets->confirm->setOnClick([](IWidget *, CLICK){std::cout << "Let's connect !" << std::endl;});
