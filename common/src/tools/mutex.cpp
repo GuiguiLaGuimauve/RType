@@ -5,30 +5,30 @@
 // Login   <rembur_g@epitech.eu>
 //
 // Started on  Fri Dec  2 10:30:19 2016 La Guimauve
-// Last update Fri Dec  2 11:10:11 2016 La Guimauve
+// Last update Tue Dec  6 15:50:45 2016 La Guimauve
 //
 
 #include "mutex.hh"
 
-mutex::mutex()
+mymtx::mutex::mutex()
 {
 }
 
-mutex::~mutex()
+mymtx::mutex::~mutex()
 {
 }
 
-void      mutex::lock()
+void      mymtx::mutex::lock()
 {
   this->mtx.lock();
 }
 
-void      mutex::unlock()
+void      mymtx::mutex::unlock()
 {
   this->mtx.unlock();
 }
 
-void      mutex::try_lock()
+void      mymtx::mutex::try_lock()
 {
   this->mtx.try_lock();
 }
