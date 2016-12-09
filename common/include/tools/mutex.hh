@@ -5,7 +5,7 @@
 // Login   <rembur_g@epitech.eu>
 //
 // Started on  Fri Dec  2 10:05:27 2016 La Guimauve
-// Last update Tue Dec  6 15:47:58 2016 La Guimauve
+// Last update Wed Dec  7 17:05:58 2016 La Guimauve
 //
 
 #ifndef _MUTEX_HH_
@@ -18,8 +18,6 @@ namespace mymtx
 {
   class mutex : public Imutex
   {
-  private:
-    std::mutex mtx;
   public:
     mutex();
     ~mutex();
@@ -27,6 +25,7 @@ namespace mymtx
     void lock();
     void unlock();
     void try_lock();
+    std::mutex mtx;
   };
 }
 #endif // _MUTEX_HH_

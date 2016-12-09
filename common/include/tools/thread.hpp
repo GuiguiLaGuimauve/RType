@@ -5,7 +5,7 @@
 // Login   <rembur_g@epitech.eu>
 //
 // Started on  Fri Dec  2 13:38:28 2016 La Guimauve
-// Last update Fri Dec  9 11:21:48 2016 La Guimauve
+// Last update Fri Dec  9 16:36:30 2016 La Guimauve
 //
 
 #ifndef _THREAD_HH_
@@ -17,12 +17,10 @@ namespace mythrd
 {
   class thread : public Ithread
   {
-  public:
-    //typedef   void (T::*fct)(A... args);
-
   private:
     std::thread thr;
   public:
+    thread(const mythrd::thread&) = delete;
     template <typename T, typename ... A>
     thread(T&& func, A&&... args)
     {
@@ -30,10 +28,11 @@ namespace mythrd
     };
 
     template <typename C>
-    explicit thread(C f)
+    explicit thread(C&& f)
     {
       this->thr = std::thread(f);
     }
+
     ~thread(){};
 
     bool joinable() const
