@@ -10,22 +10,22 @@
 
 #include "APacket.hh"
 
-IPacket::PacketType APacket::getPacketType() const
+IPacket::PacketType APacket::getType() const
 {
   return (_type);
 }
 
-uint32_t APacket::getPacketSize() const
+uint32_t APacket::getSize() const
 {
   return (_size);
 }
 
-uint8_t *APacket::getPacketData() const
+uint8_t *APacket::getData() const
 {
   return (_data);
 }
 
-uint8_t *APacket::generatePacket() const
+uint8_t *APacket::generate() const
 {
   uint8_t	*exp;
   PacketSerializer ps;
@@ -45,6 +45,6 @@ uint8_t *APacket::generatePacket() const
 
 PacketUnknown	APacket::getPacketUnknown() const
 {
-  PacketUnknown	pkt(generatePacket(), getPacketSize() + 5);
+  PacketUnknown	pkt(generate(), getSize() + 5);
   return (pkt);
 }

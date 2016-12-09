@@ -39,7 +39,7 @@ namespace Packet
         LEAVE_GAME		= 0x09,
         UDP_DATA		= 0x10,
         UDP_DATA_FREE	= 0x11,
-        DATA_ROOM		= 0x12,
+        ROOM_DATA		= 0x12,
         WATCH_GAME		= 0x13,
         LOGIN			= 0x14,
         REGISTER		= 0x15,
@@ -51,8 +51,8 @@ namespace Packet
 
         PLAYERS			= 0x81,
         SHOOTS			= 0x82,
-        ENNEMY			= 0x83,
-        BACKGROUND		= 0x84,
+        ENNEMIES		= 0x83,
+        BACKGROUNDS		= 0x84,
         MUSIC			= 0x85,
         SOUND			= 0x86
     };
