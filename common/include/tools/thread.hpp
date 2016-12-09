@@ -5,7 +5,7 @@
 // Login   <rembur_g@epitech.eu>
 //
 // Started on  Fri Dec  2 13:38:28 2016 La Guimauve
-// Last update Wed Dec  7 13:45:31 2016 La Guimauve
+// Last update Fri Dec  9 11:21:48 2016 La Guimauve
 //
 
 #ifndef _THREAD_HH_
@@ -15,19 +15,25 @@
 
 namespace mythrd
 {
-  template <typename T>
   class thread : public Ithread
   {
   public:
-    typedef   void (T::*fct)(void);
+    //typedef   void (T::*fct)(A... args);
 
   private:
     std::thread thr;
   public:
-    thread(fct func, T *arg)
+    template <typename T, typename ... A>
+    thread(T&& func, A&&... args)
     {
-      this->thr = std::thread(func, arg);
+      this->thr = std::thread(func, args...);
     };
+
+    template <typename C>
+    explicit thread(C f)
+    {
+      this->thr = std::thread(f);
+    }
     ~thread(){};
 
     bool joinable() const
