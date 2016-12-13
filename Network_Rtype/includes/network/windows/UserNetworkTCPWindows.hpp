@@ -8,8 +8,8 @@
 // Last update Tue Nov 15 01:48:30 2016 lecoq
 //
 
-#ifndef _USERNETWORKTCPWINDOWS_HH_
-#define _USERNETWORKTCPWINDOWS_HH_
+#ifndef _USERNETWORKTCPWINDOWS_HPP_
+#define _USERNETWORKTCPWINDOWS_HPP_
 
 #include "UserNetworkTCP.hpp"
 

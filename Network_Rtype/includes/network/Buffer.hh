@@ -30,7 +30,7 @@ public:
   void			clear();
   PacketUnknown		front();*/
   void			push(const std::string &);
-  const std::string	&pop();
+  const std::string	pop();
   size_t		len() const;
   void			clear();
   std::string	front();

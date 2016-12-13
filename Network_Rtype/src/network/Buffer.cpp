@@ -9,6 +9,7 @@
 //
 
 #include "Buffer.hh"
+#include <iostream>
 
 Buffer::Buffer() {}
 
@@ -52,10 +53,11 @@ void	Buffer::push(const std::string &pkt)
 	listS.push(pkt);
 }
 
-const std::string		&Buffer::pop()
+const std::string		Buffer::pop()
 {
 	if (listS.empty())
 	{
+		std::cerr << "Buffer: pop on empty buffer" << std::endl;
 		std::string pkt = "";
 		return (pkt);
 	}

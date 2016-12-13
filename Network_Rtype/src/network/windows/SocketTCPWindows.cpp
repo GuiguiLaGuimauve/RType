@@ -9,10 +9,13 @@ SocketTCPWindows::SocketTCPWindows()
 	if (WSAStartup(MAKEWORD(2, 2), &wsadata) != 0)
 		//throw ErrorSocket("error on WSAStartup()");
 		std::cerr << "Error on WSAStartUp: " << WSAGetLastError() << std::endl;
-	_sock = WSASocket(AF_INET, SOCK_STREAM, IPPROTO_TCP, NULL, 0, 0);
+	_sock = WSASocketW(AF_INET, SOCK_STREAM, IPPROTO_TCP, NULL, 0, 0);
 	if (_sock == INVALID_SOCKET)
 		std::cerr << "Error on WSAStartUp: " << WSAGetLastError() << std::endl;
 	//throw ErrorSocket("error on WSASocket()");
+	bool	reuse = true;
+	if (setsockopt(_sock, SOL_SOCKET, SO_REUSEADDR, (char *)&reuse, sizeof(bool)) == SOCKET_ERROR)
+		std::cerr << "Error on Setsockopt: " << WSAGetLastError() << std::endl;
 }
 
 bool				SocketTCPWindows::bindIt(const uint32_t &port)
@@ -24,10 +27,9 @@ bool				SocketTCPWindows::bindIt(const uint32_t &port)
 	WSAHtons(_sock, port, &(s_in.sin_port));
 	if (bind(_sock, (SOCKADDR *)&s_in, sizeof(s_in)) == SOCKET_ERROR)
 	  {
-		  std::cerr << "Error on Bind" << std::endl;
-		  closesocket(_sock);
-	    WSACleanup();
-	    return (false);
+		  std::cerr << "Error on Bind: " << WSAGetLastError() << std::endl;
+		  closeIt();
+		  return (false);
 	  }
 	return (true);
 }
@@ -36,9 +38,8 @@ bool			SocketTCPWindows::listenIt(const uint32_t &nbClient)
 {
 	if (listen(_sock, nbClient) == -1)
 	{
-		std::cerr << "Error on Listen" << WSAGetLastError() << std::endl;
-		closesocket(_sock);
-		WSACleanup();
+		std::cerr << "Error on Listen: " << WSAGetLastError() << std::endl;
+		closeIt();
 		return (false);
 	}
 	return (true);

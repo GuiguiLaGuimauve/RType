@@ -31,7 +31,7 @@ namespace Network
     /*! La methode writeSocket(INetowork *) permet d'écrire sur un socket. */
     virtual void					writeSocket(ISocket *) = 0;
     /*! La methode setFd(const uint32_t) permet de set le Descripteur de fichier du client. */
-    virtual void					setFd(const uint32_t &) = 0;
+    virtual void					setFd(const int32_t &) = 0;
     /*! La methode getFd() permet de récupérer le Descripteur de fichier du client. */
     virtual int32_t					getFd() const = 0;
 	/*! La methode setPort(const uint32_t) permet de set le Port de la socket du client. */
@@ -45,7 +45,7 @@ namespace Network
     /*! La méthode pushBufferWrite() permet d'ajouter une chaine dans le buffer d'écriture */
     virtual void					pushBufferWrite(const std::string &) = 0;
 	/*! La méthode popBufferRead() permet de récupérer une chaine dans le buffer de lecture */
-    virtual const std::string		&popBufferRead() = 0;
+    virtual const std::string		popBufferRead() = 0;
     /*! La méthode haveSomethingToWrite() permet de savoir si il y a quelque chose à écrire. */
     virtual void				closeFd() = 0;
   };

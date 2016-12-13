@@ -8,8 +8,8 @@
 // Last update Tue Nov 15 01:48:30 2016 lecoq
 //
 
-#ifndef _USERNETWORKUDP_HH_
-#define _USERNETWORKUDP_HH_
+#ifndef _USERNETWORKUDP_HPP_
+#define _USERNETWORKUDP_HPP_
 
 #include "AUserNetwork.hh"
 

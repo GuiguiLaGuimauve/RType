@@ -44,7 +44,7 @@ void			AUserNetwork::pushBufferWrite(const std::string &mes)
 	buff_w.push(mes);
 }
 
-const std::string		&AUserNetwork::popBufferRead()
+const std::string		AUserNetwork::popBufferRead()
 {
 	return (buff_r.pop());
 }

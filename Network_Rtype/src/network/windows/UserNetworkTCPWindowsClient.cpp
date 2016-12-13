@@ -35,6 +35,7 @@ IUserNetwork		*UserNetworkTCPWindowsClient::readSocket(ISocket *net)
 			res[i] = DataBuf.buf[i];
 			i++;
 		}
+		res[i] = 0;
 		std::string tmp(res);
 		buff_r.push(tmp);
 	}
@@ -55,12 +56,14 @@ void			UserNetworkTCPWindowsClient::writeSocket(ISocket *net)
 	DWORD			SendBytes;
 	DWORD			Flags;
 	int				nb;
-	std::string		write;
+	std::string		write = "";
 
+	std::cout << "Write: ";
 	write = buff_w.pop();
+	std::cout << "[" << write << "]" << std::endl;
 	DataBuf.len = write.size();
 	DataBuf.buf = (char *)write.c_str();
 	Flags = 0;
 	if ((nb = WSASend(_fd, &DataBuf, 1, &SendBytes, 0, NULL, NULL)) == SOCKET_ERROR || write.size() != SendBytes)
-	  std::cerr << "Error on write: " << WSAGetLastError() << std::endl;
+	  std::cerr << "Error on WSASend: " << WSAGetLastError() << std::endl;
 }

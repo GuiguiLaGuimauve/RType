@@ -22,8 +22,12 @@ namespace Network
 		virtual ~ASocketUDP() {};
 		/* La méthode bindIt(const uint32_t &) permet de bind le port du socket. */
 		virtual bool		bindIt(const uint32_t &) = 0;
-		/* La méthode listenIt(const uint32_t &) permet d'écouter sur le socket. */
-		virtual bool		listenIt(const uint32_t &) = 0;
+		/* La méthode listenIt(const uint32_t &) ne doit pas être utilisée avec une socketUDP */
+		virtual bool		listenIt(const uint32_t &n)
+		{
+			(void)n;
+			return (false);
+		}
 		/* La méthode acceptClient(DataClient &) ne doit pas être utilisée avec une socketUDP */
 		virtual bool		acceptClient(DataClient &d)
 		{

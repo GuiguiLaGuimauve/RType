@@ -8,8 +8,8 @@
 // Last update Tue Nov 15 01:48:30 2016 lecoq
 //
 
-#ifndef _USERNETWORKTCP_HH_
-#define _USERNETWORKTCP_HH_
+#ifndef _USERNETWORKTCP_HPP_
+#define _USERNETWORKTCP_HPP_
 
 #include "AUserNetwork.hh"
 
@@ -23,12 +23,12 @@ namespace Network
 	public:
 		UserNetworkTCP() : AUserNetwork() {};
 		virtual ~UserNetworkTCP() {};
-		/*! La methode readSocket(INetowork *) permet de lire sur une socket et donc de récupérer ce qui à été écris de l'autre côté de la socket. */
+		/*! La methode readSocket(ISocket *) permet de lire sur une socket et donc de récupérer ce qui à été écris de l'autre côté de la socket. */
 		virtual IUserNetwork	*readSocket(ISocket *) = 0;
-		/*! La methode writeSocket(INetwork *) permet d'écrire sur une socket. */
+		/*! La methode writeSocket(ISocket *) permet d'écrire sur une socket. */
 		virtual void			writeSocket(ISocket *) = 0;
 		/*! La methode closeFd permet de fermer la socket du client. */
-		virtual void					closeFd() = 0;
+		virtual void			closeFd() = 0;
 	};
 };
 

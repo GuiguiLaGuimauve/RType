@@ -25,9 +25,9 @@ namespace Network
   public:
     AUserNetwork();
     virtual ~AUserNetwork() {};
-    /*! La methode readSocket(INetowork *) permet de lire sur une socket et donc de récupérer ce qui à été écris de l'autre côté de la socket. */
+    /*! La methode readSocket(ISocket *) permet de lire sur une socket et donc de récupérer ce qui à été écris de l'autre côté de la socket. */
     virtual IUserNetwork	*readSocket(ISocket *) = 0;
-    /*! La methode writeSocket(INetwork *) permet d'écrire sur une socket. */
+    /*! La methode writeSocket(ISocket *) permet d'écrire sur une socket. */
     virtual void			writeSocket(ISocket *) = 0;
     /*! La methode setFd(const int32_t) permet de set le Descripteur de fichier du client. */
     void					setFd(const int32_t &);
@@ -44,7 +44,7 @@ namespace Network
 	/*! La méthode pushBufferWrite() permet d'ajouter une chaine dans le buffer d'écriture */
 	void					pushBufferWrite(const std::string &);
     /*! La méthode popBufferRead() permet de récupérer une chaine dans le buffer de lecture */
-    const std::string		&popBufferRead();
+    const std::string		popBufferRead();
 	/* La méthode closeFd() permet de fermer la socket du client*/
 	virtual void					closeFd() = 0;
   protected:
