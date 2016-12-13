@@ -22,6 +22,8 @@ namespace Packet {
 		std::vector<DataPlayer *> getPlayers() const;
 		uint8_t getMaxPlayers() const;
 		uint8_t getLevel() const;
+		bool isTcp() const;
+		bool isUdp() const;
 
 	protected:
 		std::vector<DataPlayer *> _players;

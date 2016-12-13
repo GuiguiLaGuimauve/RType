@@ -19,6 +19,8 @@ namespace Packet {
 		~PacketSound();
 
 		std::string getSound() const;
+		bool isTcp() const;
+		bool isUdp() const;
 
 	protected:
 		std::string _sound;

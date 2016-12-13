@@ -20,6 +20,8 @@ namespace Packet {
 
 		std::string getGameName() const;
 		uint16_t getUdpPort() const;
+		bool isTcp() const;
+		bool isUdp() const;
 
 	protected:
 		std::string _gameName;

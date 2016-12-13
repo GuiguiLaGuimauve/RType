@@ -11,6 +11,7 @@ PacketPlayers::PacketPlayers(const std::vector<DataPlayerPosition *> & players)
 	uint32_t dataPacketSize = 0;
 
 	_type = IPacket::PacketType::PLAYERS;
+	_tickId = 0;
 	_players = players;
 
 	ps.add((uint16_t)_players.size());
@@ -41,6 +42,7 @@ PacketPlayers::PacketPlayers(const uint8_t *data)
 
 	_type = IPacket::PacketType::PLAYERS;
 	_size = pd.getPacketSize();
+	_tickId = pd.getPacketTickId();
 
 	uint64_t playersLength = pd.get16(posInPacket);
 	posInPacket += 2;
@@ -70,4 +72,14 @@ PacketPlayers::~PacketPlayers()
 std::vector<DataPlayerPosition *> PacketPlayers::getPlayers() const
 {
 	return (_players);
+}
+
+bool PacketPlayers::isTcp() const
+{
+	return (false);
+}
+
+bool PacketPlayers::isUdp() const
+{
+	return (true);
 }

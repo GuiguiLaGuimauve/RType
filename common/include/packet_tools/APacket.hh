@@ -33,6 +33,11 @@ namespace Packet
     en :Size of data var
     fr :Taille de la variable data */
     uint32_t _size;
+	
+	 /*!
+    en :Tick ID
+    fr :ID du tick de jeu */
+    uint32_t _tickId;
 
     /*!
     en : data from packet

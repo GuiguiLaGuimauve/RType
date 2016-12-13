@@ -34,8 +34,9 @@ uint8_t *APacket::generate() const
 
   ps.add((uint8_t)_type);
   ps.add(_size);
-  exp = new uint8_t[_size + sizeof(uint8_t) + sizeof(uint32_t)];
-  while (j < sizeof(uint8_t) + sizeof(uint32_t))
+  ps.add(_tickId);
+  exp = new uint8_t[_size + sizeof(uint8_t) + sizeof(uint32_t) + sizeof(uint32_t)];
+  while (j < sizeof(uint8_t) + sizeof(uint32_t) + sizeof(uint32_t))
       exp[i++] = ps.getPacket()[j++];
   j = 0;
   while (j < _size)
@@ -45,6 +46,6 @@ uint8_t *APacket::generate() const
 
 PacketUnknown	APacket::getPacketUnknown() const
 {
-  PacketUnknown	pkt(generate(), getSize() + 5);
+  PacketUnknown	pkt(generate(), getSize() + 9);
   return (pkt);
 }

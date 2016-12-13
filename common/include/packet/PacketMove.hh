@@ -19,6 +19,8 @@ namespace Packet {
 
 		uint8_t getX() const;
 		uint8_t getY() const;
+		bool isTcp() const;
+		bool isUdp() const;
 
 	protected:
 		uint8_t _x;

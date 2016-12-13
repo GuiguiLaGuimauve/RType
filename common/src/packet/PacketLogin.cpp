@@ -11,6 +11,7 @@ PacketLogin::PacketLogin(const std::string & login, const std::string & password
 	uint32_t dataPacketSize = 0;
 
 	_type = IPacket::PacketType::LOGIN;
+	_tickId = 0;
 	_login = login;
 	_password = password;
 
@@ -33,6 +34,7 @@ PacketLogin::PacketLogin(const uint8_t *data)
 
 	_type = IPacket::PacketType::LOGIN;
 	_size = pd.getPacketSize();
+	_tickId = pd.getPacketTickId();
 
 	_login = pd.getString(posInPacket + 2, pd.get16(posInPacket));
 	posInPacket += 2 + pd.get16(posInPacket);
@@ -53,4 +55,14 @@ std::string PacketLogin::getLogin() const
 std::string PacketLogin::getPassword() const
 {
 	return (_password);
+}
+
+bool PacketLogin::isTcp() const
+{
+	return (true);
+}
+
+bool PacketLogin::isUdp() const
+{
+	return (false);
 }

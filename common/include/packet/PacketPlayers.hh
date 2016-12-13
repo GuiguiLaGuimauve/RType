@@ -20,6 +20,8 @@ namespace Packet {
 		~PacketPlayers();
 
 		std::vector<DataPlayerPosition *> getPlayers() const;
+		bool isTcp() const;
+		bool isUdp() const;
 
 	protected:
 		std::vector<DataPlayerPosition *> _players;

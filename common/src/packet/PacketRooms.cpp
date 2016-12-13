@@ -11,6 +11,7 @@ PacketRooms::PacketRooms(const std::vector<DataRoom *> & rooms)
 	uint32_t dataPacketSize = 0;
 
 	_type = IPacket::PacketType::ROOMS;
+	_tickId = 0;
 	_rooms = rooms;
 
 	ps.add((uint16_t)_rooms.size());
@@ -48,6 +49,7 @@ PacketRooms::PacketRooms(const uint8_t *data)
 
 	_type = IPacket::PacketType::ROOMS;
 	_size = pd.getPacketSize();
+	_tickId = pd.getPacketTickId();
 
 	uint64_t roomsLength = pd.get16(posInPacket);
 	posInPacket += 2;
@@ -85,4 +87,14 @@ PacketRooms::~PacketRooms()
 std::vector<DataRoom *> PacketRooms::getRooms() const
 {
 	return (_rooms);
+}
+
+bool PacketRooms::isTcp() const
+{
+	return (true);
+}
+
+bool PacketRooms::isUdp() const
+{
+	return (false);
 }

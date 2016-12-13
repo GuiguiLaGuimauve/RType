@@ -11,6 +11,7 @@ PacketEnnemies::PacketEnnemies(const std::vector<DataEnnemy *> & ennemies)
 	uint32_t dataPacketSize = 0;
 
 	_type = IPacket::PacketType::ENNEMIES;
+	_tickId = 0;
 	_ennemies = ennemies;
 
 	ps.add((uint16_t)_ennemies.size());
@@ -38,6 +39,7 @@ PacketEnnemies::PacketEnnemies(const uint8_t *data)
 
 	_type = IPacket::PacketType::ENNEMIES;
 	_size = pd.getPacketSize();
+	_tickId = pd.getPacketTickId();
 
 	uint64_t ennemiesLength = pd.get16(posInPacket);
 	posInPacket += 2;
@@ -64,4 +66,14 @@ PacketEnnemies::~PacketEnnemies()
 std::vector<DataEnnemy *> PacketEnnemies::getEnnemies() const
 {
 	return (_ennemies);
+}
+
+bool PacketEnnemies::isTcp() const
+{
+	return (false);
+}
+
+bool PacketEnnemies::isUdp() const
+{
+	return (true);
 }

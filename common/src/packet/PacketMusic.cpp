@@ -11,6 +11,7 @@ PacketMusic::PacketMusic(const std::string & music)
 	uint32_t dataPacketSize = 0;
 
 	_type = IPacket::PacketType::MUSIC;
+	_tickId = 0;
 	_music = music;
 
 	ps.add((uint16_t)_music.size());
@@ -28,6 +29,7 @@ PacketMusic::PacketMusic(const uint8_t *data)
 
 	_type = IPacket::PacketType::MUSIC;
 	_size = pd.getPacketSize();
+	_tickId = pd.getPacketTickId();
 
 	_music = pd.getString(posInPacket + 2, pd.get16(posInPacket));
 	posInPacket += 2 + pd.get16(posInPacket);
@@ -40,4 +42,14 @@ PacketMusic::~PacketMusic()
 std::string PacketMusic::getMusic() const
 {
 	return (_music);
+}
+
+bool PacketMusic::isTcp() const
+{
+	return (false);
+}
+
+bool PacketMusic::isUdp() const
+{
+	return (true);
 }

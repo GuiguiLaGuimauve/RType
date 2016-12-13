@@ -20,6 +20,8 @@ namespace Packet {
 		~PacketEnnemies();
 
 		std::vector<DataEnnemy *> getEnnemies() const;
+		bool isTcp() const;
+		bool isUdp() const;
 
 	protected:
 		std::vector<DataEnnemy *> _ennemies;

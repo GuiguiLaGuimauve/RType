@@ -17,6 +17,8 @@ namespace Packet {
 		PacketConnect(const uint8_t *data);
 		~PacketConnect();
 
+		bool isTcp() const;
+		bool isUdp() const;
 
 	protected:
 	};

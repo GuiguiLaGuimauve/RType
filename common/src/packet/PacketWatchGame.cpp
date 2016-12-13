@@ -11,6 +11,7 @@ PacketWatchGame::PacketWatchGame(const std::string & gameName)
 	uint32_t dataPacketSize = 0;
 
 	_type = IPacket::PacketType::WATCH_GAME;
+	_tickId = 0;
 	_gameName = gameName;
 
 	ps.add((uint16_t)_gameName.size());
@@ -28,6 +29,7 @@ PacketWatchGame::PacketWatchGame(const uint8_t *data)
 
 	_type = IPacket::PacketType::WATCH_GAME;
 	_size = pd.getPacketSize();
+	_tickId = pd.getPacketTickId();
 
 	_gameName = pd.getString(posInPacket + 2, pd.get16(posInPacket));
 	posInPacket += 2 + pd.get16(posInPacket);
@@ -40,4 +42,14 @@ PacketWatchGame::~PacketWatchGame()
 std::string PacketWatchGame::getGameName() const
 {
 	return (_gameName);
+}
+
+bool PacketWatchGame::isTcp() const
+{
+	return (true);
+}
+
+bool PacketWatchGame::isUdp() const
+{
+	return (false);
 }

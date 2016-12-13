@@ -19,6 +19,8 @@ namespace Packet {
 		~PacketWelcome();
 
 		std::string getMessage() const;
+		bool isTcp() const;
+		bool isUdp() const;
 
 	protected:
 		std::string _message;

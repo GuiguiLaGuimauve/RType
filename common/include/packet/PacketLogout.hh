@@ -17,6 +17,8 @@ namespace Packet {
 		PacketLogout(const uint8_t *data);
 		~PacketLogout();
 
+		bool isTcp() const;
+		bool isUdp() const;
 
 	protected:
 	};

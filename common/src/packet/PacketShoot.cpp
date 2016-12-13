@@ -11,6 +11,7 @@ PacketShoot::PacketShoot(const uint8_t & x, const uint8_t & y)
 	uint32_t dataPacketSize = 0;
 
 	_type = IPacket::PacketType::SHOOT;
+	_tickId = 0;
 	_x = x;
 	_y = y;
 
@@ -31,6 +32,7 @@ PacketShoot::PacketShoot(const uint8_t *data)
 
 	_type = IPacket::PacketType::SHOOT;
 	_size = pd.getPacketSize();
+	_tickId = pd.getPacketTickId();
 
 	_x = pd.get8(posInPacket);
 	posInPacket += 1;
@@ -51,4 +53,14 @@ uint8_t PacketShoot::getX() const
 uint8_t PacketShoot::getY() const
 {
 	return (_y);
+}
+
+bool PacketShoot::isTcp() const
+{
+	return (false);
+}
+
+bool PacketShoot::isUdp() const
+{
+	return (true);
 }

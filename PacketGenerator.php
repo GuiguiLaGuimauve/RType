@@ -76,6 +76,13 @@
 			else
 				$dataH .= "\t\t".$arg['type']." get".ucfirst($arg['name'])."() const;\n";
 		}
+		
+		// isTcp()
+		$dataH .= "\t\tbool isTcp() const;\n";
+		
+		// isUdp()
+		$dataH .= "\t\tbool isUdp() const;\n";
+		
 			
 		// Protected part
 		$dataH .= "\n\tprotected:\n";
@@ -247,13 +254,12 @@
 		$args = arguments($class['arguments']);
 		
 		// Constructor from vars
-    	$data .= "\n".$name.'::'.$name."(".$args.")\n{\n\tPacketSerializer ps;\n\tuint32_t dataPacketSize = 0;\n\n\t_type = IPacket::PacketType::".$class['type'].";\n";
+    	$data .= "\n".$name.'::'.$name."(".$args.")\n{\n\tPacketSerializer ps;\n\tuint32_t dataPacketSize = 0;\n\n\t_type = IPacket::PacketType::".$class['type'].";\n\t_tickId = 0;\n";
 		foreach ($class['arguments'] as $arg)
 		{
 			if (strpos($arg['type'], '[') !== false && strpos($arg['type'], ']') !== false)
 			{
 				$nb = explode(']', explode('[', $arg['type'])[1])[0];
-				echo $nb;
 				for ($x = 0; $x < $nb; $x++)
 					$data .= "\t_".$arg['name']."[".$x."] = ".$arg['name']."[".$x."];\n";
 			}
@@ -268,7 +274,7 @@
 		
 		// Constructor from uint
 		$posInPacket = (count($class['arguments']) > 0) ? "\tuint32_t posInPacket = 0;\n" : "";
-		$data .= $name.'::'.$name."(const uint8_t *data)\n{\n\tPacketDeserializer pd(data);\n".$posInPacket."\n\t_type = IPacket::PacketType::".$class['type'].";\n\t_size = pd.getPacketSize();\n";
+		$data .= $name.'::'.$name."(const uint8_t *data)\n{\n\tPacketDeserializer pd(data);\n".$posInPacket."\n\t_type = IPacket::PacketType::".$class['type'].";\n\t_size = pd.getPacketSize();\n\t_tickId = pd.getPacketTickId();\n";
 		
 		$data .= create_deserializer_code($class['arguments'], 0, '');
 		
@@ -286,6 +292,14 @@
 			else
 				$data .= "\n\n".$arg['type']." ".$name."::get".ucfirst($arg['name'])."() const\n{\n\treturn (_".$arg['name'].");\n}";
 		}
+		
+		// isTcp()
+		$data .= "\n\nbool ".$name."::isTcp() const\n{\n\treturn (".(($class['network'] == 'tcp') ? 'true' : 'false').");\n}";
+		
+		// isUdp()
+		$data .= "\n\nbool ".$name."::isUdp() const\n{\n\treturn (".(($class['network'] == 'udp') ? 'true' : 'false').");\n}";
+		
+		
 		$header = "//\n// This file was auto-generated, please do not edit it !\n//\n\n";
 		file_put_contents($dir.$name.'.cpp', $header.$data);
 	}

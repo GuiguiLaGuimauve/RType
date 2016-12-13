@@ -11,6 +11,7 @@ PacketStartGame::PacketStartGame(const std::string & gameName, const uint16_t & 
 	uint32_t dataPacketSize = 0;
 
 	_type = IPacket::PacketType::START_GAME;
+	_tickId = 0;
 	_gameName = gameName;
 	_udpPort = udpPort;
 
@@ -32,6 +33,7 @@ PacketStartGame::PacketStartGame(const uint8_t *data)
 
 	_type = IPacket::PacketType::START_GAME;
 	_size = pd.getPacketSize();
+	_tickId = pd.getPacketTickId();
 
 	_gameName = pd.getString(posInPacket + 2, pd.get16(posInPacket));
 	posInPacket += 2 + pd.get16(posInPacket);
@@ -52,4 +54,14 @@ std::string PacketStartGame::getGameName() const
 uint16_t PacketStartGame::getUdpPort() const
 {
 	return (_udpPort);
+}
+
+bool PacketStartGame::isTcp() const
+{
+	return (true);
+}
+
+bool PacketStartGame::isUdp() const
+{
+	return (false);
 }

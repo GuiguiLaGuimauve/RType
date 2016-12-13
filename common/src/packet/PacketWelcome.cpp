@@ -11,6 +11,7 @@ PacketWelcome::PacketWelcome(const std::string & message)
 	uint32_t dataPacketSize = 0;
 
 	_type = IPacket::PacketType::WELCOME;
+	_tickId = 0;
 	_message = message;
 
 	ps.add((uint16_t)_message.size());
@@ -28,6 +29,7 @@ PacketWelcome::PacketWelcome(const uint8_t *data)
 
 	_type = IPacket::PacketType::WELCOME;
 	_size = pd.getPacketSize();
+	_tickId = pd.getPacketTickId();
 
 	_message = pd.getString(posInPacket + 2, pd.get16(posInPacket));
 	posInPacket += 2 + pd.get16(posInPacket);
@@ -40,4 +42,14 @@ PacketWelcome::~PacketWelcome()
 std::string PacketWelcome::getMessage() const
 {
 	return (_message);
+}
+
+bool PacketWelcome::isTcp() const
+{
+	return (true);
+}
+
+bool PacketWelcome::isUdp() const
+{
+	return (false);
 }

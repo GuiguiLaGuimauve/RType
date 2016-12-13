@@ -20,6 +20,8 @@ namespace Packet {
 		~PacketRooms();
 
 		std::vector<DataRoom *> getRooms() const;
+		bool isTcp() const;
+		bool isUdp() const;
 
 	protected:
 		std::vector<DataRoom *> _rooms;

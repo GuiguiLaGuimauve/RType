@@ -19,6 +19,8 @@ namespace Packet {
 
 		uint8_t *getIp();
 		uint16_t getPort() const;
+		bool isTcp() const;
+		bool isUdp() const;
 
 	protected:
 		uint8_t _ip[4];

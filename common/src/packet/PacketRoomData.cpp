@@ -11,6 +11,7 @@ PacketRoomData::PacketRoomData(const std::vector<DataPlayer *> & players, const 
 	uint32_t dataPacketSize = 0;
 
 	_type = IPacket::PacketType::ROOM_DATA;
+	_tickId = 0;
 	_players = players;
 	_maxPlayers = maxPlayers;
 	_level = level;
@@ -47,6 +48,7 @@ PacketRoomData::PacketRoomData(const uint8_t *data)
 
 	_type = IPacket::PacketType::ROOM_DATA;
 	_size = pd.getPacketSize();
+	_tickId = pd.getPacketTickId();
 
 	uint64_t playersLength = pd.get16(posInPacket);
 	posInPacket += 2;
@@ -89,4 +91,14 @@ uint8_t PacketRoomData::getMaxPlayers() const
 uint8_t PacketRoomData::getLevel() const
 {
 	return (_level);
+}
+
+bool PacketRoomData::isTcp() const
+{
+	return (true);
+}
+
+bool PacketRoomData::isUdp() const
+{
+	return (false);
 }

@@ -11,6 +11,7 @@ PacketUdpDataFree::PacketUdpDataFree()
 	uint32_t dataPacketSize = 0;
 
 	_type = IPacket::PacketType::UDP_DATA_FREE;
+	_tickId = 0;
 
 	_data = ps.getPacket();
 	_size = dataPacketSize;
@@ -22,8 +23,19 @@ PacketUdpDataFree::PacketUdpDataFree(const uint8_t *data)
 
 	_type = IPacket::PacketType::UDP_DATA_FREE;
 	_size = pd.getPacketSize();
+	_tickId = pd.getPacketTickId();
 }
 
 PacketUdpDataFree::~PacketUdpDataFree()
 {
+}
+
+bool PacketUdpDataFree::isTcp() const
+{
+	return (true);
+}
+
+bool PacketUdpDataFree::isUdp() const
+{
+	return (false);
 }

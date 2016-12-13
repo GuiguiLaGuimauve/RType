@@ -21,6 +21,8 @@ namespace Packet {
 		std::string getGameName() const;
 		uint8_t getMaxPlayers() const;
 		uint8_t getLevel() const;
+		bool isTcp() const;
+		bool isUdp() const;
 
 	protected:
 		std::string _gameName;

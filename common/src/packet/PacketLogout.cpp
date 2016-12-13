@@ -11,6 +11,7 @@ PacketLogout::PacketLogout()
 	uint32_t dataPacketSize = 0;
 
 	_type = IPacket::PacketType::LOGOUT;
+	_tickId = 0;
 
 	_data = ps.getPacket();
 	_size = dataPacketSize;
@@ -22,8 +23,19 @@ PacketLogout::PacketLogout(const uint8_t *data)
 
 	_type = IPacket::PacketType::LOGOUT;
 	_size = pd.getPacketSize();
+	_tickId = pd.getPacketTickId();
 }
 
 PacketLogout::~PacketLogout()
 {
+}
+
+bool PacketLogout::isTcp() const
+{
+	return (true);
+}
+
+bool PacketLogout::isUdp() const
+{
+	return (false);
 }

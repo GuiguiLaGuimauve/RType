@@ -11,6 +11,7 @@ PacketSound::PacketSound(const std::string & sound)
 	uint32_t dataPacketSize = 0;
 
 	_type = IPacket::PacketType::SOUND;
+	_tickId = 0;
 	_sound = sound;
 
 	ps.add((uint16_t)_sound.size());
@@ -28,6 +29,7 @@ PacketSound::PacketSound(const uint8_t *data)
 
 	_type = IPacket::PacketType::SOUND;
 	_size = pd.getPacketSize();
+	_tickId = pd.getPacketTickId();
 
 	_sound = pd.getString(posInPacket + 2, pd.get16(posInPacket));
 	posInPacket += 2 + pd.get16(posInPacket);
@@ -40,4 +42,14 @@ PacketSound::~PacketSound()
 std::string PacketSound::getSound() const
 {
 	return (_sound);
+}
+
+bool PacketSound::isTcp() const
+{
+	return (false);
+}
+
+bool PacketSound::isUdp() const
+{
+	return (true);
 }

@@ -23,6 +23,7 @@ namespace Packet
     ~PacketDeserializer();
     uint32_t	get32(const uint32_t &) const;
     uint32_t	getPacketSize() const;
+	uint32_t	getPacketTickId() const;
     uint16_t	get16(const uint32_t &) const;
     uint8_t	get8(const uint32_t &) const;
     std::string	getString(const uint32_t &, const uint32_t &) const;

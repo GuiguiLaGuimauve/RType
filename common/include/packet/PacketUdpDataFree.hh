@@ -17,6 +17,8 @@ namespace Packet {
 		PacketUdpDataFree(const uint8_t *data);
 		~PacketUdpDataFree();
 
+		bool isTcp() const;
+		bool isUdp() const;
 
 	protected:
 	};

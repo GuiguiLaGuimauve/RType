@@ -11,6 +11,7 @@ PacketCreateGame::PacketCreateGame(const std::string & gameName, const uint8_t &
 	uint32_t dataPacketSize = 0;
 
 	_type = IPacket::PacketType::CREATE_GAME;
+	_tickId = 0;
 	_gameName = gameName;
 	_maxPlayers = maxPlayers;
 	_level = level;
@@ -36,6 +37,7 @@ PacketCreateGame::PacketCreateGame(const uint8_t *data)
 
 	_type = IPacket::PacketType::CREATE_GAME;
 	_size = pd.getPacketSize();
+	_tickId = pd.getPacketTickId();
 
 	_gameName = pd.getString(posInPacket + 2, pd.get16(posInPacket));
 	posInPacket += 2 + pd.get16(posInPacket);
@@ -64,4 +66,14 @@ uint8_t PacketCreateGame::getMaxPlayers() const
 uint8_t PacketCreateGame::getLevel() const
 {
 	return (_level);
+}
+
+bool PacketCreateGame::isTcp() const
+{
+	return (true);
+}
+
+bool PacketCreateGame::isUdp() const
+{
+	return (false);
 }

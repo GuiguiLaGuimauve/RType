@@ -11,6 +11,7 @@ PacketUdpData::PacketUdpData(const uint8_t *ip, const uint16_t & port)
 	uint32_t dataPacketSize = 0;
 
 	_type = IPacket::PacketType::UDP_DATA;
+	_tickId = 0;
 	_ip[0] = ip[0];
 	_ip[1] = ip[1];
 	_ip[2] = ip[2];
@@ -37,6 +38,7 @@ PacketUdpData::PacketUdpData(const uint8_t *data)
 
 	_type = IPacket::PacketType::UDP_DATA;
 	_size = pd.getPacketSize();
+	_tickId = pd.getPacketTickId();
 
 	_ip[0] = pd.get8(posInPacket);
 	posInPacket += 1;
@@ -63,4 +65,14 @@ uint8_t *PacketUdpData::getIp()
 uint16_t PacketUdpData::getPort() const
 {
 	return (_port);
+}
+
+bool PacketUdpData::isTcp() const
+{
+	return (true);
+}
+
+bool PacketUdpData::isUdp() const
+{
+	return (false);
 }

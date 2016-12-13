@@ -20,6 +20,8 @@ namespace Packet {
 
 		std::string getLogin() const;
 		std::string getPassword() const;
+		bool isTcp() const;
+		bool isUdp() const;
 
 	protected:
 		std::string _login;

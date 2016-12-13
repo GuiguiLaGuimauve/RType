@@ -11,6 +11,7 @@ PacketJoinGame::PacketJoinGame(const std::string & gameName, const std::string &
 	uint32_t dataPacketSize = 0;
 
 	_type = IPacket::PacketType::JOIN_GAME;
+	_tickId = 0;
 	_gameName = gameName;
 	_playerName = playerName;
 
@@ -33,6 +34,7 @@ PacketJoinGame::PacketJoinGame(const uint8_t *data)
 
 	_type = IPacket::PacketType::JOIN_GAME;
 	_size = pd.getPacketSize();
+	_tickId = pd.getPacketTickId();
 
 	_gameName = pd.getString(posInPacket + 2, pd.get16(posInPacket));
 	posInPacket += 2 + pd.get16(posInPacket);
@@ -53,4 +55,14 @@ std::string PacketJoinGame::getGameName() const
 std::string PacketJoinGame::getPlayerName() const
 {
 	return (_playerName);
+}
+
+bool PacketJoinGame::isTcp() const
+{
+	return (true);
+}
+
+bool PacketJoinGame::isUdp() const
+{
+	return (false);
 }

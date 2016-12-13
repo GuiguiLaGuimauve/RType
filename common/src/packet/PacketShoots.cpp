@@ -11,6 +11,7 @@ PacketShoots::PacketShoots(const std::vector<DataShoot *> & shoots)
 	uint32_t dataPacketSize = 0;
 
 	_type = IPacket::PacketType::SHOOTS;
+	_tickId = 0;
 	_shoots = shoots;
 
 	ps.add((uint16_t)_shoots.size());
@@ -42,6 +43,7 @@ PacketShoots::PacketShoots(const uint8_t *data)
 
 	_type = IPacket::PacketType::SHOOTS;
 	_size = pd.getPacketSize();
+	_tickId = pd.getPacketTickId();
 
 	uint64_t shootsLength = pd.get16(posInPacket);
 	posInPacket += 2;
@@ -71,4 +73,14 @@ PacketShoots::~PacketShoots()
 std::vector<DataShoot *> PacketShoots::getShoots() const
 {
 	return (_shoots);
+}
+
+bool PacketShoots::isTcp() const
+{
+	return (false);
+}
+
+bool PacketShoots::isUdp() const
+{
+	return (true);
 }

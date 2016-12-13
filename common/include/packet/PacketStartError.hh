@@ -19,6 +19,8 @@ namespace Packet {
 		~PacketStartError();
 
 		std::string getGameName() const;
+		bool isTcp() const;
+		bool isUdp() const;
 
 	protected:
 		std::string _gameName;

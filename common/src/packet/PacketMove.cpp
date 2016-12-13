@@ -11,6 +11,7 @@ PacketMove::PacketMove(const uint8_t & x, const uint8_t & y)
 	uint32_t dataPacketSize = 0;
 
 	_type = IPacket::PacketType::MOVE;
+	_tickId = 0;
 	_x = x;
 	_y = y;
 
@@ -31,6 +32,7 @@ PacketMove::PacketMove(const uint8_t *data)
 
 	_type = IPacket::PacketType::MOVE;
 	_size = pd.getPacketSize();
+	_tickId = pd.getPacketTickId();
 
 	_x = pd.get8(posInPacket);
 	posInPacket += 1;
@@ -51,4 +53,14 @@ uint8_t PacketMove::getX() const
 uint8_t PacketMove::getY() const
 {
 	return (_y);
+}
+
+bool PacketMove::isTcp() const
+{
+	return (false);
+}
+
+bool PacketMove::isUdp() const
+{
+	return (true);
 }

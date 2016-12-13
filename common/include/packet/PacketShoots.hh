@@ -20,6 +20,8 @@ namespace Packet {
 		~PacketShoots();
 
 		std::vector<DataShoot *> getShoots() const;
+		bool isTcp() const;
+		bool isUdp() const;
 
 	protected:
 		std::vector<DataShoot *> _shoots;

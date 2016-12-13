@@ -11,6 +11,7 @@ PacketRegister::PacketRegister(const std::string & login, const std::string & pa
 	uint32_t dataPacketSize = 0;
 
 	_type = IPacket::PacketType::REGISTER;
+	_tickId = 0;
 	_login = login;
 	_password = password;
 
@@ -33,6 +34,7 @@ PacketRegister::PacketRegister(const uint8_t *data)
 
 	_type = IPacket::PacketType::REGISTER;
 	_size = pd.getPacketSize();
+	_tickId = pd.getPacketTickId();
 
 	_login = pd.getString(posInPacket + 2, pd.get16(posInPacket));
 	posInPacket += 2 + pd.get16(posInPacket);
@@ -53,4 +55,14 @@ std::string PacketRegister::getLogin() const
 std::string PacketRegister::getPassword() const
 {
 	return (_password);
+}
+
+bool PacketRegister::isTcp() const
+{
+	return (true);
+}
+
+bool PacketRegister::isUdp() const
+{
+	return (false);
 }

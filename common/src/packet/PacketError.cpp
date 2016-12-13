@@ -11,6 +11,7 @@ PacketError::PacketError(const std::string & message, const IPacket::PacketType 
 	uint32_t dataPacketSize = 0;
 
 	_type = IPacket::PacketType::ERROR;
+	_tickId = 0;
 	_message = message;
 	_errorType = errorType;
 
@@ -32,6 +33,7 @@ PacketError::PacketError(const uint8_t *data)
 
 	_type = IPacket::PacketType::ERROR;
 	_size = pd.getPacketSize();
+	_tickId = pd.getPacketTickId();
 
 	_message = pd.getString(posInPacket + 2, pd.get16(posInPacket));
 	posInPacket += 2 + pd.get16(posInPacket);
@@ -52,4 +54,14 @@ std::string PacketError::getMessage() const
 IPacket::PacketType PacketError::getErrorType() const
 {
 	return (_errorType);
+}
+
+bool PacketError::isTcp() const
+{
+	return (true);
+}
+
+bool PacketError::isUdp() const
+{
+	return (false);
 }

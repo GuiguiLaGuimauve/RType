@@ -20,6 +20,8 @@ namespace Packet {
 		~PacketBackgrounds();
 
 		std::vector<DataBackground *> getBackgrounds() const;
+		bool isTcp() const;
+		bool isUdp() const;
 
 	protected:
 		std::vector<DataBackground *> _backgrounds;

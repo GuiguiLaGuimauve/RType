@@ -11,6 +11,7 @@ PacketBackgrounds::PacketBackgrounds(const std::vector<DataBackground *> & backg
 	uint32_t dataPacketSize = 0;
 
 	_type = IPacket::PacketType::BACKGROUNDS;
+	_tickId = 0;
 	_backgrounds = backgrounds;
 
 	ps.add((uint16_t)_backgrounds.size());
@@ -38,6 +39,7 @@ PacketBackgrounds::PacketBackgrounds(const uint8_t *data)
 
 	_type = IPacket::PacketType::BACKGROUNDS;
 	_size = pd.getPacketSize();
+	_tickId = pd.getPacketTickId();
 
 	uint64_t backgroundsLength = pd.get16(posInPacket);
 	posInPacket += 2;
@@ -64,4 +66,14 @@ PacketBackgrounds::~PacketBackgrounds()
 std::vector<DataBackground *> PacketBackgrounds::getBackgrounds() const
 {
 	return (_backgrounds);
+}
+
+bool PacketBackgrounds::isTcp() const
+{
+	return (false);
+}
+
+bool PacketBackgrounds::isUdp() const
+{
+	return (true);
 }

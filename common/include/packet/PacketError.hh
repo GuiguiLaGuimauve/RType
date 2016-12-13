@@ -20,6 +20,8 @@ namespace Packet {
 
 		std::string getMessage() const;
 		IPacket::PacketType getErrorType() const;
+		bool isTcp() const;
+		bool isUdp() const;
 
 	protected:
 		std::string _message;
