@@ -274,7 +274,7 @@
 		
 		// Constructor from uint
 		$posInPacket = (count($class['arguments']) > 0) ? "\tuint32_t posInPacket = 0;\n" : "";
-		$data .= $name.'::'.$name."(const uint8_t *data)\n{\n\tPacketDeserializer pd(data);\n".$posInPacket."\n\t_type = IPacket::PacketType::".$class['type'].";\n\t_size = pd.getPacketSize();\n\t_tickId = pd.getPacketTickId();\n";
+		$data .= $name.'::'.$name."(const uint8_t *data)\n{\n\tPacketDeserializer pd(data);\n".$posInPacket."\n\t_type = IPacket::PacketType::".$class['type'].";\n\t_size = pd.getPacketSize();\n\t_tickId = pd.getPacketTickId();\n\n\t_data = new uint8_t[_size];\n\tfor (uint32_t a = 0; a < _size; a++)\n\t\t_data[a] = data[a + 9];\n";
 		
 		$data .= create_deserializer_code($class['arguments'], 0, '');
 		
@@ -399,13 +399,10 @@
 	}
 	
 	$data = json_decode(file_get_contents('PacketList.json'), true);
-	$test = '';
+
 	foreach ($data as $class)
 	{
 		createHH($class, 'common/include/packet/');
 		createCPP($class, 'common/src/packet/');
 		createDataFrom($class['arguments']);
-		$test .= "g++ -W -Wall -Wextra -std=c++11 main.cpp common/src/packet/Packet".ucfirst($class['name']).".cpp common/src/packet_tools/APacket.cpp common/src/packet_tools/PacketSerializer.cpp common/src/packet_tools/PacketDeserializer.cpp -I./common/include/packet/ -I./common/include/packet_tools/ -I./common/include/tools/ -I./common/include/packet_data/ && echo \"Packet".ucfirst($class['name'])." OK\";";
 	}
-	$header = "##\n## This file was auto-generated, please do not edit it !\n##\n\n";
-	file_put_contents('test.sh', $header.$test);

@@ -29,6 +29,7 @@ namespace Packet
     std::string	getString(const uint32_t &, const uint32_t &) const;
   private:
     uint8_t	*_msg;
+	uint16_t _headerSize;
   };
 };
 

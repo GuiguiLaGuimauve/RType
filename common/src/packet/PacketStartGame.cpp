@@ -35,6 +35,10 @@ PacketStartGame::PacketStartGame(const uint8_t *data)
 	_size = pd.getPacketSize();
 	_tickId = pd.getPacketTickId();
 
+	_data = new uint8_t[_size];
+	for (uint32_t a = 0; a < _size; a++)
+		_data[a] = data[a + 9];
+
 	_gameName = pd.getString(posInPacket + 2, pd.get16(posInPacket));
 	posInPacket += 2 + pd.get16(posInPacket);
 

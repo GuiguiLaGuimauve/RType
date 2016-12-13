@@ -27,6 +27,7 @@ uint8_t *APacket::getData() const
 
 uint8_t *APacket::generate() const
 {
+
   uint8_t	*exp;
   PacketSerializer ps;
   uint32_t	i = 0;

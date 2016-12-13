@@ -22,7 +22,7 @@ uint32_t		PacketDeserializer::getPacketSize() const
   uint32_t		ret;
 
   ret = _msg[1] << 0 | _msg[2] << 8 | _msg[3] << 16 | _msg[4] << 24;
-
+  
   return (ret);
 }
 
@@ -40,7 +40,7 @@ uint32_t		PacketDeserializer::get32(const uint32_t &d) const
 {
   uint32_t		ret;
 
-  ret = _msg[d + _headerSize] << 0 | _msg[d + _headerSize] << 8 | _msg[d + _headerSize] << 16 | _msg[d + _headerSize] << 24;
+  ret = _msg[d + _headerSize] << 0 | _msg[d + _headerSize + 1] << 8 | _msg[d + _headerSize + 2] << 16 | _msg[d + _headerSize + 3] << 24;
 
   return (ret);
 }
@@ -49,7 +49,7 @@ uint16_t		PacketDeserializer::get16(const uint32_t &d) const
 {
   uint16_t		ret;
 
-  ret = _msg[d + _headerSize] << 0 | _msg[d + _headerSize] << 8;
+  ret = _msg[d + _headerSize] << 0 | _msg[d + _headerSize + 1] << 8;
   return (ret);
 }
 
