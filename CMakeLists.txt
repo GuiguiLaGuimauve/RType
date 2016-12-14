@@ -28,6 +28,15 @@ endif()
 #                  SFML END                #
 ############################################
 
+# Files Common
+FILE (GLOB_RECURSE common_src "common/src/*.cpp")
+
+# Files Server
+FILE (GLOB_RECURSE server_src "server/src/*.cpp")
+
+# Files Client
+FILE (GLOB_RECURSE client_src "client/src/*.cpp")
+
 # Flags Unix
 IF (UNIX)
 	add_definitions(-W -Wall -Wextra -Wshadow)
@@ -38,12 +47,14 @@ add_definitions(-std=c++11)
 
 # add_executable for WIN32
 IF (WIN32)
-# add_executable("nom_binaire" "source")
+add_executable(RType_server WIN32 ${common_src} ${server_src})
+add_executable(RType WIN32 ${common_src} ${client_src})
 ENDIF (WIN32)
 
 # add_executable for UNIX
 IF (UNIX)
-# add_executable("nom_binaire" "source")
+add_executable(RType_server ${common_src} ${server_src})
+add_executable(RType ${common_src} ${client_src})
 ENDIF (UNIX)
 
 # Set lib on Unix
