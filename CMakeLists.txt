@@ -28,6 +28,12 @@ endif()
 #                  SFML END                #
 ############################################
 
+# Include common
+include_directories(common/include/packet)
+include_directories(common/include/packet_data)
+include_directories(common/include/packet_tools)
+include_directories(common/include/tools)
+
 # Files Common
 FILE (GLOB_RECURSE common_src "common/src/*.cpp")
 
