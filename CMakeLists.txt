@@ -81,4 +81,4 @@ IF (WIN32)
 ENDIF (WIN32)
 
 # Link librairies
-  #target_link_libraries(${EXECUTABLE_NAME} ${SFML_LIBRARIES})
+  #target_link_libraries(RType ${SFML_LIBRARIES})
