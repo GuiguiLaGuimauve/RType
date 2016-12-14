@@ -30,6 +30,7 @@ IUserNetwork		*UserNetworkTCPWindowsServer::readSocket(ISocket *net)
   u->setFd(data.getFd());
   u->setIp(data.getIp());
   std::cout << "New client with fd: " << u->getFd() << std::endl;
+  u->setStatus(true);
   return (u);
 }
 

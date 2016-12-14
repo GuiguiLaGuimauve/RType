@@ -92,5 +92,6 @@ void			UserNetworkUDPWindows::closeFd()
 	{
 		std::cout << "Closing socket " << _fd << std::endl;
 		closesocket(_fd);
+		setStatus(false);
 	}
 }

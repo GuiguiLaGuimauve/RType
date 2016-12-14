@@ -25,29 +25,37 @@ namespace Network
   public:
     AUserNetwork();
     virtual ~AUserNetwork() {};
-    /*! La methode readSocket(ISocket *) permet de lire sur une socket et donc de récupérer ce qui à été écris de l'autre côté de la socket. */
+    /* La methode readSocket(ISocket *) permet de lire sur une socket et donc de récupérer ce qui à été écris de l'autre côté de la socket. */
     virtual IUserNetwork	*readSocket(ISocket *) = 0;
-    /*! La methode writeSocket(ISocket *) permet d'écrire sur une socket. */
+    /* La methode writeSocket(ISocket *) permet d'écrire sur une socket. */
     virtual void			writeSocket(ISocket *) = 0;
-    /*! La methode setFd(const int32_t) permet de set le Descripteur de fichier du client. */
+    /* La methode setFd(const int32_t) permet de set le Descripteur de fichier du client. */
     void					setFd(const int32_t &);
-    /*! La methode getFd() permet de récupérer le Descripteur de fichier du client. */
+    /* La methode getFd() permet de récupérer le Descripteur de fichier du client. */
     int32_t					getFd() const;
-    /*! La methode setIp(const std::string &) permet de set l'adresse ip du client. */
+    /* La methode setIp(const std::string &) permet de set l'adresse ip du client. */
     void					setIp(const std::string &);
-    /*! La methode getIp() permet de récupérer l'adresse ip du client. */
+    /* La methode getIp() permet de récupérer l'adresse ip du client. */
     const std::string		&getIp() const;
-	/*! La methode setPort(const uint32_t) permet de set le Port de la socket du client. */
+	/* La methode setPort(const uint32_t) permet de set le Port de la socket du client. */
 	void					setPort(const uint32_t &);
-	/*! La methode getPort() permet de récupérer le port de la socket du client. */
+	/* La methode getPort() permet de récupérer le port de la socket du client. */
 	uint32_t				getPort() const;
-	/*! La méthode pushBufferWrite() permet d'ajouter une chaine dans le buffer d'écriture */
+	/* La méthode pushBufferWrite() permet d'ajouter une chaine dans le buffer d'écriture */
 	void					pushBufferWrite(const std::string &);
-    /*! La méthode popBufferRead() permet de récupérer une chaine dans le buffer de lecture */
+    /* La méthode popBufferRead() permet de récupérer une chaine dans le buffer de lecture */
     const std::string		popBufferRead();
 	/* La méthode closeFd() permet de fermer la socket du client*/
-	virtual void					closeFd() = 0;
+	virtual void			closeFd() = 0;
+	/* La méthode haveSomethingToWrite() permet de savoir si il y a des pacquets dans le buffer d'écriture */
+	bool					haveSomethingToWrite() const;
+	/* La méthode getStatus() permet de savoir si l'utilisateur est connecté ou non */
+	bool					getStatus() const;
+	/* La méthode setStatus() permet de spécifier si l'utilisateur est connecté ou non */
+	void					setStatus(bool);
   protected:
+	  /* Le booléen _status permet de savoir si l'utilisateur est connecté ou non */
+	  bool				_status;
     /*! L'int32_t qui permet de stocker le Descripteur de la socket du client. */
     int32_t				_fd;
     /*! La string contenant l'adresse ip du client. */

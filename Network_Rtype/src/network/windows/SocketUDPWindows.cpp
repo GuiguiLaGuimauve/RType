@@ -5,18 +5,15 @@ using namespace Network;
 SocketUDPWindows::SocketUDPWindows()
 {
 	WSADATA				wsadata;
+	bool				reuse = true;
 
 	if (WSAStartup(MAKEWORD(2, 2), &wsadata) != 0)
-		std::cerr << "Error on WSAStartUp: " << WSAGetLastError() << std::endl;
-	//throw ErrorSocket("error on WSAStartup()");
+		throw ErrorSocket("error on WSAStartup(): " + WSAGetLastError());
 	_sock = WSASocketW(AF_INET, SOCK_DGRAM, IPPROTO_UDP, NULL, 0, 0);
 	if (_sock == INVALID_SOCKET)
-		std::cerr << "Error on WSASocket: " << WSAGetLastError() << std::endl;
-	//throw ErrorSocket("error on WSASocket()");
-	std::cout << "Socket UDP ok: " << _sock << std::endl;
-	bool	reuse = true;
+		throw ErrorSocket("Error on WSASocket: " + WSAGetLastError());
 	if (setsockopt(_sock, SOL_SOCKET, SO_REUSEADDR, (char *)&reuse, sizeof(bool)) == SOCKET_ERROR)
-		std::cerr << "Error on Setsockopt: " << WSAGetLastError() << std::endl;
+		throw ErrorSocket("Error on Setsockopt: " + WSAGetLastError());
 }
 
 bool				SocketUDPWindows::bindIt(const uint32_t &port)

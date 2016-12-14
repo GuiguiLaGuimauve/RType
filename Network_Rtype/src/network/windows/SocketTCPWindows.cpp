@@ -5,17 +5,15 @@ using namespace Network;
 SocketTCPWindows::SocketTCPWindows()
 {
 	WSADATA				wsadata;
+	bool			reuse = true;
 
 	if (WSAStartup(MAKEWORD(2, 2), &wsadata) != 0)
-		//throw ErrorSocket("error on WSAStartup()");
-		std::cerr << "Error on WSAStartUp: " << WSAGetLastError() << std::endl;
+		throw ErrorSocket("error on WSAStartup(): " + WSAGetLastError());
 	_sock = WSASocketW(AF_INET, SOCK_STREAM, IPPROTO_TCP, NULL, 0, 0);
 	if (_sock == INVALID_SOCKET)
-		std::cerr << "Error on WSAStartUp: " << WSAGetLastError() << std::endl;
-	//throw ErrorSocket("error on WSASocket()");
-	bool	reuse = true;
+		throw ErrorSocket("Error on WSASocket: " + WSAGetLastError());
 	if (setsockopt(_sock, SOL_SOCKET, SO_REUSEADDR, (char *)&reuse, sizeof(bool)) == SOCKET_ERROR)
-		std::cerr << "Error on Setsockopt: " << WSAGetLastError() << std::endl;
+		throw ErrorSocket("Error on Setsockopt: " + WSAGetLastError());
 }
 
 bool				SocketTCPWindows::bindIt(const uint32_t &port)

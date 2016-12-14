@@ -29,6 +29,7 @@ public:
   size_t		len() const;
   void			clear();
   PacketUnknown		front();*/
+  bool			isEmpty() const;
   void			push(const std::string &);
   const std::string	pop();
   size_t		len() const;

@@ -48,6 +48,12 @@ PacketUnknown	Buffer::front()
   return (list.front());
 }
 */
+
+bool	Buffer::isEmpty() const
+{
+	return (listS.empty());
+}
+
 void	Buffer::push(const std::string &pkt)
 {
 	listS.push(pkt);

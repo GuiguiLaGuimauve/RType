@@ -14,6 +14,7 @@
 #include <iostream>
 #include <string>
 #include "DataClient.hpp"
+#include "ErrorSocket.hpp"
 
 #ifdef _WIN32
 	#include <sys\types.h>
