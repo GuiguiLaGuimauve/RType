@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Thu Dec 15 14:35:26 2016 lecoq
+// Last update Thu Dec 15 14:49:09 2016 Simon BERTHO
 //
 
 #include	"CoreClient.hh"
@@ -22,6 +22,63 @@ CoreClient::~CoreClient()
 
 void CoreClient::run()
 {
+  while (1)
+    {
+      gui.callback();
+      while (!_eventQueue.empty())
+        {
+          auto e = _eventQueue.pop();
+          switch (e.type)
+            {
+            case EventPart::Event::QUIT :
+              return ;
+            case EventPart::Event::ATTACK :
+              {
+                break ;
+              }
+            case EventPart::Event::MOVE_UP :
+              {
+                break ;
+              }
+            case EventPart::Event::MOVE_DOWN :
+              {
+                break ;
+              }
+            case EventPart::Event::MOVE_RIGHT :
+              {
+                break ;
+              }
+            case EventPart::Event::MOVE_LEFT :
+              {
+                break ;
+              }
+            case EventPart::Event::TRY_CONNECT :
+              {
+                break ;
+              }
+            case EventPart::Event::TRY_LOGIN :
+              {
+                break ;
+              }
+            case EventPart::Event::CREATE_GAME :
+              {
+                break ;
+              }
+            case EventPart::Event::JOIN_GAME :
+              {
+                break ;
+              }
+	    case EventPart::Event::DEFAULT :
+              {
+                break ;
+              }
+            default :
+              {
+		std::cout << "Event inconnu! " << std::endl;
+              }
+            }
+	}
+    }
 }
 
 void CoreClient::initManager()
