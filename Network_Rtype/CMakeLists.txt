@@ -27,8 +27,8 @@ ENDIF (UNIX)
 
 IF (WIN32)
 	include_directories(includes/network/windows/)
-	add_executable (rtype_server ${SRCSERV} ${SRCNET} ${SRCNETWIN})
-	add_executable (rtype_client ${SRCCLI} ${SRCNET} ${SRCNETWIN})
+	add_executable (rtype_server ${SRCSERV} ${SRCNET} ${SRCERR} ${SRCNETWIN})
+	add_executable (rtype_client ${SRCCLI} ${SRCNET} ${SRCERR} ${SRCNETWIN})
 ENDIF (WIN32)
 
 IF (UNIX)

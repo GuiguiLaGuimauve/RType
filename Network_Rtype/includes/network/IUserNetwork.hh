@@ -50,6 +50,8 @@ namespace Network
     virtual void				closeFd() = 0;
 	/* La méthode haveSomethingToWrite() permet de savoir si il y a des pacquets dans le buffer d'écriture */
 	virtual bool					haveSomethingToWrite() const = 0;
+	/* La méthode haveSomethingToRead() permet de savoir si il y a des pacquets dans le buffer de lecture */
+	virtual bool					haveSomethingToRead() const = 0;
 	/* La méthode getStatus() permet de savoir si l'utilisateur est connecté ou non */
 	virtual bool					getStatus() const = 0;
 	/* La méthode setStatus() permet de spécifier si l'utilisateur est connecté ou non */

@@ -6,7 +6,7 @@ AUserNetwork::AUserNetwork()
 {
 	_fd = -1;
 	_ip = "";
-	_port = 4242;
+	_port = 4243;
 	_status = false;
 }
 
@@ -24,6 +24,11 @@ void					AUserNetwork::setStatus(bool b)
 bool			AUserNetwork::haveSomethingToWrite() const
 {
 	return (buff_w.isEmpty());
+}
+
+bool			AUserNetwork::haveSomethingToRead() const
+{
+	return (buff_r.isEmpty());
 }
 
 void			AUserNetwork::setFd(const int32_t &fd)

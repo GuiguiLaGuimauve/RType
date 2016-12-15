@@ -7,7 +7,7 @@ int		main(int ac, char **av)
 	IManageNetwork					*man = new ManageNetwork();
 	std::vector<IUserNetwork *>		_users;
 
-	man->run(4242, 10);
+	man->run(4243, 1);
 	while (1)
 	{
 		man->init();

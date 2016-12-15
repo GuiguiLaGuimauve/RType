@@ -18,7 +18,8 @@ UserNetworkTCPWindowsClient::~UserNetworkTCPWindowsClient() {}
 
 IUserNetwork		*UserNetworkTCPWindowsClient::readSocket(ISocket *net)
 {
-   	WSABUF			DataBuf;
+	bool			error;
+	WSABUF			DataBuf;
 	DWORD			RecvBytes;
 	DWORD			Flags;
 	char			*buffer = new char[16384];
@@ -26,6 +27,7 @@ IUserNetwork		*UserNetworkTCPWindowsClient::readSocket(ISocket *net)
 	DataBuf.len = 16384;
 	DataBuf.buf = buffer;
 	Flags = 0;
+	error = false;
 	if (WSARecv(_fd, &DataBuf, 1, &RecvBytes, &Flags, NULL, NULL) != SOCKET_ERROR)
 	{
 		char			*res = new char[RecvBytes];
@@ -41,10 +43,14 @@ IUserNetwork		*UserNetworkTCPWindowsClient::readSocket(ISocket *net)
 	}
 	else
 	{
-		std::cout << "error from WSARecv: " << WSAGetLastError() << std::endl;
+		error = true;
+		if (WSAGetLastError() == 10054)
+			std::cerr << "Connection reset by peer!" << std::endl;
+		else
+			std::cerr << "error from WSARecv: " << WSAGetLastError() << std::endl;
 		closeFd();
 	}
-	if (RecvBytes == 0 || RecvBytes == -1)
+	if (error == false && (RecvBytes == 0 || RecvBytes == -1))
 		closeFd();
 	IUserNetwork		*u = new UserNetworkTCPWindowsClient(*this);
 	return (u);

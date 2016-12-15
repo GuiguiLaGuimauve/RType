@@ -51,7 +51,9 @@ PacketUnknown	Buffer::front()
 
 bool	Buffer::isEmpty() const
 {
-	return (listS.empty());
+	if (listS.empty() == true)
+		return (false);
+	return (true);
 }
 
 void	Buffer::push(const std::string &pkt)

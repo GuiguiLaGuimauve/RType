@@ -52,13 +52,17 @@ namespace Network
     fr :La méthode getNetwork() permet de récuperer le réseau utilisé. */
     virtual ISocket				*getSocket() const = 0;
     /*!
-    en :tryConnectClient() allow the client to try the connection to a server
+    en :tryConnectClient() allow the client to try the connection to a server.
     fr :La méthode tryConnectClient() permet au client d'essayer de se connecter à un server. */
     virtual bool				tryConnectClient(const uint32_t &, const std::string &) = 0;
 	/*!
-	en :UpdateUsers() updates th user list in the manager
-	fr :La méthode UpdateUsers() met à jour la liste des utilisateurs dans le manager */
+	en :UpdateUsers() updates th user list in the manager.
+	fr :La méthode UpdateUsers() met à jour la liste des utilisateurs dans le manager. */
 	virtual void				updateUsers(std::vector<IUserNetwork *>) = 0;
+	/*!
+	en :pushToServ(message) is used to send message to the server. (DEBUG)
+	fr :La méthode pushToServ(message) sert à envoyer un message au serveur. (DEBUG) */
+	virtual void				pushToServ(const std::string &) = 0;
   };
 };
 

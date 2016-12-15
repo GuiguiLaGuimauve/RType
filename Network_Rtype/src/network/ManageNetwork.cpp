@@ -2,7 +2,7 @@
 
 using namespace Network;
 
-ManageNetwork::ManageNetwork() : _port(4242), _init(false)
+ManageNetwork::ManageNetwork() : _port(4242), _init(false), _initServ(false)
 {
 	_serv = NULL;
 }
@@ -33,7 +33,10 @@ bool			ManageNetwork::init()
 	{
 		FD_SET(_user[i]->getFd(), &fd_read);
 		if (_user[i]->haveSomethingToWrite() == true)
-		    FD_SET(_user[i]->getFd(), &fd_write);
+		{
+			std::cout << "init write: " << _user[i]->getFd() << std::endl;
+			FD_SET(_user[i]->getFd(), &fd_write);
+		}
 		i++;
 	}
 	return (true);
@@ -60,61 +63,27 @@ bool			ManageNetwork::select_it()
 
 std::vector<IUserNetwork *>	ManageNetwork::execClient()
 {
-  /*std::vector<IUserNetwork *>	newuser;
-  IUserNetwork				*u;
-  int32_t						i;
-  int32_t						add;
-  bool							canGo;
+	std::vector<IUserNetwork *>	newuser;
+	int32_t						i;
+	int32_t						add;
 
-  i = 0;
-  add = 0;
-  while (i < (int32_t)_user.size() - add)
-  {
-	  canGo = true;
-    if (_user[i]->getFd() != -1)
-      if (FD_ISSET(_user[i]->getFd(), &fd_read))
+	i = 0;
+	add = 0;
+	while (i < (int32_t)_user.size() - add)
 	{
-	  if (_user[i] != _serv)
-	    u = _user[i]->readSocket(_netCli);
-	  else
-	    u = _user[i]->readSocket(_net);
-	  if (u != NULL && u->getFd() == -1 && _user[i] != _serv && _user[i] != _tmp_serv)
-	    {
-	      deleteSocketCli();
-	      updateUser();
-	      i = 0;
-	      canGo = false;
-	    }
-	  if (canGo == true)
-	  {
-		  if (u != NULL && u->getFd() != _user[i]->getFd() && u->getFd() != -1)
-		  {
-			  IPacket *pkt = new PacketWelcomeClient(WELCOME_CLIENTM);
-			  u->pushBufferWrite(pkt->getPacketUnknown());
-			  newuser.push_back(u);
-			  add++;
-		  }
-		  else
-			  if (_user[i]->getFd() != -1)
-			  {
-				  PacketUnknown pk = _user[i]->popBufferRead();
-				  _packets->push(PacketC(pk, _user[i]));
-			  }
-	  }
-	}
-	if (canGo == true)
-		if (_user[i]->getFd() != -1)
-			if (FD_ISSET(_user[i]->getFd(), &fd_write))
+		if (_user[i]->getStatus() == true)
+			if (FD_ISSET(_user[i]->getFd(), &fd_read))
 			{
-				if (_user[i] != _serv)
-					_user[i]->writeSocket(_netCli);
-				else
-					_user[i]->writeSocket(_net);
+				_user[i]->readSocket(_net);
+				if (_user[i]->haveSomethingToRead() == true)
+					std::cout << "READ: " << _user[i]->popBufferRead() << std::endl;
 			}
-    i++;
-  }
-  return (newuser);*/
-	return (_user);
+		if (_user[i]->getStatus() == true)
+			if (FD_ISSET(_user[i]->getFd(), &fd_write))
+				_user[i]->writeSocket(_net);
+		i++;
+	}
+	return (newuser);
 }
 
 std::vector<IUserNetwork *>	ManageNetwork::execServer()
@@ -122,11 +91,9 @@ std::vector<IUserNetwork *>	ManageNetwork::execServer()
 	std::vector<IUserNetwork *>	newuser;
 	IUserNetwork				*u;
 	int32_t						i;
-	int32_t						add;
 
 	i = 0;
-	add = 0;
-	while (i < (int32_t)_user.size() - add)
+	while (i < (int32_t)_user.size())
 	  {
 		  if (_user[i]->getStatus() == true)
 			  if (FD_ISSET(_user[i]->getFd(), &fd_read))
@@ -134,19 +101,21 @@ std::vector<IUserNetwork *>	ManageNetwork::execServer()
 				  u = _user[i]->readSocket(_net);
 				  if (u != NULL && u->getFd() != _user[i]->getFd() && u->getStatus() == true)
 				  {
+					  std::cout << "adding newClient in newUser" << std::endl;
 					  u->pushBufferWrite("WELCOME ON SERVER");
+					  std::cout << "newUser size: " << newuser.size() << std::endl;
 					  newuser.push_back(u);
-					  add++;
+					  std::cout << "newUser size2: " << newuser.size() << std::endl;
 				  }
 				  else
-					  if (_user[i]->getStatus() == true)
+					  if (_user[i]->getStatus() == true && _user[i]->haveSomethingToRead() == true)
 						  std::cout << "READ: " << _user[i]->popBufferRead() << std::endl;
 			  }
 		  if (_user[i]->getStatus() == true)
 			  if (FD_ISSET(_user[i]->getFd(), &fd_write))
 				  _user[i]->writeSocket(_net);
 		  i++;
-	  }
+	}
 	return (newuser);
 }
 
@@ -205,7 +174,6 @@ bool		ManageNetwork::run(const uint32_t &port, const uint32_t &maxCl)
       e.quit();
     }
 #else
-  _init = true;
   try {
     _net = new SocketTCPUnix();
   }
@@ -218,6 +186,7 @@ bool		ManageNetwork::run(const uint32_t &port, const uint32_t &maxCl)
   if (_net->bindIt(port) == false
       || _net->listenIt(maxCl) == false)
     return (false);
+
 #ifdef _WIN32
   IUserNetwork *u = new UserNetworkTCPWindowsServer();
 #else
@@ -228,6 +197,7 @@ bool		ManageNetwork::run(const uint32_t &port, const uint32_t &maxCl)
   u->setPort(port);
   u->setStatus(true);
   _user.push_back(u);
+  std::cout << "User Network Server TCP prepared: " << _user[0]->getFd() << std::endl;
   return (true);
 }
 
@@ -245,6 +215,9 @@ bool			ManageNetwork::tryConnectClient(const uint32_t &port, const std::string &
   u->setPort(port);
   u->setStatus(true);
   _serv = u;
+  _user.push_back(u);
+  _initServ = true;
+  std::cout << "User Network Client TCP connected: " << _serv->getFd() << std::endl;
   return (true);
 }
 
@@ -256,11 +229,16 @@ ISocket		*ManageNetwork::getSocket() const
 void			ManageNetwork::updateUsers(std::vector<IUserNetwork *> user)
 {
 	uint32_t	i = 0;
-
+//	std::cout << "Update users:\nnewUser size: " << user.size() << std::endl;
+//	std::cout << "_user size: " << _user.size() << std::endl;
 	while (i < _user.size())
 	{
 		if (_user[i]->getStatus() == false)
+		{
+			std::cout << "Erase client from list: " << _user[i]->getFd() << std::endl;
+			//delete (_user[i]);
 			_user.erase(_user.begin() + i);
+		}
 		else
 			i++;
 	}
@@ -268,6 +246,24 @@ void			ManageNetwork::updateUsers(std::vector<IUserNetwork *> user)
 	while (i < user.size())
 	{
 		if (user[i]->getStatus() == true)
+		{
+			std::cout << "New user in list: " << user[i]->getFd() << std::endl;
 			_user.push_back(user[i]);
+		}
+		i++;
+	}
+}
+
+void		ManageNetwork::pushToServ(const std::string &m)
+{
+	if (_initServ == true)
+	{
+		uint32_t		i = 0;
+		while (i < _user.size())
+		{
+			if (_user[i] == _serv)
+				_serv->pushBufferWrite(m);
+			i++;
+		}
 	}
 }

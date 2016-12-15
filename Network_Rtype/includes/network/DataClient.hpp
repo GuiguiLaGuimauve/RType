@@ -18,7 +18,7 @@
 class	DataClient
 {
 public:
-  DataClient() {};
+	DataClient() { _fd = -1; };
   ~DataClient() {};
   /* La méthode getIp() const permet de récuperer l'adresse ip du client. */
   const std::string &getIp() const { return _ip; };
