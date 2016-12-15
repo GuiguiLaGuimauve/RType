@@ -136,12 +136,12 @@ void		GUI::displayGame()
       temp = _win->addWidget((1900 / 4) * i, 0, 1900 / players.size(), 100);
       temp->setText(non);
       
-      Style s = temp->getStyle();
+      Style s2 = temp->getStyle();
 
       temp = _win->addWidget(players[i].x, 100 + players[i].y, 34, 20);
-      s.image = "Ship" + std::to_string(i + 1);
-      s.policeSize = 50;
-      temp->setStyle(s);
+      s2.image = "Ship" + std::to_string(i + 1);
+      s2.policeSize = 50;
+      temp->setStyle(s2);
     }
 
   oui.x = 500;
@@ -164,11 +164,11 @@ void		GUI::displayGame()
 
       temp = _win->addWidget(shots[i].x, 100 + shots[i].y, 34, 20);
 
-      Style s = temp->getStyle();
+      Style s3 = temp->getStyle();
 
       //s.image = "Shot-" + _gameWidgets->shots[i].name;
-      s.image = "Shot-" + std::to_string(/*i + */1);
-      temp->setStyle(s);
+      s3.image = "Shot-" + std::to_string(/*i + */1);
+      temp->setStyle(s3);
     }
   
   oui.x = 1400;
@@ -182,10 +182,10 @@ void		GUI::displayGame()
       
       temp = _win->addWidget(monsters[i].x, 100 + monsters[i].y, 25, 25);
       
-      Style s = temp->getStyle();
+      Style s4 = temp->getStyle();
       
-      s.image = "Bydos";
-      temp->setStyle(s);
+      s4.image = "Bydos";
+      temp->setStyle(s4);
     }
 
 // Envs
@@ -195,11 +195,11 @@ void		GUI::displayGame()
 
       temp = _win->addWidget(envs[i].x, 100 + envs[i].y, 34, 20);
 
-      Style s = temp->getStyle();
+      Style s5 = temp->getStyle();
 
-      //s.image = "Env-" + _gameWidgets->envs[i].name;
-      s.image = "Env-" + std::to_string();
-      temp->setStyle(s);
+      //s5.image = "Env-" + _gameWidgets->envs[i].name;
+      s5.image = "Env-" + std::to_string();
+      temp->setStyle(s5);
     }*/
 }
 
@@ -219,17 +219,17 @@ void		GUI::displayStart()
   _startWidgets->button->setOnClick([](IWidget *, CLICK){std::cout << "try connect" << std::endl;});
   _startWidgets->button->setOnHover([](IWidget *w)
 				    {
-				      Style s = w->getStyle();
-				      s.backgroundColor.blue += 100;
- 				      s.backgroundColor.green += 100;
-				      w->setStyle(s);
+				      Style s2 = w->getStyle();
+				      s2.backgroundColor.blue += 100;
+ 				      s2.backgroundColor.green += 100;
+				      w->setStyle(s2);
 				    });
   _startWidgets->button->setOnLeaveHover([](IWidget *w)
 					 {
-					   Style s = w->getStyle();
-					   s.backgroundColor.blue -= 100;
-					   s.backgroundColor.green -= 100;
-					   w->setStyle(s);
+					   Style s3 = w->getStyle();
+					   s3.backgroundColor.blue -= 100;
+					   s3.backgroundColor.green -= 100;
+					   w->setStyle(s3);
 					 });
   s.form = RECTANGLE;
   s.textColor = Color(0, 0, 250);
@@ -288,34 +288,34 @@ void		GUI::displayMenu()
   _menuWidgets->confirm->setOnClick([](IWidget *, CLICK){std::cout << "Let's connect !" << std::endl;});
   _menuWidgets->confirm->setOnHover([](IWidget *w)
 				    {
-				      Style s = w->getStyle();
-				      s.backgroundColor.blue += 100;
- 				      s.backgroundColor.green += 100;
-				      w->setStyle(s);
+				      Style s2 = w->getStyle();
+				      s2.backgroundColor.blue += 100;
+ 				      s2.backgroundColor.green += 100;
+				      w->setStyle(s2);
 				    });
   _menuWidgets->confirm->setOnLeaveHover([](IWidget *w)
 					 {
-					   Style s = w->getStyle();
-					   s.backgroundColor.blue -= 100;
-					   s.backgroundColor.green -= 100;
-					   w->setStyle(s);
+					   Style s3 = w->getStyle();
+					   s3.backgroundColor.blue -= 100;
+					   s3.backgroundColor.green -= 100;
+					   w->setStyle(s3);
 					 });
 
   _menuWidgets->createGame->setText("+");
   _menuWidgets->createGame->setOnClick([](IWidget *, CLICK){std::cout << "Let's try to create a game !" << std::endl;});
   _menuWidgets->createGame->setOnHover([](IWidget *w)
 				    {
-				      Style s = w->getStyle();
-				      s.backgroundColor.blue += 100;
- 				      s.backgroundColor.green += 100;
-				      w->setStyle(s);
+				      Style s4 = w->getStyle();
+				      s4.backgroundColor.blue += 100;
+ 				      s4.backgroundColor.green += 100;
+				      w->setStyle(s4);
 				    });
   _menuWidgets->createGame->setOnLeaveHover([](IWidget *w)
 					 {
-					   Style s = w->getStyle();
-					   s.backgroundColor.blue -= 100;
-					   s.backgroundColor.green -= 100;
-					   w->setStyle(s);
+					   Style s5 = w->getStyle();
+					   s5.backgroundColor.blue -= 100;
+					   s5.backgroundColor.green -= 100;
+					   w->setStyle(s5);
 					 });
 
   // ergonomie focus
@@ -346,17 +346,17 @@ void		GUI::displayLogin()
   _loginWidgets->confirm->setOnClick([](IWidget *, CLICK){std::cout << "Let's connect !" << std::endl;});
   _loginWidgets->confirm->setOnHover([](IWidget *w)
 				    {
-				      Style s = w->getStyle();
-				      s.backgroundColor.blue += 100;
- 				      s.backgroundColor.green += 100;
-				      w->setStyle(s);
+				      Style s2 = w->getStyle();
+				      s2.backgroundColor.blue += 100;
+ 				      s2.backgroundColor.green += 100;
+				      w->setStyle(s2);
 				    });
   _loginWidgets->confirm->setOnLeaveHover([](IWidget *w)
 					 {
-					   Style s = w->getStyle();
-					   s.backgroundColor.blue -= 100;
-					   s.backgroundColor.green -= 100;
-					   w->setStyle(s);
+					   Style s3 = w->getStyle();
+					   s3.backgroundColor.blue -= 100;
+					   s3.backgroundColor.green -= 100;
+					   w->setStyle(s3);
 					 });
 
 
