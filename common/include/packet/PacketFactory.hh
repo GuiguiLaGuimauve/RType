@@ -5,12 +5,14 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 11:41:19 2016 Maxime Lecoq
-// Last update Thu Dec 15 11:43:32 2016 lecoq
+// Last update Thu Dec 15 14:33:30 2016 lecoq
 //
 
 #ifndef PACKETFACTORY_HH_
 # define PACKETFACTORY_HH_
 
+# include	<iostream>
+# include	<string>
 # include	"IPacket.hh"
 
 class	PacketFactory
