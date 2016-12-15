@@ -32,11 +32,11 @@ namespace Packet
         CONNECT			= 0x02,
         ROOMS			= 0x03,
         CREATE_GAME		= 0x04,
-        JOIN_GAME		= 0x05,
+        JOIN_ROOM		= 0x05,
         JOIN_ERROR		= 0x06,
         START_GAME		= 0x07,
         START_ERROR		= 0x08,
-        LEAVE_GAME		= 0x09,
+        LEAVE_ROOM		= 0x09,
         UDP_DATA		= 0x10,
         UDP_DATA_FREE	= 0x11,
         ROOM_DATA		= 0x12,
@@ -54,7 +54,9 @@ namespace Packet
         ENNEMIES		= 0x83,
         BACKGROUNDS		= 0x84,
         MUSIC			= 0x85,
-        SOUND			= 0x86
+        SOUND			= 0x86,
+		PING			= 0x87,
+		PONG			= 0x88
     };
 
     /*!
