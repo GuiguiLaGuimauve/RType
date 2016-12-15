@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 10:58:37 2016 Maxime Lecoq
-// Last update Thu Dec 15 10:58:57 2016 lecoq
+// Last update Thu Dec 15 15:24:51 2016 lecoq
 //
 
 #include "ManagerPacketClient.hh"

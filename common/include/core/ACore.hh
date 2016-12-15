@@ -5,14 +5,14 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:12:15 2016 Maxime Lecoq
-// Last update Fri Dec  2 15:47:12 2016 lecoq
+// Last update Thu Dec 15 15:09:35 2016 lecoq
 //
 
 #ifndef ACORE_HH_
 # define ACORE_HH_
 
 # include "ICore.hh"
-# include "IManagePacket.hh"
+# include "IPacketManager.hh"
 # include "IManageNetwork.hh"
 
 class ACore : public ICore
@@ -24,7 +24,7 @@ public:
   virtual void initManager() = 0;
   virtual void deleteManager() = 0;
 protected:
-  IManagePacket		*_pkt;
+  IPacketManager		*_pkt;
   IManageNetwork	*_tcp;
   IManageNetwork	*_udp;
   bool			_isInit;

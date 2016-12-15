@@ -5,13 +5,16 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 11:54:48 2016 Maxime Lecoq
-// Last update Thu Dec 15 11:57:49 2016 lecoq
+// Last update Thu Dec 15 15:46:47 2016 lecoq
 //
 
 #ifndef GAME_HH_
 # define GAME_HH_
 
-# include	"IELement.hh"
+# include	<iostream>
+# include	<string>
+# include	<vector>
+# include	"IElement.hh"
 # include	"IGame.hh"
 
 class Game : public IGame

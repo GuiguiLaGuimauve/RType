@@ -5,13 +5,14 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 15:50:05 2016 Maxime Lecoq
-// Last update Thu Dec 15 10:42:44 2016 lecoq
+// Last update Thu Dec 15 15:20:19 2016 lecoq
 //
 
-#ifndef MANAGERSERVER_HH_
-# define MANAGERSERER_HH_
+#ifndef MANAGERPCLIENT_HH_
+# define MANAGERPCLIENT_HH_
 
 # include "IManagerClient.hh"
+# include "IPacketManager.hh"
 
 class ManagerClient : public IManagerClient
 {
@@ -22,7 +23,7 @@ public:
   IManageNetwork        *getNetworkTCPManager() const;
   IManageNetwork        *getNetworkUDPManager() const;
   void                  deleteManager();
-  IPacketManager	*getPacketanager() const;
+  IPacketManager	*getPacketManager() const;
   IGUI			*getGUI() const;
   ISoundManager		*getSoundManager() const;
 private:
@@ -31,6 +32,8 @@ private:
   ISoundManager		*_sound;
   IPacketManager	*_pkt;
   bool			_isSet;
+  IManageNetwork	*_tcp;
+  IManageNetwork	*_udp;
 };
 
 #endif /* !MANAGER_HH_ */

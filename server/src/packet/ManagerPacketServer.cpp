@@ -5,15 +5,15 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 10:58:37 2016 Maxime Lecoq
-// Last update Thu Dec 15 10:59:30 2016 lecoq
+// Last update Thu Dec 15 15:39:35 2016 lecoq
 //
 
-#include "ManagerPacketServer.hh"
+#include "ManagePacketServer.hh"
 
-ManagerPacketServer::ManagerPacketServer()
+ManagePacketServer::ManagePacketServer()
 {
 }
 
-ManagerPacketServer::~ManagerPacketServer()
+ManagePacketServer::~ManagePacketServer()
 {
 }

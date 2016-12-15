@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 15:53:17 2016 Maxime Lecoq
-// Last update Thu Dec 15 10:47:03 2016 lecoq
+// Last update Thu Dec 15 15:37:45 2016 lecoq
 //
 
 # include	"ManagerServer.hh"
@@ -23,7 +23,7 @@ void	ManagerServer::setManager()
       _tcp = _man->getNetworkTCPManager();
       _udp = _man->getNetworkUDPManager();
       _game = new GameManager;
-      _pkt = new PacketManager;
+      _pkt = new ManagePacketServer;
     }
 }
 

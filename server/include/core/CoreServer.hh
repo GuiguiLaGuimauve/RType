@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:19:16 2016 Maxime Lecoq
-// Last update Fri Dec  2 16:09:29 2016 lecoq
+// Last update Thu Dec 15 15:31:56 2016 lecoq
 //
 
 #ifndef CORESERVER_HH_
@@ -18,7 +18,7 @@ class CoreServer : public ACore
 {
   public:
   CoreServer();
-  ~CoreServer() {};
+  ~CoreServer();
   void		run();
   void		initManager();
   void		deleteManager();

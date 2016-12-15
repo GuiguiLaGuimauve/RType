@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Thu Dec 15 14:49:09 2016 Simon BERTHO
+// Last update Thu Dec 15 15:13:07 2016 lecoq
 //
 
 #include	"CoreClient.hh"
@@ -22,7 +22,7 @@ CoreClient::~CoreClient()
 
 void CoreClient::run()
 {
-  while (1)
+  /*  while (1)
     {
       gui.callback();
       while (!_eventQueue.empty())
@@ -78,7 +78,7 @@ void CoreClient::run()
               }
             }
 	}
-    }
+    }*/
 }
 
 void CoreClient::initManager()

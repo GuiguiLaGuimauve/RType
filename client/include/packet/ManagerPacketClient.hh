@@ -5,18 +5,18 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 10:54:47 2016 Maxime Lecoq
-// Last update Thu Dec 15 10:58:12 2016 lecoq
+// Last update Thu Dec 15 15:26:58 2016 lecoq
 //
 
-#ifndef MANAGEPACKETCLIENT_HH_
-# define MANAGEPACKETCLIENT_HH_
+#ifndef MANAGERPACKETCLIENT_HH_
+# define MANAGERPACKETCLIENT_HH_
 
 # include	"AManagePacket.hh"
 
-class ManagePacketClient : public AManagePacket {
+class ManagerPacketClient : public AManagePacket {
 public:
-  ManagePacketClient();
-  ~ManagePacketClient();
+  ManagerPacketClient();
+  ~ManagerPacketClient();
 };
 
 #endif /* !MANAGEPACKETCLIENT_HH_ */

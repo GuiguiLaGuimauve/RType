@@ -5,16 +5,16 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 10:50:29 2016 Maxime Lecoq
-// Last update Thu Dec 15 14:32:08 2016 lecoq
+// Last update Thu Dec 15 15:07:57 2016 lecoq
 //
 
 #ifndef AMANAGEPACKET_HH_
 # define AMANAGEPACKET_HH_
 
-# include	"IManagePacket.hh"
+# include	"IPacketManager.hh"
 # include	"PacketFactory.hh"
 
-class	AManagePacket : public IManagePacket {
+class	AManagePacket : public IPacketManager {
 public:
   AManagePacket();
   ~AManagePacket();
