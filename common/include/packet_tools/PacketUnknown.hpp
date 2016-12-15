@@ -23,9 +23,9 @@ public:
   PacketUnknown() :  _size(0), _ok(false)  { unsigned char *data = (unsigned char *)"\0"; _data = data;};
   PacketUnknown(uint8_t *data, const int32_t &size) : _data(data), _size(size), _ok(true) {};
   ~PacketUnknown() {};
-  uint8_t	*getData() const { return (_data); };
-  int32_t	getSize() const { return (_size); };
-  bool		isValid() const { return (_ok); }
+  uint8_t	*getPacketData() const { return (_data); };
+  int32_t	getPacketSize() const { return (_size); };
+  bool		packetIsValid() const { return (_ok); }
 };
 
 #endif /* !PACKETUNKNOWN_HPP_ */

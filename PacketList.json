@@ -51,8 +51,8 @@
 			]
 		}]
 	}, {
-		"name": "CreateGame",
-		"type": "CREATE_GAME",
+		"name": "CreateRoom",
+		"type": "CREATE_ROOM",
 		"network": "tcp",
 		"arguments": [{
 			"type": "std::string",
