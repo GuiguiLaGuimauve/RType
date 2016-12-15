@@ -18,7 +18,7 @@ SocketUDPWindows::SocketUDPWindows()
 
 	if (WSAStartup(MAKEWORD(2, 2), &wsadata) != 0)
 		throw ErrorSocket("error on WSAStartup(): " + WSAGetLastError());
-	_sock = WSASocketW(AF_INET, SOCK_DGRAM, IPPROTO_UDP, NULL, 0, 0);
+	_sock = WSASocketW(AF_INET, SOCK_DGRAM, IPPROTO_UDP, NULL, 0, WSA_FLAG_OVERLAPPED);
 	if (_sock == INVALID_SOCKET)
 		throw ErrorSocket("Error on WSASocket: " + WSAGetLastError());
 }
