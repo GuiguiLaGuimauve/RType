@@ -69,16 +69,16 @@ add_definitions(-std=c++11)
 
 # add_executable for WIN32
 IF (WIN32)
-add_executable(RType_server WIN32 main.cpp ${common_src} ${server_src})
+add_executable(RType_server WIN32 ${common_src} ${server_src})
   IF (SFML_FOUND)
-  add_executable(RType WIN32 main.cpp ${common_src} ${client_src})
+  add_executable(RType WIN32 ${common_src} ${client_src})
   ENDIF (SFML_FOUND)
 ENDIF (WIN32)
 
 # add_executable for UNIX
 IF (UNIX)
-add_executable(RType main.cpp ${common_src} ${client_src})
-add_executable(RType_server main.cpp ${common_src} ${server_src})
+add_executable(RType ${common_src} ${client_src})
+add_executable(RType_server ${common_src} ${server_src})
 ENDIF (UNIX)
 
 # Set lib on Unix
