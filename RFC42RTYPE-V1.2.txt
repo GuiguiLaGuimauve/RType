@@ -149,10 +149,10 @@ Category: Limited
 	|	|		| number of player 	   |        |
 	|	|		| connected to the server  |	    |
 	|-------|---------------|--------------------------|--------|
-	| 0x04  | CREATE_GAME	| Ask the server to create | C-S    |
+	| 0x04  | CREATE_ROOM	| Ask the server to create | C-S    |
 	|	|		| to create a new game 	   |        |
 	|-------|---------------|--------------------------|--------|
-	| 0x05  | JOIN_GAME	| Ask the server to join   | C-S    |
+	| 0x05  | JOIN_ROOM	| Ask the server to join   | C-S    |
 	|	|		| a selected game 	   |        |
 	|-------|---------------|--------------------------|--------|
 	| 0x06  | JOIN_ERROR	| Error when a player try  | S-C    |
@@ -166,7 +166,7 @@ Category: Limited
 	|	|		| between TCP and UDP 	   |        |
 	|	|		| failed		   |	    |
 	|-------|---------------|--------------------------|--------|
-	| 0x09  | LEAVE_GAME	| Ask the server to quit   | C-S    |
+	| 0x09  | LEAVE_ROOM	| Ask the server to quit   | C-S    |
 	|	|		| the room	 	   |        |
 	|	|		|   			   |	    |
 	|-------|---------------|--------------------------|--------|
@@ -317,13 +317,13 @@ Category: Limited
 			uint8_t Level Stage
 		 } [] 
 	
-	Packet CREATE_GAME 	0x04 :
+	Packet CREATE_ROOM 	0x04 :
 		uint16_t Game name size
 		int8_t[] Game name
 		uint8_t  Allowed player in game
 		uint8_t  Level stage
 
-	Packet JOIN_GAME 	0x05 :
+	Packet JOIN_ROOM 	0x05 :
 		uint16_t Game name size
 		int8_t[] Game name
 		uint16_t Player name size
@@ -401,20 +401,9 @@ Category: Limited
 
 4b. UDP Packet in ID orders :
 
-	Packet LEFT 		0x20 :
-		None				
-
-	Packet LEFT 		0x21 :
-		None		
-
-	Packet RIGHT 		0x22 :
-		None
-
-	Packet TOP		0x23 :
-		None
-
-	Packet BOTTOM		0x24 :
-		None
+	Packet MOVE 		0x20 :
+		uint8_t	 Position X
+		uint8_t	 Position Y
 
 	Packet SHOOT		0x25 :
 		None
