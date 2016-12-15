@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Fri Oct 14 11:25:14 2016 julien dufrene
-// Last update Mon Nov 14 09:47:18 2016 lecoq
+// Last update Thu Dec 15 16:05:37 2016 julien dufrene
 //
 
 #ifndef _ISOCKET_HH_
@@ -30,6 +30,7 @@
 	#include <netinet/in.h>
 	#include <arpa/inet.h>
 	#include <netdb.h>
+	#include <unistd.h>
 #endif
 
 namespace Network

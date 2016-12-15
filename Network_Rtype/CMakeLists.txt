@@ -33,6 +33,6 @@ ENDIF (WIN32)
 
 IF (UNIX)
 	include_directories(includes/network/unix)
-	add_executable (rtype_server ${SRCSERV} ${SRCNET} ${SRCNETUNIX})
-	add_executable (rtype_client ${SRCCLI} ${SRCNET} ${SRCNETUNIX})
+	add_executable (rtype_server ${SRCSERV} ${SRCNET} ${SRCERR} ${SRCNETUNIX})
+	add_executable (rtype_client ${SRCCLI} ${SRCNET} ${SRCERR} ${SRCNETUNIX})
 ENDIF (UNIX)

@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Fri Oct 21 15:02:22 2016 julien dufrene
-// Last update Tue Nov 15 01:19:23 2016 lecoq
+// Last update Thu Dec 15 15:29:24 2016 julien dufrene
 //
 
 #include "UserNetworkTCPWindowsClient.hh"
@@ -24,6 +24,7 @@ IUserNetwork		*UserNetworkTCPWindowsClient::readSocket(ISocket *net)
 	DWORD			Flags;
 	char			*buffer = new char[16384];
 	
+	(void)net;
 	DataBuf.len = 16384;
 	DataBuf.buf = buffer;
 	Flags = 0;
@@ -65,11 +66,13 @@ void			UserNetworkTCPWindowsClient::writeSocket(ISocket *net)
 	std::string		write = "";
 
 	std::cout << "Write: ";
-	write = buff_w.pop();
+	write = buff_w.front();
 	std::cout << "[" << write << "]" << std::endl;
 	DataBuf.len = write.size();
 	DataBuf.buf = (char *)write.c_str();
 	Flags = 0;
 	if ((nb = WSASend(_fd, &DataBuf, 1, &SendBytes, 0, NULL, NULL)) == SOCKET_ERROR || write.size() != SendBytes)
 	  std::cerr << "Error on WSASend: " << WSAGetLastError() << std::endl;
+	else
+	  buff_w.pop();
 }

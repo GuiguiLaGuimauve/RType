@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 //
 // Started on  Fri Oct 14 11:25:14 2016 julien dufrene
-// Last update Mon Nov 14 09:47:18 2016 lecoq
+// Last update Thu Dec 15 16:06:40 2016 julien dufrene
 //
 
 #ifndef _SocketUDPUnix_HH_
@@ -15,24 +15,20 @@
 
 namespace Network
 {
-	/* La classe SocketUDPUnix d�finit les m�thodes des classes Socket UDP sp�cifiques � Unix. */
-	class		SocketUDPUnix : public ASocketUDP {
-	public:
-		SocketUDPUnix();
-		virtual ~SocketUDPUnix() {};
-		/* La m�thode createIt() permet de cr�� une socket */
-		bool		createIt();
-		/* La m�thode bindIt(const uint32_t &) permet de bind le port du socket. */
-		bool		bindIt(const uint32_t &);
-		/* La m�thode listenIt(const uint32_t &) permet d'�couter sur le socket. */
-		bool		listenIt(const uint32_t &)
-		/* La m�thode getFdSocket() permet de r�cup�rer le descripteur de la socket. */
-		int32_t		getFdSocket() const;
-		/* La m�thode closeIt() permet de fermer la socket */
-		bool		closeIt();
-	private:
-		SOCKET		_sock;
-	};
+  /* La classe SocketUDPUnix définit les méthodes des classes Socket UDP spécifiques à Unix. */
+  class		SocketUDPUnix : public ASocketUDP {
+  public:
+    SocketUDPUnix();
+    virtual ~SocketUDPUnix();
+    /* La méthode bindIt(const uint32_t &) permet de bind le port du socket. */
+    bool		bindIt(const uint32_t &);
+    /* La méthode getFdSocket() permet de récupérer le descripteur de la socket. */
+    int32_t		getFdSocket() const;
+    /* La méthode closeIt() permet de fermer la socket */
+    bool		closeIt();
+  private:
+    int32_t		_sock;
+  };
 };
 
 #endif

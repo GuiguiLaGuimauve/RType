@@ -4,7 +4,7 @@
 // Login   <dufren_b@epitech.net>
 //
 // Started on  Fri Dec 02 15:02:22 2016 julien dufrene
-// Last update Fri Dec 03 01:33:55 2016 julien dufrene
+// Last update Thu Dec 15 15:31:43 2016 julien dufrene
 //
 
 #include "UserNetworkTCPWindowsServer.hh"
@@ -17,11 +17,7 @@ UserNetworkTCPWindowsServer::~UserNetworkTCPWindowsServer() {}
 
 IUserNetwork		*UserNetworkTCPWindowsServer::readSocket(ISocket *net)
 {
-#ifdef _WIN32
-	IUserNetwork		*u = new UserNetworkTCPWindowsClient();
-#else
-	IUserNetwork		*u = new UserNetworkTCPUnixClient();
-#endif
+  IUserNetwork		*u = new UserNetworkTCPWindowsClient();
   DataClient		data;
 
   std::cout << "Accepting client..." << std::endl;

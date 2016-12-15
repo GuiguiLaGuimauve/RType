@@ -4,7 +4,7 @@ using namespace Network;
 
 SocketTCPWindows::SocketTCPWindows()
 {
-	WSADATA				wsadata;
+	WSADATA			wsadata;
 	bool			reuse = true;
 
 	if (WSAStartup(MAKEWORD(2, 2), &wsadata) != 0)
