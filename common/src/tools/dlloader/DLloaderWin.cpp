@@ -5,7 +5,7 @@
 // Login   <rembur_g@epitech.eu>
 //
 // Started on  Thu Dec 15 15:28:04 2016 La Guimauve
-// Last update Thu Dec 15 15:57:55 2016 La Guimauve
+// Last update Thu Dec 15 16:42:07 2016 La Guimauve
 //
 
 #ifdef _WIN32
@@ -55,9 +55,6 @@ bool DLloaderWin<T>::loadandextract(const std:string &path, const std::string &f
       std::cerr << "Could not load DLL \"" << path << "\"" << std::endl;
       throw std::runtime("Library not found in the directory");
     }
-
-    if (this->_lib == NULL)
-      throw std::runtime("No lib loaded")
 
     this->_extract = GetProcAddress(this->_lib, func.c_str());
     if (!this->_extract)

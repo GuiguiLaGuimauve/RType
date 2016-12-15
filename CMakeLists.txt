@@ -6,6 +6,7 @@ set(CMAKE_AUTOMOC ON)
 
 cmake_policy(SET CMP0015 NEW)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
+set(CMAKE_SUPPRESS_REGENERATION true)
 
 ############################################
 #                   SFML                   #
