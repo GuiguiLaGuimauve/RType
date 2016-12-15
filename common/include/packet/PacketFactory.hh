@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 11:41:19 2016 Maxime Lecoq
-// Last update Thu Dec 15 14:33:30 2016 lecoq
+// Last update Thu Dec 15 17:31:46 2016 lecoq
 //
 
 #ifndef PACKETFACTORY_HH_
@@ -13,16 +13,26 @@
 
 # include	<iostream>
 # include	<string>
+# include	<map>
 # include	"IPacket.hh"
 
 class	PacketFactory
 {
 public:
+  //  template<typename ... Args>
+  typedef IPacket *(PacketFactory::*ptrPacket)(/*Args ...*/);
   PacketFactory();
   ~PacketFactory();
-  IPacket	*getPacket(const std::string &) const;
-  IPacket	*getPacket(const IPacket::PacketType &) const;
+  //template<typename ... Args>
+  IPacket	*getPacket(const std::string &/*, Args ...*/) const;
+  //  template<typename ... Args>
+  IPacket	*getPacket(const IPacket::PacketType &/*, Args ...*/) const;
   void		getPacket(const uint8_t *) const;
+  void		enable(const std::string &);
+private:
+  std::map<std::string, ptrPacket>		_mapData;
+  std::map<IPacket::PacketType, std::string>	_mapConverter;
+  std::map<std::string, ptrPacket>		_ptr;
 };
 
 #endif /* !PACKETFACTORY_HH_ */

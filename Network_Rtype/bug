@@ -1,0 +1,5 @@
+sur windows:
+    - peut etre que le programme quitte parce qu'il n'y a plus de socket disponible
+    - sur unix socket fais le flag WSA_FLAG_OVERLAPPED par défaut --> à rajouté!
+      |--> voir https://msdn.microsoft.com/en-us/library/windows/desktop/ms742212(v=vs.85).aspx
+      |--> rubrique remarque.
