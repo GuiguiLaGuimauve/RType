@@ -41,6 +41,8 @@ include_directories(common/include/tools)
 
 include_directories(client/include/packet)
 include_directories(client/include/core)
+include_directories(client/include/GUI)
+include_directories(client/include/Event)
 
 include_directories(server/include/packet)
 include_directories(server/include/core)
