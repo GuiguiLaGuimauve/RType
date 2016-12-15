@@ -33,9 +33,22 @@ set(CMAKE_C_FLAGS ${CMAKE_C_FLAGS} "-pthread")
 
 # Include common
 include_directories(common/include/packet)
+include_directories(common/include/core)
+include_directories(common/include/game)
+include_directories(common/include/network)
 include_directories(common/include/packet_data)
 include_directories(common/include/packet_tools)
 include_directories(common/include/tools)
+
+include_directories(client/include/packet)
+include_directories(client/include/core)
+include_directories(client/include/GUI)
+include_directories(client/include/GUI/Audio)
+include_directories(client/include/Event)
+
+include_directories(server/include/packet)
+include_directories(server/include/core)
+include_directories(server/include/game)
 
 # Files Common
 FILE (GLOB_RECURSE common_src "common/src/*.cpp")
@@ -87,4 +100,5 @@ ENDIF (WIN32)
 
 # Link librairies
   target_link_libraries(RType_server ${CMAKE_THREAD_LIBS_INIT})
+  target_link_libraries(RType ${CMAKE_THREAD_LIBS_INIT})
   #target_link_libraries(RType ${SFML_LIBRARIES})
