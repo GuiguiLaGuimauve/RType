@@ -7,6 +7,7 @@
 #include <iostream>
 #include <cctype>
 #include <cstdio>
+#include <stdlib.h>
 
 #include "IGUI.hh"
 
@@ -22,6 +23,16 @@ namespace Gui
   class GUI: public IGUI
   {
   protected:
+
+    struct	data
+    {
+      int x = 50;
+      int y = 50;
+      int health = 100;
+      //char *name = "1";
+      int	type = 1;
+    };
+
     struct Start
     {
       IWidget	*imput = NULL;
@@ -48,6 +59,35 @@ namespace Gui
 
     struct Game
     {
+      uint8_t			levelId;
+      IWidget			*layout = NULL;
+      //std::vector<IWidget>	*entities = NULL;
+      //std::vector<Shoot>	shootsVector;
+      /*
+	char	*name;
+	uint8_t	x;
+	uint8_t	y;
+       */
+      //std::vector<Player>	playerVector;
+      /*
+	uint8_t id;
+	uint8_t	x;
+	uint8_t	y;
+	uint8_t	health;
+       */
+      //std::vector<Monster>	monsterVector;
+      /*
+	uint8_t	type;
+	uint8_t	x;
+	uint8_t	y;
+       */
+      //std::vector<Environment>	envVector;
+      /*
+	uint8_t	type;
+	uint8_t	x;
+	uint8_t	y;
+       */
+      //Music Packet ?
     };
   public:
     GUI();
@@ -77,6 +117,11 @@ namespace Gui
     Login	*_loginWidgets = NULL;
     Menu	*_menuWidgets = NULL;
     Game	*_gameWidgets = NULL;
+    // Map de musique ?
+    std::vector<data>	players;
+    std::vector<data>	shots;
+    std::vector<data>	envs;
+    std::vector<data>	monsters;
   };
 }
 

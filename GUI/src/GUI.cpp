@@ -27,7 +27,7 @@ GUI::GUI()
   // display init
   //displayStart();
   //displayLogin();
-  displayMenu();
+  displayGame();
 }
 
 GUI::~GUI()
@@ -98,8 +98,109 @@ void		GUI::callback()
 void		GUI::displayGame()
 {
   /* Load le bon background en fonction du stage séléctionné */
-
   _gameWidgets = new Game;
+
+  //this->_gameWidgets->levelId = ...
+  _win->setBackground("background1.jpg");
+  //_win->setBackground(this->backgroundMap[this->_gameWidgets->levelId]);// Ou on pourrait set le levelId ?
+  _gameWidgets->layout = _win->addWidget(0, 0, 1900, 100);
+
+  Style		s = _gameWidgets->layout->getStyle();;
+  s.form = RECTANGLE;
+  s.textColor = Color(0, 0, 250);
+  s.backgroundColor = Color(250, 0, 0);
+  _gameWidgets->layout->setStyle(s);
+
+  struct data oui;
+
+  this->players.push_back(oui);
+  oui.x = 150;
+  oui.y = 150;
+  oui.health = 75;
+  this->players.push_back(oui);
+  oui.x = 300;
+  oui.y = 300;
+  oui.health = 50;
+  this->players.push_back(oui);
+  oui.x = 450;
+  oui.y = 450;
+  oui.health = 25;
+  this->players.push_back(oui);
+
+  //PLAYERS
+  for (int i = 0; i < players.size(); i++)
+    {
+      IWidget *temp;
+      std::string non = "Player" + std::to_string(i) + "\n\t" + std::to_string(players[i].health) + "HP";
+      
+      temp = _win->addWidget((1900 / 4) * i, 0, 1900 / players.size(), 100);
+      temp->setText(non);
+      
+      Style s = temp->getStyle();
+
+      temp = _win->addWidget(players[i].x, 100 + players[i].y, 34, 20);
+      s.image = "Ship" + std::to_string(i + 1);
+      s.policeSize = 50;
+      temp->setStyle(s);
+    }
+
+  oui.x = 500;
+  oui.y = 50;
+  this->shots.push_back(oui);
+  oui.x = 550;
+  oui.y = 150;
+  this->shots.push_back(oui);
+  oui.x = 550;
+  oui.y = 300;
+  this->shots.push_back(oui);
+  oui.x = 650;
+  oui.y = 450;
+  this->shots.push_back(oui);
+
+  //SHOTS
+  for (int i = 0; i < shots.size(); i++)
+    {
+      IWidget *temp;
+
+      temp = _win->addWidget(shots[i].x, 100 + shots[i].y, 34, 20);
+
+      Style s = temp->getStyle();
+
+      //s.image = "Shot-" + _gameWidgets->shots[i].name;
+      s.image = "Shot-" + std::to_string(/*i + */1);
+      temp->setStyle(s);
+    }
+  
+  oui.x = 1400;
+  oui.y = 30;
+  this->monsters.push_back(oui);  
+
+  // MONSTERS
+  for (int i = 0; i < monsters.size(); i++)
+    {
+      IWidget *temp;
+      
+      temp = _win->addWidget(monsters[i].x, 100 + monsters[i].y, 25, 25);
+      
+      Style s = temp->getStyle();
+      
+      s.image = "Bydos";
+      temp->setStyle(s);
+    }
+
+// Envs
+/*for (int i = 0; i < envs.size(); i++)
+    {
+      IWidget *temp;
+
+      temp = _win->addWidget(envs[i].x, 100 + envs[i].y, 34, 20);
+
+      Style s = temp->getStyle();
+
+      //s.image = "Env-" + _gameWidgets->envs[i].name;
+      s.image = "Env-" + std::to_string();
+      temp->setStyle(s);
+    }*/
 }
 
 void		GUI::displayStart()

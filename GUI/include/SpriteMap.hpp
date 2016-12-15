@@ -5,7 +5,7 @@
 // Login   <oger_a@epitech.net>
 // 
 // Started on  Fri Dec  2 15:23:46 2016 Antonin Oger
-// Last update Sun Dec  4 22:13:53 2016 Antonin Oger
+// Last update Thu Dec 15 15:24:53 2016 Antonin Oger
 //
 
 #ifndef _SPRITEMAP_HPP_
@@ -27,6 +27,7 @@ public:
     /*		LOAD	THE	TEXTURES	*/
     /********************************************/
     LoadTexture("Assets/r-typesheet42.gif", "Ships");
+    LoadTexture("Assets/r-typesheet1.gif", "Shots");
     LoadTexture("Assets/r-typesheet3.gif", "PowerUp1");
     LoadTexture("Assets/r-typesheet30.gif", "Bydos");
     LoadTexture("Assets/r-typesheet20.gif", "Enemy7");
@@ -39,8 +40,12 @@ public:
     /*		LOAD	THE	SPRITES		*/
     /********************************************/
     LoadSpriteFromTexture("Ships", "Ship1", 0, 0, 34, 20, 3, 3);
+    LoadSpriteFromTexture("Ships", "Ship2", 0, 17, 34, 20, 3, 3);
+    LoadSpriteFromTexture("Ships", "Ship3", 0, 34, 34, 20, 3, 3);
+    LoadSpriteFromTexture("Ships", "Ship4", 0, 51, 34, 20, 3, 3);
+    LoadSpriteFromTexture("Shots", "Shot-1", 218, 133, 47, 18, 3, 3);
     LoadSpriteFromTexture("PowerUp1", "SpherePowerUp", 0, 0, 34, 20, 3, 3);
-    LoadSpriteFromTexture("Bydos", "Bydos", 0, 0, 34, 20, 3, 3);
+    LoadSpriteFromTexture("Bydos", "Bydos", 20, 0, 160, 210, 3, 3);
     LoadSpriteFromTexture("Enemy7", "Enemy7", 0, 0, 34, 20, 3, 3);
     LoadSpriteFromTexture("Enemy8", "Enemy8", 0, 0, 34, 20, 3, 3);
     LoadSpriteFromTexture("Boss2", "Boss2", 0, 0, 34, 20, 3, 3);
@@ -87,7 +92,7 @@ public:
   {
     if (name != "")
       if (_spriteMap.find(name) == _spriteMap.end())
-	std::cerr << "Sprite not found." << std::endl;
+	std::cerr << "Sprite \""<< name << "\" not found." << std::endl;
     return (_spriteMap[name]);
   };
 
