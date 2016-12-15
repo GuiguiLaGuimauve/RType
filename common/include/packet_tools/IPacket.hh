@@ -54,7 +54,9 @@ namespace Packet
         ENNEMIES		= 0x83,
         BACKGROUNDS		= 0x84,
         MUSIC			= 0x85,
-        SOUND			= 0x86
+        SOUND			= 0x86,
+		PING			= 0x87,
+		PONG			= 0x88
     };
 
     /*!

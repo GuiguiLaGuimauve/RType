@@ -304,5 +304,15 @@
 			"type": "std::string",
 			"name": "sound"
 		}]
+	}, {
+		"name": "ping",
+		"type": "PING",
+		"network": "udp",
+		"arguments": []
+	}, {
+		"name": "pong",
+		"type": "PONG",
+		"network": "udp",
+		"arguments": []
 	}
 ]
