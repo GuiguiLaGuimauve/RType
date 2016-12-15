@@ -101,4 +101,4 @@ ENDIF (WIN32)
 # Link librairies
   target_link_libraries(RType_server ${CMAKE_THREAD_LIBS_INIT})
   target_link_libraries(RType ${CMAKE_THREAD_LIBS_INIT})
-  #target_link_libraries(RType ${SFML_LIBRARIES})
+  target_link_libraries(RType ${SFML_LIBRARIES})

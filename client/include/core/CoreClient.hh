@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:19:16 2016 Maxime Lecoq
-// Last update Thu Dec 15 15:13:55 2016 lecoq
+// Last update Thu Dec 15 16:50:06 2016 lecoq
 //
 
 #ifndef CORECLIENT_HH_
@@ -29,6 +29,7 @@ private:
   IManagerClient	*_manager;
   IGUI		*_gui;
   ISoundManager *_sound;
+  //  IEventQueue	*_eventQueue;
 };
 
 #endif /* !CORECLIENT_HH_ */

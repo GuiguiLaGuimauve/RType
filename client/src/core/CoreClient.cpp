@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Thu Dec 15 15:13:07 2016 lecoq
+// Last update Thu Dec 15 16:50:03 2016 lecoq
 //
 
 #include	"CoreClient.hh"
@@ -22,9 +22,9 @@ CoreClient::~CoreClient()
 
 void CoreClient::run()
 {
-  /*  while (1)
+  /*while (1)
     {
-      gui.callback();
+      _gui->callback();
       while (!_eventQueue.empty())
         {
           auto e = _eventQueue.pop();
@@ -78,7 +78,7 @@ void CoreClient::run()
               }
             }
 	}
-    }*/
+	}*/
 }
 
 void CoreClient::initManager()
@@ -91,6 +91,7 @@ void CoreClient::initManager()
    _udp = _manager->getNetworkUDPManager();
    _gui = _manager->getGUI();
    _sound = _manager->getSoundManager();
+   //_eventQueue = _gui->getEventQueue();
 }
 
 void CoreClient::deleteManager()
