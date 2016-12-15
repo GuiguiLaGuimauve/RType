@@ -3,14 +3,14 @@
 //
 
 #include <iostream>
-#include "PacketLeaveGame.hh"
+#include "PacketJoinRoom.hh"
 
-PacketLeaveGame::PacketLeaveGame(const std::string & gameName, const std::string & playerName)
+PacketJoinRoom::PacketJoinRoom(const std::string & gameName, const std::string & playerName)
 {
 	PacketSerializer ps;
 	uint32_t dataPacketSize = 0;
 
-	_type = IPacket::PacketType::LEAVE_GAME;
+	_type = IPacket::PacketType::JOIN_ROOM;
 	_tickId = 0;
 	_gameName = gameName;
 	_playerName = playerName;
@@ -27,12 +27,12 @@ PacketLeaveGame::PacketLeaveGame(const std::string & gameName, const std::string
 	_size = dataPacketSize;
 }
 
-PacketLeaveGame::PacketLeaveGame(const uint8_t *data)
+PacketJoinRoom::PacketJoinRoom(const uint8_t *data)
 {
 	PacketDeserializer pd(data);
 	uint32_t posInPacket = 0;
 
-	_type = IPacket::PacketType::LEAVE_GAME;
+	_type = IPacket::PacketType::JOIN_ROOM;
 	_size = pd.getPacketSize();
 	_tickId = pd.getPacketTickId();
 
@@ -47,26 +47,26 @@ PacketLeaveGame::PacketLeaveGame(const uint8_t *data)
 	posInPacket += 2 + pd.get16(posInPacket);
 }
 
-PacketLeaveGame::~PacketLeaveGame()
+PacketJoinRoom::~PacketJoinRoom()
 {
 }
 
-std::string PacketLeaveGame::getGameName() const
+std::string PacketJoinRoom::getGameName() const
 {
 	return (_gameName);
 }
 
-std::string PacketLeaveGame::getPlayerName() const
+std::string PacketJoinRoom::getPlayerName() const
 {
 	return (_playerName);
 }
 
-bool PacketLeaveGame::isTcp() const
+bool PacketJoinRoom::isTcp() const
 {
 	return (true);
 }
 
-bool PacketLeaveGame::isUdp() const
+bool PacketJoinRoom::isUdp() const
 {
 	return (false);
 }

@@ -11,6 +11,7 @@ PacketLeaveRoom::PacketLeaveRoom(const std::string & gameName, const std::string
 	uint32_t dataPacketSize = 0;
 
 	_type = IPacket::PacketType::LEAVE_ROOM;
+	_tickId = 0;
 	_gameName = gameName;
 	_playerName = playerName;
 
@@ -33,6 +34,11 @@ PacketLeaveRoom::PacketLeaveRoom(const uint8_t *data)
 
 	_type = IPacket::PacketType::LEAVE_ROOM;
 	_size = pd.getPacketSize();
+	_tickId = pd.getPacketTickId();
+
+	_data = new uint8_t[_size];
+	for (uint32_t a = 0; a < _size; a++)
+		_data[a] = data[a + 9];
 
 	_gameName = pd.getString(posInPacket + 2, pd.get16(posInPacket));
 	posInPacket += 2 + pd.get16(posInPacket);
@@ -53,4 +59,14 @@ std::string PacketLeaveRoom::getGameName() const
 std::string PacketLeaveRoom::getPlayerName() const
 {
 	return (_playerName);
+}
+
+bool PacketLeaveRoom::isTcp() const
+{
+	return (true);
+}
+
+bool PacketLeaveRoom::isUdp() const
+{
+	return (false);
 }

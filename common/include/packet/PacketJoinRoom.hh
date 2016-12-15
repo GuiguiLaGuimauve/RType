@@ -2,8 +2,8 @@
 // This file was auto-generated, please do not edit it !
 //
 
-#ifndef __PACKETJOINGAME_HH__
-#define __PACKETJOINGAME_HH__
+#ifndef __PACKETJOINROOM_HH__
+#define __PACKETJOINROOM_HH__
 
 #include <stdint.h>
 #include <string>
@@ -11,12 +11,12 @@
 
 namespace Packet {
 
-	class PacketJoinGame : public APacket {
+	class PacketJoinRoom : public APacket {
 
 	public:
-		PacketJoinGame(const std::string & gameName, const std::string & playerName);
-		PacketJoinGame(const uint8_t *data);
-		~PacketJoinGame();
+		PacketJoinRoom(const std::string & gameName, const std::string & playerName);
+		PacketJoinRoom(const uint8_t *data);
+		~PacketJoinRoom();
 
 		std::string getGameName() const;
 		std::string getPlayerName() const;

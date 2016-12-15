@@ -65,8 +65,8 @@
 			"name": "level"
 		}]
 	}, {
-		"name": "JoinGame",
-		"type": "JOIN_GAME",
+		"name": "JoinRoom",
+		"type": "JOIN_ROOM",
 		"network": "tcp",
 		"arguments": [{
 			"type": "std::string",
@@ -103,8 +103,8 @@
 			"name": "gameName"
 		}]
 	}, {
-		"name": "LeaveGame",
-		"type": "LEAVE_GAME",
+		"name": "LeaveRoom",
+		"type": "LEAVE_ROOM",
 		"network": "tcp",
 		"arguments": [{
 			"type": "std::string",
