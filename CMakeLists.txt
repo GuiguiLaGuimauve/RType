@@ -36,6 +36,8 @@ include_directories(common/include/packet)
 include_directories(common/include/core)
 include_directories(common/include/game)
 include_directories(common/include/network)
+include_directories(common/include/network/unix)
+include_directories(common/include/network/windows)
 include_directories(common/include/packet_data)
 include_directories(common/include/packet_tools)
 include_directories(common/include/tools)
@@ -51,7 +53,13 @@ include_directories(server/include/core)
 include_directories(server/include/game)
 
 # Files Common
-FILE (GLOB_RECURSE common_src "common/src/*.cpp")
+FILE (GLOB COMMONCORE "common/src/core/*.cpp")
+FILE (GLOB COMMONTPACKET "common/src/packet/*.cpp")
+FILE (GLOB COMMONPACKETT "common/src/packet_tools/*.cpp")
+FILE (GLOB COMMONTOOLS "common/src/packet/tools/*.cpp")
+FILE (GLOB COMMONNETWORK "common/src/packet/network/*.cpp")
+FILE (GLOB COMMONNETWORKUNIX "common/src/packet/network/unix/*.cpp")
+FILE (GLOB COMMONNETWORKWIN "common/src/packet/network/windows/*.cpp")
 
 # Files Server
 FILE (GLOB_RECURSE server_src "server/src/*.cpp")
@@ -69,16 +77,16 @@ add_definitions(-std=c++11)
 
 # add_executable for WIN32
 IF (WIN32)
-add_executable(RType_server WIN32 ${common_src} ${server_src})
+  add_executable(RType_server WIN32 ${COMMONCORE} ${COMMONPACKET} ${COMMONPACKETT} ${COMMONTOOLS} ${COMMONNETWORK} ${COMMONNETWORKWIN} ${server_src})
   IF (SFML_FOUND)
-  add_executable(RType WIN32 ${common_src} ${client_src})
+  add_executable(RType WIN32 ${COMMONCORE} ${COMMONPACKET} ${COMMONPACKETT} ${COMMONTOOLS} ${COMMONNETWORK} ${COMMONNETWORKWIN} ${client_src})
   ENDIF (SFML_FOUND)
 ENDIF (WIN32)
 
 # add_executable for UNIX
 IF (UNIX)
-add_executable(RType ${common_src} ${client_src})
-add_executable(RType_server ${common_src} ${server_src})
+add_executable(RType ${COMMONCORE} ${COMMONPACKET} ${COMMONPACKETT} ${COMMONTOOLS} ${COMMONNETWORK} ${COMMONNETWORKUNIX} ${client_src})
+add_executable(RType_server ${COMMONCORE} ${COMMONPACKET} ${COMMONPACKETT} ${COMMONTOOLS} ${COMMONNETWORK} ${COMMONNETWORKUNIX} ${server_src})
 ENDIF (UNIX)
 
 # Set lib on Unix
