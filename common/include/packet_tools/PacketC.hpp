@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Sat Nov 12 09:39:16 2016 Maxime Lecoq
-// Last update Thu Dec 15 14:31:43 2016 lecoq
+// Last update Thu Dec 15 18:17:00 2016 lecoq
 //
 
 #ifndef PACKET_HPP_
@@ -14,6 +14,8 @@
 # include	<cstdlib>
 # include	"IUserNetwork.hh"
 # include	"PacketUnknown.hpp"
+
+using namespace Network;
 
 class	PacketC
 {
