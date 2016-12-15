@@ -29,7 +29,7 @@ endif()
 ############################################
 
 find_package(Threads)
-
+set(CMAKE_C_FLAGS ${CMAKE_C_FLAGS} "-pthread")
 
 # Include common
 include_directories(common/include/packet)
