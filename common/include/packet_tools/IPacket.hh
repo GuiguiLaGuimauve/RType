@@ -31,7 +31,7 @@ namespace Packet
         WELCOME			= 0x01,
         CONNECT			= 0x02,
         ROOMS			= 0x03,
-        CREATE_GAME		= 0x04,
+        CREATE_ROOM		= 0x04,
         JOIN_ROOM		= 0x05,
         JOIN_ERROR		= 0x06,
         START_GAME		= 0x07,
