@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Fri Dec  2 15:40:31 2016 lecoq
+// Last update Fri Dec  2 15:54:52 2016 lecoq
 //
 
 CoreServer::CoreServer()
@@ -38,4 +38,5 @@ void CoreServer::deleteManager()
  if (_isInit == true)
    _manager->deleteManager();
    delete _manager;
+   _isInit = false;
 }
