@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Thu Dec 15 15:13:57 2016 julien dufrene
-// Last update Thu Dec 15 15:13:58 2016 julien dufrene
+// Last update Thu Dec 15 16:27:56 2016 julien dufrene
 //
 
 #include "SocketUDPWindows.hh"
@@ -15,15 +15,12 @@ using namespace Network;
 SocketUDPWindows::SocketUDPWindows()
 {
 	WSADATA				wsadata;
-	bool				reuse = true;
 
 	if (WSAStartup(MAKEWORD(2, 2), &wsadata) != 0)
 		throw ErrorSocket("error on WSAStartup(): " + WSAGetLastError());
 	_sock = WSASocketW(AF_INET, SOCK_DGRAM, IPPROTO_UDP, NULL, 0, 0);
 	if (_sock == INVALID_SOCKET)
 		throw ErrorSocket("Error on WSASocket: " + WSAGetLastError());
-	if (setsockopt(_sock, SOL_SOCKET, SO_REUSEADDR, (char *)&reuse, sizeof(bool)) == SOCKET_ERROR)
-		throw ErrorSocket("Error on Setsockopt: " + WSAGetLastError());
 }
 
 bool				SocketUDPWindows::bindIt(const uint32_t &port)

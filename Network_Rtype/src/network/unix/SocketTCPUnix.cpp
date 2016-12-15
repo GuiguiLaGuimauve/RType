@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 //
 // Started on  Fri Oct 14 11:10:10 2016 julien dufrene
-// Last update Thu Dec 15 16:05:07 2016 julien dufrene
+// Last update Thu Dec 15 16:36:04 2016 julien dufrene
 //
 
 #include "SocketTCPUnix.hh"
@@ -15,16 +15,20 @@ using namespace Network;
 SocketTCPUnix::SocketTCPUnix()
 {
   struct protoent	*proto;
-  bool			reuse = true;
+  int			reuse;
 
   _sock = -1;
+  reuse = 1;
   proto = getprotobyname("TCP");
   if (!proto)
     throw ErrorSocket("Error on Getprotobyname()");
   if ((_sock = socket(AF_INET, SOCK_STREAM, proto->p_proto)) == -1)
     throw ErrorSocket("Error on Socket()");
-  if (setsockopt(_sock, SOL_SOCKET, SO_REUSEADDR, (char *)&reuse, sizeof(bool)) == -1)
-    throw ErrorSocket("Error on Setsockopt()");
+  if (setsockopt(_sock, SOL_SOCKET, SO_REUSEADDR, &reuse, sizeof(reuse)) == -1)
+    {
+      closeIt();
+      throw ErrorSocket("Error on Setsockopt()");
+    }
 }
 
 int32_t			SocketTCPUnix::getFdSocket() const

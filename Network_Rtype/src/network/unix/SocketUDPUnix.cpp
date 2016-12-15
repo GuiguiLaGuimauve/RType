@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 //
 // Started on  Fri Oct 14 11:10:10 2016 julien dufrene
-// Last update Thu Dec 15 16:06:23 2016 julien dufrene
+// Last update Thu Dec 15 16:27:49 2016 julien dufrene
 //
 
 #include "SocketUDPUnix.hh"
@@ -15,7 +15,6 @@ using namespace Network;
 SocketUDPUnix::SocketUDPUnix()
 {
   struct protoent	*proto;
-  bool			reuse = true;
 
   _sock = -1;
   proto = getprotobyname("UDP");
@@ -23,8 +22,6 @@ SocketUDPUnix::SocketUDPUnix()
     throw ErrorSocket("Error on Getprotobyname()");
   if ((_sock = socket(AF_INET, SOCK_DGRAM, proto->p_proto)) == -1)
     throw ErrorSocket("Error on Socket()");
-  if (setsockopt(_sock, SOL_SOCKET, SO_REUSEADDR, (char *)&reuse, sizeof(bool)) == -1)
-    throw ErrorSocket("Error on Setsockopt()");
 }
 
 int32_t			SocketUDPUnix::getFdSocket() const

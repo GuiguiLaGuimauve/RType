@@ -13,7 +13,10 @@ SocketTCPWindows::SocketTCPWindows()
 	if (_sock == INVALID_SOCKET)
 		throw ErrorSocket("Error on WSASocket: " + WSAGetLastError());
 	if (setsockopt(_sock, SOL_SOCKET, SO_REUSEADDR, (char *)&reuse, sizeof(bool)) == SOCKET_ERROR)
+	{
+		closeIt();
 		throw ErrorSocket("Error on Setsockopt: " + WSAGetLastError());
+	}
 }
 
 bool				SocketTCPWindows::bindIt(const uint32_t &port)
