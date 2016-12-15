@@ -6,7 +6,7 @@ using namespace Gui;
 Widget::Widget(sf::RenderWindow *w, int x, int y, int width, int height, const std::string &text):
   _win(w), _x(x), _y(y), _width(width), _height(height), _text(text),
   _ptrClick(NULL), _ptrFocus(NULL), _ptrLeaveFocus(NULL),
-  _ptrHover(NULL), _ptrLeaveHover(NULL), _eventQueue(NULL), _ptrText(NULL)
+  _ptrHover(NULL), _ptrLeaveHover(NULL), _ptrText(NULL), _eventQueue(NULL)
 {
   _font.loadFromFile("font/arial.ttf");
   setStyle(_style);

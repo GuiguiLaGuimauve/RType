@@ -36,9 +36,11 @@ void		GuiEventManager::callback()
 	      case sf::Mouse::Right : click = CLICK_RIGHT;
 	      case sf::Mouse::Left : click = CLICK_LEFT;
 	      case sf::Mouse::Middle: click = CLICK_WHEEL;
+	      default : click = -1;
 	      }
-	    _queue->push(EventPart::Event(EventPart::Event::CLICK, "X", event.mouseButton.x,
-					  "Y", event.mouseButton.y, "CLICK", click));
+	    if (click != -1)
+	      _queue->push(EventPart::Event(EventPart::Event::CLICK, "X", event.mouseButton.x,
+					    "Y", event.mouseButton.y, "CLICK", click));
 	    break;
 	  }
 	case sf::Event::MouseMoved :
@@ -65,6 +67,8 @@ void		GuiEventManager::callback()
 	      }
 	    break;
 	  }
+	default :
+	  ;
 	}
     }
 }
