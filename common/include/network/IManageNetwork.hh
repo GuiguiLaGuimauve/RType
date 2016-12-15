@@ -5,12 +5,15 @@
 ** Login   <lecoq_m@epitech.net>
 **
 ** Started on  Mon Oct 17 13:11:20 2016 Maxime Lecoq
-// Last update Mon Nov 14 20:15:34 2016 lecoq
+// Last update Thu Dec 15 17:56:17 2016 lecoq
 */
 
 #ifndef		__IMANAGENETWORK_HH__
 #define		__IMANAGENETWORK_HH__
 
+#include	<iostream>
+#include	<string>
+#include	<vector>
 #include	"ISocket.hh"
 #include	"DataClient.hpp"
 #include	"IUserNetwork.hh"
