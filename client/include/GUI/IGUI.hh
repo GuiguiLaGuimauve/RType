@@ -19,6 +19,7 @@ namespace Gui
     virtual void	updateGameInfo(/*const GameInfo &*/) = 0;
     virtual void	setEventQueue(EventPart::IEventQueue *) = 0;
     virtual void	setSoundManager(Audio::ISoundManager *) = 0;
+    virtual void	showPopup(const std::string &s, int tMilli = 2000) = 0;
   };
 }
 

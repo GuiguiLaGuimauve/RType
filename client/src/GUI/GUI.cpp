@@ -27,6 +27,9 @@ GUI::GUI()
   displayStart();
   //displayLogin();
   //  displayMenu();
+  showPopup("Yolo");
+ showPopup("Yolo");
+ showPopup("SWAGGGGGGGGGGGGGGGGGGGg");
 }
 
 GUI::~GUI()
@@ -364,4 +367,21 @@ void		GUI::deleteWidgets()
 void			GUI::setSoundManager(Audio::ISoundManager *sound)
 {
   _audio = sound;
+}
+
+void			GUI::showPopup(const std::string &string, int tMilli)
+{
+  if (_fadedWidget)
+    {
+      _win->deleteWidget(_fadedWidget);
+    }
+  // other init
+  _fadedWidget = _win->addWidget(50, 350, string.size() * 20, 50);
+  auto style = _fadedWidget->getStyle();
+  style.backgroundColor.green = 250;
+  style.form = RECTANGLE;
+  style.policeSize = 24;
+  style.textColor.red = 250;
+  _fadedWidget->setStyle(style);
+  _fadedWidget->showPopup(string, tMilli);
 }
