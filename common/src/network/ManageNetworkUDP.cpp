@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Fri Dec 16 11:37:09 2016 julien dufrene
-// Last update Fri Dec 16 16:05:03 2016 julien dufrene
+// Last update Fri Dec 16 16:14:49 2016 julien dufrene
 //
 
 #include	"ManageNetworkUDP.hh"
@@ -46,18 +46,48 @@ bool			ManageNetworkUDP::select_it()
 std::vector<IUserNetwork *>	ManageNetworkUDP::execClient()
 {
   std::vector<IUserNetwork *>	newuser;
+  IUserNetwork			*u;
+
+  if (_initServ == false || _serv->getStatus() == false)
+    return (newuser);
+  u = _serv->readSocket(_net);
+  if (u != NULL && u != _serv && u->getStatus() == true)
+    {
+      u->pushBufferWrite("WELCOME ON UDP SERVER");
+      newuser.push_back(u);
+    }
+  else
+    if (_serv->getStatus() == true && _serv->haveSomethingToRead())
+      std::cout << "READ: " << _serv->popBufferRead() << std::endl;
+  if (_serv->haveSomethingToWrite() == true)
+    _serv->writeSocket(_net);
   return (newuser);
 }
 
 std::vector<IUserNetwork *>	ManageNetworkUDP::execServer()
 {
   std::vector<IUserNetwork *>	newuser;
+  IUserNetwork			*u;
+
+  if (_initServ == false || _serv->getStatus() == false)
+    return (newuser);
+  u = _serv->readSocket(_net);
+  if (u != NULL && u != _serv && u->getStatus() == true)
+    {
+      u->pushBufferWrite("WELCOME ON UDP SERVER");
+      newuser.push_back(u);
+    }
+  else
+    if (_serv->getStatus() == true && _serv->haveSomethingToRead())
+      std::cout << "READ: " << _serv->popBufferRead() << std::endl;
+  if (_serv->haveSomethingToWrite() == true)
+    _serv->writeSocket(_net);
   return (newuser);
 }
 
 bool		ManageNetworkUDP::run()
 {
-  return (true);
+  return (false);
 }
 
 bool		ManageNetworkUDP::run(const uint32_t &port, const uint32_t &maxCl)
@@ -87,7 +117,7 @@ bool		ManageNetworkUDP::run(const uint32_t &port, const uint32_t &maxCl)
 #else
   IUserNetwork *u = new UserNetworkUDPUnix();
 #endif // _WIN32
-
+  (void)maxCl;
   u->setFd(_net->getFdSocket());
   u->setPort(port);
   u->setStatus(true);
