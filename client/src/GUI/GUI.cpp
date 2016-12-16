@@ -139,7 +139,12 @@ void		GUI::displayStart()
   Style		s;
   s = _startWidgets->button->getStyle();
   _startWidgets->button->setText("Connect.");
-  _startWidgets->button->setOnClick([](IWidget *, CLICK){std::cout << "try connect" << std::endl;});
+  _startWidgets->button->setOnClick([](IWidget *fuckingButton, CLICK)
+				    {
+				      auto eq = fuckingButton->getEventQueue();
+				      eq->push(EventPart::Event(EventPart::Event::BUTTON_CONNECT));
+				      std::cout << "try connect" << std::endl;
+				    });
   _startWidgets->button->setOnHover([](IWidget *w)
 				    {
 				      Style s1 = w->getStyle();

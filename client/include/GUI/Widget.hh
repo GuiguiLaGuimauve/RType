@@ -18,6 +18,7 @@ namespace Gui
 
     void                draw();
     void                setEventQueue(EventPart::IEventQueue *);
+    EventPart::IEventQueue		*getEventQueue() const;
     bool                collision(int, int) const;
     void                resize(int, int);
     void                move(int, int);
