@@ -84,6 +84,25 @@ void		GUI::callback()
 	      _focusWidget->onTextEntered(e.dataString["CHAR"]);
 	    break ;
 	  }
+	  ase EventPart::Event::BUTTON_CONNECT :
+          {
+	    std::stringstringIp, stringPort;
+            auto tmpIp = _startWidgets->imput->getText();
+            bool founded = false;
+            for(unsigned int i = 0; i < tmpIp.size(); i++)
+	      {
+		if (tmp[i] == ':')
+                  founded = true;
+                else
+                  if (founded == false)
+                    stringIp += tmpIp[i];
+		  else
+                    stringPort +=tmpIp[i];
+              }
+            ep = EventPart::Event(EventPart::Event::TRY_CONNECT,
+                                  "IP", stringIp,
+                                  "PORT", stringPort);
+          }
 	default :
 	  ep.type = EventPart::Event::DEFAULT;
 	}
