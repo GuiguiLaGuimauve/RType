@@ -46,7 +46,7 @@ void		GuiEventManager::callback()
 	case sf::Event::MouseMoved :
 	  {
 	    if (_mouseTracking)
-	      _queue->push(EventPart::Event(EventPart::Event::MOUSE_MOVED, "X", event.mouseMove.x,
+	      _queue->push(EventPart::Event(EventPart::Event::MOUSE__MOVED, "X", event.mouseMove.x,
 					    "Y", event.mouseMove.y));
 	    break;
 	  }

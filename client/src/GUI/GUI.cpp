@@ -47,7 +47,7 @@ void		GUI::callback()
   while (!_guiQueue->empty())
     {
       EventPart::Event e = _guiQueue->pop();
-      EventPart::Event ep(EventPart::Event(EventPart::Event::DEFAULT));
+      EventPart::Event ep = EventPart::Event(EventPart::Event::DEFAULT);
       switch (e.type)
 	{
 	case EventPart::Event::CLOSE_WINDOW :
@@ -68,7 +68,7 @@ void		GUI::callback()
 	      }
 	    break;
 	  }
-	case EventPart::Event::MOUSE_MOVED :
+	case EventPart::Event::MOUSE__MOVED :
 	  {
 	    IWidget *w = _win->isThereWidget(e.dataInt["X"], e.dataInt["Y"]);
 	    if (w != _hoverWidget)

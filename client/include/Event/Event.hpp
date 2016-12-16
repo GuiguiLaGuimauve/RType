@@ -28,7 +28,7 @@ namespace EventPart
 	// interns events of the gui
 	CLOSE_WINDOW,
 	CLICK, // int["X"] int ["Y"] int["CLICK"]
-	MOUSE_MOVED, // int["X"] int ["Y"]
+	MOUSE__MOVED, // int["X"] int ["Y"]
 	TEXT, // string["CHAR"]
 	BUTTON_CONNECT, // string["IP"] string["PORT"]
 	BUTTON_LOGIN, // string["LOGIN"] string["PWD"]
