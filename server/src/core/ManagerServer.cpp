@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 15:53:17 2016 Maxime Lecoq
-// Last update Fri Dec 16 11:41:32 2016 lecoq
+// Last update Fri Dec 16 14:56:53 2016 lecoq
 //
 
 # include	"ManagerServer.hh"
@@ -47,6 +47,9 @@ void			ManagerServer::deleteManager()
     {
       _isSet = false;
       _man->deleteManager();
+      delete _man;
+      delete _pkt;
+      delete _game;
     }
 }
 

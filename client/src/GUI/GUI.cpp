@@ -10,7 +10,6 @@ GUI::GUI()
 {
   // ptr init
   SpriteMap::SpriteMapLoad();
-  _audio = new Audio::SoundManager;
   _win = new Window;
   _userEvents = new GuiEventManager(static_cast<Window *> (_win)->getSfmlWinPtr());
   _coreQueue = NULL;
@@ -32,9 +31,7 @@ GUI::GUI()
 
 GUI::~GUI()
 {
-  _coreQueue = NULL;
   deleteWidgets();
-  delete _audio;
   delete _win;
   delete _userEvents;
   delete _guiQueue;
@@ -325,4 +322,9 @@ void		GUI::deleteWidgets()
       delete _gameWidgets;
       _gameWidgets = NULL;
     }
+}
+
+void			GUI::setSoundManager(Audio::ISoundManager *sound)
+{
+  _audio = sound;
 }

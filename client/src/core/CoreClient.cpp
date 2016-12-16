@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Fri Dec 16 11:01:11 2016 lecoq
+// Last update Fri Dec 16 14:53:42 2016 lecoq
 //
 
 #include	"CoreClient.hh"
@@ -22,63 +22,6 @@ CoreClient::~CoreClient()
 
 void CoreClient::run()
 {
-  /*while (1)
-    {
-      _gui->callback();
-      while (!_eventQueue.empty())
-        {
-          auto e = _eventQueue.pop();
-          switch (e.type)
-            {
-            case EventPart::Event::QUIT :
-              return ;
-            case EventPart::Event::ATTACK :
-              {
-                break ;
-              }
-            case EventPart::Event::MOVE_UP :
-              {
-                break ;
-              }
-            case EventPart::Event::MOVE_DOWN :
-              {
-                break ;
-              }
-            case EventPart::Event::MOVE_RIGHT :
-              {
-                break ;
-              }
-            case EventPart::Event::MOVE_LEFT :
-              {
-                break ;
-              }
-            case EventPart::Event::TRY_CONNECT :
-              {
-                break ;
-              }
-            case EventPart::Event::TRY_LOGIN :
-              {
-                break ;
-              }
-            case EventPart::Event::CREATE_GAME :
-              {
-                break ;
-              }
-            case EventPart::Event::JOIN_GAME :
-              {
-                break ;
-              }
-	    case EventPart::Event::DEFAULT :
-              {
-                break ;
-              }
-            default :
-              {
-		std::cout << "Event inconnu! " << std::endl;
-              }
-            }
-	}
-	}*/
 }
 
 bool	CoreClient::initManager()
@@ -93,7 +36,9 @@ bool	CoreClient::initManager()
       _udp = _manager->getNetworkUDPManager();
       _gui = _manager->getGUI();
       _sound = _manager->getSoundManager();
-      //_eventQueue = _gui->getEventQueue();
+      _eventQueue = _manager->getEventQueue();
+      _gui->setEventQueue(_eventQueue);
+      _gui->setSoundManager(_sound);
     }
   catch (AError const &e)
     {

@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 15:53:17 2016 Maxime Lecoq
-// Last update Fri Dec 16 11:41:47 2016 lecoq
+// Last update Fri Dec 16 14:55:35 2016 lecoq
 //
 
 # include	"ManagerClient.hh"
@@ -26,10 +26,10 @@ void	ManagerClient::setManager()
       _udp = _man->getNetworkUDPManager();
       if (_udp->run() == false)
 	throw ErrorClient("Error to run client udp network's");
-
       _gui = new GUI;
       _sound = new SoundManager;
       _pkt = new ManagerPacketClient;
+      _eventQueue = new EventQueue;
     }
 }
 
@@ -49,6 +49,11 @@ void			ManagerClient::deleteManager()
     {
       _isSet = false;
       _man->deleteManager();
+      delete _eventQueue;
+      delete _pkt;
+      delete _man;
+      delete _sound;
+      delete _gui;
     }
 }
 
@@ -65,4 +70,9 @@ IGUI			*ManagerClient::getGUI() const
 ISoundManager		*ManagerClient::getSoundManager() const
 {
   return (_sound);
+}
+
+IEventQueue		*ManagerClient::getEventQueue() const
+{
+  return (_eventQueue);
 }

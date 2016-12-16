@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 15:50:05 2016 Maxime Lecoq
-// Last update Fri Dec 16 12:08:47 2016 lecoq
+// Last update Fri Dec 16 14:55:48 2016 lecoq
 //
 
 #ifndef MANAGERPCLIENT_HH_
@@ -32,6 +32,7 @@ public:
   IPacketManager	*getPacketManager() const;
   IGUI			*getGUI() const;
   ISoundManager		*getSoundManager() const;
+  IEventQueue		*getEventQueue() const;
 private:
   IManager		*_man;
   IGUI			*_gui;
@@ -40,6 +41,7 @@ private:
   bool			_isSet;
   IManageNetwork	*_tcp;
   IManageNetwork	*_udp;
+  IEventQueue		*_eventQueue;
 };
 
 #endif /* !MANAGER_HH_ */

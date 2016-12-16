@@ -1,7 +1,8 @@
 #ifndef IGUI_HH
 #define IGUI_HH
 
-#include "IEventQueue.hh"
+#include	"IEventQueue.hh"
+#include	"ISoundManager.hh"
 
 namespace Gui
 {
@@ -17,6 +18,7 @@ namespace Gui
     virtual void	displayLogin() = 0;
     virtual void	updateGameInfo(/*const GameInfo &*/) = 0;
     virtual void	setEventQueue(EventPart::IEventQueue *) = 0;
+    virtual void	setSoundManager(Audio::ISoundManager *) = 0;
   };
 }
 
