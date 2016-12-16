@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Fri Dec 16 15:29:08 2016 lecoq
+// Last update Fri Dec 16 17:56:13 2016 lecoq
 //
 
 #include	"CoreClient.hh"
@@ -14,6 +14,7 @@ CoreClient::CoreClient()
 {
   _manager = new ManagerClient;
   _isInit = false;
+  _eventPtr[EventPart::Event::QUIT] = &CoreClient::quit;
 }
 
 CoreClient::~CoreClient()
@@ -39,7 +40,8 @@ bool	CoreClient::manageGui()
   while (_eventQueue->empty() == false)
     {
       EventPart::Event e = _eventQueue->pop();
-      std::cout << e.type << std::endl;
+      if (_eventPtr.find(e.type) != _eventPtr.end() && ((this->*_eventPtr[e.type])(e)) == false)
+	return (false);
     }
   return (true);
 }
@@ -47,6 +49,12 @@ bool	CoreClient::manageGui()
 bool	CoreClient::manageNetwork()
 {
   return (true);
+}
+
+bool	CoreClient::quit(EventPart::Event e)
+{
+  (void)e;
+  return (false);
 }
 
 bool	CoreClient::initManager()
