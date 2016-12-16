@@ -43,6 +43,7 @@ void		GUI::callback()
   _win->drawAll();
   while (!_guiQueue->empty())
     {
+      stc::cout << "test" << std::endl;
       EventPart::Event e = _guiQueue->pop();
       EventPart::Event ep = EventPart::Event(EventPart::Event::DEFAULT);
       switch (e.type)
