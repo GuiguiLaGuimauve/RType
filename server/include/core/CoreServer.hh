@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:19:16 2016 Maxime Lecoq
-// Last update Fri Dec 16 11:23:15 2016 lecoq
+// Last update Fri Dec 16 18:06:41 2016 lecoq
 //
 
 #ifndef CORESERVER_HH_
@@ -26,8 +26,10 @@ class CoreServer : public ACore
   bool		initManager();
   void		deleteManager();
 private:
-  IManagerServer *_manager;
-  IGameManager	*_gameManager;
+  bool		managePackets();
+private:
+  IManagerServer	*_manager;
+  IGameManager		*_gameManager;
 };
 
 #endif /* !CORESERVER_HH_ */

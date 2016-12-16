@@ -5,7 +5,7 @@
 ** Login   <lecoq_m@epitech.net>
 **
 ** Started on  Mon Oct 17 13:11:20 2016 Maxime Lecoq
-// Last update Fri Dec 16 12:03:30 2016 lecoq
+// Last update Fri Dec 16 18:07:28 2016 lecoq
 */
 
 #ifndef		__IMANAGENETWORK_HH__
@@ -31,9 +31,9 @@ namespace Network
     fr :La méthode init() permet d'initialiser les descripteurs de ficher à surveiller.*/
     virtual bool				init() = 0;
     /*!
-    en :select_it() survey the activity of file descriptors
-    fr :La méthode select_it() permet de surveiller l'activité sur les descripteurs de fichiers.*/
-    virtual bool				select_it() = 0;
+    en :selectIt() survey the activity of file descriptors
+    fr :La méthode selectIt() permet de surveiller l'activité sur les descripteurs de fichiers.*/
+    virtual bool				selectIt() = 0;
     /*!
     en :execClient() execut an action on the client active file descriptor
     fr :La méthode execClient() permet d'executer une action sur le descripteur de fichier actif client.*/

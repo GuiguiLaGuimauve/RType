@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Fri Dec 16 11:37:09 2016 julien dufrene
-// Last update Fri Dec 16 16:14:49 2016 julien dufrene
+// Last update Fri Dec 16 18:08:34 2016 lecoq
 //
 
 #include	"ManageNetworkUDP.hh"
@@ -38,7 +38,7 @@ bool			ManageNetworkUDP::init()
   return (true);
 }
 
-bool			ManageNetworkUDP::select_it()
+bool			ManageNetworkUDP::selectIt()
 {
   return (true);
 }

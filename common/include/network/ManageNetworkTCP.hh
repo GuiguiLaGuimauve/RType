@@ -24,7 +24,7 @@ namespace Network
     ManageNetworkTCP();
     ~ManageNetworkTCP();
     bool					init();
-    bool					select_it();
+    bool					selectIt();
     std::vector<IUserNetwork *>			execClient();
     std::vector<IUserNetwork *>			execServer();
     bool					run();

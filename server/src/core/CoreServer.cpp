@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Fri Dec 16 11:05:33 2016 lecoq
+// Last update Fri Dec 16 18:09:21 2016 lecoq
 //
 
 #include	"CoreServer.hh"
@@ -22,6 +22,28 @@ CoreServer::~CoreServer()
 
 void CoreServer::run()
 {
+  bool	loop;
+
+  loop = true;
+  while (loop == true)
+    {
+      _tcp->init();
+      _udp->init();
+      if (_tcp->selectIt() == false || _udp->selectIt() == false)
+	loop = false;
+      else
+	{
+	  _tcp->updateUsers(_tcp->execServer());
+	  _udp->updateUsers(_udp->execServer());
+	}
+      if (managePackets() == false)
+	loop = false;
+    }
+}
+
+bool	CoreServer::managePackets()
+{
+  return (true);
 }
 
 bool	CoreServer::initManager()
