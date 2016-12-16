@@ -13,18 +13,18 @@ namespace Packet {
 	class PacketMove : public APacket {
 
 	public:
-		PacketMove(const uint8_t & x, const uint8_t & y);
+		PacketMove(const uint16_t & x, const uint16_t & y);
 		PacketMove(const uint8_t *data);
 		~PacketMove();
 
-		uint8_t getX() const;
-		uint8_t getY() const;
+		uint16_t getX() const;
+		uint16_t getY() const;
 		bool isTcp() const;
 		bool isUdp() const;
 
 	protected:
-		uint8_t _x;
-		uint8_t _y;
+		uint16_t _x;
+		uint16_t _y;
 	};
 };
 

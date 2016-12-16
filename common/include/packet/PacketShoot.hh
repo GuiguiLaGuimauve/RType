@@ -13,18 +13,18 @@ namespace Packet {
 	class PacketShoot : public APacket {
 
 	public:
-		PacketShoot(const uint8_t & x, const uint8_t & y);
+		PacketShoot(const uint16_t & x, const uint16_t & y);
 		PacketShoot(const uint8_t *data);
 		~PacketShoot();
 
-		uint8_t getX() const;
-		uint8_t getY() const;
+		uint16_t getX() const;
+		uint16_t getY() const;
 		bool isTcp() const;
 		bool isUdp() const;
 
 	protected:
-		uint8_t _x;
-		uint8_t _y;
+		uint16_t _x;
+		uint16_t _y;
 	};
 };
 

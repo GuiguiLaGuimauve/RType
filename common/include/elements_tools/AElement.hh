@@ -7,34 +7,63 @@
 
 #include "IElement.hh"
 
-namespace AElement
+namespace Element
 {
   class	AElement : public IElement
   {
   public:
     AElement(){};
     virtual ~AElement(){};
-    ElementType getType() const;
-    uint16_t getX() const;
-    uint16_t getY() const;
+    IElement::ElementType getType() const;
+    int16_t getX() const;
+    int16_t getY() const;
     uint16_t getSizeX() const;
     uint16_t getSizeY() const;
     uint32_t getTickId() const;
     std::string getSpriteName() const;
     bool collisionWith(IElement *) const;
-	std::vector<std::pair<uint32_t, uint32_t>> getPositions() const;
+	std::vector<std::pair<int16_t, int16_t>> getPositions() const;
+	uint16_t getHitBoxSizeX() const;
+	uint16_t getHitBoxSizeY() const;
+	int16_t getHitBoxX() const;
+	int16_t getHitBoxY() const;
 
   protected:
+	/*! The Element type */
 	IElement::ElementType _type;
-	int32_t _x;
-	int32_t _y;
-	uint32_t _sizeX;
-	uint32_t _sizeY;
+	
+	/*! The X position of the object in the window */
+	int16_t _x;
+	
+	/*! The Y position of the object in the window */
+	int16_t _y;
+	
+	/*! The sprite X size for the window */
+	uint16_t _sizeX;
+	
+	/*! The sprite Y size for the window */
+	uint16_t _sizeY;
+	
+	/*! The timer unique ID */
+	uint32_t _tickId;
+	
+	/*! The HitBox X delta position from the _x value */
 	int32_t _hitboxDeltaX;
+	
+	/*! The HitBox Y delta position from the _y value */
 	int32_t _hitboxDeltaY;
+	
+	/*! The HitBox X size */
 	uint32_t _hitboxSizeX;
+	
+	/*! The HitBox Y size */
 	uint32_t _hitboxSizeY;
-	std::vector<std::pair<uint64_t, uint64_t>> _postions;	
+	
+	/*! Filename of the sprite */
+	std::string _spriteFileName;
+	
+	/*! Vector of differents positions */
+	std::vector<std::pair<int16_t, int16_t>> _positions;	
   };
 };
 

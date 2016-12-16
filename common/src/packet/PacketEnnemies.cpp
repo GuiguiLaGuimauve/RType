@@ -22,10 +22,10 @@ PacketEnnemies::PacketEnnemies(const std::vector<DataEnnemy *> & ennemies)
 		dataPacketSize += 1;
 
 		ps.add(_ennemies[i]->getX());
-		dataPacketSize += 1;
+		dataPacketSize += 2;
 
 		ps.add(_ennemies[i]->getY());
-		dataPacketSize += 1;
+		dataPacketSize += 2;
 	}
 
 	_data = ps.getPacket();
@@ -54,11 +54,11 @@ PacketEnnemies::PacketEnnemies(const uint8_t *data)
 		ennemiesTemp->setType(pd.get8(posInPacket));
 		posInPacket += 1;
 
-		ennemiesTemp->setX(pd.get8(posInPacket));
-		posInPacket += 1;
+		ennemiesTemp->setX(pd.get16(posInPacket));
+		posInPacket += 2;
 
-		ennemiesTemp->setY(pd.get8(posInPacket));
-		posInPacket += 1;
+		ennemiesTemp->setY(pd.get16(posInPacket));
+		posInPacket += 2;
 		_ennemies.push_back(ennemiesTemp);
 	}
 }

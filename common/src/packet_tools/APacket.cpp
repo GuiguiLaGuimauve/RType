@@ -1,12 +1,6 @@
 //
-// APacket.cpp for  in /home/baconn_m/rendu/Tek3/cpp_babel
+// APacket.cpp
 // 
-// Made by Maxime Baconnais
-// Login   <baconn_m@epitech.net>
-// 
-// Started on  Thu Oct 27 15:56:10 2016 Maxime Baconnais
-// Last update Sat Nov 12 14:16:52 2016 lecoq
-//
 
 #include "APacket.hh"
 
@@ -25,9 +19,18 @@ uint8_t *APacket::getData() const
   return (_data);
 }
 
+uint32_t APacket::getTickId() const
+{
+	return (_tickId);
+}
+
+void APacket::setTickId(uint32_t tickId)
+{
+	_tickId = tickId;
+}
+
 uint8_t *APacket::generate() const
 {
-
   uint8_t	*exp;
   PacketSerializer ps;
   uint32_t	i = 0;
