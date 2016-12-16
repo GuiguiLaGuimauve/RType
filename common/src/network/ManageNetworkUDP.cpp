@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Fri Dec 16 11:37:09 2016 julien dufrene
-// Last update Fri Dec 16 11:39:14 2016 julien dufrene
+// Last update Fri Dec 16 12:08:17 2016 lecoq
 //
 
 #include	"ManageNetworkUDP.hh"
@@ -55,11 +55,16 @@ std::vector<IUserNetwork *>	ManageNetworkUDP::execServer()
   return (newuser);
 }
 
+bool		ManageNetworkUDP::run()
+{
+  return (true);
+}
+
 bool		ManageNetworkUDP::run(const uint32_t &port, const uint32_t &maxCl)
 {
 #ifdef _WIN32
   try {
-    _net = new SocketTCPWindows();
+    _net = new SocketUDPWindows();
   }
   catch (AError const &e)
     {
@@ -67,7 +72,7 @@ bool		ManageNetworkUDP::run(const uint32_t &port, const uint32_t &maxCl)
     }
 #else
   try {
-    _net = new SocketTCPUnix();
+    _net = new SocketUDPUnix();
   }
   catch (AError const &e)
     {
@@ -80,16 +85,16 @@ bool		ManageNetworkUDP::run(const uint32_t &port, const uint32_t &maxCl)
     return (false);
 
 #ifdef _WIN32
-  IUserNetwork *u = new UserNetworkTCPWindowsServer();
+  IUserNetwork *u = new UserNetworkUDPWindowsServer();
 #else
-  IUserNetwork *u = new UserNetworkTCPUnixServer();
+  IUserNetwork *u = new UserNetworkUDPUnix();
 #endif // _WIN32
 
   u->setFd(_net->getFdSocket());
   u->setPort(port);
   u->setStatus(true);
   _user.push_back(u);
-  std::cout << "User Network Server TCP prepared: " << _user[0]->getFd() << std::endl;
+  std::cout << "User Network Server UDP prepared: " << _user[0]->getFd() << std::endl;
   return (true);
 }
 
@@ -98,9 +103,9 @@ bool			ManageNetworkUDP::tryConnectClient(const uint32_t &port, const std::strin
   if (_net->connectIt(ip, port) == false)
     return (false);
 #ifdef _WIN32
-  IUserNetwork *u = new UserNetworkTCPWindowsClient();
+  IUserNetwork *u = new UserNetworkUDPWindowsClient();
 #else
-  IUserNetwork *u = new UserNetworkTCPUnixClient();
+  IUserNetwork *u = new UserNetworkUDPUnix();
 #endif
   u->setFd(_net->getFdSocket());
   u->setIp(ip);
@@ -109,7 +114,7 @@ bool			ManageNetworkUDP::tryConnectClient(const uint32_t &port, const std::strin
   _serv = u;
   _user.push_back(u);
   _initServ = true;
-  std::cout << "User Network Client TCP connected: " << _serv->getFd() << std::endl;
+  std::cout << "User Network Client UDP connected: " << _serv->getFd() << std::endl;
   return (true);
 }
 

@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 15:50:05 2016 Maxime Lecoq
-// Last update Fri Dec 16 11:38:59 2016 lecoq
+// Last update Fri Dec 16 12:08:47 2016 lecoq
 //
 
 #ifndef MANAGERPCLIENT_HH_
@@ -13,7 +13,8 @@
 
 # include	"IManagerClient.hh"
 # include	"IPacketManager.hh"
-# include	"ManageNetwork.hh"
+# include	"ManageNetworkTCP.hh"
+# include	"ManageNetworkUDP.hh"
 # include	"ErrorClient.hpp"
 
 using namespace Network;

@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 15:53:17 2016 Maxime Lecoq
-// Last update Fri Dec 16 11:33:11 2016 lecoq
+// Last update Fri Dec 16 11:46:38 2016 lecoq
 //
 
 # include	"Manager.hh"
@@ -19,8 +19,8 @@ void	Manager::setManager()
   if (_isSet == false)
     {
       _isSet = true;
-      _tcp = new ManageNetwork;
-      _udp = new ManageNetwork;
+      _tcp = new ManageNetworkTCP;
+      _udp = new ManageNetworkUDP;
     }
 }
 

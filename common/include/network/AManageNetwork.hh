@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Fri Dec 16 11:41:23 2016 julien dufrene
-// Last update Fri Dec 16 11:41:46 2016 julien dufrene
+// Last update Fri Dec 16 12:06:24 2016 lecoq
 //
 
 
@@ -23,7 +23,7 @@ namespace Network
   /*! L'abstraction de AManageNetwork definit les méthodes de ManageNetworkUDP et ManageNetworkTCP.*/
   class		AManageNetwork : public IManageNetwork {
   public:
-    AManageNetwork() {};
+    AManageNetwork();
     ~AManageNetwork() {};
     virtual bool				init() = 0;
     virtual bool				select_it() = 0;
@@ -33,9 +33,9 @@ namespace Network
     virtual bool				run(const uint32_t &, const uint32_t &) = 0;
     virtual bool				tryConnectClient(const uint32_t &, const std::string &) = 0;
     virtual void				pushToServ(const std::string &) = 0;
-    uint32_t					getMaxFd();
+    uint32_t					getMaxFd() const;
     ISocket					*getSocket() const;
-    void					updateUsers(std::vector<IUserNetwork *>) = 0;
+    void					updateUsers(const std::vector<IUserNetwork *> &);
   protected:
     /* _user est un attribut qui contient la liste des utilisateurs du serveur. */
     std::vector<IUserNetwork *>		_user;

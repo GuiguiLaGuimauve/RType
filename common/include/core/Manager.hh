@@ -5,14 +5,15 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 15:50:05 2016 Maxime Lecoq
-// Last update Fri Dec 16 11:18:58 2016 lecoq
+// Last update Fri Dec 16 11:46:19 2016 lecoq
 //
 
 #ifndef MANAGER_HH_
 # define MANAGER_HH_
 
 # include	"IManager.hh"
-# include	"ManageNetwork.hh"
+# include	"ManageNetworkTCP.hh"
+# include	"ManageNetworkUDP.hh"
 
 using namespace Network;
 using namespace Error;

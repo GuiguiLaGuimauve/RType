@@ -62,7 +62,7 @@ bool			ManageNetworkTCP::select_it()
 	return (true);
 }
 
-std::vector<IUserNetworkTCP *>	ManageNetworkTCP::execClient()
+std::vector<IUserNetwork *>	ManageNetworkTCP::execClient()
 {
 	std::vector<IUserNetwork *>	newuser;
 	int32_t						i;

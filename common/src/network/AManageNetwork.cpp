@@ -36,9 +36,10 @@ ISocket		*AManageNetwork::getSocket() const
   return (_net);
 }
 
-void			AManageNetwork::updateUsers(std::vector<IUserNetwork *> user)
+void			AManageNetwork::updateUsers(const std::vector<IUserNetwork *> &user)
 {
   uint32_t	i = 0;
+
   while (i < _user.size())
     {
       if (_user[i]->getStatus() == false)
