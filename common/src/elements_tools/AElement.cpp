@@ -19,6 +19,12 @@ int16_t AElement::getY() const
 	return (_y);
 }
 
+void AElement::move(int16_t x, int16_t y) const
+{
+	_x = x;
+	_y = y;
+}
+
 int16_t AElement::getSpriteY() const
 {
 	return (_spritePositionY);

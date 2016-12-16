@@ -29,6 +29,7 @@ namespace Element
 	int16_t getHitBoxY() const;	
 	int16_t getSpriteY() const;
 	int16_t getSpriteX() const;
+	void move(int16_t x, int16_t y) const;
 
   protected:
 	/*! The Element type */

@@ -73,6 +73,9 @@ namespace Element
 	
 	/*! Get the Y position in the spritesheet */
 	virtual int16_t getSpriteY() const = 0;
+	
+	/*! Move the object */
+	virtual void move(int16_t x, int16_t y) const = 0;
   };
 };
 
