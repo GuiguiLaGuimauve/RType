@@ -20,6 +20,7 @@ namespace Gui
 
     virtual void		draw() = 0;
     virtual void		setEventQueue(EventPart::IEventQueue *) = 0;
+    virtual EventPart::IEventQueue		*getEventQueue() const = 0;
     virtual bool		collision(int, int) const = 0;
     virtual void		resize(int, int) = 0;
     virtual void		move(int, int) = 0;

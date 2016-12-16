@@ -102,11 +102,8 @@ std::vector<IUserNetwork *>	ManageNetworkTCP::execServer()
 				  u = _user[i]->readSocket(_net);
 				  if (u != NULL && u->getFd() != _user[i]->getFd() && u->getStatus() == true)
 				  {
-					  std::cout << "adding newClient in newUser" << std::endl;
-					  u->pushBufferWrite("WELCOME ON SERVER");
-					  std::cout << "newUser size: " << newuser.size() << std::endl;
+					  u->pushBufferWrite("WELCOME ON TCP SERVER");
 					  newuser.push_back(u);
-					  std::cout << "newUser size2: " << newuser.size() << std::endl;
 				  }
 				  else
 					  if (_user[i]->getStatus() == true && _user[i]->haveSomethingToRead() == true)

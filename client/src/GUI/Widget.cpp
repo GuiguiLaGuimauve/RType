@@ -38,6 +38,11 @@ void                Widget::setEventQueue(EventPart::IEventQueue *eq)
   _eventQueue = eq;
 }
 
+EventPart::IEventQueue	*Widget::getEventQueue() const
+{
+  return (_eventQueue);
+}
+
 bool                Widget::collision(int x, int y) const
 {
   if (x > _x && x < _x + _width &&
