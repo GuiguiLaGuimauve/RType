@@ -40,7 +40,7 @@ namespace Packet
         REGISTER		= 0x15,
         LOGOUT			= 0x16,
 
-        DISCONNNECT		= 0x20,
+        DISCONNECT		= 0x20,
         SHOOT			= 0x21,
         MOVE			= 0x22,
 

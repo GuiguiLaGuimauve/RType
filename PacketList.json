@@ -200,6 +200,11 @@
 			"name": "y"
 		}]
 	}, {
+		"name": "disconnect",
+		"type": "DISCONNECT",
+		"network": "udp",
+		"arguments": []
+	}, {
 		"name": "shoot",
 		"type": "SHOOT",
 		"network": "udp",
