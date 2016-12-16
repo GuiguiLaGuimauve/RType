@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 15:53:17 2016 Maxime Lecoq
-// Last update Fri Dec 16 14:55:35 2016 lecoq
+// Last update Fri Dec 16 15:25:06 2016 lecoq
 //
 
 # include	"ManagerClient.hh"
@@ -20,6 +20,7 @@ void	ManagerClient::setManager()
     {
       _isSet = true;
       _man = new Manager;
+      _man->setManager();
       _tcp = _man->getNetworkTCPManager();
       if (_tcp->run() == false)
 	throw ErrorClient("Error to run client tcp network's");

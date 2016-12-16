@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Fri Dec 16 14:53:42 2016 lecoq
+// Last update Fri Dec 16 15:19:22 2016 lecoq
 //
 
 #include	"CoreClient.hh"
@@ -20,8 +20,32 @@ CoreClient::~CoreClient()
 {
 }
 
-void CoreClient::run()
+void	CoreClient::run()
 {
+  bool	loop;
+
+  loop = true;
+  while (loop == true)
+    {
+      if (manageGui() == false || manageNetwork() == false)
+	loop = false;
+    }
+}
+
+bool	CoreClient::manageGui()
+{
+  _gui->callback();
+  while (_eventQueue->empty() == false)
+    {
+      EventPart::Event e = _eventQueue->pop();
+      std::cout << e.type << std::endl;
+    }
+  return (true);
+}
+
+bool	CoreClient::manageNetwork()
+{
+  return (true);
 }
 
 bool	CoreClient::initManager()

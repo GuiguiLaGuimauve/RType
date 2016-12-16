@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 15:53:17 2016 Maxime Lecoq
-// Last update Fri Dec 16 14:56:53 2016 lecoq
+// Last update Fri Dec 16 15:26:00 2016 lecoq
 //
 
 # include	"ManagerServer.hh"
@@ -20,6 +20,7 @@ void	ManagerServer::setManager()
     {
       _isSet = true;
       _man = new Manager;
+      _man->setManager();
       _tcp = _man->getNetworkTCPManager();
       if (_tcp->run(4242, 100) == false)
 	throw ErrorServer("Adresse already in use");

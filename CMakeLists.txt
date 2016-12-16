@@ -78,6 +78,8 @@ ENDIF (UNIX)
 # Enable C++ 11
 add_definitions(-std=c++11)
 
+add_definitions(-g)
+
 # add_executable for WIN32
 IF (WIN32)
   add_executable(RType_server WIN32 ${COMMONCORE} ${COMMONPACKET} ${COMMONPACKETT} ${COMMONTOOLS} ${COMMONNETWORK} ${COMMONNETWORKWIN} ${server_src})
