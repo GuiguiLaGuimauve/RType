@@ -133,7 +133,7 @@ Category: Limited
 	/-----------------------------------------------------------\
 	|   ID	| NAME		| Descrpition		   |  Way   |
 	|-------|---------------|--------------------------|--------|
-	| 0x00  | ERROR		| Packet send when a 	   | S-C    |
+	| 0x00  | ERROR_PACKET	| Packet send when a 	   | S-C    |
 	|	|		| general error happened   |  /     |
 	|	|		|			   | C-S    |
 	|-------|---------------|--------------------------|--------|
@@ -178,7 +178,7 @@ Category: Limited
 	|	|		| UDP connection info 	   |        |
 	|	|		|   			   |	    |
 	|-------|---------------|--------------------------|--------|
-	| 0x12  | DATA_ROOM	| Send information about   | S-C    |
+	| 0x12  | ROOM_DATA	| Send information about   | S-C    |
 	|	|		| the room you're  	   |        |
 	|	|		| connected into	   |	    |
 	|-------|---------------|--------------------------|--------|
@@ -223,10 +223,10 @@ Category: Limited
 	|Type |microsTimeStamp |Size  | Data		           |
 	*-----*----------------*------*----------------------------*
 
-		- uint8_t	Type		Packet's type ID
-		- uint64_t	microTimeStamp	Clock verification
-		- uint32_t	Size		Size of the data
-		- uint8_t[]	Data		Data maxsize uint32_t
+	- uint8_t	Type		Packet's type ID
+	- uint32_t	TickId		Clock verification
+	- uint32_t	Size		Size of the data
+	- uint8_t[]	Data		Data of the packet
 
 
 
@@ -239,12 +239,12 @@ Category: Limited
 	| 0x20  | DISCONNNECT	| Client disconnect during | C-S    |
 	|	|		| the game 	           |        |
 	|-------|---------------|--------------------------|--------|
-	| 0x21  | MOVE		| Client ask the server to | C-S    |
+	| 0x21  | SHOOT		| Packet send when the     | C-S    |
+	|	|		| shoot key is pressed     |        |
+	|-------|---------------|--------------------------|--------|
+	| 0x22  | MOVE		| Client ask the server to | C-S    |
 	|	|		| update his position      |        |
 	|	|		|         		   |	    |
-	|-------|---------------|--------------------------|--------|
-	| 0x22  | SHOOT		| Packet send when the     | C-S    |
-	|	|		| shoot key is pressed     |        |
 	\-----------------------------------------------------------/
 	| 0x81  | PLAYERS	| Packet which contains    | S-C    |
 	|	|		| intels about players in  |        |
@@ -254,7 +254,7 @@ Category: Limited
 	|	|		| intels about shoots in   |        |
 	|	|		| the game		   |        |
 	|-------|---------------|--------------------------|--------|
-	| 0x83  | ENNEMY	| Packet which contains    | S-C    |
+	| 0x83  | ENNEMIES	| Packet which contains    | S-C    |
 	|	|		| intels about ennemies in |        |
 	|	|		| the game		   |        |
 	|-------|---------------|--------------------------|--------|
@@ -269,6 +269,10 @@ Category: Limited
 	| 0x86  | SOUND 	| Packet which contains    | S-C    |
 	|	|		| intels about the sound   |        |
 	|	|		| in the game		   |	    |
+	|-------|---------------|--------------------------|--------|
+	| 0x87  | PING  	| PING - PONG test 	   | S-C    |
+	|-------|---------------|--------------------------|--------|
+	| 0x88  | PONG  	| PING - PONG test 	   | S-C    |
 	\-----------------------------------------------------------/
 
 	The data inside each UDP packet may change with time.
@@ -291,7 +295,7 @@ Category: Limited
 
 4a. TCP Packet in ID orders :
 
-	Packet ERROR 		0x00 :
+	Packet ERROR_PACKET	0x00 :
 		uint16_t Size of message
 		int8_t[] Message
 		uint8_t ID from the last packet which failed
@@ -301,7 +305,7 @@ Category: Limited
 		int8_t[] Message
 
 	Packet CONNECT 		0x02 :
-		uint8_t Protocol version + People in the group + Date
+		uint8_t Protocol version + People in the group
 
 	Packet ROOMS 		0x03 :
 		uint16_t Number of room
@@ -356,8 +360,8 @@ Category: Limited
 		int8_t[] Player name
 
 	Packet UDP_DATA		0x10 :
-		uint8_t[4] IP adress
-		uint16_t   Port adress
+		uint8_t[4] IP address
+		uint16_t   Port address
 
 	Packet UDP_DATA_FREE	0x11 :
 		None
@@ -367,8 +371,8 @@ Category: Limited
 			{
 			 	uint16_t Player name size
 				int8_t[] Player name
-				*uint16_t Stage suceed
-				*uint16_t Game played
+				uint16_t Stage suceed
+				uint16_t Game played
 			} []
 		uint8_t Max player allowed
 		uint8_t Level Stage		
@@ -401,19 +405,23 @@ Category: Limited
 
 4b. UDP Packet in ID orders :
 
-	Packet MOVE 		0x20 :
-		uint8_t	 Position X
-		uint8_t	 Position Y
-
-	Packet SHOOT		0x25 :
+	Packet DISCONNECT	0x20 :
 		None
+		
+	Packet SHOOT		0x21 :
+		int16_t	 	Position X
+		int16_t	 	Position Y
+
+	Packet MOVE 		0x22 :
+		int16_t	 	Position X
+		int16_t	 	Position Y
 
 	Packet PLAYERS		0x81 :
 		uint16_t Number of player
 			{	
 				uint8_t  Player ID
-				uint8_t	 Position X
-				uint8_t	 Position Y
+				int16_t	 Position X
+				int16_t	 Position Y
 				uint8_t	 Player health
 			} []
 
@@ -422,30 +430,30 @@ Category: Limited
 			{	
 				uint16_t Size shot name
 				int8_t[] Shot name
-				uint8_t	 Position X
-				uint8_t	 Position Y
+				int16_t  Position X
+				int16_t	 Position Y
 				uint8_t	 Damage
 			} []
 
-	Packet ENNEMY		0x83 :
+	Packet ENNEMIES		0x83 :
 		uint16_t Number of enemies
 			{	
 				uint8_t  Enemy type
-				uint8_t	 Position X
-				uint8_t	 Position Y
+				int16_t	 Position X
+				int16_t	 Position Y
 			} []
 
 	Packet BACKGROUND	0x84 :
 		uint16_t Number of background
 			{	
 				uint8_t  Environement type
-				uint8_t	 Position X
-				uint8_t	 Position Y
+				int16_t	 Position X
+				int16_t	 Position Y
 			} []
 
 	Packet MUSIC		0x85 :
 		uint16_t Music name size
-		int8_t[] Music name		
+		int8_t[] Music name	
 	
 \-----------------------------------------------------------------------------/
 RType							   Guimauve shoot'em up
@@ -456,6 +464,12 @@ Category: Limited
 	Packet SOUND		0x86 :
 		uint16_t Sound name size
 		int8_t[] Sound name
+		
+	Packet PING		0x87 :
+		None
+		
+	Packet PONG		0x88 :
+		None
 
 5. TCP connection handshake
 
