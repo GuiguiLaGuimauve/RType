@@ -19,7 +19,7 @@ int16_t AElement::getY() const
 	return (_y);
 }
 
-void AElement::move(int16_t x, int16_t y) const
+void AElement::move(const int16_t & x, const int16_t & y)
 {
 	_x = x;
 	_y = y;

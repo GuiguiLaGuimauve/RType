@@ -75,7 +75,7 @@ namespace Element
 	virtual int16_t getSpriteY() const = 0;
 	
 	/*! Move the object */
-	virtual void move(int16_t x, int16_t y) const = 0;
+	virtual void move(const int16_t & x, const int16_t & y) = 0;
   };
 };
 
