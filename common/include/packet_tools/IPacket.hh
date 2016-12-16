@@ -27,7 +27,7 @@ namespace Packet
     en :PacketType correspond to all differents values in the packets for the common protocol
     fr :Le PacketType correspond aux différentes valeurs contenu dans les paquets réseau en fonction de notre protocole en commun avec les autres groupes */
      enum class PacketType : uint8_t {
-        ERROR			= 0x00,
+        ERROR_PACKET	= 0x00,
         WELCOME			= 0x01,
         CONNECT			= 0x02,
         ROOMS			= 0x03,
