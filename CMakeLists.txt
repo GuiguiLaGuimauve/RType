@@ -73,12 +73,12 @@ FILE (GLOB_RECURSE client_src "client/src/*.cpp")
 # Flags Unix
 IF (UNIX)
 	add_definitions(-W -Wall -Wextra -Wshadow)
+  add_definitions(-g)
 ENDIF (UNIX)
 
 # Enable C++ 11
 add_definitions(-std=c++11)
 
-add_definitions(-g)
 
 # add_executable for WIN32
 IF (WIN32)
