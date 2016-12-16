@@ -26,7 +26,9 @@ namespace Element
 	uint16_t getHitBoxSizeX() const;
 	uint16_t getHitBoxSizeY() const;
 	int16_t getHitBoxX() const;
-	int16_t getHitBoxY() const;
+	int16_t getHitBoxY() const;	
+	int16_t getSpriteY() const;
+	int16_t getSpriteX() const;
 
   protected:
 	/*! The Element type */
@@ -61,6 +63,12 @@ namespace Element
 	
 	/*! Filename of the sprite */
 	std::string _spriteFileName;
+	
+	/*! X Position of the object in the spritesheet */
+	int16_t _spritePositionX;
+	
+	/*! Y Position of the object in the spritesheet */
+	int16_t _spritePositionY;
 	
 	/*! Vector of differents positions */
 	std::vector<std::pair<int16_t, int16_t>> _positions;	

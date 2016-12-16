@@ -19,6 +19,17 @@ int16_t AElement::getY() const
 	return (_y);
 }
 
+int16_t AElement::getSpriteY() const
+{
+	return (_spritePositionY);
+}
+
+int16_t AElement::getSpriteX() const
+{
+	return (_spritePositionX);
+}
+
+
 uint16_t AElement::getSizeX() const
 {
 	return (_sizeX);

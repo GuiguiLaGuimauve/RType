@@ -67,6 +67,12 @@ namespace Element
 
 	/*! List of positions */
 	virtual std::vector<std::pair<int16_t, int16_t>> getPositions() const = 0;
+	
+	/*! Get the X position in the spritesheet */
+	virtual int16_t getSpriteX() const = 0;
+	
+	/*! Get the Y position in the spritesheet */
+	virtual int16_t getSpriteY() const = 0;
   };
 };
 
