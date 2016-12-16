@@ -1,6 +1,6 @@
 [{
 		"name": "Error",
-		"type": "ERROR",
+		"type": "ERROR_PACKET",
 		"network": "tcp",
 		"arguments": [{
 			"type": "std::string",

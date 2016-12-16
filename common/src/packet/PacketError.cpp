@@ -10,7 +10,7 @@ PacketError::PacketError(const std::string & message, const IPacket::PacketType 
 	PacketSerializer ps;
 	uint32_t dataPacketSize = 0;
 
-	_type = IPacket::PacketType::ERROR;
+	_type = IPacket::PacketType::ERROR_PACKET;
 	_tickId = 0;
 	_message = message;
 	_errorType = errorType;
@@ -31,7 +31,7 @@ PacketError::PacketError(const uint8_t *data)
 	PacketDeserializer pd(data);
 	uint32_t posInPacket = 0;
 
-	_type = IPacket::PacketType::ERROR;
+	_type = IPacket::PacketType::ERROR_PACKET;
 	_size = pd.getPacketSize();
 	_tickId = pd.getPacketTickId();
 
