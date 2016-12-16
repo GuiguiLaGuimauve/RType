@@ -84,7 +84,7 @@ void		GUI::callback()
 	      _focusWidget->onTextEntered(e.dataString["CHAR"]);
 	    break ;
 	  }
-	  ase EventPart::Event::BUTTON_CONNECT :
+	  case EventPart::Event::BUTTON_CONNECT :
           {
 	    std::stringstringIp, stringPort;
             auto tmpIp = _startWidgets->imput->getText();
@@ -102,7 +102,15 @@ void		GUI::callback()
             ep = EventPart::Event(EventPart::Event::TRY_CONNECT,
                                   "IP", stringIp,
                                   "PORT", stringPort);
+	    break ;
           }
+	case EventPart::Event::BUTTON_LOGIN :
+	  {
+	    ep = EventPart::Event(EventPart::Event::TRY_LOGIN,
+                                  "LOGIN", _loginWidgets->login->getText(),
+                                  "PWD", _loginWidgets->password->getText());
+	    break ;
+	  }
 	default :
 	  ep.type = EventPart::Event::DEFAULT;
 	}
