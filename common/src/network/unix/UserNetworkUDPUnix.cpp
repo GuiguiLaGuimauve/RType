@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Thu Dec 15 15:33:48 2016 julien dufrene
-// Last update Thu Dec 15 16:04:30 2016 julien dufrene
+// Last update Fri Dec 16 16:23:16 2016 julien dufrene
 //
 
 #include "UserNetworkUDPUnix.hh"
@@ -32,13 +32,22 @@ IUserNetwork		*UserNetworkUDPUnix::readSocket(ISocket *net)
       buff[nb] = 0;
       std::string       tmp(buff);
       buff_r.push(tmp);
+      if (s_in.sin_addr.s_addr != inet_addr(_ip.c_str())
+	  && s_in.sin_port != htons(_port))
+	  {
+	    IUserNetwork	*u = new UserNetworkUDPUnix();
+	    u->setIp(inet_ntoa(s_in.sin_addr));
+	    u->setFd(_fd);
+	    u->setPort(s_in.sin_port);
+	    return (u);
+	  }
     }
   if (nb == 0 || nb == -1)
     {
       std::cerr << "Error from recv()" << std::endl;
       closeFd();
     }
-  IUserNetwork          *u = new UserNetworkUDPUnix(*this);
+  IUserNetwork	*u = new UserNetworkUDPUnix(*this);
   return (u);
 }
 

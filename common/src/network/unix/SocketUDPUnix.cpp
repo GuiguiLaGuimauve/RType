@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 //
 // Started on  Fri Oct 14 11:10:10 2016 julien dufrene
-// Last update Thu Dec 15 16:27:49 2016 julien dufrene
+// Last update Fri Dec 16 16:23:42 2016 julien dufrene
 //
 
 #include "SocketUDPUnix.hh"
@@ -38,6 +38,7 @@ bool			SocketUDPUnix::bindIt(const uint32_t &port)
   s_in.sin_addr.s_addr = htonl(INADDR_ANY);
   if ((bind(_sock, (const struct sockaddr *)&s_in, sizeof (s_in))) == -1)
     {
+      std::cerr << "Error on Bind()" << std::endl;
       closeIt();
       return (false);
     }
