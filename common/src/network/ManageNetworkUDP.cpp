@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Fri Dec 16 11:37:09 2016 julien dufrene
-// Last update Fri Dec 16 12:08:17 2016 lecoq
+// Last update Fri Dec 16 16:05:03 2016 julien dufrene
 //
 
 #include	"ManageNetworkUDP.hh"
@@ -80,12 +80,10 @@ bool		ManageNetworkUDP::run(const uint32_t &port, const uint32_t &maxCl)
     }
 #endif
   _init = true;
-  if (_net->bindIt(port) == false
-      || _net->listenIt(maxCl) == false)
+  if (_net->bindIt(port) == false)
     return (false);
-
 #ifdef _WIN32
-  IUserNetwork *u = new UserNetworkUDPWindowsServer();
+  IUserNetwork *u = new UserNetworkUDPWindows();
 #else
   IUserNetwork *u = new UserNetworkUDPUnix();
 #endif // _WIN32
@@ -100,10 +98,8 @@ bool		ManageNetworkUDP::run(const uint32_t &port, const uint32_t &maxCl)
 
 bool			ManageNetworkUDP::tryConnectClient(const uint32_t &port, const std::string &ip)
 {
-  if (_net->connectIt(ip, port) == false)
-    return (false);
 #ifdef _WIN32
-  IUserNetwork *u = new UserNetworkUDPWindowsClient();
+  IUserNetwork *u = new UserNetworkUDPWindows();
 #else
   IUserNetwork *u = new UserNetworkUDPUnix();
 #endif
@@ -120,14 +116,14 @@ bool			ManageNetworkUDP::tryConnectClient(const uint32_t &port, const std::strin
 
 void		ManageNetworkUDP::pushToServ(const std::string &m)
 {
-	if (_initServ == true)
+  if (_initServ == true)
+    {
+      uint32_t		i = 0;
+      while (i < _user.size())
 	{
-		uint32_t		i = 0;
-		while (i < _user.size())
-		{
-			if (_user[i] == _serv)
-				_serv->pushBufferWrite(m);
-			i++;
-		}
+	  if (_user[i] == _serv)
+	    _serv->pushBufferWrite(m);
+	  i++;
 	}
+    }
 }
