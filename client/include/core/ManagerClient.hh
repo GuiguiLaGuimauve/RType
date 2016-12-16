@@ -5,14 +5,19 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 15:50:05 2016 Maxime Lecoq
-// Last update Thu Dec 15 15:20:19 2016 lecoq
+// Last update Fri Dec 16 11:38:59 2016 lecoq
 //
 
 #ifndef MANAGERPCLIENT_HH_
 # define MANAGERPCLIENT_HH_
 
-# include "IManagerClient.hh"
-# include "IPacketManager.hh"
+# include	"IManagerClient.hh"
+# include	"IPacketManager.hh"
+# include	"ManageNetwork.hh"
+# include	"ErrorClient.hpp"
+
+using namespace Network;
+using namespace Error;
 
 class ManagerClient : public IManagerClient
 {

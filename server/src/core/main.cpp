@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 14:47:53 2016 Maxime Lecoq
-// Last update Thu Dec 15 15:59:54 2016 lecoq
+// Last update Fri Dec 16 10:57:40 2016 lecoq
 //
 
 #include "CoreServer.hh"
@@ -14,7 +14,8 @@ int	main()
 {
   CoreServer	core;
 
-  core.initManager();
+  if (core.initManager() == false)
+    return (0);
   core.run();
   core.deleteManager();
   return (0);

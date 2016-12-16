@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Thu Dec 15 16:50:03 2016 lecoq
+// Last update Fri Dec 16 11:01:11 2016 lecoq
 //
 
 #include	"CoreClient.hh"
@@ -81,17 +81,26 @@ void CoreClient::run()
 	}*/
 }
 
-void CoreClient::initManager()
+bool	CoreClient::initManager()
 {
-   if (_isInit == false)
-     _manager->setManager();
-   _isInit = true;
-   _pkt = _manager->getPacketManager();
-   _tcp = _manager->getNetworkTCPManager();
-   _udp = _manager->getNetworkUDPManager();
-   _gui = _manager->getGUI();
-   _sound = _manager->getSoundManager();
-   //_eventQueue = _gui->getEventQueue();
+  try
+    {
+      if (_isInit == false)
+	_manager->setManager();
+      _isInit = true;
+      _pkt = _manager->getPacketManager();
+      _tcp = _manager->getNetworkTCPManager();
+      _udp = _manager->getNetworkUDPManager();
+      _gui = _manager->getGUI();
+      _sound = _manager->getSoundManager();
+      //_eventQueue = _gui->getEventQueue();
+    }
+  catch (AError const &e)
+    {
+      e.error();
+      return (false);
+    }
+  return (true);
 }
 
 void CoreClient::deleteManager()

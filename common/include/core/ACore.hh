@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:12:15 2016 Maxime Lecoq
-// Last update Thu Dec 15 15:09:35 2016 lecoq
+// Last update Fri Dec 16 10:58:08 2016 lecoq
 //
 
 #ifndef ACORE_HH_
@@ -21,7 +21,7 @@ public:
   ACore() {};
   virtual ~ACore() {};
   virtual void run() = 0;
-  virtual void initManager() = 0;
+  virtual bool initManager() = 0;
   virtual void deleteManager() = 0;
 protected:
   IPacketManager		*_pkt;

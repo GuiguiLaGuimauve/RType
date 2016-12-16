@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 14:47:53 2016 Maxime Lecoq
-// Last update Thu Dec 15 16:46:00 2016 lecoq
+// Last update Fri Dec 16 11:27:31 2016 lecoq
 //
 
 #include "CoreClient.hh"
@@ -14,7 +14,8 @@ int	main()
 {
   CoreClient	core;
 
-  core.initManager();
+  if (core.initManager() == false)
+    return (0);
   core.run();
   core.deleteManager();
   return (0);
