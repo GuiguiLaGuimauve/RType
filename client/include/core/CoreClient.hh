@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:19:16 2016 Maxime Lecoq
-// Last update Fri Dec 16 18:06:28 2016 lecoq
+// Last update Fri Dec 16 18:30:32 2016 lecoq
 //
 
 #ifndef CORECLIENT_HH_
@@ -36,6 +36,7 @@ private:
   bool		manageNetwork();
 
   bool                          quit(EventPart::Event);
+  bool                          tryConnect(EventPart::Event);
 
 private:
   IManagerClient	*_manager;
