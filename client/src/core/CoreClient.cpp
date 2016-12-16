@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Fri Dec 16 15:19:22 2016 lecoq
+// Last update Fri Dec 16 15:29:08 2016 lecoq
 //
 
 #include	"CoreClient.hh"
@@ -25,6 +25,7 @@ void	CoreClient::run()
   bool	loop;
 
   loop = true;
+  _gui->displayStart();
   while (loop == true)
     {
       if (manageGui() == false || manageNetwork() == false)
