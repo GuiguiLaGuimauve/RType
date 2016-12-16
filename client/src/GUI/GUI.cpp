@@ -79,7 +79,7 @@ void		GUI::callback()
 	    break;
 	  }
 	case EventPart::Event::TEXT :
-	  {
+	  { 
 	    if (_focusWidget)
 	      _focusWidget->onTextEntered(e.dataString["CHAR"]);
 	    break ;
