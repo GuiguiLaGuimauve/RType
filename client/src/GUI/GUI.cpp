@@ -84,14 +84,14 @@ void		GUI::callback()
 	      _focusWidget->onTextEntered(e.dataString["CHAR"]);
 	    break ;
 	  }
-	  ase EventPart::Event::BUTTON_CONNECT :
+	  case EventPart::Event::BUTTON_CONNECT :
           {
-	    std::stringstringIp, stringPort;
+	    std::string stringIp, stringPort;
             auto tmpIp = _startWidgets->imput->getText();
             bool founded = false;
             for(unsigned int i = 0; i < tmpIp.size(); i++)
 	      {
-		if (tmp[i] == ':')
+		if (tmpIp[i] == ':')
                   founded = true;
                 else
                   if (founded == false)
