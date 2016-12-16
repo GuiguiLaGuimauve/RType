@@ -26,13 +26,13 @@ public:
     /********************************************/
     /*		LOAD	THE	TEXTURES	*/
     /********************************************/
-    LoadTexture("Assets/r-typesheet42.gif", "Ships");
-    LoadTexture("Assets/r-typesheet3.gif", "PowerUp1");
-    LoadTexture("Assets/r-typesheet30.gif", "Bydos");
-    LoadTexture("Assets/r-typesheet20.gif", "Enemy7");
-    LoadTexture("Assets/r-typesheet19.gif", "Enemy8");
-    LoadTexture("Assets/r-typesheet38.gif", "Boss2");
-    LoadTexture("Assets/r-typesheet37.gif", "SupBoss1");
+    LoadTexture("../client/Assets/r-typesheet42.gif", "Ships");
+    LoadTexture("../client/Assets/r-typesheet3.gif", "PowerUp1");
+    LoadTexture("../client/Assets/r-typesheet30.gif", "Bydos");
+    LoadTexture("../client/Assets/r-typesheet20.gif", "Enemy7");
+    LoadTexture("../client/Assets/r-typesheet19.gif", "Enemy8");
+    LoadTexture("../client/Assets/r-typesheet38.gif", "Boss2");
+    LoadTexture("../client/Assets/r-typesheet37.gif", "SupBoss1");
     LoadTexture("background1.jpg", "Background");
     
     /********************************************/
