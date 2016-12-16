@@ -18,11 +18,11 @@ set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake_modules" ${CMAKE_MODULE_PATH})
 #Find any version 2.X of SFML
 #See the FindSFML.cmake file for additional details and instructions
 find_package(SFML 2 COMPONENTS system window graphics audio)
-if(SFML_FOUND)
+if(SFML_FOUND AND ${SFML_VERSION_P} EQUAL "2")
   message("SFML found")
   include_directories(${SFML_INCLUDE_DIR})
-else(SFML_FOUND)
-  message(WARNING "SFML not found, you can't run the client")
+else(SFML_FOUND AND ${SFML_VERSION_P} EQUAL "2")
+  message(WARNING "SFML not found, you compile the client")
 endif()
 
 ############################################
@@ -79,14 +79,16 @@ add_definitions(-std=c++11)
 # add_executable for WIN32
 IF (WIN32)
   add_executable(RType_server WIN32 ${COMMONCORE} ${COMMONPACKET} ${COMMONPACKETT} ${COMMONTOOLS} ${COMMONNETWORK} ${COMMONNETWORKWIN} ${server_src})
-  IF (SFML_FOUND)
+  IF (SFML_FOUND AND ${SFML_VERSION_P} EQUAL "2")
   add_executable(RType WIN32 ${COMMONCORE} ${COMMONPACKET} ${COMMONPACKETT} ${COMMONTOOLS} ${COMMONNETWORK} ${COMMONNETWORKWIN} ${client_src})
-  ENDIF (SFML_FOUND)
+  ENDIF (SFML_FOUND AND ${SFML_VERSION_P} EQUAL "2")
 ENDIF (WIN32)
 
 # add_executable for UNIX
 IF (UNIX)
-add_executable(RType ${COMMONCORE} ${COMMONPACKET} ${COMMONPACKETT} ${COMMONTOOLS} ${COMMONNETWORK} ${COMMONNETWORKUNIX} ${client_src})
+  IF (SFML_FOUND AND ${SFML_VERSION_P} EQUAL "2")
+  add_executable(RType ${COMMONCORE} ${COMMONPACKET} ${COMMONPACKETT} ${COMMONTOOLS} ${COMMONNETWORK} ${COMMONNETWORKUNIX} ${client_src})
+  ENDIF (SFML_FOUND AND ${SFML_VERSION_P} EQUAL "2")
 add_executable(RType_server ${COMMONCORE} ${COMMONPACKET} ${COMMONPACKETT} ${COMMONTOOLS} ${COMMONNETWORK} ${COMMONNETWORKUNIX} ${server_src})
 ENDIF (UNIX)
 
@@ -109,5 +111,7 @@ ENDIF (WIN32)
 
 # Link librairies
   target_link_libraries(RType_server ${CMAKE_THREAD_LIBS_INIT})
-  target_link_libraries(RType ${CMAKE_THREAD_LIBS_INIT})
-  target_link_libraries(RType ${SFML_LIBRARIES})
+  IF (SFML_FOUND AND ${SFML_VERSION_P} EQUAL "2")
+    target_link_libraries(RType ${CMAKE_THREAD_LIBS_INIT})
+    target_link_libraries(RType ${SFML_LIBRARIES})
+  ENDIF (SFML_FOUND AND ${SFML_VERSION_P} EQUAL "2")
