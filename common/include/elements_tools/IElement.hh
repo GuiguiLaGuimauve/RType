@@ -7,15 +7,17 @@
 
 #include <stdint.h>
 #include <iostream>
+#include <vector>
 #include <string.h>
 
+/*! Namespace Element for drawables objects */
 namespace Element
 {
   /*! Interface for game Element */
   class	IElement
   {
   public:
-	 /*! Differents Element types */
+	 /*! Enum for differents types */
      enum class ElementType : uint8_t {
         PLAYER			= 0x00,
         ENNEMY			= 0x01,
@@ -31,10 +33,10 @@ namespace Element
     virtual ElementType getType() const = 0;
 	
     /*! Get X position */
-    virtual uint16_t getX() const = 0;
+    virtual int16_t getX() const = 0;
 	
     /*! Get Y position */
-    virtual uint16_t getY() const = 0;
+    virtual int16_t getY() const = 0;
 	
     /*! Get sprite X size */
     virtual uint16_t getSizeX() const = 0;
@@ -42,8 +44,20 @@ namespace Element
     /*! Get sprite Y size */
     virtual uint16_t getSizeY() const = 0;
 	
-    /*! Get tick Id */
+    /*! Get timer unique ID */
     virtual uint32_t getTickId() const = 0;
+	
+	/* Get the Hitbox size X */
+	virtual uint16_t getHitBoxSizeX() const = 0;
+	
+	/* Get the Hitbox size X */
+	virtual uint16_t getHitBoxSizeY() const = 0;
+	
+	/* Get the Hitbox X position */
+	virtual int16_t getHitBoxX() const = 0;
+	
+	/* Get the Hitbox X position */
+	virtual int16_t getHitBoxY() const = 0;
 	
 	/*! Get sprite filename */
     virtual std::string getSpriteName() const = 0;
@@ -52,7 +66,7 @@ namespace Element
     virtual bool collisionWith(IElement *) const = 0;
 
 	/*! List of positions */
-	virtual std::vector<std::pair<uint32_t, uint32_t>> getPositions() const = 0;
+	virtual std::vector<std::pair<int16_t, int16_t>> getPositions() const = 0;
   };
 };
 

@@ -16,19 +16,19 @@ namespace Packet {
 		~DataPlayerPosition() {};
 
 		uint8_t getId() const { return (_id); };
-		uint8_t getX() const { return (_x); };
-		uint8_t getY() const { return (_y); };
+		uint16_t getX() const { return (_x); };
+		uint16_t getY() const { return (_y); };
 		uint8_t getHealth() const { return (_health); };
 
 		void setId(const uint8_t & id) { _id = id; };
-		void setX(const uint8_t & x) { _x = x; };
-		void setY(const uint8_t & y) { _y = y; };
+		void setX(const uint16_t & x) { _x = x; };
+		void setY(const uint16_t & y) { _y = y; };
 		void setHealth(const uint8_t & health) { _health = health; };
 
 	protected:
 		uint8_t _id;
-		uint8_t _x;
-		uint8_t _y;
+		uint16_t _x;
+		uint16_t _y;
 		uint8_t _health;
 	};
 };

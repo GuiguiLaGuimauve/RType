@@ -17,19 +17,19 @@ namespace Packet {
 		~DataShoot() {};
 
 		std::string getName() const { return (_name); };
-		uint8_t getX() const { return (_x); };
-		uint8_t getY() const { return (_y); };
+		uint16_t getX() const { return (_x); };
+		uint16_t getY() const { return (_y); };
 		uint8_t getDamage() const { return (_damage); };
 
 		void setName(const std::string & name) { _name = name; };
-		void setX(const uint8_t & x) { _x = x; };
-		void setY(const uint8_t & y) { _y = y; };
+		void setX(const uint16_t & x) { _x = x; };
+		void setY(const uint16_t & y) { _y = y; };
 		void setDamage(const uint8_t & damage) { _damage = damage; };
 
 	protected:
 		std::string _name;
-		uint8_t _x;
-		uint8_t _y;
+		uint16_t _x;
+		uint16_t _y;
 		uint8_t _damage;
 	};
 };

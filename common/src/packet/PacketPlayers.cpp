@@ -22,10 +22,10 @@ PacketPlayers::PacketPlayers(const std::vector<DataPlayerPosition *> & players)
 		dataPacketSize += 1;
 
 		ps.add(_players[i]->getX());
-		dataPacketSize += 1;
+		dataPacketSize += 2;
 
 		ps.add(_players[i]->getY());
-		dataPacketSize += 1;
+		dataPacketSize += 2;
 
 		ps.add(_players[i]->getHealth());
 		dataPacketSize += 1;
@@ -57,11 +57,11 @@ PacketPlayers::PacketPlayers(const uint8_t *data)
 		playersTemp->setId(pd.get8(posInPacket));
 		posInPacket += 1;
 
-		playersTemp->setX(pd.get8(posInPacket));
-		posInPacket += 1;
+		playersTemp->setX(pd.get16(posInPacket));
+		posInPacket += 2;
 
-		playersTemp->setY(pd.get8(posInPacket));
-		posInPacket += 1;
+		playersTemp->setY(pd.get16(posInPacket));
+		posInPacket += 2;
 
 		playersTemp->setHealth(pd.get8(posInPacket));
 		posInPacket += 1;

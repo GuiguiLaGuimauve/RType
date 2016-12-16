@@ -16,16 +16,11 @@
 
 namespace Packet
 {
-  /*!
-  en : IPacket define all methods for all packets
-    L'interface IPacket définie des méthode pour la totalitée des paquets
-  */
+  /*! IPacket define all methods for all packets */
   class	IPacket
   {
   public:
-    /*!
-    en :PacketType correspond to all differents values in the packets for the common protocol
-    fr :Le PacketType correspond aux différentes valeurs contenu dans les paquets réseau en fonction de notre protocole en commun avec les autres groupes */
+     /*! PacketType contains all differents values in the packets for the common protocol */
      enum class PacketType : uint8_t {
         ERROR_PACKET	= 0x00,
         WELCOME			= 0x01,
@@ -59,25 +54,28 @@ namespace Packet
 		PONG			= 0x88
     };
 
-    /*!
-    en :Clean all necessary data for packet management
-    fr :Permet de vider les données nécessaires à la gestion du packet */
+    /*! Clean all necessary data for packet management */
     virtual ~IPacket(){};
-    /*!
-    en :Return the packet's type
-    fr :Retourne le type du paquet */
+	
+    /*! Return the packet's type */
     virtual PacketType getType() const = 0;
+	
+	/*! Return the packet's timer ID */
+	virtual uint32_t getTickId() const = 0;
+	
+	/*! Change the packet's timer ID */
+	virtual void setTickId(uint32_t tickId) = 0;
 
-    /*!
-    en :Return the packet's data size
-    fr :Retourne la taille de la partie data du paquet */
+    /*! Return the packet's data size  */
     virtual uint32_t getSize() const = 0;
 
-    /*!
-    en :Return packet's data
-    fr :Retourne les données du paquet */
+    /*! Return packet's data */
     virtual uint8_t* getData() const = 0;
+	
+	/*! Generate the packet for network transition */
     virtual uint8_t *generate() const = 0;
+	
+	/*! Instanciate a PacketUnknown from the current packet */
     virtual PacketUnknown getPacketUnknown() const = 0;
   };
 };

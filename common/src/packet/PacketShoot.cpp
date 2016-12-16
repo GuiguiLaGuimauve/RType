@@ -5,7 +5,7 @@
 #include <iostream>
 #include "PacketShoot.hh"
 
-PacketShoot::PacketShoot(const uint8_t & x, const uint8_t & y)
+PacketShoot::PacketShoot(const uint16_t & x, const uint16_t & y)
 {
 	PacketSerializer ps;
 	uint32_t dataPacketSize = 0;
@@ -16,10 +16,10 @@ PacketShoot::PacketShoot(const uint8_t & x, const uint8_t & y)
 	_y = y;
 
 	ps.add(_x);
-	dataPacketSize += 1;
+	dataPacketSize += 2;
 
 	ps.add(_y);
-	dataPacketSize += 1;
+	dataPacketSize += 2;
 
 	_data = ps.getPacket();
 	_size = dataPacketSize;
@@ -38,23 +38,23 @@ PacketShoot::PacketShoot(const uint8_t *data)
 	for (uint32_t a = 0; a < _size; a++)
 		_data[a] = data[a + 9];
 
-	_x = pd.get8(posInPacket);
-	posInPacket += 1;
+	_x = pd.get16(posInPacket);
+	posInPacket += 2;
 
-	_y = pd.get8(posInPacket);
-	posInPacket += 1;
+	_y = pd.get16(posInPacket);
+	posInPacket += 2;
 }
 
 PacketShoot::~PacketShoot()
 {
 }
 
-uint8_t PacketShoot::getX() const
+uint16_t PacketShoot::getX() const
 {
 	return (_x);
 }
 
-uint8_t PacketShoot::getY() const
+uint16_t PacketShoot::getY() const
 {
 	return (_y);
 }
