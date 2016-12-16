@@ -16,17 +16,17 @@ namespace Packet {
 		~DataEnnemy() {};
 
 		uint8_t getType() const { return (_type); };
-		uint8_t getX() const { return (_x); };
-		uint8_t getY() const { return (_y); };
+		uint16_t getX() const { return (_x); };
+		uint16_t getY() const { return (_y); };
 
 		void setType(const uint8_t & type) { _type = type; };
-		void setX(const uint8_t & x) { _x = x; };
-		void setY(const uint8_t & y) { _y = y; };
+		void setX(const uint16_t & x) { _x = x; };
+		void setY(const uint16_t & y) { _y = y; };
 
 	protected:
 		uint8_t _type;
-		uint8_t _x;
-		uint8_t _y;
+		uint16_t _x;
+		uint16_t _y;
 	};
 };
 

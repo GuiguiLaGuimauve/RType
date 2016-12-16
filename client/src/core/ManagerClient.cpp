@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 15:53:17 2016 Maxime Lecoq
-// Last update Thu Dec 15 15:27:20 2016 lecoq
+// Last update Fri Dec 16 15:25:06 2016 lecoq
 //
 
 # include	"ManagerClient.hh"
@@ -20,13 +20,17 @@ void	ManagerClient::setManager()
     {
       _isSet = true;
       _man = new Manager;
+      _man->setManager();
       _tcp = _man->getNetworkTCPManager();
+      if (_tcp->run() == false)
+	throw ErrorClient("Error to run client tcp network's");
       _udp = _man->getNetworkUDPManager();
+      if (_udp->run() == false)
+	throw ErrorClient("Error to run client udp network's");
       _gui = new GUI;
-      //maybe ou la logique c est nous qui le creons et qui le setons a la gui instant
-      //_sound = _gui->getSoundManager();
       _sound = new SoundManager;
       _pkt = new ManagerPacketClient;
+      _eventQueue = new EventQueue;
     }
 }
 
@@ -46,6 +50,11 @@ void			ManagerClient::deleteManager()
     {
       _isSet = false;
       _man->deleteManager();
+      delete _eventQueue;
+      delete _pkt;
+      delete _man;
+      delete _sound;
+      delete _gui;
     }
 }
 
@@ -62,4 +71,9 @@ IGUI			*ManagerClient::getGUI() const
 ISoundManager		*ManagerClient::getSoundManager() const
 {
   return (_sound);
+}
+
+IEventQueue		*ManagerClient::getEventQueue() const
+{
+  return (_eventQueue);
 }

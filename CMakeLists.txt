@@ -44,12 +44,14 @@ include_directories(common/include/packet_tools)
 include_directories(common/include/tools)
 
 include_directories(client/include/packet)
+include_directories(client/include/error)
 include_directories(client/include/core)
 include_directories(client/include/GUI)
 include_directories(client/include/GUI/Audio)
 include_directories(client/include/Event)
 
 include_directories(server/include/packet)
+include_directories(server/include/error)
 include_directories(server/include/core)
 include_directories(server/include/game)
 
@@ -57,10 +59,10 @@ include_directories(server/include/game)
 FILE (GLOB COMMONCORE "common/src/core/*.cpp")
 FILE (GLOB COMMONTPACKET "common/src/packet/*.cpp")
 FILE (GLOB COMMONPACKETT "common/src/packet_tools/*.cpp")
-FILE (GLOB COMMONTOOLS "common/src/packet/tools/*.cpp")
-FILE (GLOB COMMONNETWORK "common/src/packet/network/*.cpp")
-FILE (GLOB COMMONNETWORKUNIX "common/src/packet/network/unix/*.cpp")
-FILE (GLOB COMMONNETWORKWIN "common/src/packet/network/windows/*.cpp")
+FILE (GLOB COMMONTOOLS "common/src/tools/*.cpp")
+FILE (GLOB COMMONNETWORK "common/src/network/*.cpp")
+FILE (GLOB COMMONNETWORKUNIX "common/src/network/unix/*.cpp")
+FILE (GLOB COMMONNETWORKWIN "common/src/network/windows/*.cpp")
 
 # Files Server
 FILE (GLOB_RECURSE server_src "server/src/*.cpp")
@@ -75,6 +77,8 @@ ENDIF (UNIX)
 
 # Enable C++ 11
 add_definitions(-std=c++11)
+
+add_definitions(-g)
 
 # add_executable for WIN32
 IF (WIN32)

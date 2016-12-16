@@ -5,7 +5,7 @@
 ** Login   <lecoq_m@epitech.net>
 **
 ** Started on  Mon Oct 17 13:11:20 2016 Maxime Lecoq
-// Last update Thu Dec 15 17:56:17 2016 lecoq
+// Last update Fri Dec 16 12:03:30 2016 lecoq
 */
 
 #ifndef		__IMANAGENETWORK_HH__
@@ -58,14 +58,15 @@ namespace Network
     en :tryConnectClient() allow the client to try the connection to a server.
     fr :La méthode tryConnectClient() permet au client d'essayer de se connecter à un server. */
     virtual bool				tryConnectClient(const uint32_t &, const std::string &) = 0;
-	/*!
-	en :UpdateUsers() updates th user list in the manager.
-	fr :La méthode UpdateUsers() met à jour la liste des utilisateurs dans le manager. */
-	virtual void				updateUsers(std::vector<IUserNetwork *>) = 0;
-	/*!
-	en :pushToServ(message) is used to send message to the server. (DEBUG)
-	fr :La méthode pushToServ(message) sert à envoyer un message au serveur. (DEBUG) */
-	virtual void				pushToServ(const std::string &) = 0;
+    /*!
+      en :
+      fr :
+     */
+    virtual void				updateUsers(const std::vector<IUserNetwork *> &) = 0;
+    /*!
+      en :pushToServ(message) is used to send message to the server. (DEBUG)
+      fr :La méthode pushToServ(message) sert à envoyer un message au serveur. (DEBUG) */
+    virtual void				pushToServ(const std::string &) = 0;
   };
 };
 

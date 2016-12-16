@@ -5,7 +5,7 @@
 #include <iostream>
 #include "PacketMove.hh"
 
-PacketMove::PacketMove(const uint8_t & x, const uint8_t & y)
+PacketMove::PacketMove(const uint16_t & x, const uint16_t & y)
 {
 	PacketSerializer ps;
 	uint32_t dataPacketSize = 0;
@@ -16,10 +16,10 @@ PacketMove::PacketMove(const uint8_t & x, const uint8_t & y)
 	_y = y;
 
 	ps.add(_x);
-	dataPacketSize += 1;
+	dataPacketSize += 2;
 
 	ps.add(_y);
-	dataPacketSize += 1;
+	dataPacketSize += 2;
 
 	_data = ps.getPacket();
 	_size = dataPacketSize;
@@ -38,23 +38,23 @@ PacketMove::PacketMove(const uint8_t *data)
 	for (uint32_t a = 0; a < _size; a++)
 		_data[a] = data[a + 9];
 
-	_x = pd.get8(posInPacket);
-	posInPacket += 1;
+	_x = pd.get16(posInPacket);
+	posInPacket += 2;
 
-	_y = pd.get8(posInPacket);
-	posInPacket += 1;
+	_y = pd.get16(posInPacket);
+	posInPacket += 2;
 }
 
 PacketMove::~PacketMove()
 {
 }
 
-uint8_t PacketMove::getX() const
+uint16_t PacketMove::getX() const
 {
 	return (_x);
 }
 
-uint8_t PacketMove::getY() const
+uint16_t PacketMove::getY() const
 {
 	return (_y);
 }

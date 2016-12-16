@@ -193,21 +193,26 @@
 		"type": "MOVE",
 		"network": "udp",
 		"arguments": [{
-			"type": "uint8_t",
+			"type": "uint16_t",
 			"name": "x"
 		}, {
-			"type": "uint8_t",
+			"type": "uint16_t",
 			"name": "y"
 		}]
+	}, {
+		"name": "disconnect",
+		"type": "DISCONNECT",
+		"network": "udp",
+		"arguments": []
 	}, {
 		"name": "shoot",
 		"type": "SHOOT",
 		"network": "udp",
 		"arguments": [{
-			"type": "uint8_t",
+			"type": "uint16_t",
 			"name": "x"
 		}, {
-			"type": "uint8_t",
+			"type": "uint16_t",
 			"name": "y"
 		}]
 	}, {
@@ -221,10 +226,10 @@
 				"type": "uint8_t",
 				"name": "id"
 			}, {
-				"type": "uint8_t",
+				"type": "uint16_t",
 				"name": "x"
 			}, {
-				"type": "uint8_t",
+				"type": "uint16_t",
 				"name": "y"
 			}, {
 				"type": "uint8_t",
@@ -242,10 +247,10 @@
 				"type": "std::string",
 				"name": "name"
 			}, {
-				"type": "uint8_t",
+				"type": "uint16_t",
 				"name": "x"
 			}, {
-				"type": "uint8_t",
+				"type": "uint16_t",
 				"name": "y"
 			}, {
 				"type": "uint8_t",
@@ -263,10 +268,10 @@
 				"type": "uint8_t",
 				"name": "type"
 			}, {
-				"type": "uint8_t",
+				"type": "uint16_t",
 				"name": "x"
 			}, {
-				"type": "uint8_t",
+				"type": "uint16_t",
 				"name": "y"
 			}]
 		}]
@@ -281,10 +286,10 @@
 				"type": "uint8_t",
 				"name": "type"
 			}, {
-				"type": "uint8_t",
+				"type": "uint16_t",
 				"name": "x"
 			}, {
-				"type": "uint8_t",
+				"type": "uint16_t",
 				"name": "y"
 			}]
 		}]

@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 15:50:05 2016 Maxime Lecoq
-// Last update Thu Dec 15 15:42:49 2016 lecoq
+// Last update Fri Dec 16 11:22:07 2016 lecoq
 //
 
 #ifndef MANAGERSERVER_HH_
@@ -13,6 +13,10 @@
 
 # include "IManagerServer.hh"
 # include "IPacketManager.hh"
+# include "ErrorServer.hpp"
+
+using namespace Network;
+using namespace Error;
 
 class ManagerServer : public IManagerServer
 {

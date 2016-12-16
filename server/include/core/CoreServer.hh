@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:19:16 2016 Maxime Lecoq
-// Last update Thu Dec 15 15:31:56 2016 lecoq
+// Last update Fri Dec 16 11:23:15 2016 lecoq
 //
 
 #ifndef CORESERVER_HH_
@@ -14,13 +14,16 @@
 # include "ACore.hh"
 # include "ManagerServer.hh"
 
+using namespace Network;
+using namespace Error;
+
 class CoreServer : public ACore
 {
   public:
   CoreServer();
   ~CoreServer();
   void		run();
-  void		initManager();
+  bool		initManager();
   void		deleteManager();
 private:
   IManagerServer *_manager;

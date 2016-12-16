@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 11:43:18 2016 Maxime Lecoq
-// Last update Thu Dec 15 17:32:16 2016 lecoq
+// Last update Fri Dec 16 10:31:15 2016 lecoq
 //
 
 #include	"PacketFactory.hh"
@@ -61,4 +61,6 @@ void		PacketFactory::getPacket(const uint8_t *p) const
 
 void		PacketFactory::enable(const std::string &packet)
 {
+  if (_mapData.find(packet) != _mapData.end())
+    _ptr[packet] = _mapData[packet];
 }

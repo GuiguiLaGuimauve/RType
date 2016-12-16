@@ -60,6 +60,7 @@ namespace Gui
     void	displayLogin();
     void        updateGameInfo(/*const GameInfo &*/);
     void	setEventQueue(EventPart::IEventQueue *);
+    void	setSoundManager(Audio::ISoundManager *);
   protected:
     void	deleteWidgets();
   protected:

@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Thu Dec 15 16:50:03 2016 lecoq
+// Last update Fri Dec 16 15:29:08 2016 lecoq
 //
 
 #include	"CoreClient.hh"
@@ -20,78 +20,57 @@ CoreClient::~CoreClient()
 {
 }
 
-void CoreClient::run()
+void	CoreClient::run()
 {
-  /*while (1)
+  bool	loop;
+
+  loop = true;
+  _gui->displayStart();
+  while (loop == true)
     {
-      _gui->callback();
-      while (!_eventQueue.empty())
-        {
-          auto e = _eventQueue.pop();
-          switch (e.type)
-            {
-            case EventPart::Event::QUIT :
-              return ;
-            case EventPart::Event::ATTACK :
-              {
-                break ;
-              }
-            case EventPart::Event::MOVE_UP :
-              {
-                break ;
-              }
-            case EventPart::Event::MOVE_DOWN :
-              {
-                break ;
-              }
-            case EventPart::Event::MOVE_RIGHT :
-              {
-                break ;
-              }
-            case EventPart::Event::MOVE_LEFT :
-              {
-                break ;
-              }
-            case EventPart::Event::TRY_CONNECT :
-              {
-                break ;
-              }
-            case EventPart::Event::TRY_LOGIN :
-              {
-                break ;
-              }
-            case EventPart::Event::CREATE_GAME :
-              {
-                break ;
-              }
-            case EventPart::Event::JOIN_GAME :
-              {
-                break ;
-              }
-	    case EventPart::Event::DEFAULT :
-              {
-                break ;
-              }
-            default :
-              {
-		std::cout << "Event inconnu! " << std::endl;
-              }
-            }
-	}
-	}*/
+      if (manageGui() == false || manageNetwork() == false)
+	loop = false;
+    }
 }
 
-void CoreClient::initManager()
+bool	CoreClient::manageGui()
 {
-   if (_isInit == false)
-     _manager->setManager();
-   _isInit = true;
-   _pkt = _manager->getPacketManager();
-   _tcp = _manager->getNetworkTCPManager();
-   _udp = _manager->getNetworkUDPManager();
-   _gui = _manager->getGUI();
-   _sound = _manager->getSoundManager();
-   //_eventQueue = _gui->getEventQueue();
+  _gui->callback();
+  while (_eventQueue->empty() == false)
+    {
+      EventPart::Event e = _eventQueue->pop();
+      std::cout << e.type << std::endl;
+    }
+  return (true);
+}
+
+bool	CoreClient::manageNetwork()
+{
+  return (true);
+}
+
+bool	CoreClient::initManager()
+{
+  try
+    {
+      if (_isInit == false)
+	_manager->setManager();
+      _isInit = true;
+      _pkt = _manager->getPacketManager();
+      _tcp = _manager->getNetworkTCPManager();
+      _udp = _manager->getNetworkUDPManager();
+      _gui = _manager->getGUI();
+      _sound = _manager->getSoundManager();
+      _eventQueue = _manager->getEventQueue();
+      _gui->setEventQueue(_eventQueue);
+      _gui->setSoundManager(_sound);
+    }
+  catch (AError const &e)
+    {
+      e.error();
+      return (false);
+    }
+  return (true);
 }
 
 void CoreClient::deleteManager()
