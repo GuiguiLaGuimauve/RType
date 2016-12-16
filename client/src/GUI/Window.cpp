@@ -24,6 +24,7 @@ Window::~Window()
 IWidget*    Window::addWidget(int x, int y, int w, int h)
 {
   IWidget *widget = new Widget(_win, x, y, w, h);
+  widgets->setEventQueue(_queue);
   _list.push_back(widget);
   return (widget);
 }
