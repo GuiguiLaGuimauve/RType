@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 15:53:17 2016 Maxime Lecoq
-// Last update Fri Dec 16 15:25:06 2016 lecoq
+// Last update Fri Dec 16 16:28:01 2016 lecoq
 //
 
 # include	"ManagerClient.hh"
@@ -25,7 +25,7 @@ void	ManagerClient::setManager()
       if (_tcp->run() == false)
 	throw ErrorClient("Error to run client tcp network's");
       _udp = _man->getNetworkUDPManager();
-      if (_udp->run() == false)
+      if (_udp->run(4242, 0) == false)
 	throw ErrorClient("Error to run client udp network's");
       _gui = new GUI;
       _sound = new SoundManager;
