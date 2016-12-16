@@ -39,6 +39,7 @@ GUI::~GUI()
 
 void		GUI::callback()
 {
+        std::cout << "test" << std::endl;
   _userEvents->callback();
   _win->drawAll();
   while (!_guiQueue->empty())

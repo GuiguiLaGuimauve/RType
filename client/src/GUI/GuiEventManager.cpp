@@ -30,12 +30,13 @@ void		GuiEventManager::callback()
 	  break;
 	case sf::Event::MouseButtonPressed :
 	  {
+	    std::cout << "sfml click" << std::endl;
 	    int click = 0;
 	    switch (event.mouseButton.button)
 	      {
-	      case sf::Mouse::Right : click = CLICK_RIGHT;
-	      case sf::Mouse::Left : click = CLICK_LEFT;
-	      case sf::Mouse::Middle: click = CLICK_WHEEL;
+	      case sf::Mouse::Right : click = CLICK_RIGHT; break;
+	      case sf::Mouse::Left : click = CLICK_LEFT; break;
+	      case sf::Mouse::Middle: click = CLICK_WHEEL; break;
 	      default : click = -1;
 	      }
 	    if (click != -1)
