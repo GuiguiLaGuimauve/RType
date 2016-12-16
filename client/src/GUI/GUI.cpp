@@ -24,9 +24,9 @@ GUI::GUI()
   _userEvents->bindKey(KEY_DOWN, EventPart::Event::KEY_DOWN);
   _userEvents->bindKey(KEY_ATTACK, EventPart::Event::KEY_ATTACK);
   // display init
-  //displayStart();
+  displayStart();
   //displayLogin();
-  displayMenu();
+  //  displayMenu();
 }
 
 GUI::~GUI()
@@ -115,17 +115,17 @@ void		GUI::displayStart()
   _startWidgets->button->setOnClick([](IWidget *, CLICK){std::cout << "try connect" << std::endl;});
   _startWidgets->button->setOnHover([](IWidget *w)
 				    {
-				      Style s = w->getStyle();
-				      s.backgroundColor.blue += 100;
- 				      s.backgroundColor.green += 100;
-				      w->setStyle(s);
+				      Style s1 = w->getStyle();
+				      s1.backgroundColor.blue += 100;
+ 				      s1.backgroundColor.green += 100;
+				      w->setStyle(s1);
 				    });
   _startWidgets->button->setOnLeaveHover([](IWidget *w)
 					 {
-					   Style s = w->getStyle();
-					   s.backgroundColor.blue -= 100;
-					   s.backgroundColor.green -= 100;
-					   w->setStyle(s);
+					   Style s2 = w->getStyle();
+					   s2.backgroundColor.blue -= 100;
+					   s2.backgroundColor.green -= 100;
+					   w->setStyle(s2);
 					 });
   s.form = RECTANGLE;
   s.textColor = Color(0, 0, 250);
@@ -184,34 +184,34 @@ void		GUI::displayMenu()
   _menuWidgets->confirm->setOnClick([](IWidget *, CLICK){std::cout << "Let's connect !" << std::endl;});
   _menuWidgets->confirm->setOnHover([](IWidget *w)
 				    {
-				      Style s = w->getStyle();
-				      s.backgroundColor.blue += 100;
- 				      s.backgroundColor.green += 100;
-				      w->setStyle(s);
+				      Style s1 = w->getStyle();
+				      s1.backgroundColor.blue += 100;
+ 				      s1.backgroundColor.green += 100;
+				      w->setStyle(s1);
 				    });
   _menuWidgets->confirm->setOnLeaveHover([](IWidget *w)
 					 {
-					   Style s = w->getStyle();
-					   s.backgroundColor.blue -= 100;
-					   s.backgroundColor.green -= 100;
-					   w->setStyle(s);
+					   Style s2 = w->getStyle();
+					   s2.backgroundColor.blue -= 100;
+					   s2.backgroundColor.green -= 100;
+					   w->setStyle(s2);
 					 });
 
   _menuWidgets->createGame->setText("+");
   _menuWidgets->createGame->setOnClick([](IWidget *, CLICK){std::cout << "Let's try to create a game !" << std::endl;});
   _menuWidgets->createGame->setOnHover([](IWidget *w)
 				    {
-				      Style s = w->getStyle();
-				      s.backgroundColor.blue += 100;
- 				      s.backgroundColor.green += 100;
-				      w->setStyle(s);
+				      Style s3 = w->getStyle();
+				      s3.backgroundColor.blue += 100;
+ 				      s3.backgroundColor.green += 100;
+				      w->setStyle(s3);
 				    });
   _menuWidgets->createGame->setOnLeaveHover([](IWidget *w)
 					 {
-					   Style s = w->getStyle();
-					   s.backgroundColor.blue -= 100;
-					   s.backgroundColor.green -= 100;
-					   w->setStyle(s);
+					   Style s4 = w->getStyle();
+					   s4.backgroundColor.blue -= 100;
+					   s4.backgroundColor.green -= 100;
+					   w->setStyle(s4);
 					 });
 
   // ergonomie focus
@@ -242,17 +242,17 @@ void		GUI::displayLogin()
   _loginWidgets->confirm->setOnClick([](IWidget *, CLICK){std::cout << "Let's connect !" << std::endl;});
   _loginWidgets->confirm->setOnHover([](IWidget *w)
 				    {
-				      Style s = w->getStyle();
-				      s.backgroundColor.blue += 100;
- 				      s.backgroundColor.green += 100;
-				      w->setStyle(s);
+				      Style s1 = w->getStyle();
+				      s1.backgroundColor.blue += 100;
+ 				      s1.backgroundColor.green += 100;
+				      w->setStyle(s1);
 				    });
   _loginWidgets->confirm->setOnLeaveHover([](IWidget *w)
 					 {
-					   Style s = w->getStyle();
-					   s.backgroundColor.blue -= 100;
-					   s.backgroundColor.green -= 100;
-					   w->setStyle(s);
+					   Style s2 = w->getStyle();
+					   s2.backgroundColor.blue -= 100;
+					   s2.backgroundColor.green -= 100;
+					   w->setStyle(s2);
 					 });
 
 
