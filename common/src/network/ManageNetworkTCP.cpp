@@ -1,13 +1,14 @@
-#include	"ManageNetwork.hh"
+#include	"ManageNetworkTCP.hh"
 
 using namespace Network;
 
-ManageNetwork::ManageNetwork() : _port(4242), _init(false), _initServ(false)
+ManageNetworkTCP::ManageNetworkTCP()
 {
-	_serv = NULL;
+  _initServ = false;
+  _serv = NULL;
 }
 
-ManageNetwork::~ManageNetwork()
+ManageNetworkTCP::~ManageNetworkTCP()
 {
   if (_init == true)
     {
@@ -22,7 +23,7 @@ ManageNetwork::~ManageNetwork()
     }
 }
 
-bool			ManageNetwork::init()
+bool			ManageNetworkTCP::init()
 {
   uint32_t		i;
 
@@ -42,7 +43,7 @@ bool			ManageNetwork::init()
 	return (true);
 }
 
-bool			ManageNetwork::select_it()
+bool			ManageNetworkTCP::select_it()
 {
   struct timeval	timeout;
 	uint32_t		err;
@@ -61,7 +62,7 @@ bool			ManageNetwork::select_it()
 	return (true);
 }
 
-std::vector<IUserNetwork *>	ManageNetwork::execClient()
+std::vector<IUserNetworkTCP *>	ManageNetworkTCP::execClient()
 {
 	std::vector<IUserNetwork *>	newuser;
 	int32_t						i;
@@ -86,7 +87,7 @@ std::vector<IUserNetwork *>	ManageNetwork::execClient()
 	return (newuser);
 }
 
-std::vector<IUserNetwork *>	ManageNetwork::execServer()
+std::vector<IUserNetwork *>	ManageNetworkTCP::execServer()
 {
 	std::vector<IUserNetwork *>	newuser;
 	IUserNetwork				*u;
@@ -119,28 +120,7 @@ std::vector<IUserNetwork *>	ManageNetwork::execServer()
 	return (newuser);
 }
 
-uint32_t			ManageNetwork::getMaxFd() const
-{
-  if (_user.size() != 0)
-    {
-      uint32_t			i;
-      uint32_t			res;
-
-      i = 0;
-      res = _user[i]->getFd();
-      while (i < _user.size())
-	{
-	  if (res < (uint32_t)_user[i]->getFd())
-	    res = _user[i]->getFd();
-	  i++;
-	}
-      return (res + 1);
-    }
-  else
-    return (0);
-}
-
-bool		ManageNetwork::run()
+bool		ManageNetworkTCP::run()
 {
 #ifdef _WIN32
   try {
@@ -163,7 +143,7 @@ bool		ManageNetwork::run()
   return (true);
 }
 
-bool		ManageNetwork::run(const uint32_t &port, const uint32_t &maxCl)
+bool		ManageNetworkTCP::run(const uint32_t &port, const uint32_t &maxCl)
 {
 #ifdef _WIN32
   try {
@@ -201,7 +181,7 @@ bool		ManageNetwork::run(const uint32_t &port, const uint32_t &maxCl)
   return (true);
 }
 
-bool			ManageNetwork::tryConnectClient(const uint32_t &port, const std::string &ip)
+bool			ManageNetworkTCP::tryConnectClient(const uint32_t &port, const std::string &ip)
 {
   if (_net->connectIt(ip, port) == false)
     return (false);
@@ -221,40 +201,7 @@ bool			ManageNetwork::tryConnectClient(const uint32_t &port, const std::string &
   return (true);
 }
 
-ISocket		*ManageNetwork::getSocket() const
-{
-  return (_net);
-}
-
-void			ManageNetwork::updateUsers(std::vector<IUserNetwork *> user)
-{
-	uint32_t	i = 0;
-//	std::cout << "Update users:\nnewUser size: " << user.size() << std::endl;
-//	std::cout << "_user size: " << _user.size() << std::endl;
-	while (i < _user.size())
-	{
-		if (_user[i]->getStatus() == false)
-		{
-			std::cout << "Erase client from list: " << _user[i]->getFd() << std::endl;
-			//delete (_user[i]);
-			_user.erase(_user.begin() + i);
-		}
-		else
-			i++;
-	}
-	i = 0;
-	while (i < user.size())
-	{
-		if (user[i]->getStatus() == true)
-		{
-			std::cout << "New user in list: " << user[i]->getFd() << std::endl;
-			_user.push_back(user[i]);
-		}
-		i++;
-	}
-}
-
-void		ManageNetwork::pushToServ(const std::string &m)
+void		ManageNetworkTCP::pushToServ(const std::string &m)
 {
 	if (_initServ == true)
 	{
