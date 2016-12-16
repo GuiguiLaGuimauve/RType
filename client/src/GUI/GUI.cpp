@@ -271,7 +271,12 @@ void		GUI::displayLogin()
 
   /* je gère le clic, le hover et le unhover */
   _loginWidgets->confirm->setText("Confirm");
-  _loginWidgets->confirm->setOnClick([](IWidget *, CLICK){std::cout << "Let's connect !" << std::endl;});
+  _loginWidgets->confirm->setOnClick([](IWidget *w, CLICK)
+				  {
+				    auto eq = w->getEventQueue();
+			            eq->push(EventPart::Event(EventPart::Event::BUTTON_LOGIN));
+				    std::cout << "Let's connect !" << std::endl;
+				  });
   _loginWidgets->confirm->setOnHover([](IWidget *w)
 				    {
 				      Style s1 = w->getStyle();

@@ -183,7 +183,7 @@ void                Widget::setStyle(const Style &s)
   _circle.setFillColor(sf::Color(_style.backgroundColor.red,
 				 _style.backgroundColor.green,
 				 _style.backgroundColor.blue));
-  _rectangle.setFillColor(sf::Color(s.backgroundColor.red,
+  _rectangle.setFillColor(sf::Color(_style.backgroundColor.red,
 				 _style.backgroundColor.green,
 				 _style.backgroundColor.blue));
   // gérer l'opacité
