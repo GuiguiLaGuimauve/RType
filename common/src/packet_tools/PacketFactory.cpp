@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 11:43:18 2016 Maxime Lecoq
-// Last update Sat Dec 17 01:51:41 2016 lecoq
+// Last update Sat Dec 17 11:07:22 2016 lecoq
 //
 
 #include	"PacketFactory.hh"
@@ -19,13 +19,13 @@ PacketFactory::PacketFactory()
   _mapData5["createroom"] = &PacketFactory::createRoom;
   _mapData3["joinroom"] = &PacketFactory::joinRoom;
   _mapData3["joinerror"] = &PacketFactory::joinError;
-  /*_mapData["startgame"] = &PacketFactory::startGame;
-  _mapData["starterror"] = &PacketFactory::startError;
-  _mapData["leaveroom"] = &PacketFactory::leaveRoom;
-  _mapData["udpdata"] = &PacketFactory::udpData;
-  _mapData["udpdatafree"] = &PacketFactory::udpDataFree;
-  _mapData["dataroom"] = &PacketFactory::dataRoom;
-  _mapData["watchgame"] = &PacketFactory::watchGame;
+  _mapData3["startgame"] = &PacketFactory::startGame;
+  _mapData3["starterror"] = &PacketFactory::startError;
+  _mapData3["leaveroom"] = &PacketFactory::leaveRoom;
+  _mapData6["udpdata"] = &PacketFactory::udpData;
+  _mapData1["udpdatafree"] = &PacketFactory::udpDataFree;
+  _mapData7["dataroom"] = &PacketFactory::getDataRoom;
+  /*_mapData["watchgame"] = &PacketFactory::watchGame;
   _mapData["login"] = &PacketFactory::login;
   _mapData["register"] = &PacketFactory::tryRegister;
   _mapData["logout"] = &PacketFactory::logout;
@@ -112,6 +112,34 @@ IPacket		*PacketFactory::getPacket(const IPacket::PacketType &p, const std::stri
   return (NULL);
 }
 
+IPacket		*PacketFactory::getPacket(const std::string &p, const uint8_t *m, const uint16_t &t) 
+{
+  if (_ptr6.find(p) != _ptr6.end())
+    return ((this->*_ptr6[p])(m, t));
+  return (NULL);
+}
+
+IPacket		*PacketFactory::getPacket(const IPacket::PacketType &p, const uint8_t *m, const uint16_t &t) 
+{
+  if (_mapConverter6.find(p) != _mapConverter6.end())
+    return (getPacket(_mapConverter6[p], m, t));
+  return (NULL);
+}
+
+IPacket		*PacketFactory::getPacket(const std::string &p, const std::vector<DataPlayer *> &m, const uint8_t &t) 
+{
+  if (_ptr7.find(p) != _ptr7.end())
+    return ((this->*_ptr7[p])(m, t));
+  return (NULL);
+}
+
+IPacket		*PacketFactory::getPacket(const IPacket::PacketType &p, const std::vector<DataPlayer *> &m, const uint8_t &t) 
+{
+  if (_mapConverter7.find(p) != _mapConverter7.end())
+    return (getPacket(_mapConverter7[p], m, t));
+  return (NULL);
+}
+
 void		PacketFactory::getPacket(const uint8_t *p) const
 {
   (void)p;
@@ -129,6 +157,10 @@ void		PacketFactory::enable(const std::string &packet)
     _ptr4[packet] = _mapData4[packet];
   if (_mapData5.find(packet) != _mapData5.end())
     _ptr5[packet] = _mapData5[packet];
+  if (_mapData6.find(packet) != _mapData6.end())
+    _ptr6[packet] = _mapData6[packet];
+  if (_mapData7.find(packet) != _mapData7.end())
+    _ptr7[packet] = _mapData7[packet];
 }
 
 IPacket		*PacketFactory::getError(const std::string &m, const IPacket::PacketType &p) 
@@ -159,9 +191,37 @@ IPacket		*PacketFactory::joinError(const std::string &m)
   return (ret);
 }
 
+IPacket		*PacketFactory::startGame(const std::string &m) 
+{
+  IPacket	*ret = NULL; /*new PacketStartGame(m);*/
+  (void)m;
+  return (ret);
+}
+
+IPacket		*PacketFactory::startError(const std::string &m) 
+{
+  IPacket	*ret = NULL; /*new PacketStartError(m);*/
+  (void)m;
+  return (ret);
+}
+
+IPacket		*PacketFactory::leaveRoom(const std::string &m) 
+{
+  IPacket	*ret = NULL; /*new PacketLeaveRoom(m);*/
+  (void)m;
+  return (ret);
+}
+
 IPacket		*PacketFactory::getConnect() 
 {
   IPacket	*ret = new PacketConnect;
+
+  return (ret);
+}
+
+IPacket		*PacketFactory::udpDataFree() 
+{
+  IPacket	*ret = new PacketUdpDataFree;
 
   return (ret);
 }
@@ -180,4 +240,21 @@ IPacket		*PacketFactory::createRoom(const std::string &m, const uint8_t &t)
   (void)t;
 
   return (ret);
+}
+
+IPacket		*PacketFactory::udpData(const uint8_t *m, const uint16_t &t) 
+{
+  IPacket	*ret = new PacketUdpData(m, t);
+
+  return (ret);
+}
+
+IPacket		*PacketFactory::getDataRoom(const std::vector<DataPlayer *> &m, const uint8_t &t)
+{
+  IPacket	*ret = NULL; /* = new PacketRoomData(m, t);*/
+
+  (void)m;
+  (void)t;
+
+  return (ret);  
 }
