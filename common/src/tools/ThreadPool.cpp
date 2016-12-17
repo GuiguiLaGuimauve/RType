@@ -5,11 +5,16 @@
 // Login   <rembur_g@epitech.eu>
 //
 // Started on  Wed Dec  7 16:19:21 2016 La Guimauve
-// Last update Sat Dec 10 16:07:45 2016 La Guimauve
+// Last update Sat Dec 17 21:04:34 2016 La Guimauve
 //
 
 #include <iostream>
 #include "ThreadPool.hh"
+
+int one()
+{
+  return (1);
+}
 
 ThreadPool::ThreadPool(size_t nb_threads) : stop(false)
 {
@@ -31,7 +36,7 @@ template<class F>
 void ThreadPool::addToQueue(F f)
 {
     {
-      std::unique_lock<std::mutex> lock(mtx);
+      std::unique_lock<std::mutex> lock(this->mtx.mtx);
       this->tasks.push_back(std::function<void()>(f));
     }
     condition.notify_one();
