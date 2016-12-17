@@ -325,14 +325,10 @@ Category: Limited
 		uint16_t Game name size
 		int8_t[] Game name
 		uint8_t  Allowed player in game
-		uint8_t  Level stage
 
 	Packet JOIN_ROOM 	0x05 :
 		uint16_t Game name size
 		int8_t[] Game name
-		uint16_t Player name size
-		int8_t[] Player name
-
 
 \-----------------------------------------------------------------------------/
 RType							   Guimauve shoot'em up
@@ -347,7 +343,6 @@ Category: Limited
 	Packet START_GAME 	0x07 :
 		uint16_t Game name size
 		int8_t[] Game name
-		uint16_t Player UDP port
 
 	Packet START_ERROR	0x08 :
 		uint16_t Game name size
@@ -355,9 +350,7 @@ Category: Limited
 
 	Packet LEAVE_ROOM	0x09 :
 		uint16_t Game name size
-		int8_t[] Game name					
-		uint16_t Player name size
-		int8_t[] Player name
+		int8_t[] Game name
 
 	Packet UDP_DATA		0x10 :
 		uint8_t[4] IP address
