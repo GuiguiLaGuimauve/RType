@@ -24,12 +24,9 @@ GUI::GUI()
   _userEvents->bindKey(KEY_DOWN, EventPart::Event::KEY_DOWN);
   _userEvents->bindKey(KEY_ATTACK, EventPart::Event::KEY_ATTACK);
   // display init
-  displayStart();
+  //displayStart();
   //displayLogin();
   //  displayMenu();
-  showPopup("Yolo");
- showPopup("Yolo");
- showPopup("SWAGGGGGGGGGGGGGGGGGGGg");
 }
 
 GUI::~GUI()
@@ -127,18 +124,124 @@ void		GUI::displayGame()
   /* Load le bon background en fonction du stage séléctionné */
 
   _gameWidgets = new Game;
+
+  //this->_gameWidgets->levelId = ...
+  _win->setBackground("../client/Assets/RType_background.bmp");
+  //_win->setBackground(this->backgroundMap[this->_gameWidgets->levelId]);// Ou on pourrait set le levelId ?
+  _gameWidgets->layout = _win->addWidget(0, 0, WINDOW_WIDTH, 100);
+
+  Style         s = _gameWidgets->layout->getStyle();;
+  s.form = RECTANGLE;
+  s.textColor = Color(0, 0, 250);
+  s.backgroundColor = Color(250, 0, 0);
+  _gameWidgets->layout->setStyle(s);
+
+  struct data oui;
+
+  this->players.push_back(oui);
+  oui.x = 150;
+  oui.y = 150;
+  oui.health = 75;
+  this->players.push_back(oui);
+  oui.x = 300;
+  oui.y = 300;
+  oui.health = 50;
+  this->players.push_back(oui);
+  oui.x = 450;
+  oui.y = 450;
+  oui.health = 25;
+  this->players.push_back(oui);
+
+  //PLAYERS
+  for (unsigned int i = 0; i < players.size(); i++)
+    {
+      IWidget *temp;
+      std::string non = "Player" + std::to_string(i) + "\n\t" + std::to_string(players[i].health) + "HP";
+
+      temp = _win->addWidget((WINDOW_WIDTH / 4) * i, 0, WINDOW_WIDTH / players.size(), 100);
+      temp->setText(non);
+
+      Style s1 = temp->getStyle();
+
+      temp = _win->addWidget(players[i].x, 100 + players[i].y, 34, 20);
+      s1.image = "Ship" + std::to_string(i + 1);
+      s1.policeSize = 50;
+      temp->setStyle(s1);
+    }
+
+  oui.x = 500;
+  oui.y = 50;
+  this->shots.push_back(oui);
+  oui.x = 550;
+  oui.y = 150;
+  this->shots.push_back(oui);
+  oui.x = 550;
+  oui.y = 300;
+  this->shots.push_back(oui);
+  oui.x = 650;
+  oui.y = 450;
+  this->shots.push_back(oui);
+
+  //SHOTS
+  for (unsigned int i = 0; i < shots.size(); i++)
+    {
+      IWidget *temp;
+
+      temp = _win->addWidget(shots[i].x, 100 + shots[i].y, 34, 20);
+
+      Style s3 = temp->getStyle();
+
+      //s.image = "Shot-" + _gameWidgets->shots[i].name;
+      s3.image = "Shot-" + std::to_string(/*i + */1);
+      temp->setStyle(s3);
+    }
+
+  oui.x = 700;
+  oui.y = 30;
+  this->monsters.push_back(oui);
+
+  // MONSTERS
+  for (unsigned int i = 0; i < monsters.size(); i++)
+    {
+      IWidget *temp;
+
+      temp = _win->addWidget(monsters[i].x, 100 + monsters[i].y, 25, 25);
+
+      Style s4 = temp->getStyle();
+
+      s4.image = "Bydos";
+      temp->setStyle(s4);
+    }
+
+  // Envs
+  /*for (int i = 0; i < envs.size(); i++)
+    {
+      IWidget *temp;
+      temp = _win->addWidget(envs[i].x, 100 + envs[i].y, 34, 20);
+
+      Style s5 = temp->getStyle();
+
+      //s.image = "Env-" + _gameWidgets->envs[i].name;
+      s5.image = "Env-" + std::to_string();
+      temp->setStyle(s5);
+      }*/
 }
 
 void		GUI::displayStart()
 {
   // custom window
   //_win->setBackground("/home/bertho_i/Downloads/Patate_pokémon.png");
-  _win->setBackground("background1.jpg");
+  _win->setBackground("../client/Assets/RType_background.bmp");
   // init
   _startWidgets = new Start;
-  _startWidgets->imput = _win->addWidget(50, 50, 300, 75);
-  _startWidgets->button = _win->addWidget(50, 150, 300, 75);
+  _startWidgets->imput = _win->addWidget(WINDOW_WIDTH / 4, WINDOW_HEIGHT / 2, WINDOW_WIDTH / 2, 75);
+  _startWidgets->button = _win->addWidget(WINDOW_WIDTH / 4, (2 * WINDOW_HEIGHT) / 3, WINDOW_WIDTH / 2, 75);
+  _startWidgets->title = _win->addWidget(WINDOW_WIDTH / 4, 50, WINDOW_WIDTH / 2, 100);
   // custom button
+  Style		logoStyle = _startWidgets->title->getStyle();
+  logoStyle.image = "Logo";
+  _startWidgets->title->setStyle(logoStyle);
+
   Style		s;
   s = _startWidgets->button->getStyle();
   _startWidgets->button->setText("Connect.");
@@ -188,7 +291,8 @@ void		GUI::displayStart()
 
 void		GUI::displayMenu()
 {
-  _win->setBackground("background1.jpg");
+  _win->setBackground("../client/Assets/RType_background.bmp");
+  //_win->setBackground("background1.jpg");
   _menuWidgets = new Menu;
 
   _menuWidgets->GameContainer = _win->addWidget(300, 100, 1000, 300);
@@ -256,7 +360,8 @@ void		GUI::displayMenu()
 void		GUI::displayLogin()
 {
   _loginWidgets = new Login;
-  _win->setBackground("background1.jpg");
+  _win->setBackground("../client/Assets/RType_background.bmp");
+  //_win->setBackground("background1.jpg");
   _loginWidgets->login = _win->addWidget(300, 120, 300, 75);
   _loginWidgets->password = _win->addWidget(300, 220, 300, 75);
   _loginWidgets->confirm = _win->addWidget(300, 370, 300, 75);

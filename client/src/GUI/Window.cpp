@@ -80,7 +80,11 @@ void        Window::resize(int w, int h)
 void        Window::setBackground(const std::string &s)
 {
   if (_loadBackground.loadFromFile(s))
-    _background.setTexture(_loadBackground);
+    {
+      //_loadBackground.setRepeated(true);
+      _background.setTexture(_loadBackground);
+      //_background.setTextureRect({ 0, 0, WINDOW_WIDTH, WINDOW_HEIGHT });
+    }
 }
 
 

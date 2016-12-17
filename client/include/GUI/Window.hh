@@ -10,12 +10,15 @@
 
 #include "Widget.hh"
 
+#define WINDOW_WIDTH	1080
+#define WINDOW_HEIGHT	720
+
 namespace Gui
 {
   class	Window : public IWindow
   {
   public:
-    Window(int w = 1900, int h = 900, const std::string &s = "");
+    Window(int w = WINDOW_WIDTH, int h = WINDOW_HEIGHT, const std::string &s = "");
     virtual ~Window();
 
     IWidget*		addWidget(int, int, int, int);

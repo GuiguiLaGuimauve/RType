@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Fri Dec 16 18:35:41 2016 lecoq
+// Last update Sat Dec 17 12:07:36 2016 root
 //
 
 #include	"CoreClient.hh"

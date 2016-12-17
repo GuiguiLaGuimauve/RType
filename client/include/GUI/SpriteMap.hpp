@@ -5,7 +5,7 @@
 // Login   <oger_a@epitech.net>
 // 
 // Started on  Fri Dec  2 15:23:46 2016 Antonin Oger
-// Last update Sun Dec  4 22:13:53 2016 Antonin Oger
+// Last update Sat Dec 17 14:25:16 2016 root
 //
 
 #ifndef _SPRITEMAP_HPP_
@@ -27,24 +27,30 @@ public:
     /*		LOAD	THE	TEXTURES	*/
     /********************************************/
     LoadTexture("../client/Assets/r-typesheet42.gif", "Ships");
+    LoadTexture("../client/Assets/r-typesheet1.gif", "Shots");
     LoadTexture("../client/Assets/r-typesheet3.gif", "PowerUp1");
     LoadTexture("../client/Assets/r-typesheet30.gif", "Bydos");
     LoadTexture("../client/Assets/r-typesheet20.gif", "Enemy7");
     LoadTexture("../client/Assets/r-typesheet19.gif", "Enemy8");
     LoadTexture("../client/Assets/r-typesheet38.gif", "Boss2");
     LoadTexture("../client/Assets/r-typesheet37.gif", "SupBoss1");
-    LoadTexture("background1.jpg", "Background");
+    LoadTexture("../client/Assets/r-type-logo.png", "Logo");
     
     /********************************************/
     /*		LOAD	THE	SPRITES		*/
     /********************************************/
-    LoadSpriteFromTexture("Ships", "Ship1", 0, 0, 34, 20, 3, 3);
-    LoadSpriteFromTexture("PowerUp1", "SpherePowerUp", 0, 0, 34, 20, 3, 3);
-    LoadSpriteFromTexture("Bydos", "Bydos", 0, 0, 34, 20, 3, 3);
-    LoadSpriteFromTexture("Enemy7", "Enemy7", 0, 0, 34, 20, 3, 3);
-    LoadSpriteFromTexture("Enemy8", "Enemy8", 0, 0, 34, 20, 3, 3);
-    LoadSpriteFromTexture("Boss2", "Boss2", 0, 0, 34, 20, 3, 3);
-    LoadSpriteFromTexture("SupBoss1", "SupBoss1", 0, 0, 34, 20, 3, 3);
+    LoadSpriteFromTexture("Ships", "Ship1", 0, 0, 34, 20, 2, 2);
+    LoadSpriteFromTexture("Ships", "Ship2", 0, 17, 34, 20, 2, 2);
+    LoadSpriteFromTexture("Ships", "Ship3", 0, 34, 34, 20, 2, 2);
+    LoadSpriteFromTexture("Ships", "Ship4", 0, 51, 34, 20, 2, 2);
+    LoadSpriteFromTexture("Shots", "Shot-1", 218, 133, 47, 18, 2, 2);
+    LoadSpriteFromTexture("PowerUp1", "SpherePowerUp", 0, 0, 34, 20, 2, 2);
+    LoadSpriteFromTexture("Bydos", "Bydos", 20, 0, 160, 210, 2, 2);
+    LoadSpriteFromTexture("Enemy7", "Enemy7", 0, 0, 34, 20, 2, 2);
+    LoadSpriteFromTexture("Enemy8", "Enemy8", 0, 0, 34, 20, 2, 2);
+    LoadSpriteFromTexture("Boss2", "Boss2", 0, 0, 34, 20, 2, 2);
+    LoadSpriteFromTexture("SupBoss1", "SupBoss1", 0, 0, 34, 20, 2, 2);
+    LoadSpriteFromTexture("Logo", "Logo", 0, 0, 480, 100, 1, 1);
   };
 
   ~SpriteMap()
@@ -87,7 +93,7 @@ public:
   {
     if (name != "")
       if (_spriteMap.find(name) == _spriteMap.end())
-	std::cerr << "Sprite not found." << std::endl;
+	std::cerr << "Sprite \"" << name << "\"not found." << std::endl;
     return (_spriteMap[name]);
   };
 
