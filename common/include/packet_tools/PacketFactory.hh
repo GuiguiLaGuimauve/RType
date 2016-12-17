@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 11:41:19 2016 Maxime Lecoq
-// Last update Sat Dec 17 17:17:35 2016 lecoq
+// Last update Sat Dec 17 17:38:34 2016 lecoq
 //
 
 #ifndef PACKETFACTORY_HH_
@@ -39,10 +39,11 @@ public:
   IPacket	*getPacket(const IPacket::PacketType &, const std::string &, const uint8_t &);
   IPacket	*getPacket(const std::string &, const uint8_t *, const uint16_t &);
   IPacket	*getPacket(const IPacket::PacketType &, const uint8_t *, const uint16_t &);
-
-  IPacket	*getPacket(const std::string &, const std::vector<DataPlayer *> &, const uint8_t &);
-  IPacket	*getPacket(const IPacket::PacketType &, const std::vector<DataPlayer *> &, const uint8_t &);
-
+  IPacket	*getPacket(const std::string &, const DataRoom *);
+  IPacket	*getPacket(const IPacket::PacketType &, const DataRoom *);
+  IPacket	*getPacket(const std::string &, const std::string &, const std::string &);
+  IPacket	*getPacket(const IPacket::PacketType &, const std::string &, const std::string &);
+  
   void		getPacket(const uint8_t *) const;
   void		enable(const std::string &);
 
@@ -57,6 +58,7 @@ public:
   IPacket	*startGame(const std::string &);
   IPacket	*startError(const std::string &);
   IPacket	*leaveRoom(const std::string &);
+  IPacket	*watchGame(const std::string &);
 
   IPacket	*getRooms(const std::vector<DataRoom *> &);
 
@@ -66,6 +68,9 @@ public:
 
   IPacket	*getDataRoom(const DataRoom *);
 
+  IPacket	*login(const std::string &, const std::string &);
+  IPacket	*tryRegister(const std::string &, const std::string &);
+
 private:
   PacketContener<void>										*_pkt1;
   PacketContener<const std::string &, const IPacket::PacketType &>				*_pkt2;
@@ -74,7 +79,47 @@ private:
   PacketContener<const std::string &, const uint8_t &>						*_pkt5;
   PacketContener<const uint8_t *, const uint16_t &>						*_pkt6;
   PacketContener<const DataRoom *>								*_pkt7;
+  PacketContener<const std::string &, const std::string &>					*_pkt8;
 };
+
+
+template<>
+class PacketContener<const std::string &, const std::string &>
+{
+public:
+  typedef IPacket *(PacketFactory::*ptr)(const std::string &, const std::string &);
+  PacketContener(PacketFactory *p) : _p(p)
+  {
+    _map["login"] = &PacketFactory::login;
+    _map["register"] = &PacketFactory::tryRegister;
+    _converter[IPacket::PacketType::ERROR_PACKET] = "login";
+    _converter[IPacket::PacketType::ERROR_PACKET] = "register";
+  };
+  ~PacketContener() {};
+  void	enable(const std::string &s)
+  {
+    if (_map.find(s) != _map.end())
+      _enableMap[s] = _map[s]; 
+  }
+  IPacket	*getPacket(const std::string &s, const std::string &m, const std::string &t)
+  {
+  if (_enableMap.find(s) != _enableMap.end())
+    return ((_p->*_enableMap[s])(m, t));
+  return (NULL);
+  }
+  IPacket	*getPacket(const IPacket::PacketType &s, const std::string &m, const std::string &t)
+  {
+  if (_converter.find(s) != _converter.end() && _enableMap.find(_converter[s]) != _enableMap.end())
+    return ((_p->*_enableMap[_converter[s]])(m, t));
+  return (NULL);
+  }
+private:
+  std::map<std::string, ptr>    _map;
+  std::map<IPacket::PacketType, std::string>    _converter;
+  std::map<std::string, ptr>    _enableMap;
+  PacketFactory                 *_p;
+};
+
 
 
 template<>
@@ -283,11 +328,13 @@ public:
   _map["joinerror"] = &PacketFactory::joinError;
   _map["startgame"] = &PacketFactory::startGame;
   _map["leaveroom"] = &PacketFactory::leaveRoom;
+  _map["watchgame"] = &PacketFactory::watchGame;
   _converter[IPacket::PacketType::ERROR_PACKET] = "welcome";
   _converter[IPacket::PacketType::ERROR_PACKET] = "joinroom";
   _converter[IPacket::PacketType::ERROR_PACKET] = "joinerror";
   _converter[IPacket::PacketType::ERROR_PACKET] = "startgame";
   _converter[IPacket::PacketType::ERROR_PACKET] = "leaveroom";
+  _converter[IPacket::PacketType::ERROR_PACKET] = "watchgame";
 };
   ~PacketContener() {};
   void	enable(const std::string &s)

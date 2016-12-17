@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 11:43:18 2016 Maxime Lecoq
-// Last update Sat Dec 17 17:18:45 2016 lecoq
+// Last update Sat Dec 17 17:36:25 2016 lecoq
 //
 
 #include	"PacketFactory.hh"
@@ -19,7 +19,8 @@ PacketFactory::PacketFactory()
   _pkt5 = new PacketContener<const std::string &, const uint8_t &>(this);
   _pkt6 = new PacketContener<const uint8_t *, const uint16_t &>(this);
   _pkt7 = new PacketContener<const DataRoom *>(this);
-  /*_mapData["watchgame"] = &PacketFactory::watchGame;
+  _pkt8 = new PacketContener<const std::string &, const std::string &>(this);
+  /*
   _mapData["login"] = &PacketFactory::login;
   _mapData["register"] = &PacketFactory::tryRegister;
   _mapData["logout"] = &PacketFactory::logout;
@@ -43,6 +44,7 @@ PacketFactory::~PacketFactory()
   delete _pkt5;
   delete _pkt6;
   delete _pkt7;
+  delete _pkt8;
 }
 
 IPacket		*PacketFactory::getPacket(const std::string &p) 
@@ -115,6 +117,16 @@ IPacket		*PacketFactory::getPacket(const IPacket::PacketType &p, const DataRoom 
   return (_pkt7->getPacket(p, m));
 }
 
+IPacket		*PacketFactory::getPacket(const std::string &p, const std::string &m, const std::string &t) 
+{
+  return (_pkt8->getPacket(p, m, t));
+}
+
+IPacket		*PacketFactory::getPacket(const IPacket::PacketType &p, const std::string &m, const std::string &t) 
+{
+  return (_pkt8->getPacket(p, m, t));
+}
+
 void		PacketFactory::getPacket(const uint8_t *p) const
 {
   (void)p;
@@ -129,6 +141,7 @@ void		PacketFactory::enable(const std::string &packet)
   _pkt5->enable(packet);
   _pkt6->enable(packet);
   _pkt7->enable(packet);
+  _pkt8->enable(packet);
 }
 
 IPacket		*PacketFactory::getError(const std::string &m, const IPacket::PacketType &p) 
@@ -180,6 +193,13 @@ IPacket		*PacketFactory::leaveRoom(const std::string &m)
   return (ret);
 }
 
+IPacket		*PacketFactory::watchGame(const std::string &m) 
+{
+  IPacket	*ret = new PacketWatchGame(m);
+
+  return (ret);
+}
+
 IPacket		*PacketFactory::getConnect() 
 {
   IPacket	*ret = new PacketConnect;
@@ -218,6 +238,20 @@ IPacket		*PacketFactory::udpData(const uint8_t *m, const uint16_t &t)
 IPacket		*PacketFactory::getDataRoom(const DataRoom *m)
 {
   IPacket	*ret= new PacketRoomData(m);
+
+  return (ret);  
+}
+
+IPacket		*PacketFactory::login(const std::string &m, const std::string &t)
+{
+  IPacket	*ret= new PacketLogin(m, t);
+
+  return (ret);  
+}
+
+IPacket		*PacketFactory::tryRegister(const std::string &m, const std::string &t)
+{
+  IPacket	*ret= new PacketRegister(m, t);
 
   return (ret);  
 }
