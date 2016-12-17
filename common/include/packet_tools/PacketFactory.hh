@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 11:41:19 2016 Maxime Lecoq
-// Last update Thu Dec 15 17:31:46 2016 lecoq
+// Last update Sat Dec 17 01:09:13 2016 lecoq
 //
 
 #ifndef PACKETFACTORY_HH_
@@ -15,24 +15,42 @@
 # include	<string>
 # include	<map>
 # include	"IPacket.hh"
+# include	"PacketList.h"
+
+using namespace Packet;
 
 class	PacketFactory
 {
 public:
-  //  template<typename ... Args>
-  typedef IPacket *(PacketFactory::*ptrPacket)(/*Args ...*/);
+  typedef IPacket *(PacketFactory::*ptr1)() ;
+  typedef IPacket *(PacketFactory::*ptr2)(const std::string &, const IPacket::PacketType &) ;
+  typedef IPacket *(PacketFactory::*ptr3)(const std::string &) ;
   PacketFactory();
   ~PacketFactory();
-  //template<typename ... Args>
-  IPacket	*getPacket(const std::string &/*, Args ...*/) const;
-  //  template<typename ... Args>
-  IPacket	*getPacket(const IPacket::PacketType &/*, Args ...*/) const;
+  IPacket	*getPacket(const std::string &);
+  IPacket	*getPacket(const IPacket::PacketType &);
+  IPacket	*getPacket(const std::string &, const std::string &, const IPacket::PacketType &);
+  IPacket	*getPacket(const IPacket::PacketType &, const std::string &, const IPacket::PacketType &);
+  IPacket	*getPacket(const std::string &, const std::string &);
+  IPacket	*getPacket(const IPacket::PacketType &, const std::string &);
   void		getPacket(const uint8_t *) const;
   void		enable(const std::string &);
+
+  IPacket	*getError(const std::string &, const IPacket::PacketType &);
+  
+  IPacket	*getWelcome(const std::string &);  
 private:
-  std::map<std::string, ptrPacket>		_mapData;
-  std::map<IPacket::PacketType, std::string>	_mapConverter;
-  std::map<std::string, ptrPacket>		_ptr;
+  std::map<std::string, ptr1>			_mapData1;
+  std::map<IPacket::PacketType, std::string>	_mapConverter1;
+  std::map<std::string, ptr1>		_ptr1;
+
+  std::map<std::string, ptr2>			_mapData2;
+  std::map<IPacket::PacketType, std::string>	_mapConverter2;
+  std::map<std::string, ptr2>		_ptr2;
+
+  std::map<std::string, ptr3>			_mapData3;
+  std::map<IPacket::PacketType, std::string>	_mapConverter3;
+  std::map<std::string, ptr3>		_ptr3;
 };
 
 #endif /* !PACKETFACTORY_HH_ */

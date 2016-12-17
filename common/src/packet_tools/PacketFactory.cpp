@@ -5,16 +5,16 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 11:43:18 2016 Maxime Lecoq
-// Last update Fri Dec 16 10:31:15 2016 lecoq
+// Last update Sat Dec 17 01:08:18 2016 lecoq
 //
 
 #include	"PacketFactory.hh"
 
 PacketFactory::PacketFactory()
 {
-  /*  _mapData["error"] = &PacketFactory::getError;
-  _mapData["welcome"] = &PacketFactory::getWelcome;
-  _mapData["connect"] = &PacketFactory::getConnect;
+  _mapData2["error"] = &PacketFactory::getError;
+  _mapData3["welcome"] = &PacketFactory::getWelcome;
+  /*_mapData["connect"] = &PacketFactory::getConnect;
   _mapData["getrooms"] = &PacketFactory::getRooms;
   _mapData["createroom"] = &PacketFactory::createRoom;
   _mapData["joinroom"] = &PacketFactory::joinRoom;
@@ -42,15 +42,45 @@ PacketFactory::PacketFactory()
 
 PacketFactory::~PacketFactory() {}
 
-IPacket		*PacketFactory::getPacket(const std::string &p) const
+IPacket		*PacketFactory::getPacket(const std::string &p) 
 {
-  (void)p;
+  if (_ptr1.find(p) != _ptr1.end())
+    return ((this->*_ptr1[p])());
   return (NULL);
 }
 
-IPacket		*PacketFactory::getPacket(const IPacket::PacketType &p) const
+IPacket		*PacketFactory::getPacket(const IPacket::PacketType &p) 
 {
-  (void)p;
+  if (_mapConverter1.find(p) != _mapConverter1.end())
+    return (getPacket(_mapConverter1[p]));
+  return (NULL);
+}
+
+IPacket		*PacketFactory::getPacket(const std::string &p, const std::string &m, const IPacket::PacketType &t) 
+{
+  if (_ptr2.find(p) != _ptr2.end())
+    return ((this->*_ptr2[p])(m, t));
+  return (NULL);
+}
+
+IPacket		*PacketFactory::getPacket(const IPacket::PacketType &p, const std::string &m, const IPacket::PacketType &t) 
+{
+  if (_mapConverter2.find(p) != _mapConverter2.end())
+    return (getPacket(_mapConverter2[p], m, t));
+  return (NULL);
+}
+
+IPacket		*PacketFactory::getPacket(const std::string &p, const std::string &m) 
+{
+  if (_ptr3.find(p) != _ptr3.end())
+    return ((this->*_ptr3[p])(m));
+  return (NULL);
+}
+
+IPacket		*PacketFactory::getPacket(const IPacket::PacketType &p, const std::string &m) 
+{
+  if (_mapConverter3.find(p) != _mapConverter3.end())
+    return (getPacket(_mapConverter3[p], m));
   return (NULL);
 }
 
@@ -61,6 +91,24 @@ void		PacketFactory::getPacket(const uint8_t *p) const
 
 void		PacketFactory::enable(const std::string &packet)
 {
-  if (_mapData.find(packet) != _mapData.end())
-    _ptr[packet] = _mapData[packet];
+  if (_mapData1.find(packet) != _mapData1.end())
+    _ptr1[packet] = _mapData1[packet];
+  if (_mapData2.find(packet) != _mapData2.end())
+    _ptr2[packet] = _mapData2[packet];
+  if (_mapData3.find(packet) != _mapData3.end())
+    _ptr3[packet] = _mapData3[packet];
+}
+
+IPacket		*PacketFactory::getError(const std::string &m, const IPacket::PacketType &p) 
+{
+  IPacket	*ret = new PacketError(m, p);
+
+  return (ret);
+}
+
+IPacket		*PacketFactory::getWelcome(const std::string &m) 
+{
+  IPacket	*ret = new PacketWelcome(m);
+
+  return (ret);
 }
