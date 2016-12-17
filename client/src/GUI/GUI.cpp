@@ -27,6 +27,9 @@ GUI::GUI()
   displayStart();
   //displayLogin();
   //  displayMenu();
+  showPopup("Yolo");
+ showPopup("Yolo");
+ showPopup("SWAGGGGGGGGGGGGGGGGGGGg");
 }
 
 GUI::~GUI()
@@ -43,7 +46,6 @@ void		GUI::callback()
   _win->drawAll();
   while (!_guiQueue->empty())
     {
-      stc::cout << "test" << std::endl;
       EventPart::Event e = _guiQueue->pop();
       EventPart::Event ep = EventPart::Event(EventPart::Event::DEFAULT);
       switch (e.type)
@@ -272,7 +274,12 @@ void		GUI::displayLogin()
 
   /* je gère le clic, le hover et le unhover */
   _loginWidgets->confirm->setText("Confirm");
-  _loginWidgets->confirm->setOnClick([](IWidget *, CLICK){std::cout << "Let's connect !" << std::endl;});
+  _loginWidgets->confirm->setOnClick([](IWidget *w, CLICK)
+				  {
+				    auto eq = w->getEventQueue();
+			            eq->push(EventPart::Event(EventPart::Event::BUTTON_LOGIN));
+				    std::cout << "Let's connect !" << std::endl;
+				  });
   _loginWidgets->confirm->setOnHover([](IWidget *w)
 				    {
 				      Style s1 = w->getStyle();
@@ -360,4 +367,21 @@ void		GUI::deleteWidgets()
 void			GUI::setSoundManager(Audio::ISoundManager *sound)
 {
   _audio = sound;
+}
+
+void			GUI::showPopup(const std::string &string, int tMilli)
+{
+  if (_fadedWidget)
+    {
+      _win->deleteWidget(_fadedWidget);
+    }
+  // other init
+  _fadedWidget = _win->addWidget(50, 350, string.size() * 20, 50);
+  auto style = _fadedWidget->getStyle();
+  style.backgroundColor.green = 250;
+  style.form = RECTANGLE;
+  style.policeSize = 24;
+  style.textColor.red = 250;
+  _fadedWidget->setStyle(style);
+  _fadedWidget->showPopup(string, tMilli);
 }

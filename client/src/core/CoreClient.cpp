@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Fri Dec 16 15:29:08 2016 lecoq
+// Last update Fri Dec 16 18:35:41 2016 lecoq
 //
 
 #include	"CoreClient.hh"
@@ -14,6 +14,8 @@ CoreClient::CoreClient()
 {
   _manager = new ManagerClient;
   _isInit = false;
+  _eventPtr[EventPart::Event::QUIT] = &CoreClient::quit;
+  _eventPtr[EventPart::Event::TRY_CONNECT] = &CoreClient::tryConnect;
 }
 
 CoreClient::~CoreClient()
@@ -39,13 +41,29 @@ bool	CoreClient::manageGui()
   while (_eventQueue->empty() == false)
     {
       EventPart::Event e = _eventQueue->pop();
-      std::cout << e.type << std::endl;
+      if (_eventPtr.find(e.type) != _eventPtr.end() && ((this->*_eventPtr[e.type])(e)) == false)
+	return (false);
     }
   return (true);
 }
 
 bool	CoreClient::manageNetwork()
 {
+  return (true);
+}
+
+bool	CoreClient::quit(EventPart::Event e)
+{
+  (void)e;
+  return (false);
+}
+
+bool	CoreClient::tryConnect(EventPart::Event e)
+{
+  Convert<uint32_t>	conv;
+
+  if (_tcp->tryConnectClient(conv.toNumber(e.dataString["PORT"]), e.dataString["IP"]) == false)
+    std::cout << "ploup" << std::endl;
   return (true);
 }
 

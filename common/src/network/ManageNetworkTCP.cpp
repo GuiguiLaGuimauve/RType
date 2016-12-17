@@ -43,7 +43,7 @@ bool			ManageNetworkTCP::init()
 	return (true);
 }
 
-bool			ManageNetworkTCP::select_it()
+bool			ManageNetworkTCP::selectIt()
 {
   struct timeval	timeout;
 	uint32_t		err;

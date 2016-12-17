@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Fri Dec 16 11:37:09 2016 julien dufrene
-// Last update Fri Dec 16 16:14:49 2016 julien dufrene
+// Last update Sat Dec 17 10:07:42 2016 lecoq
 //
 
 #include	"ManageNetworkUDP.hh"
@@ -38,7 +38,7 @@ bool			ManageNetworkUDP::init()
   return (true);
 }
 
-bool			ManageNetworkUDP::select_it()
+bool			ManageNetworkUDP::selectIt()
 {
   return (true);
 }
@@ -110,7 +110,7 @@ bool		ManageNetworkUDP::run(const uint32_t &port, const uint32_t &maxCl)
     }
 #endif
   _init = true;
-  if (_net->bindIt(port) == false)
+  if (maxCl != 0 && _net->bindIt(port) == false)
     return (false);
 #ifdef _WIN32
   IUserNetwork *u = new UserNetworkUDPWindows();
@@ -122,7 +122,7 @@ bool		ManageNetworkUDP::run(const uint32_t &port, const uint32_t &maxCl)
   u->setPort(port);
   u->setStatus(true);
   _user.push_back(u);
-  std::cout << "User Network Server UDP prepared: " << _user[0]->getFd() << std::endl;
+  std::cout << "User Network UDP prepared: " << _user[0]->getFd() << std::endl;
   return (true);
 }
 

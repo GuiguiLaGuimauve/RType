@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Fri Dec 16 11:43:03 2016 julien dufrene
-// Last update Fri Dec 16 11:57:43 2016 lecoq
+// Last update Sat Dec 17 09:54:22 2016 lecoq
 //
 
 #ifndef		__MANAGENETWORKUDP_HH__
@@ -30,11 +30,11 @@ namespace Network
     ManageNetworkUDP();
     ~ManageNetworkUDP();
     bool				init();
-    bool				select_it();
+    bool				selectIt();
     std::vector<IUserNetwork *>		execClient();
     std::vector<IUserNetwork *>		execServer();
     bool				run();
-    bool				run(const uint32_t &, const uint32_t &);
+    bool				run(const uint32_t &, const uint32_t & = 0);
     bool				tryConnectClient(const uint32_t &, const std::string &);
     void				pushToServ(const std::string &);
   private:

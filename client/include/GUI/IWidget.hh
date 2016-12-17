@@ -44,6 +44,7 @@ namespace Gui
     virtual void		setOnTextEntered(ptrText) = 0;
     virtual void		setStyle(const Style &) = 0;
     virtual Style		getStyle() const = 0;
+    virtual void	showPopup(const std::string &s, int tMilli) = 0;
   };
 }
 

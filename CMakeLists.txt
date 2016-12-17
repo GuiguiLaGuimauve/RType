@@ -57,7 +57,7 @@ include_directories(server/include/game)
 
 # Files Common
 FILE (GLOB COMMONCORE "common/src/core/*.cpp")
-FILE (GLOB COMMONTPACKET "common/src/packet/*.cpp")
+FILE (GLOB COMMONPACKET "common/src/packet/*.cpp")
 FILE (GLOB COMMONPACKETT "common/src/packet_tools/*.cpp")
 FILE (GLOB COMMONTOOLS "common/src/tools/*.cpp")
 FILE (GLOB COMMONNETWORK "common/src/network/*.cpp")
@@ -73,7 +73,6 @@ FILE (GLOB_RECURSE client_src "client/src/*.cpp")
 # Flags Unix
 IF (UNIX)
 	add_definitions(-W -Wall -Wextra -Wshadow)
-  add_definitions(-g)
 ENDIF (UNIX)
 
 # Enable C++ 11
