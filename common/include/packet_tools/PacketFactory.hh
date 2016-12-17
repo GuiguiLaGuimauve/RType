@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 11:41:19 2016 Maxime Lecoq
-// Last update Sat Dec 17 12:29:15 2016 lecoq
+// Last update Sat Dec 17 16:45:20 2016 lecoq
 //
 
 #ifndef PACKETFACTORY_HH_
@@ -16,9 +16,11 @@
 # include	<map>
 # include	"IPacket.hh"
 # include	"PacketList.h"
-# include	"PacketContener.hpp"
 
 using namespace Packet;
+
+template<typename ... Args>
+class PacketContener;
 
 class	PacketFactory
 {
@@ -44,7 +46,6 @@ public:
   void		getPacket(const uint8_t *) const;
   void		enable(const std::string &);
 
-private:
   IPacket	*getConnect();
   IPacket	*udpDataFree();
   
@@ -66,13 +67,289 @@ private:
   IPacket	*getDataRoom(const std::vector<DataPlayer *> &, const uint8_t &);
 
 private:
-  PacketContener<void>										_pkt1;
-  PacketContener<const std::string &, const IPacket::PacketType &>				_pkt2;
-  PacketContener<const std::string &>								_pkt3;
-  PacketContener<const std::vector<DataRoom *> &>						_pkt4;
-  PacketContener<const std::string &, const uint8_t &>						_pkt5;
-  PacketContener<const uint8_t *, const uint16_t &>						_pkt6;
-  PacketContener<const std::vector<DataPlayer *> &, const uint8_t &>				_pkt7;
+  PacketContener<void>										*_pkt1;
+  PacketContener<const std::string &, const IPacket::PacketType &>				*_pkt2;
+  PacketContener<const std::string &>								*_pkt3;
+  PacketContener<const std::vector<DataRoom *> &>						*_pkt4;
+  PacketContener<const std::string &, const uint8_t &>						*_pkt5;
+  PacketContener<const uint8_t *, const uint16_t &>						*_pkt6;
+  PacketContener<const std::vector<DataPlayer *> &, const uint8_t &>				*_pkt7;
+};
+
+template<>
+class PacketContener<const std::vector<DataPlayer *> &, const uint8_t &>
+{
+public:
+  typedef IPacket *(PacketFactory::*ptr)(const std::vector<DataPlayer *> &, const uint8_t &);
+  PacketContener(PacketFactory *p) : _p(p)
+  {
+    _map["dataroom"] = &PacketFactory::getDataRoom;
+    _converter[IPacket::PacketType::ERROR_PACKET] = "dataroom";
+  };
+  ~PacketContener() {};
+  void	enable(const std::string &s)
+  {
+    if (_map.find(s) != _map.end())
+      _enableMap[s] = _map[s]; 
+  }
+  IPacket	*getPacket(const std::string &s, const std::vector<DataPlayer *> &m, const uint8_t &t)
+  {
+  if (_enableMap.find(s) != _enableMap.end())
+    return ((_p->*_enableMap[s])(m, t));
+  return (NULL);
+  }
+  IPacket	*getPacket(const IPacket::PacketType &s, const std::vector<DataPlayer *> &m, const uint8_t &t)
+  {
+  if (_converter.find(s) != _converter.end() && _enableMap.find(_converter[s]) != _enableMap.end())
+    return ((_p->*_enableMap[_converter[s]])(m, t));
+  return (NULL);
+  }
+private:
+  std::map<std::string, ptr>    _map;
+  std::map<IPacket::PacketType, std::string>    _converter;
+  std::map<std::string, ptr>    _enableMap;
+  PacketFactory                 *_p;
+};
+
+
+
+
+
+template<>
+class PacketContener<const uint8_t *, const uint16_t &>
+{
+public:
+  typedef IPacket *(PacketFactory::*ptr)(const uint8_t *, const uint16_t &);
+  PacketContener(PacketFactory *p) : _p(p)
+  {
+    _map["udpdata"] = &PacketFactory::udpData;
+    _converter[IPacket::PacketType::ERROR_PACKET] = "udpdata";
+  };
+  ~PacketContener() {};
+  void	enable(const std::string &s)
+  {
+    if (_map.find(s) != _map.end())
+      _enableMap[s] = _map[s]; 
+  }
+  IPacket	*getPacket(const std::string &s, const uint8_t *m, const uint16_t &t)
+  {
+  if (_enableMap.find(s) != _enableMap.end())
+    return ((_p->*_enableMap[s])(m, t));
+  return (NULL);
+  }
+  IPacket	*getPacket(const IPacket::PacketType &s, const uint8_t *m, const uint16_t &t)
+  {
+  if (_converter.find(s) != _converter.end() && _enableMap.find(_converter[s]) != _enableMap.end())
+    return ((_p->*_enableMap[_converter[s]])(m, t));
+  return (NULL);
+  }
+private:
+  std::map<std::string, ptr>    _map;
+  std::map<IPacket::PacketType, std::string>    _converter;
+  std::map<std::string, ptr>    _enableMap;
+  PacketFactory                 *_p;
+};
+
+
+
+
+template<>
+class PacketContener<const std::string &, const uint8_t &>
+{
+public:
+  typedef IPacket *(PacketFactory::*ptr)(const std::string &, const uint8_t &);
+  PacketContener(PacketFactory *p) : _p(p)
+  {
+  _map["createroom"] = &PacketFactory::createRoom;
+  _converter[IPacket::PacketType::ERROR_PACKET] = "createroom";
+};
+  ~PacketContener() {};
+  void	enable(const std::string &s)
+  {
+    if (_map.find(s) != _map.end())
+      _enableMap[s] = _map[s]; 
+  }
+  IPacket	*getPacket(const std::string &s, const std::string &m, const uint8_t &t)
+  {
+  if (_enableMap.find(s) != _enableMap.end())
+    return ((_p->*_enableMap[s])(m, t));
+  return (NULL);
+}
+  IPacket	*getPacket(const IPacket::PacketType &s, const std::string &m, const uint8_t &t)
+  {
+  if (_converter.find(s) != _converter.end() && _enableMap.find(_converter[s]) != _enableMap.end())
+    return ((_p->*_enableMap[_converter[s]])(m, t));
+  return (NULL);
+}
+private:
+  std::map<std::string, ptr>    _map;
+  std::map<IPacket::PacketType, std::string>    _converter;
+  std::map<std::string, ptr>    _enableMap;
+  PacketFactory                 *_p;
+};
+
+
+
+
+  
+  template<>
+  class PacketContener<const std::vector<DataRoom *> &>  
+  {
+  typedef IPacket *(PacketFactory::*ptr)(const std::vector<DataRoom *> &);
+public:
+  PacketContener(PacketFactory *p) : _p(p)
+  {
+  _map["getrooms"] = &PacketFactory::getRooms;
+  _converter[IPacket::PacketType::ERROR_PACKET] = "getrooms";
+};
+  ~PacketContener() {};
+  void	enable(const std::string &s)
+  {
+    if (_map.find(s) != _map.end())
+      _enableMap[s] = _map[s]; 
+  }
+  IPacket	*getPacket(const std::string &s, const std::vector<DataRoom *> &m)
+  {
+  if (_enableMap.find(s) != _enableMap.end())
+    return ((_p->*_enableMap[s])(m));
+  return (NULL);
+}
+  IPacket	*getPacket(const IPacket::PacketType &s, const std::vector<DataRoom *> &m)
+  {
+  if (_converter.find(s) != _converter.end() && _enableMap.find(_converter[s]) != _enableMap.end())
+    return ((_p->*_enableMap[_converter[s]])(m));
+  return (NULL);
+}
+private:
+  std::map<std::string, ptr>    _map;
+  std::map<IPacket::PacketType, std::string>    _converter;
+  std::map<std::string, ptr>    _enableMap;
+  PacketFactory                 *_p;
+};
+
+
+
+
+  
+  template<> 
+  class PacketContener<const std::string &, const IPacket::PacketType &>
+  {
+public:
+  typedef IPacket *(PacketFactory::*ptr)(const std::string &, const IPacket::PacketType &);
+  PacketContener(PacketFactory *p) : _p(p)
+  {
+  _map["error"] = &PacketFactory::getError;
+  _converter[IPacket::PacketType::ERROR_PACKET] = "error";
+};
+  ~PacketContener() {};
+  void	enable(const std::string &s)
+  {
+    if (_map.find(s) != _map.end())
+      _enableMap[s] = _map[s]; 
+  }
+  IPacket	*getPacket(const std::string &s, const std::string &m, const IPacket::PacketType &t)
+  {
+  if (_enableMap.find(s) != _enableMap.end())
+    return ((_p->*_enableMap[s])(m, t));
+  return (NULL);
+}
+  IPacket	*getPacket(const IPacket::PacketType &s, const std::string &m, const IPacket::PacketType &t)
+  {
+  if (_converter.find(s) != _converter.end() && _enableMap.find(_converter[s]) != _enableMap.end())
+    return ((_p->*_enableMap[_converter[s]])(m, t));
+  return (NULL);
+}
+private:
+  std::map<std::string, ptr>    _map;
+  std::map<IPacket::PacketType, std::string>    _converter;
+  std::map<std::string, ptr>    _enableMap;
+  PacketFactory                 *_p;
+}; 
+
+
+
+
+  
+  template<>
+  class PacketContener<const std::string &>
+  {
+public:
+  typedef IPacket *(PacketFactory::*ptr)(const std::string &);
+  PacketContener(PacketFactory *p) : _p(p)
+  {
+  _map["welcome"] = &PacketFactory::getWelcome;
+  _map["joinroom"] = &PacketFactory::joinRoom;
+  _map["joinerror"] = &PacketFactory::joinError;
+  _map["startgame"] = &PacketFactory::startGame;
+  _map["leaveroom"] = &PacketFactory::leaveRoom;
+  _converter[IPacket::PacketType::ERROR_PACKET] = "welcome";
+  _converter[IPacket::PacketType::ERROR_PACKET] = "joinroom";
+  _converter[IPacket::PacketType::ERROR_PACKET] = "joinerror";
+  _converter[IPacket::PacketType::ERROR_PACKET] = "startgame";
+  _converter[IPacket::PacketType::ERROR_PACKET] = "leaveroom";
+};
+  ~PacketContener() {};
+  void	enable(const std::string &s)
+  {
+    if (_map.find(s) != _map.end())
+      _enableMap[s] = _map[s]; 
+  }
+  IPacket	*getPacket(const std::string &s, const std::string &m)
+  {
+  if (_enableMap.find(s) != _enableMap.end())
+    return ((_p->*_enableMap[s])(m));
+  return (NULL);
+}
+  IPacket	*getPacket(const IPacket::PacketType &s, const std::string &m)
+  {
+  if (_converter.find(s) != _converter.end() && _enableMap.find(_converter[s]) != _enableMap.end())
+    return ((_p->*_enableMap[_converter[s]])(m));
+  return (NULL);
+}
+private:
+  std::map<std::string, ptr>    _map;
+  std::map<IPacket::PacketType, std::string>    _converter;
+  std::map<std::string, ptr>    _enableMap;
+  PacketFactory                 *_p;
+};
+
+
+  
+template<>
+class PacketContener<void>
+{
+public:
+  typedef IPacket *(PacketFactory::*ptr)();
+  PacketContener(PacketFactory *p) : _p(p)
+  {
+  _map["connect"] = &PacketFactory::getConnect;
+  _map["udpdatafree"] = &PacketFactory::udpDataFree;
+  _converter[IPacket::PacketType::ERROR_PACKET] = "connect";
+  _converter[IPacket::PacketType::ERROR_PACKET] = "udpdatafree";
+};
+  ~PacketContener() {};
+  void	enable(const std::string &s)
+  {
+    if (_map.find(s) != _map.end())
+      _enableMap[s] = _map[s]; 
+}
+  IPacket	*getPacket(const std::string &s)
+  {
+  if (_enableMap.find(s) != _enableMap.end())
+    return ((_p->*_enableMap[s])());
+  return (NULL);
+}
+  IPacket	*getPacket(const IPacket::PacketType &s)
+  {
+  if (_converter.find(s) != _converter.end() && _enableMap.find(_converter[s]) != _enableMap.end())
+    return ((_p->*_enableMap[_converter[s]])());
+  return (NULL);
+}
+private:
+  std::map<std::string, ptr>    _map;
+  std::map<IPacket::PacketType, std::string>    _converter;
+  std::map<std::string, ptr>    _enableMap;
+  PacketFactory                 *_p;
 };
 
 #endif /* !PACKETFACTORY_HH_ */
