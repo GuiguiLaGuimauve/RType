@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Fri Dec 16 11:41:23 2016 julien dufrene
-// Last update Fri Dec 16 18:07:39 2016 lecoq
+// Last update Sat Dec 17 10:10:05 2016 lecoq
 //
 
 
@@ -30,7 +30,7 @@ namespace Network
     virtual std::vector<IUserNetwork *>		execClient() = 0;
     virtual std::vector<IUserNetwork *>		execServer() = 0;
     virtual bool				run() = 0;
-    virtual bool				run(const uint32_t &, const uint32_t &) = 0;
+    virtual bool				run(const uint32_t &, const uint32_t & = 0) = 0;
     virtual bool				tryConnectClient(const uint32_t &, const std::string &) = 0;
     virtual void				pushToServ(const std::string &) = 0;
     uint32_t					getMaxFd() const;

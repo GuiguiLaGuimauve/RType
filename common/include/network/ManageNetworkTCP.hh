@@ -28,7 +28,7 @@ namespace Network
     std::vector<IUserNetwork *>			execClient();
     std::vector<IUserNetwork *>			execServer();
     bool					run();
-    bool					run(const uint32_t &, const uint32_t &);
+    bool					run(const uint32_t &, const uint32_t & = 0);
     bool					tryConnectClient(const uint32_t &, const std::string &);
     void					pushToServ(const std::string &);
   private:
