@@ -16,7 +16,7 @@ PacketStartGame::PacketStartGame(const std::string & gameName)
 
 	ps.add((uint16_t)_gameName.size());
 	ps.add(_gameName);
-	dataPacketSize += 2 + _gameName.size();
+	dataPacketSize += 2 + (uint32_t)_gameName.size();
 
 	_data = ps.getPacket();
 	_size = dataPacketSize;
@@ -36,7 +36,7 @@ PacketStartGame::PacketStartGame(const uint8_t *data)
 		_data[a] = data[a + 9];
 
 	_gameName = pd.getString(posInPacket + 2, pd.get16(posInPacket));
-	posInPacket += 2 + pd.get16(posInPacket);
+	posInPacket += 2 + (uint32_t)pd.get16(posInPacket);
 }
 
 PacketStartGame::~PacketStartGame()

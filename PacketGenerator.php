@@ -130,7 +130,7 @@
 			$data .= "\n";
 			
 			if ($arg['type'] == 'std::string')
-				$data .= $indent."ps.add((uint16_t)".$access.".size());\n".$indent."ps.add(".$access.");\n".$indent."dataPacketSize += 2 + ".$access.".size();\n";
+				$data .= $indent."ps.add((uint16_t)".$access.".size());\n".$indent."ps.add(".$access.");\n".$indent."dataPacketSize += 2 + (uint32_t)".$access.".size();\n";
 			if ($arg['type'] == 'uint8_t')
 				$data .= $indent."ps.add(".$access.");\n".$indent."dataPacketSize += 1;\n";
 			if ($arg['type'] == 'uint16_t')
@@ -186,7 +186,7 @@
 			$data .= "\n";
 			
 			if ($arg['type'] == 'std::string')
-				$data .= $indent.$access."pd.getString(posInPacket + 2, pd.get16(posInPacket))".$eaccess.";\n".$indent."posInPacket += 2 + pd.get16(posInPacket);\n";
+				$data .= $indent.$access."pd.getString(posInPacket + 2, pd.get16(posInPacket))".$eaccess.";\n".$indent."posInPacket += 2 + (uint32_t)pd.get16(posInPacket);\n";
 			if ($arg['type'] == 'uint8_t')
 				$data .= $indent.$access."pd.get8(posInPacket)".$eaccess.";\n".$indent."posInPacket += 1;\n";
 			if ($arg['type'] == 'uint16_t')

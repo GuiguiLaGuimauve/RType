@@ -20,7 +20,7 @@ PacketRooms::PacketRooms(const std::vector<DataRoom *> & rooms)
 	{
 		ps.add((uint16_t)_rooms[i]->getName().size());
 		ps.add(_rooms[i]->getName());
-		dataPacketSize += 2 + _rooms[i]->getName().size();
+		dataPacketSize += 2 + (uint32_t)_rooms[i]->getName().size();
 
 		ps.add((uint16_t)_rooms[i]->getPlayers().size());
 		dataPacketSize += 2;
@@ -28,7 +28,7 @@ PacketRooms::PacketRooms(const std::vector<DataRoom *> & rooms)
 		{
 			ps.add((uint16_t)_rooms[i]->getPlayers()[j]->getName().size());
 			ps.add(_rooms[i]->getPlayers()[j]->getName());
-			dataPacketSize += 2 + _rooms[i]->getPlayers()[j]->getName().size();
+			dataPacketSize += 2 + (uint32_t)_rooms[i]->getPlayers()[j]->getName().size();
 		}
 
 		ps.add(_rooms[i]->getMaxPlayers());
@@ -62,7 +62,7 @@ PacketRooms::PacketRooms(const uint8_t *data)
 		DataRoom *roomsTemp = new DataRoom();
 
 		roomsTemp->setName(pd.getString(posInPacket + 2, pd.get16(posInPacket)));
-		posInPacket += 2 + pd.get16(posInPacket);
+		posInPacket += 2 + (uint32_t)pd.get16(posInPacket);
 
 		uint64_t playersLength = pd.get16(posInPacket);
 		posInPacket += 2;
@@ -71,7 +71,7 @@ PacketRooms::PacketRooms(const uint8_t *data)
 			DataPlayerName *playersTemp = new DataPlayerName();
 
 			playersTemp->setName(pd.getString(posInPacket + 2, pd.get16(posInPacket)));
-			posInPacket += 2 + pd.get16(posInPacket);
+			posInPacket += 2 + (uint32_t)pd.get16(posInPacket);
 			roomsTemp->getPlayers().push_back(playersTemp);
 		}
 
