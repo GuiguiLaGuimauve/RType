@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 11:43:18 2016 Maxime Lecoq
-// Last update Sat Dec 17 16:31:09 2016 lecoq
+// Last update Sat Dec 17 16:49:33 2016 lecoq
 //
 
 #include	"PacketFactory.hh"
@@ -147,8 +147,8 @@ IPacket		*PacketFactory::getWelcome(const std::string &m)
 
 IPacket		*PacketFactory::joinRoom(const std::string &m) 
 {
-  IPacket	*ret = NULL; /*new PacketJoinRoom(m);*/
-  (void)m;
+  IPacket	*ret = new PacketJoinRoom(m);
+
   return (ret);
 }
 
@@ -161,22 +161,22 @@ IPacket		*PacketFactory::joinError(const std::string &m)
 
 IPacket		*PacketFactory::startGame(const std::string &m) 
 {
-  IPacket	*ret = NULL; /*new PacketStartGame(m);*/
-  (void)m;
+  IPacket	*ret = new PacketStartGame(m);
+
   return (ret);
 }
 
 IPacket		*PacketFactory::startError(const std::string &m) 
 {
-  IPacket	*ret = NULL; /*new PacketStartError(m);*/
-  (void)m;
+  IPacket	*ret = new PacketStartError(m);
+
   return (ret);
 }
 
 IPacket		*PacketFactory::leaveRoom(const std::string &m) 
 {
-  IPacket	*ret = NULL; /*new PacketLeaveRoom(m);*/
-  (void)m;
+  IPacket	*ret = new PacketLeaveRoom(m);
+
   return (ret);
 }
 
@@ -203,9 +203,7 @@ IPacket		*PacketFactory::getRooms(const std::vector<DataRoom *> &d)
 
 IPacket		*PacketFactory::createRoom(const std::string &m, const uint8_t &t) 
 {
-  IPacket	*ret = NULL;/*= new PacketCreateRoom(m, t);*/
-  (void)m;
-  (void)t;
+  IPacket	*ret = new PacketCreateRoom(m, t);
 
   return (ret);
 }
@@ -219,10 +217,7 @@ IPacket		*PacketFactory::udpData(const uint8_t *m, const uint16_t &t)
 
 IPacket		*PacketFactory::getDataRoom(const std::vector<DataPlayer *> &m, const uint8_t &t)
 {
-  IPacket	*ret = NULL; /* = new PacketRoomData(m, t);*/
-
-  (void)m;
-  (void)t;
+  IPacket	*ret= new PacketRoomData(m, t);
 
   return (ret);  
 }
