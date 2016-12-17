@@ -68,7 +68,7 @@ PacketRooms::PacketRooms(const uint8_t *data)
 		posInPacket += 2;
 		for (uint64_t j = 0; j < playersLength; j++)
 		{
-			DataPlayerName *playersTemp = new DataPlayerName();
+			DataPlayer *playersTemp = new DataPlayer();
 
 			playersTemp->setName(pd.getString(posInPacket + 2, pd.get16(posInPacket)));
 			posInPacket += 2 + (uint32_t)pd.get16(posInPacket);

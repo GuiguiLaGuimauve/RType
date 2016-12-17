@@ -8,29 +8,30 @@
 #include <stdint.h>
 #include <string>
 #include <vector>
-#include "DataPlayerName.hpp"
+#include "DataPlayer.hpp"
 
 namespace Packet {
 
 	class DataRoom {
 
 	public:
-		DataRoom() {};
-		~DataRoom() {};
-
-		std::string getName() const { return (_name); };
-		std::vector<DataPlayerName *> getPlayers() const { return (_players); };
-		uint8_t getMaxPlayers() const { return (_maxPlayers); };
-		uint8_t getLevel() const { return (_level); };
-
-		void setName(const std::string & name) { _name = name; };
-		void setPlayers(const std::vector<DataPlayerName *> & players) { _players = players; };
-		void setMaxPlayers(const uint8_t & maxPlayers) { _maxPlayers = maxPlayers; };
-		void setLevel(const uint8_t & level) { _level = level; };
+	  DataRoom() {};
+	  ~DataRoom() {};
+	  
+	  std::string getName() const { return (_name); };
+	  std::vector<DataPlayer *> getPlayers() const { return (_players); };
+	  uint8_t getMaxPlayers() const { return (_maxPlayers); };
+	  uint8_t getLevel() const { return (_level); };
+	  uint16_t getNbPlayers() const { return (_players.size()); };
+	  
+	  void setName(const std::string & name) { _name = name; };
+	  void setPlayers(const std::vector<DataPlayer *> & players) { _players = players; };
+	  void setMaxPlayers(const uint8_t & maxPlayers) { _maxPlayers = maxPlayers; };
+	  void setLevel(const uint8_t & level) { _level = level; };
 
 	protected:
 		std::string _name;
-		std::vector<DataPlayerName *> _players;
+		std::vector<DataPlayer *> _players;
 		uint8_t _maxPlayers;
 		uint8_t _level;
 	};

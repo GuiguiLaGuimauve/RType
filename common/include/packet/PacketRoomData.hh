@@ -9,26 +9,26 @@
 #include <vector>
 #include "APacket.hh"
 #include "DataPlayer.hpp"
+#include "DataRoom.hpp"
 
 namespace Packet {
 
 	class PacketRoomData : public APacket {
 
 	public:
-		PacketRoomData(const std::vector<DataPlayer *> & players, const uint8_t & maxPlayers, const uint8_t & level);
-		PacketRoomData(const uint8_t *data);
-		~PacketRoomData();
-
-		std::vector<DataPlayer *> getPlayers() const;
-		uint8_t getMaxPlayers() const;
-		uint8_t getLevel() const;
-		bool isTcp() const;
-		bool isUdp() const;
-
-	protected:
-		std::vector<DataPlayer *> _players;
-		uint8_t _maxPlayers;
-		uint8_t _level;
+	  PacketRoomData(const DataRoom *);
+	  PacketRoomData(const uint8_t *data);
+	  ~PacketRoomData();
+	  
+	  std::vector<DataPlayer *> getPlayers() const;
+	  uint16_t getNbPlayers() const;
+	  uint8_t getMaxPlayers() const;
+	  uint8_t getLevel() const;
+	  bool isTcp() const;
+	  bool isUdp() const;
+	  
+	private:
+	  DataRoom *_dataroom;
 	};
 };
 
