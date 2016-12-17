@@ -14,18 +14,16 @@ namespace Packet {
 	class PacketStartGame : public APacket {
 
 	public:
-		PacketStartGame(const std::string & gameName, const uint16_t & udpPort);
+		PacketStartGame(const std::string & gameName);
 		PacketStartGame(const uint8_t *data);
 		~PacketStartGame();
 
 		std::string getGameName() const;
-		uint16_t getUdpPort() const;
 		bool isTcp() const;
 		bool isUdp() const;
 
 	protected:
 		std::string _gameName;
-		uint16_t _udpPort;
 	};
 };
 

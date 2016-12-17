@@ -75,6 +75,12 @@ namespace Packet
 	/*! Generate the packet for network transition */
     virtual uint8_t *generate() const = 0;
 	
+	/*! Return true if the packet is a TCP packet */
+	virtual bool isTcp() const = 0;
+	
+	/*! Return true if the packet is a UDP packet */
+	virtual bool isUdp() const = 0;
+	
 	/*! Instanciate a PacketUnknown from the current packet */
     virtual PacketUnknown getPacketUnknown() const = 0;
   };
