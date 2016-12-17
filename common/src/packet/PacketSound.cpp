@@ -16,7 +16,7 @@ PacketSound::PacketSound(const std::string & sound)
 
 	ps.add((uint16_t)_sound.size());
 	ps.add(_sound);
-	dataPacketSize += 2 + _sound.size();
+	dataPacketSize += 2 + (uint32_t)_sound.size();
 
 	_data = ps.getPacket();
 	_size = dataPacketSize;
@@ -36,7 +36,7 @@ PacketSound::PacketSound(const uint8_t *data)
 		_data[a] = data[a + 9];
 
 	_sound = pd.getString(posInPacket + 2, pd.get16(posInPacket));
-	posInPacket += 2 + pd.get16(posInPacket);
+	posInPacket += 2 + (uint32_t)pd.get16(posInPacket);
 }
 
 PacketSound::~PacketSound()

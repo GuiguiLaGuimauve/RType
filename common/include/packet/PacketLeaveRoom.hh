@@ -14,18 +14,16 @@ namespace Packet {
 	class PacketLeaveRoom : public APacket {
 
 	public:
-		PacketLeaveRoom(const std::string & gameName, const std::string & playerName);
+		PacketLeaveRoom(const std::string & gameName);
 		PacketLeaveRoom(const uint8_t *data);
 		~PacketLeaveRoom();
 
 		std::string getGameName() const;
-		std::string getPlayerName() const;
 		bool isTcp() const;
 		bool isUdp() const;
 
 	protected:
 		std::string _gameName;
-		std::string _playerName;
 	};
 };
 

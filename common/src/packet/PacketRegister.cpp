@@ -17,11 +17,11 @@ PacketRegister::PacketRegister(const std::string & login, const std::string & pa
 
 	ps.add((uint16_t)_login.size());
 	ps.add(_login);
-	dataPacketSize += 2 + _login.size();
+	dataPacketSize += 2 + (uint32_t)_login.size();
 
 	ps.add((uint16_t)_password.size());
 	ps.add(_password);
-	dataPacketSize += 2 + _password.size();
+	dataPacketSize += 2 + (uint32_t)_password.size();
 
 	_data = ps.getPacket();
 	_size = dataPacketSize;
@@ -41,10 +41,10 @@ PacketRegister::PacketRegister(const uint8_t *data)
 		_data[a] = data[a + 9];
 
 	_login = pd.getString(posInPacket + 2, pd.get16(posInPacket));
-	posInPacket += 2 + pd.get16(posInPacket);
+	posInPacket += 2 + (uint32_t)pd.get16(posInPacket);
 
 	_password = pd.getString(posInPacket + 2, pd.get16(posInPacket));
-	posInPacket += 2 + pd.get16(posInPacket);
+	posInPacket += 2 + (uint32_t)pd.get16(posInPacket);
 }
 
 PacketRegister::~PacketRegister()

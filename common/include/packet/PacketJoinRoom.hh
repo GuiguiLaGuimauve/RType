@@ -14,18 +14,16 @@ namespace Packet {
 	class PacketJoinRoom : public APacket {
 
 	public:
-		PacketJoinRoom(const std::string & gameName, const std::string & playerName);
+		PacketJoinRoom(const std::string & gameName);
 		PacketJoinRoom(const uint8_t *data);
 		~PacketJoinRoom();
 
 		std::string getGameName() const;
-		std::string getPlayerName() const;
 		bool isTcp() const;
 		bool isUdp() const;
 
 	protected:
 		std::string _gameName;
-		std::string _playerName;
 	};
 };
 

@@ -20,7 +20,7 @@ PacketShoots::PacketShoots(const std::vector<DataShoot *> & shoots)
 	{
 		ps.add((uint16_t)_shoots[i]->getName().size());
 		ps.add(_shoots[i]->getName());
-		dataPacketSize += 2 + _shoots[i]->getName().size();
+		dataPacketSize += 2 + (uint32_t)_shoots[i]->getName().size();
 
 		ps.add(_shoots[i]->getX());
 		dataPacketSize += 2;
@@ -56,7 +56,7 @@ PacketShoots::PacketShoots(const uint8_t *data)
 		DataShoot *shootsTemp = new DataShoot();
 
 		shootsTemp->setName(pd.getString(posInPacket + 2, pd.get16(posInPacket)));
-		posInPacket += 2 + pd.get16(posInPacket);
+		posInPacket += 2 + (uint32_t)pd.get16(posInPacket);
 
 		shootsTemp->setX(pd.get16(posInPacket));
 		posInPacket += 2;

@@ -60,9 +60,6 @@
 		}, {
 			"type": "uint8_t",
 			"name": "maxPlayers"
-		}, {
-			"type": "uint8_t",
-			"name": "level"
 		}]
 	}, {
 		"name": "JoinRoom",
@@ -71,9 +68,6 @@
 		"arguments": [{
 			"type": "std::string",
 			"name": "gameName"
-		}, {
-			"type": "std::string",
-			"name": "playerName"
 		}]
 	}, {
 		"name": "JoinError",
@@ -90,9 +84,6 @@
 		"arguments": [{
 			"type": "std::string",
 			"name": "gameName"
-		}, {
-			"type": "uint16_t",
-			"name": "udpPort"
 		}]
 	}, {
 		"name": "StartError",
@@ -109,9 +100,6 @@
 		"arguments": [{
 			"type": "std::string",
 			"name": "gameName"
-		}, {
-			"type": "std::string",
-			"name": "playerName"
 		}]
 	}, {
 		"name": "udpData",

@@ -22,7 +22,7 @@ PacketRoomData::PacketRoomData(const std::vector<DataPlayer *> & players, const 
 	{
 		ps.add((uint16_t)_players[i]->getName().size());
 		ps.add(_players[i]->getName());
-		dataPacketSize += 2 + _players[i]->getName().size();
+		dataPacketSize += 2 + (uint32_t)_players[i]->getName().size();
 
 		ps.add(_players[i]->getStageSucceed());
 		dataPacketSize += 2;
@@ -61,7 +61,7 @@ PacketRoomData::PacketRoomData(const uint8_t *data)
 		DataPlayer *playersTemp = new DataPlayer();
 
 		playersTemp->setName(pd.getString(posInPacket + 2, pd.get16(posInPacket)));
-		posInPacket += 2 + pd.get16(posInPacket);
+		posInPacket += 2 + (uint32_t)pd.get16(posInPacket);
 
 		playersTemp->setStageSucceed(pd.get16(posInPacket));
 		posInPacket += 2;

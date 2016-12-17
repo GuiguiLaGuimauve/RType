@@ -22,6 +22,9 @@ namespace Packet
     uint8_t *getData() const;
     uint8_t *generate() const;
     PacketUnknown getPacketUnknown() const;
+	virtual bool isTcp() const = 0;
+	virtual bool isUdp() const = 0;
+	
   protected:
     /*! Type of packet depend of the protocol */
     IPacket::PacketType _type;
