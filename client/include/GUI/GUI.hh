@@ -61,6 +61,7 @@ namespace Gui
     void        updateGameInfo(/*const GameInfo &*/);
     void	setEventQueue(EventPart::IEventQueue *);
     void	setSoundManager(Audio::ISoundManager *);
+    void	showPopup(const std::string &s, int tMilli = 2000);
   protected:
     void	deleteWidgets();
   protected:
@@ -78,6 +79,8 @@ namespace Gui
     Login	*_loginWidgets = NULL;
     Menu	*_menuWidgets = NULL;
     Game	*_gameWidgets = NULL;
+    // popup
+    IWidget  *_fadedWidget = NULL;
   };
 }
 

@@ -20,6 +20,8 @@ Widget::~Widget()
 
 void                Widget::draw()
 {
+  if (timeLimit != -1 && clock.getTimeMilli() > timeLimit)
+    return ;
   // à remplir en fonction du style
   if (_style.form == CIRCLE)
     _win->draw(_circle);
@@ -183,7 +185,7 @@ void                Widget::setStyle(const Style &s)
   _circle.setFillColor(sf::Color(_style.backgroundColor.red,
 				 _style.backgroundColor.green,
 				 _style.backgroundColor.blue));
-  _rectangle.setFillColor(sf::Color(s.backgroundColor.red,
+  _rectangle.setFillColor(sf::Color(_style.backgroundColor.red,
 				 _style.backgroundColor.green,
 				 _style.backgroundColor.blue));
   // gérer l'opacité
@@ -200,3 +202,9 @@ Style               Widget::getStyle() const
   return (_style);
 }
 
+void	Widget::showPopup(const std::string &s, int tMilli)
+{
+  setText(s);
+  timeLimit = tMilli;
+  clock.reset();
+}

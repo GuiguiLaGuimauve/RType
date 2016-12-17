@@ -6,6 +6,7 @@
 #include <SFML/Graphics.hpp>
 
 #include "IWidget.hh"
+#include "Clock.hpp"
 
 namespace Gui
 {
@@ -42,6 +43,7 @@ namespace Gui
     void		setOnTextEntered(ptrText);
     void                setStyle(const Style &);
     Style               getStyle() const;
+    void	showPopup(const std::string &s, int tMilli);
   protected:
     sf::RenderWindow	       		*_win;
     int					_x;
@@ -64,6 +66,8 @@ namespace Gui
     sf::Font				_font;
     sf::Sprite				_background;
     //    sf::Texture				_loadBackground;
+    Clock	clock;
+    int		timeLimit = -1;
   };
 }
 
