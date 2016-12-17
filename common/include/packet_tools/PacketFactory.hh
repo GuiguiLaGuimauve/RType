@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 11:41:19 2016 Maxime Lecoq
-// Last update Sat Dec 17 16:45:20 2016 lecoq
+// Last update Sat Dec 17 17:17:35 2016 lecoq
 //
 
 #ifndef PACKETFACTORY_HH_
@@ -64,7 +64,7 @@ public:
 
   IPacket	*udpData(const uint8_t *, const uint16_t &);
 
-  IPacket	*getDataRoom(const std::vector<DataPlayer *> &, const uint8_t &);
+  IPacket	*getDataRoom(const DataRoom *);
 
 private:
   PacketContener<void>										*_pkt1;
@@ -73,14 +73,15 @@ private:
   PacketContener<const std::vector<DataRoom *> &>						*_pkt4;
   PacketContener<const std::string &, const uint8_t &>						*_pkt5;
   PacketContener<const uint8_t *, const uint16_t &>						*_pkt6;
-  PacketContener<const std::vector<DataPlayer *> &, const uint8_t &>				*_pkt7;
+  PacketContener<const DataRoom *>								*_pkt7;
 };
 
+
 template<>
-class PacketContener<const std::vector<DataPlayer *> &, const uint8_t &>
+class PacketContener<const DataRoom *>
 {
 public:
-  typedef IPacket *(PacketFactory::*ptr)(const std::vector<DataPlayer *> &, const uint8_t &);
+  typedef IPacket *(PacketFactory::*ptr)(const DataRoom *);
   PacketContener(PacketFactory *p) : _p(p)
   {
     _map["dataroom"] = &PacketFactory::getDataRoom;
@@ -92,16 +93,16 @@ public:
     if (_map.find(s) != _map.end())
       _enableMap[s] = _map[s]; 
   }
-  IPacket	*getPacket(const std::string &s, const std::vector<DataPlayer *> &m, const uint8_t &t)
+  IPacket	*getPacket(const std::string &s, const DataRoom *m)
   {
   if (_enableMap.find(s) != _enableMap.end())
-    return ((_p->*_enableMap[s])(m, t));
+    return ((_p->*_enableMap[s])(m));
   return (NULL);
   }
-  IPacket	*getPacket(const IPacket::PacketType &s, const std::vector<DataPlayer *> &m, const uint8_t &t)
+  IPacket	*getPacket(const IPacket::PacketType &s, const DataRoom *m)
   {
   if (_converter.find(s) != _converter.end() && _enableMap.find(_converter[s]) != _enableMap.end())
-    return ((_p->*_enableMap[_converter[s]])(m, t));
+    return ((_p->*_enableMap[_converter[s]])(m));
   return (NULL);
   }
 private:

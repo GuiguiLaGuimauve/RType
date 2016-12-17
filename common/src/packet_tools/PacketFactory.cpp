@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 11:43:18 2016 Maxime Lecoq
-// Last update Sat Dec 17 16:49:33 2016 lecoq
+// Last update Sat Dec 17 17:18:45 2016 lecoq
 //
 
 #include	"PacketFactory.hh"
@@ -18,7 +18,7 @@ PacketFactory::PacketFactory()
   _pkt4 = new PacketContener<const std::vector<DataRoom *> &>(this);
   _pkt5 = new PacketContener<const std::string &, const uint8_t &>(this);
   _pkt6 = new PacketContener<const uint8_t *, const uint16_t &>(this);
-  _pkt7 = new PacketContener<const std::vector<DataPlayer *> &, const uint8_t &>(this);
+  _pkt7 = new PacketContener<const DataRoom *>(this);
   /*_mapData["watchgame"] = &PacketFactory::watchGame;
   _mapData["login"] = &PacketFactory::login;
   _mapData["register"] = &PacketFactory::tryRegister;
@@ -105,14 +105,14 @@ IPacket		*PacketFactory::getPacket(const IPacket::PacketType &p, const uint8_t *
   return (_pkt6->getPacket(p, m, t));
 }
 
-IPacket		*PacketFactory::getPacket(const std::string &p, const std::vector<DataPlayer *> &m, const uint8_t &t) 
+IPacket		*PacketFactory::getPacket(const std::string &p, const DataRoom *m) 
 {
-  return (_pkt7->getPacket(p, m, t));
+  return (_pkt7->getPacket(p, m));
 }
 
-IPacket		*PacketFactory::getPacket(const IPacket::PacketType &p, const std::vector<DataPlayer *> &m, const uint8_t &t) 
+IPacket		*PacketFactory::getPacket(const IPacket::PacketType &p, const DataRoom *m) 
 {
-  return (_pkt7->getPacket(p, m, t));
+  return (_pkt7->getPacket(p, m));
 }
 
 void		PacketFactory::getPacket(const uint8_t *p) const
@@ -215,9 +215,9 @@ IPacket		*PacketFactory::udpData(const uint8_t *m, const uint16_t &t)
   return (ret);
 }
 
-IPacket		*PacketFactory::getDataRoom(const std::vector<DataPlayer *> &m, const uint8_t &t)
+IPacket		*PacketFactory::getDataRoom(const DataRoom *m)
 {
-  IPacket	*ret= new PacketRoomData(m, t);
+  IPacket	*ret= new PacketRoomData(m);
 
   return (ret);  
 }
