@@ -5,14 +5,14 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 11:43:18 2016 Maxime Lecoq
-// Last update Sat Dec 17 11:07:22 2016 lecoq
+// Last update Sat Dec 17 12:09:23 2016 lecoq
 //
 
 #include	"PacketFactory.hh"
 
 PacketFactory::PacketFactory()
 {
-  _mapData2["error"] = &PacketFactory::getError;
+  /*  _mapData2["error"] = &PacketFactory::getError;
   _mapData3["welcome"] = &PacketFactory::getWelcome;
   _mapData1["connect"] = &PacketFactory::getConnect;
   _mapData4["getrooms"] = &PacketFactory::getRooms;
@@ -24,7 +24,7 @@ PacketFactory::PacketFactory()
   _mapData3["leaveroom"] = &PacketFactory::leaveRoom;
   _mapData6["udpdata"] = &PacketFactory::udpData;
   _mapData1["udpdatafree"] = &PacketFactory::udpDataFree;
-  _mapData7["dataroom"] = &PacketFactory::getDataRoom;
+  _mapData7["dataroom"] = &PacketFactory::getDataRoom;*/
   /*_mapData["watchgame"] = &PacketFactory::watchGame;
   _mapData["login"] = &PacketFactory::login;
   _mapData["register"] = &PacketFactory::tryRegister;
@@ -44,99 +44,137 @@ PacketFactory::~PacketFactory() {}
 
 IPacket		*PacketFactory::getPacket(const std::string &p) 
 {
-  if (_ptr1.find(p) != _ptr1.end())
-    return ((this->*_ptr1[p])());
+  /*  if (_ptr1.find(p) != _ptr1.end())
+      return ((this->*_ptr1[p])());*/
+  (void)p;
   return (NULL);
 }
 
 IPacket		*PacketFactory::getPacket(const IPacket::PacketType &p) 
 {
-  if (_mapConverter1.find(p) != _mapConverter1.end())
-    return (getPacket(_mapConverter1[p]));
+  (void)p;
+  /*  if (_mapConverter1.find(p) != _mapConverter1.end())
+      return (getPacket(_mapConverter1[p]));*/
   return (NULL);
 }
 
 IPacket		*PacketFactory::getPacket(const std::string &p, const std::string &m, const IPacket::PacketType &t) 
 {
-  if (_ptr2.find(p) != _ptr2.end())
-    return ((this->*_ptr2[p])(m, t));
+  /*  if (_ptr2.find(p) != _ptr2.end())
+      return ((this->*_ptr2[p])(m, t));*/
+    (void)p;
+      (void)m;
+        (void)t;
   return (NULL);
 }
 
 IPacket		*PacketFactory::getPacket(const IPacket::PacketType &p, const std::string &m, const IPacket::PacketType &t) 
 {
+  /*
   if (_mapConverter2.find(p) != _mapConverter2.end())
-    return (getPacket(_mapConverter2[p], m, t));
+  return (getPacket(_mapConverter2[p], m, t));*/
+  (void)p;
+
+    (void)m;
+    (void)t;
   return (NULL);
 }
 
 IPacket		*PacketFactory::getPacket(const std::string &p, const std::string &m) 
 {
+  /*
   if (_ptr3.find(p) != _ptr3.end())
-    return ((this->*_ptr3[p])(m));
+  return ((this->*_ptr3[p])(m));*/
+  (void)p;
+  (void)m;
   return (NULL);
 }
 
 IPacket		*PacketFactory::getPacket(const IPacket::PacketType &p, const std::string &m) 
 {
-  if (_mapConverter3.find(p) != _mapConverter3.end())
-    return (getPacket(_mapConverter3[p], m));
+    (void)p;
+    (void)m;
+    /*if (_mapConverter3.find(p) != _mapConverter3.end())
+      return (getPacket(_mapConverter3[p], m));*/
   return (NULL);
 }
 
 IPacket		*PacketFactory::getPacket(const std::string &p, const std::vector<DataRoom *> &m) 
 {
-  if (_ptr4.find(p) != _ptr4.end())
-    return ((this->*_ptr4[p])(m));
+  (void)p;
+    (void)m;
+    /*    if (_ptr4.find(p) != _ptr4.end())
+	  return ((this->*_ptr4[p])(m));*/
   return (NULL);
 }
 
 IPacket		*PacketFactory::getPacket(const IPacket::PacketType &p, const std::vector<DataRoom *> &m) 
 {
-  if (_mapConverter4.find(p) != _mapConverter4.end())
-    return (getPacket(_mapConverter4[p], m));
+  (void)p;
+
+  (void)m;
+  /*if (_mapConverter4.find(p) != _mapConverter4.end())
+    return (getPacket(_mapConverter4[p], m));*/
   return (NULL);
 }
 
 IPacket		*PacketFactory::getPacket(const std::string &p, const std::string &m, const uint8_t &t) 
 {
-  if (_ptr5.find(p) != _ptr5.end())
-    return ((this->*_ptr5[p])(m, t));
+  (void)p;
+    (void)m;
+    (void)t;
+    /*if (_ptr5.find(p) != _ptr5.end())
+      return ((this->*_ptr5[p])(m, t));*/
   return (NULL);
 }
 
 IPacket		*PacketFactory::getPacket(const IPacket::PacketType &p, const std::string &m, const uint8_t &t) 
 {
-  if (_mapConverter5.find(p) != _mapConverter5.end())
-    return (getPacket(_mapConverter5[p], m, t));
+  (void)p;
+    (void)m;
+      (void)t;
+      /*  if (_mapConverter5.find(p) != _mapConverter5.end())
+	  return (getPacket(_mapConverter5[p], m, t));*/
   return (NULL);
 }
 
 IPacket		*PacketFactory::getPacket(const std::string &p, const uint8_t *m, const uint16_t &t) 
 {
-  if (_ptr6.find(p) != _ptr6.end())
-    return ((this->*_ptr6[p])(m, t));
+  (void)p;
+    (void)m;
+      (void)t;
+      /*      if (_ptr6.find(p) != _ptr6.end())
+	      return ((this->*_ptr6[p])(m, t));*/
   return (NULL);
 }
 
 IPacket		*PacketFactory::getPacket(const IPacket::PacketType &p, const uint8_t *m, const uint16_t &t) 
 {
-  if (_mapConverter6.find(p) != _mapConverter6.end())
-    return (getPacket(_mapConverter6[p], m, t));
+  /*if (_mapConverter6.find(p) != _mapConverter6.end())
+    return (getPacket(_mapConverter6[p], m, t));*/
+    (void)p;
+      (void)m;
+        (void)t;
   return (NULL);
 }
 
 IPacket		*PacketFactory::getPacket(const std::string &p, const std::vector<DataPlayer *> &m, const uint8_t &t) 
 {
-  if (_ptr7.find(p) != _ptr7.end())
-    return ((this->*_ptr7[p])(m, t));
+    (void)p;
+      (void)m;
+        (void)t;
+	/*  if (_ptr7.find(p) != _ptr7.end())
+	    return ((this->*_ptr7[p])(m, t));*/
   return (NULL);
 }
 
 IPacket		*PacketFactory::getPacket(const IPacket::PacketType &p, const std::vector<DataPlayer *> &m, const uint8_t &t) 
 {
-  if (_mapConverter7.find(p) != _mapConverter7.end())
-    return (getPacket(_mapConverter7[p], m, t));
+  (void)p;
+    (void)m;
+      (void)t;
+      /*if (_mapConverter7.find(p) != _mapConverter7.end())
+	return (getPacket(_mapConverter7[p], m, t));*/
   return (NULL);
 }
 
@@ -147,7 +185,7 @@ void		PacketFactory::getPacket(const uint8_t *p) const
 
 void		PacketFactory::enable(const std::string &packet)
 {
-  if (_mapData1.find(packet) != _mapData1.end())
+  /*  if (_mapData1.find(packet) != _mapData1.end())
     _ptr1[packet] = _mapData1[packet];
   if (_mapData2.find(packet) != _mapData2.end())
     _ptr2[packet] = _mapData2[packet];
@@ -160,7 +198,7 @@ void		PacketFactory::enable(const std::string &packet)
   if (_mapData6.find(packet) != _mapData6.end())
     _ptr6[packet] = _mapData6[packet];
   if (_mapData7.find(packet) != _mapData7.end())
-    _ptr7[packet] = _mapData7[packet];
+  _ptr7[packet] = _mapData7[packet];*/
 }
 
 IPacket		*PacketFactory::getError(const std::string &m, const IPacket::PacketType &p) 

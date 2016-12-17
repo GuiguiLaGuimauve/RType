@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 11:41:19 2016 Maxime Lecoq
-// Last update Sat Dec 17 11:08:08 2016 lecoq
+// Last update Sat Dec 17 12:29:15 2016 lecoq
 //
 
 #ifndef PACKETFACTORY_HH_
@@ -16,19 +16,13 @@
 # include	<map>
 # include	"IPacket.hh"
 # include	"PacketList.h"
+# include	"PacketContener.hpp"
 
 using namespace Packet;
 
 class	PacketFactory
 {
 public:
-  typedef IPacket *(PacketFactory::*ptr1)();
-  typedef IPacket *(PacketFactory::*ptr2)(const std::string &, const IPacket::PacketType &);
-  typedef IPacket *(PacketFactory::*ptr3)(const std::string &);
-  typedef IPacket *(PacketFactory::*ptr4)(const std::vector<DataRoom *> &);
-  typedef IPacket *(PacketFactory::*ptr5)(const std::string &, const uint8_t &);
-  typedef IPacket *(PacketFactory::*ptr6)(const uint8_t *, const uint16_t &);
-  typedef IPacket *(PacketFactory::*ptr7)(const std::vector<DataPlayer *> &, const uint8_t &);
   PacketFactory();
   ~PacketFactory();
   IPacket	*getPacket(const std::string &);
@@ -70,34 +64,15 @@ private:
   IPacket	*udpData(const uint8_t *, const uint16_t &);
 
   IPacket	*getDataRoom(const std::vector<DataPlayer *> &, const uint8_t &);
+
 private:
-  std::map<std::string, ptr1>			_mapData1;
-  std::map<IPacket::PacketType, std::string>	_mapConverter1;
-  std::map<std::string, ptr1>		_ptr1;
-
-  std::map<std::string, ptr2>			_mapData2;
-  std::map<IPacket::PacketType, std::string>	_mapConverter2;
-  std::map<std::string, ptr2>		_ptr2;
-
-  std::map<std::string, ptr3>			_mapData3;
-  std::map<IPacket::PacketType, std::string>	_mapConverter3;
-  std::map<std::string, ptr3>		_ptr3;
-
-  std::map<std::string, ptr4>			_mapData4;
-  std::map<IPacket::PacketType, std::string>	_mapConverter4;
-  std::map<std::string, ptr4>		_ptr4;
-  
-  std::map<std::string, ptr5>			_mapData5;
-  std::map<IPacket::PacketType, std::string>	_mapConverter5;
-  std::map<std::string, ptr5>		_ptr5;
-
-  std::map<std::string, ptr6>			_mapData6;
-  std::map<IPacket::PacketType, std::string>	_mapConverter6;
-  std::map<std::string, ptr6>		_ptr6;
-
-  std::map<std::string, ptr7>			_mapData7;
-  std::map<IPacket::PacketType, std::string>	_mapConverter7;
-  std::map<std::string, ptr7>		_ptr7;
+  PacketContener<void>										_pkt1;
+  PacketContener<const std::string &, const IPacket::PacketType &>				_pkt2;
+  PacketContener<const std::string &>								_pkt3;
+  PacketContener<const std::vector<DataRoom *> &>						_pkt4;
+  PacketContener<const std::string &, const uint8_t &>						_pkt5;
+  PacketContener<const uint8_t *, const uint16_t &>						_pkt6;
+  PacketContener<const std::vector<DataPlayer *> &, const uint8_t &>				_pkt7;
 };
 
 #endif /* !PACKETFACTORY_HH_ */
