@@ -102,12 +102,13 @@ std::vector<IUserNetwork *>	ManageNetworkTCP::execServer()
 				  u = _user[i]->readSocket(_net);
 				  if (u != NULL && u->getFd() != _user[i]->getFd() && u->getStatus() == true)
 				  {
+				    
 					  u->pushBufferWrite("WELCOME ON TCP SERVER");
 					  newuser.push_back(u);
 				  }
 				  else
 					  if (_user[i]->getStatus() == true && _user[i]->haveSomethingToRead() == true)
-						  std::cout << "READ: " << _user[i]->popBufferRead() << std::endl;
+					    std::cout << "READ: " << _user[i]->popBufferRead() << std::endl;
 			  }
 		  if (_user[i]->getStatus() == true)
 			  if (FD_ISSET(_user[i]->getFd(), &fd_write))
