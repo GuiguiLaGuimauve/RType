@@ -112,6 +112,36 @@ void		GUI::callback()
                                   "PWD", _loginWidgets->password->getText());
 	    break ;
 	  }
+	case EventPart::Event::KEY_ATTACK :
+	{
+		if (_gameWidgets)
+			ep = EventPart::Event(EventPart::Event::ATTACK);
+		break;
+	}
+	case EventPart::Event::KEY_UP:
+	{
+		if (_gameWidgets)
+			ep = EventPart::Event(EventPart::Event::MOVE_UP);
+		break;
+	}
+	case EventPart::Event::KEY_DOWN:
+	{
+		if (_gameWidgets)
+			ep = EventPart::Event(EventPart::Event::MOVE_DOWN);
+		break;
+	}
+	case EventPart::Event::KEY_LEFT:
+	{
+		if (_gameWidgets)
+			ep = EventPart::Event(EventPart::Event::MOVE_LEFT);
+		break;
+	}
+	case EventPart::Event::KEY_RIGHT:
+	{
+		if (_gameWidgets)
+			ep = EventPart::Event(EventPart::Event::MOVE_RIGHT);
+		break;
+	}
 	default :
 	  ep.type = EventPart::Event::DEFAULT;
 	}
