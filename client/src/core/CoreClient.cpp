@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Sun Dec 18 14:55:03 2016 lecoq
+// Last update Sun Dec 18 15:16:36 2016 lecoq
 //
 
 #include	"CoreClient.hh"
@@ -85,6 +85,12 @@ bool	CoreClient::initManager()
       _read = _pkt->getPacketQueueRead();
       _write = _pkt->getPacketQueueWrite();
       _factory = _pkt->getPacketFactory();
+      _tcp->setPacketQueueRead(_read);
+      _tcp->setPacketQueueWrite(_write);
+      _tcp->setPacketFactory(_factory);
+      _udp->setPacketQueueRead(_read);
+      _udp->setPacketQueueWrite(_write);
+      _udp->setPacketFactory(_factory);
     }
   catch (AError const &e)
     {

@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 11:43:18 2016 Maxime Lecoq
-// Last update Sun Dec 18 14:11:50 2016 lecoq
+// Last update Sun Dec 18 15:37:12 2016 lecoq
 //
 
 #include	"PacketFactory.hh"
@@ -44,6 +44,22 @@ PacketFactory::~PacketFactory()
   delete _pkt12;
   delete _pkt13;
   delete _pktDeserialiser;
+}
+
+bool		PacketFactory::isEnableSerialise(const std::string &s)
+{
+  if (_pkt1->isEnable(s) == true || _pkt2->isEnable(s) == true || _pkt3->isEnable(s) == true
+      || _pkt4->isEnable(s) == true || _pkt5->isEnable(s) == true || _pkt6->isEnable(s) == true
+      || _pkt7->isEnable(s) == true || _pkt8->isEnable(s) == true || _pkt9->isEnable(s) == true
+      || _pkt10->isEnable(s) == true || _pkt11->isEnable(s) == true || _pkt12->isEnable(s) == true || _pkt13->isEnable(s) == true)
+    return (true);
+  else
+    return (false);
+}
+
+bool		PacketFactory::isEnableDeserialise(const std::string &s)
+{
+  return (_pktDeserialiser->isEnable(s));
 }
 
 IPacket		*PacketFactory::getPacket(const std::string &p) 
@@ -290,6 +306,20 @@ IPacket		*PacketFactory::udpDataFree()
 IPacket		*PacketFactory::logout() 
 {
   IPacket	*ret = new PacketLogout;
+
+  return (ret);
+}
+
+IPacket		*PacketFactory::ping() 
+{
+  IPacket	*ret = new PacketPing;
+
+  return (ret);
+}
+
+IPacket		*PacketFactory::pong() 
+{
+  IPacket	*ret = new PacketPong;
 
   return (ret);
 }

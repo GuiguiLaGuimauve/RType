@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 11:41:19 2016 Maxime Lecoq
-// Last update Sun Dec 18 14:31:05 2016 lecoq
+// Last update Sun Dec 18 15:36:37 2016 lecoq
 //
 
 #ifndef PACKETFACTORY_HH_
@@ -27,7 +27,11 @@ class	PacketFactory
 {
 public:
   PacketFactory();
+  //  PacketFactory(const PacketFactory &);
+  //PacketFactory &operator=(const PacketFactory &);
   ~PacketFactory();
+  bool		isEnableSerialise(const std::string &);
+  bool		isEnableDeserialise(const std::string &);
   IPacket	*getPacket(const std::string &);
   IPacket	*getPacket(const IPacket::PacketType &);
   IPacket	*getPacket(const std::string &, const std::string &, const IPacket::PacketType &);
@@ -63,6 +67,8 @@ public:
   IPacket	*udpDataFree();
   IPacket	*logout();
   IPacket	*disconnect();
+  IPacket	*ping();
+  IPacket	*pong();
   
   IPacket	*getError(const std::string &, const IPacket::PacketType &);
   
@@ -221,6 +227,13 @@ public:
     if (_enableMap.find(p) != _enableMap.end())
       (_p->*_enableMap[p])(pa);
   }
+  bool	isEnable(const std::string &s)
+  {
+    if (_converter.find(s) != _converter.end() && _enableMap.find(_converter[s]) != _enableMap.end())
+      return (true);
+    else
+      return (false);
+  }
 private:
   std::map<IPacket::PacketType, ptr>    _map;
   std::map<std::string, IPacket::PacketType>    _converter;
@@ -255,6 +268,13 @@ public:
   if (_converter.find(s) != _converter.end() && _enableMap.find(_converter[s]) != _enableMap.end())
     return ((_p->*_enableMap[_converter[s]])(m));
   return (NULL);
+  }
+  bool	isEnable(const std::string &s)
+  {
+    if (_enableMap.find(s) != _enableMap.end())
+      return (true);
+    else
+      return (false);
   }
 private:
   std::map<std::string, ptr>    _map;
@@ -291,6 +311,13 @@ public:
     return ((_p->*_enableMap[_converter[s]])(m));
   return (NULL);
   }
+  bool	isEnable(const std::string &s)
+  {
+    if (_enableMap.find(s) != _enableMap.end())
+      return (true);
+    else
+      return (false);
+  }
 private:
   std::map<std::string, ptr>    _map;
   std::map<IPacket::PacketType, std::string>    _converter;
@@ -325,6 +352,13 @@ public:
   if (_converter.find(s) != _converter.end() && _enableMap.find(_converter[s]) != _enableMap.end())
     return ((_p->*_enableMap[_converter[s]])(m));
   return (NULL);
+  }
+  bool	isEnable(const std::string &s)
+  {
+    if (_enableMap.find(s) != _enableMap.end())
+      return (true);
+    else
+      return (false);
   }
 private:
   std::map<std::string, ptr>    _map;
@@ -363,6 +397,13 @@ public:
     return ((_p->*_enableMap[_converter[s]])(m, t));
   return (NULL);
   }
+  bool	isEnable(const std::string &s)
+  {
+    if (_enableMap.find(s) != _enableMap.end())
+      return (true);
+    else
+      return (false);
+  }
 private:
   std::map<std::string, ptr>    _map;
   std::map<IPacket::PacketType, std::string>    _converter;
@@ -397,6 +438,13 @@ public:
   if (_converter.find(s) != _converter.end() && _enableMap.find(_converter[s]) != _enableMap.end())
     return ((_p->*_enableMap[_converter[s]])(m));
   return (NULL);
+  }
+  bool	isEnable(const std::string &s)
+  {
+    if (_enableMap.find(s) != _enableMap.end())
+      return (true);
+    else
+      return (false);
   }
 private:
   std::map<std::string, ptr>    _map;
@@ -435,6 +483,13 @@ public:
     return ((_p->*_enableMap[_converter[s]])(m, t));
   return (NULL);
   }
+  bool	isEnable(const std::string &s)
+  {
+    if (_enableMap.find(s) != _enableMap.end())
+      return (true);
+    else
+      return (false);
+  }
 private:
   std::map<std::string, ptr>    _map;
   std::map<IPacket::PacketType, std::string>    _converter;
@@ -471,6 +526,13 @@ public:
   if (_converter.find(s) != _converter.end() && _enableMap.find(_converter[s]) != _enableMap.end())
     return ((_p->*_enableMap[_converter[s]])(m));
   return (NULL);
+  }
+  bool	isEnable(const std::string &s)
+  {
+    if (_enableMap.find(s) != _enableMap.end())
+      return (true);
+    else
+      return (false);
   }
 private:
   std::map<std::string, ptr>    _map;
@@ -511,6 +573,13 @@ public:
     return ((_p->*_enableMap[_converter[s]])(m, t));
   return (NULL);
   }
+  bool	isEnable(const std::string &s)
+  {
+    if (_enableMap.find(s) != _enableMap.end())
+      return (true);
+    else
+      return (false);
+  }
 private:
   std::map<std::string, ptr>    _map;
   std::map<IPacket::PacketType, std::string>    _converter;
@@ -549,6 +618,13 @@ public:
     return ((_p->*_enableMap[_converter[s]])(m, t));
   return (NULL);
 }
+  bool	isEnable(const std::string &s)
+  {
+    if (_enableMap.find(s) != _enableMap.end())
+      return (true);
+    else
+      return (false);
+  }
 private:
   std::map<std::string, ptr>    _map;
   std::map<IPacket::PacketType, std::string>    _converter;
@@ -588,7 +664,14 @@ public:
     return ((_p->*_enableMap[_converter[s]])(m));
   return (NULL);
 }
-private:
+  bool	isEnable(const std::string &s)
+  {
+    if (_enableMap.find(s) != _enableMap.end())
+      return (true);
+    else
+      return (false);
+  }
+  private:
   std::map<std::string, ptr>    _map;
   std::map<IPacket::PacketType, std::string>    _converter;
   std::map<std::string, ptr>    _enableMap;
@@ -627,6 +710,13 @@ public:
     return ((_p->*_enableMap[_converter[s]])(m, t));
   return (NULL);
 }
+    bool	isEnable(const std::string &s)
+  {
+    if (_enableMap.find(s) != _enableMap.end())
+      return (true);
+    else
+      return (false);
+  }
 private:
   std::map<std::string, ptr>    _map;
   std::map<IPacket::PacketType, std::string>    _converter;
@@ -679,8 +769,15 @@ public:
   if (_converter.find(s) != _converter.end() && _enableMap.find(_converter[s]) != _enableMap.end())
     return ((_p->*_enableMap[_converter[s]])(m));
   return (NULL);
-}
-private:
+  }
+    bool	isEnable(const std::string &s)
+    {
+      if (_enableMap.find(s) != _enableMap.end())
+	return (true);
+      else
+	return (false);
+    }
+  private:
   std::map<std::string, ptr>    _map;
   std::map<IPacket::PacketType, std::string>    _converter;
   std::map<std::string, ptr>    _enableMap;
@@ -700,10 +797,14 @@ public:
   _map["udpdatafree"] = &PacketFactory::udpDataFree;
   _map["logout"] = &PacketFactory::logout;
   _map["disconnect"] = &PacketFactory::disconnect;
+  _map["ping"] = &PacketFactory::ping;
+  _map["pong"] = &PacketFactory::pong;
   _converter[IPacket::PacketType::ERROR_PACKET] = "connect";
   _converter[IPacket::PacketType::ERROR_PACKET] = "udpdatafree";
   _converter[IPacket::PacketType::ERROR_PACKET] = "logout";
   _converter[IPacket::PacketType::ERROR_PACKET] = "disconnect";
+  _converter[IPacket::PacketType::ERROR_PACKET] = "ping";
+  _converter[IPacket::PacketType::ERROR_PACKET] = "pong";
 };
   ~PacketContener() {};
   void	enable(const std::string &s)
@@ -722,7 +823,14 @@ public:
   if (_converter.find(s) != _converter.end() && _enableMap.find(_converter[s]) != _enableMap.end())
     return ((_p->*_enableMap[_converter[s]])());
   return (NULL);
-}
+  }
+  bool	isEnable(const std::string &s)
+  {
+    if (_enableMap.find(s) != _enableMap.end())
+      return (true);
+    else
+      return (false);
+  }
 private:
   std::map<std::string, ptr>    _map;
   std::map<IPacket::PacketType, std::string>    _converter;

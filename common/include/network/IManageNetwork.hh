@@ -5,7 +5,7 @@
 ** Login   <lecoq_m@epitech.net>
 **
 ** Started on  Mon Oct 17 13:11:20 2016 Maxime Lecoq
-// Last update Sat Dec 17 10:10:18 2016 lecoq
+// Last update Sun Dec 18 15:52:27 2016 lecoq
 */
 
 #ifndef		__IMANAGENETWORK_HH__
@@ -17,6 +17,8 @@
 #include	"ISocket.hh"
 #include	"DataClient.hpp"
 #include	"IUserNetwork.hh"
+#include        "IPacketQueue.hh"
+#include        "PacketFactory.hh"
 
 namespace Network
 {
@@ -67,6 +69,9 @@ namespace Network
       en :pushToServ(message) is used to send message to the server. (DEBUG)
       fr :La méthode pushToServ(message) sert à envoyer un message au serveur. (DEBUG) */
     virtual void				pushToServ(const std::string &) = 0;
+    virtual void				setPacketQueueRead(const IPacketQueue *) = 0;
+    virtual void				setPacketQueueWrite(const IPacketQueue *) = 0;
+    virtual void				setPacketFactory(const PacketFactory *) = 0;
   };
 };
 

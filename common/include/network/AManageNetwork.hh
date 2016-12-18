@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Fri Dec 16 11:41:23 2016 julien dufrene
-// Last update Sat Dec 17 10:10:05 2016 lecoq
+// Last update Sun Dec 18 15:52:51 2016 lecoq
 //
 
 
@@ -36,6 +36,9 @@ namespace Network
     uint32_t					getMaxFd() const;
     ISocket					*getSocket() const;
     void					updateUsers(const std::vector<IUserNetwork *> &);
+    void				        setPacketQueueRead(const IPacketQueue *c) { _read = (IPacketQueue *)c; };
+    void			                setPacketQueueWrite(const IPacketQueue *c){  _write = (IPacketQueue *)c; };
+    void		                        setPacketFactory(const PacketFactory *c) { _factory = (PacketFactory *)c; };
   protected:
     /* _user est un attribut qui contient la liste des utilisateurs du serveur. */
     std::vector<IUserNetwork *>		_user;
@@ -45,6 +48,9 @@ namespace Network
     uint32_t				_port;
     /* _init est un attribut permettant de savoir si le core à été lancer en tant que serveur/client ou aucun des deux. */
     bool				_init;
+    IPacketQueue			*_read;
+    IPacketQueue			*_write;
+    PacketFactory			*_factory;
   };
 };
 

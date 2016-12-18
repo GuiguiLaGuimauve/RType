@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:12:15 2016 Maxime Lecoq
-// Last update Sun Dec 18 14:54:45 2016 lecoq
+// Last update Sun Dec 18 15:50:18 2016 lecoq
 //
 
 #ifndef ACORE_HH_
@@ -30,7 +30,7 @@ protected:
   bool			_isInit;
   IPacketQueue          *_read;
   IPacketQueue          *_write;
-  PacketFactory         _factory;
+  PacketFactory         *_factory;
 };
 
 #endif /* !ICORE_HH_ */
