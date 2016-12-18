@@ -5,10 +5,10 @@
 // Login   <rembur_g@epitech.eu>
 //
 // Started on  Sun Dec 18 14:49:43 2016 La Guimauve
-// Last update Sun Dec 18 14:56:12 2016 La Guimauve
+// Last update Sun Dec 18 15:20:21 2016 La Guimauve
 //
 
-#include "PacketRoomData.hh"
+#include "PacketAskRoomData.hh"
 
 PacketAskRoomData::PacketAskRoomData(const std::string &roomname)
 {
@@ -32,15 +32,15 @@ PacketAskRoomData::PacketAskRoomData(const uint8_t *data)
 
   _data = new uint8_t[_size];
   for (uint32_t a = 0; a < _size; a++)
-    _data[a] = data[a + 9]
+    _data[a] = data[a + 9];
 }
 
-bool PacketConnect::isTcp() const
+bool PacketAskRoomData::isTcp() const
 {
 	return (true);
 }
 
-bool PacketConnect::isUdp() const
+bool PacketAskRoomData::isUdp() const
 {
 	return (false);
 }

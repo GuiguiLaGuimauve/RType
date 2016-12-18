@@ -5,7 +5,7 @@
 // Login   <rembur_g@epitech.eu>
 //
 // Started on  Sun Dec 18 14:39:31 2016 La Guimauve
-// Last update Sun Dec 18 14:56:33 2016 La Guimauve
+// Last update Sun Dec 18 15:19:10 2016 La Guimauve
 //
 
 #ifndef _PACKETASKROOMDATA_HH_
@@ -22,8 +22,8 @@ namespace Packet {
   class PacketAskRoomData : public APacket {
 
   public:
-    PacketAskRoomData(const std::string &roomName)
-    PacketAskRoomData(const uint8_t *)
+    PacketAskRoomData(const std::string &roomName);
+    PacketAskRoomData(const uint8_t *);
     ~PacketAskRoomData() {};
 
     bool isTcp() const;
