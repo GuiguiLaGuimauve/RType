@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 11:43:18 2016 Maxime Lecoq
-// Last update Sun Dec 18 01:25:11 2016 lecoq
+// Last update Sun Dec 18 01:32:22 2016 lecoq
 //
 
 #include	"PacketFactory.hh"
@@ -22,9 +22,10 @@ PacketFactory::PacketFactory()
   _pkt8 = new PacketContener<const std::string &, const std::string &>(this);
   _pkt9 = new PacketContener<const uint16_t &, const uint16_t &>(this);
   _pkt10 = new PacketContener<const std::vector<DataShoot *> &>(this);
+  _pkt11 = new PacketContener<const std::vector<DataEnnemy *> &>(this);
+  _pkt12 = new PacketContener<const std::vector<DataBackground *> &>(this);
   /*
   _mapData["players"] = &PacketFactory::players;
-  _mapData["background"] = &PacketFactory::background;
   */
 }
 
@@ -40,6 +41,8 @@ PacketFactory::~PacketFactory()
   delete _pkt8;
   delete _pkt9;
   delete _pkt10;
+  delete _pkt11;
+  delete _pkt12;
 }
 
 IPacket		*PacketFactory::getPacket(const std::string &p) 
@@ -142,6 +145,26 @@ IPacket		*PacketFactory::getPacket(const IPacket::PacketType &p, const std::vect
   return (_pkt10->getPacket(p, m));
 }
 
+IPacket		*PacketFactory::getPacket(const std::string &p, const std::vector<DataEnnemy *> &m) 
+{
+  return (_pkt11->getPacket(p, m));
+}
+
+IPacket		*PacketFactory::getPacket(const IPacket::PacketType &p, const std::vector<DataEnnemy *> &m) 
+{
+  return (_pkt11->getPacket(p, m));
+}
+
+IPacket		*PacketFactory::getPacket(const std::string &p, const std::vector<DataBackground *> &m) 
+{
+  return (_pkt12->getPacket(p, m));
+}
+
+IPacket		*PacketFactory::getPacket(const IPacket::PacketType &p, const std::vector<DataBackground *> &m) 
+{
+  return (_pkt12->getPacket(p, m));
+}
+
 void		PacketFactory::getPacket(const uint8_t *p) const
 {
   (void)p;
@@ -159,6 +182,8 @@ void		PacketFactory::enable(const std::string &packet)
   _pkt8->enable(packet);
   _pkt9->enable(packet);
   _pkt10->enable(packet);
+  _pkt11->enable(packet);
+  _pkt12->enable(packet);
 }
 
 IPacket		*PacketFactory::getError(const std::string &m, const IPacket::PacketType &p) 
@@ -328,3 +353,11 @@ IPacket		*PacketFactory::getEnnemies(const std::vector<DataEnnemy *> &m)
 
   return (ret);  
 }
+
+IPacket		*PacketFactory::getBackgrounds(const std::vector<DataBackground *> &m)
+{
+  IPacket	*ret= new PacketBackgrounds(m);
+
+  return (ret);  
+}
+
