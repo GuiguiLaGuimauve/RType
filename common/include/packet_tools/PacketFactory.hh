@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 11:41:19 2016 Maxime Lecoq
-// Last update Sat Dec 17 17:38:34 2016 lecoq
+// Last update Sun Dec 18 01:10:34 2016 lecoq
 //
 
 #ifndef PACKETFACTORY_HH_
@@ -43,12 +43,16 @@ public:
   IPacket	*getPacket(const IPacket::PacketType &, const DataRoom *);
   IPacket	*getPacket(const std::string &, const std::string &, const std::string &);
   IPacket	*getPacket(const IPacket::PacketType &, const std::string &, const std::string &);
+  IPacket	*getPacket(const std::string &, const uint16_t &, const uint16_t &);
+  IPacket	*getPacket(const IPacket::PacketType &, const uint16_t &, const uint16_t &);
   
   void		getPacket(const uint8_t *) const;
   void		enable(const std::string &);
 
   IPacket	*getConnect();
   IPacket	*udpDataFree();
+  IPacket	*logout();
+  IPacket	*disconnect();
   
   IPacket	*getError(const std::string &, const IPacket::PacketType &);
   
@@ -59,6 +63,8 @@ public:
   IPacket	*startError(const std::string &);
   IPacket	*leaveRoom(const std::string &);
   IPacket	*watchGame(const std::string &);
+  IPacket	*music(const std::string &);
+  IPacket	*sound(const std::string &);
 
   IPacket	*getRooms(const std::vector<DataRoom *> &);
 
@@ -71,6 +77,8 @@ public:
   IPacket	*login(const std::string &, const std::string &);
   IPacket	*tryRegister(const std::string &, const std::string &);
 
+  IPacket	*move(const uint16_t &, const uint16_t &);
+  IPacket	*shoot(const uint16_t &, const uint16_t &);
 private:
   PacketContener<void>										*_pkt1;
   PacketContener<const std::string &, const IPacket::PacketType &>				*_pkt2;
@@ -80,8 +88,46 @@ private:
   PacketContener<const uint8_t *, const uint16_t &>						*_pkt6;
   PacketContener<const DataRoom *>								*_pkt7;
   PacketContener<const std::string &, const std::string &>					*_pkt8;
+  PacketContener<const uint16_t &, const uint16_t &>						*_pkt9;
 };
 
+
+template<>
+class PacketContener<const uint16_t &, const uint16_t &>
+{
+public:
+  typedef IPacket *(PacketFactory::*ptr)(const uint16_t &, const uint16_t &);
+  PacketContener(PacketFactory *p) : _p(p)
+  {
+    _map["move"] = &PacketFactory::move;
+    _map["shoot"] = &PacketFactory::shoot;
+    _converter[IPacket::PacketType::ERROR_PACKET] = "move";
+    _converter[IPacket::PacketType::ERROR_PACKET] = "shoot";
+  };
+  ~PacketContener() {};
+  void	enable(const std::string &s)
+  {
+    if (_map.find(s) != _map.end())
+      _enableMap[s] = _map[s]; 
+  }
+  IPacket	*getPacket(const std::string &s, const uint16_t &m, const uint16_t &t)
+  {
+  if (_enableMap.find(s) != _enableMap.end())
+    return ((_p->*_enableMap[s])(m, t));
+  return (NULL);
+  }
+  IPacket	*getPacket(const IPacket::PacketType &s, const uint16_t &m, const uint16_t &t)
+  {
+  if (_converter.find(s) != _converter.end() && _enableMap.find(_converter[s]) != _enableMap.end())
+    return ((_p->*_enableMap[_converter[s]])(m, t));
+  return (NULL);
+  }
+private:
+  std::map<std::string, ptr>    _map;
+  std::map<IPacket::PacketType, std::string>    _converter;
+  std::map<std::string, ptr>    _enableMap;
+  PacketFactory                 *_p;
+};
 
 template<>
 class PacketContener<const std::string &, const std::string &>
@@ -329,12 +375,16 @@ public:
   _map["startgame"] = &PacketFactory::startGame;
   _map["leaveroom"] = &PacketFactory::leaveRoom;
   _map["watchgame"] = &PacketFactory::watchGame;
+  _map["music"] = &PacketFactory::music;
+  _map["sound"] = &PacketFactory::sound;
   _converter[IPacket::PacketType::ERROR_PACKET] = "welcome";
   _converter[IPacket::PacketType::ERROR_PACKET] = "joinroom";
   _converter[IPacket::PacketType::ERROR_PACKET] = "joinerror";
   _converter[IPacket::PacketType::ERROR_PACKET] = "startgame";
   _converter[IPacket::PacketType::ERROR_PACKET] = "leaveroom";
   _converter[IPacket::PacketType::ERROR_PACKET] = "watchgame";
+  _converter[IPacket::PacketType::ERROR_PACKET] = "music";
+  _converter[IPacket::PacketType::ERROR_PACKET] = "sound";
 };
   ~PacketContener() {};
   void	enable(const std::string &s)
@@ -372,8 +422,12 @@ public:
   {
   _map["connect"] = &PacketFactory::getConnect;
   _map["udpdatafree"] = &PacketFactory::udpDataFree;
+  _map["logout"] = &PacketFactory::logout;
+  _map["disconnect"] = &PacketFactory::disconnect;
   _converter[IPacket::PacketType::ERROR_PACKET] = "connect";
   _converter[IPacket::PacketType::ERROR_PACKET] = "udpdatafree";
+  _converter[IPacket::PacketType::ERROR_PACKET] = "logout";
+  _converter[IPacket::PacketType::ERROR_PACKET] = "disconnect";
 };
   ~PacketContener() {};
   void	enable(const std::string &s)

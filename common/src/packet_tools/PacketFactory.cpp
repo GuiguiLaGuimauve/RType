@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 11:43:18 2016 Maxime Lecoq
-// Last update Sat Dec 17 17:36:25 2016 lecoq
+// Last update Sun Dec 18 01:11:41 2016 lecoq
 //
 
 #include	"PacketFactory.hh"
@@ -20,19 +20,13 @@ PacketFactory::PacketFactory()
   _pkt6 = new PacketContener<const uint8_t *, const uint16_t &>(this);
   _pkt7 = new PacketContener<const DataRoom *>(this);
   _pkt8 = new PacketContener<const std::string &, const std::string &>(this);
+  _pkt9 = new PacketContener<const uint16_t &, const uint16_t &>(this);
   /*
-  _mapData["login"] = &PacketFactory::login;
-  _mapData["register"] = &PacketFactory::tryRegister;
-  _mapData["logout"] = &PacketFactory::logout;
-  _mapData["disconnect"] = &PacketFactory::disconnect;
-  _mapData["move"] = &PacketFactory::move;
-  _mapData["shoot"] = &PacketFactory::shoot;
   _mapData["players"] = &PacketFactory::players;
   _mapData["shoots"] = &PacketFactory::shoots;
   _mapData["ennemy"] = &PacketFactory::ennemy;
   _mapData["background"] = &PacketFactory::background;
-  _mapData["music"] = &PacketFactory::music;
-  _mapData["sound"] = &PacketFactory::sound;*/
+  */
 }
 
 PacketFactory::~PacketFactory()
@@ -45,6 +39,7 @@ PacketFactory::~PacketFactory()
   delete _pkt6;
   delete _pkt7;
   delete _pkt8;
+  delete _pkt9;
 }
 
 IPacket		*PacketFactory::getPacket(const std::string &p) 
@@ -127,6 +122,16 @@ IPacket		*PacketFactory::getPacket(const IPacket::PacketType &p, const std::stri
   return (_pkt8->getPacket(p, m, t));
 }
 
+IPacket		*PacketFactory::getPacket(const std::string &p, const uint16_t &m, const uint16_t &t) 
+{
+  return (_pkt9->getPacket(p, m, t));
+}
+
+IPacket		*PacketFactory::getPacket(const IPacket::PacketType &p, const uint16_t &m, const uint16_t &t) 
+{
+  return (_pkt9->getPacket(p, m, t));
+}
+
 void		PacketFactory::getPacket(const uint8_t *p) const
 {
   (void)p;
@@ -142,6 +147,7 @@ void		PacketFactory::enable(const std::string &packet)
   _pkt6->enable(packet);
   _pkt7->enable(packet);
   _pkt8->enable(packet);
+  _pkt9->enable(packet);
 }
 
 IPacket		*PacketFactory::getError(const std::string &m, const IPacket::PacketType &p) 
@@ -200,6 +206,20 @@ IPacket		*PacketFactory::watchGame(const std::string &m)
   return (ret);
 }
 
+IPacket		*PacketFactory::music(const std::string &m) 
+{
+  IPacket	*ret = new PacketMusic(m);
+
+  return (ret);
+}
+
+IPacket		*PacketFactory::sound(const std::string &m) 
+{
+  IPacket	*ret = new PacketSound(m);
+
+  return (ret);
+}
+
 IPacket		*PacketFactory::getConnect() 
 {
   IPacket	*ret = new PacketConnect;
@@ -210,6 +230,20 @@ IPacket		*PacketFactory::getConnect()
 IPacket		*PacketFactory::udpDataFree() 
 {
   IPacket	*ret = new PacketUdpDataFree;
+
+  return (ret);
+}
+
+IPacket		*PacketFactory::logout() 
+{
+  IPacket	*ret = new PacketLogout;
+
+  return (ret);
+}
+
+IPacket		*PacketFactory::disconnect() 
+{
+  IPacket	*ret = new PacketDisconnect;
 
   return (ret);
 }
@@ -252,6 +286,20 @@ IPacket		*PacketFactory::login(const std::string &m, const std::string &t)
 IPacket		*PacketFactory::tryRegister(const std::string &m, const std::string &t)
 {
   IPacket	*ret= new PacketRegister(m, t);
+
+  return (ret);  
+}
+
+IPacket		*PacketFactory::move(const uint16_t &m, const uint16_t &t)
+{
+  IPacket	*ret= new PacketMove(m, t);
+
+  return (ret);  
+}
+
+IPacket		*PacketFactory::shoot(const uint16_t &m, const uint16_t &t)
+{
+  IPacket	*ret= new PacketShoot(m, t);
 
   return (ret);  
 }

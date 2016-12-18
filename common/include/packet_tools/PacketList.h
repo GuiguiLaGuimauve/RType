@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Sat Dec 17 00:47:42 2016 Maxime Lecoq
-// Last update Sat Dec 17 17:36:41 2016 lecoq
+// Last update Sun Dec 18 01:11:29 2016 lecoq
 //
 
 #ifndef PACKETLIST_H_
@@ -27,5 +27,11 @@
 # include	"PacketWatchGame.hh"
 # include	"PacketLogin.hh"
 # include	"PacketRegister.hh"
+# include	"PacketLogout.hh"
+# include	"PacketDisconnect.hh"
+# include	"PacketMove.hh"
+# include	"PacketShoot.hh"
+# include	"PacketMusic.hh"
+# include	"PacketSound.hh"
 
 #endif /* !PACKETLIST_H_ */
