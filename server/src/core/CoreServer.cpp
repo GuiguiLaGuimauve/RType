@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Sun Dec 18 15:55:31 2016 lecoq
+// Last update Sun Dec 18 20:36:45 2016 lecoq
 //
 
 #include	"CoreServer.hh"
@@ -25,8 +25,6 @@ void CoreServer::run()
   bool	loop;
 
   loop = true;
-  std::cout << _factory->isEnableSerialise("ping") << std::endl;
-
   while (loop == true)
     {
       _tcp->init();

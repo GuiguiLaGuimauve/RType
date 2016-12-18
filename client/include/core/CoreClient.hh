@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:19:16 2016 Maxime Lecoq
-// Last update Sun Dec 18 14:52:57 2016 lecoq
+// Last update Sun Dec 18 20:34:25 2016 lecoq
 //
 
 #ifndef CORECLIENT_HH_
@@ -34,6 +34,7 @@ private:
   typedef bool (CoreClient::*fEvent)(EventPart::Event);
   bool		manageGui();
   bool		manageNetwork();
+  bool		managePackets();
 
   bool                          quit(EventPart::Event);
   bool                          tryConnect(EventPart::Event);

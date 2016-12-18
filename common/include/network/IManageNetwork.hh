@@ -5,7 +5,7 @@
 ** Login   <lecoq_m@epitech.net>
 **
 ** Started on  Mon Oct 17 13:11:20 2016 Maxime Lecoq
-// Last update Sun Dec 18 19:44:33 2016 lecoq
+// Last update Sun Dec 18 20:21:37 2016 lecoq
 */
 
 #ifndef		__IMANAGENETWORK_HH__
@@ -22,6 +22,7 @@
 
 namespace Network
 {
+# define WELCOME_SERVERM "Welcome to the server of rembur_g group's."
   /*!
   en :IManageNetwork class interface define the methods of the AManageNetwork class
   fr :L'interface IManageNetwork definit les méthodes de la classe AManageNetwork.*/

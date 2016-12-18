@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Sun Dec 18 15:16:36 2016 lecoq
+// Last update Sun Dec 18 20:34:03 2016 lecoq
 //
 
 #include	"CoreClient.hh"
@@ -30,7 +30,7 @@ void	CoreClient::run()
   _gui->displayStart();
   while (loop == true)
     {
-      if (manageGui() == false || manageNetwork() == false)
+      if (manageGui() == false || manageNetwork() == false || managePackets() == false)
 	loop = false;
     }
 }
@@ -48,6 +48,20 @@ bool	CoreClient::manageGui()
 }
 
 bool	CoreClient::manageNetwork()
+{
+  _tcp->init();
+  _udp->init();
+  if (_tcp->selectIt() == false || _udp->selectIt() == false)
+    return(false);
+  else
+    {
+      _tcp->updateUsers(_tcp->execServer());
+      _udp->updateUsers(_udp->execServer());
+    }
+  return (true);
+}
+
+bool	CoreClient::managePackets()
 {
   return (true);
 }
