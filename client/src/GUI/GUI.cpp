@@ -23,6 +23,7 @@ GUI::GUI()
   _userEvents->bindKey(KEY_LEFT, EventPart::Event::KEY_LEFT);
   _userEvents->bindKey(KEY_DOWN, EventPart::Event::KEY_DOWN);
   _userEvents->bindKey(KEY_ATTACK, EventPart::Event::KEY_ATTACK);
+  _userEvents->bindKey(KEY_QUIT, EventPart::Event::CLOSE_WINDOW);
   //display init
   //displayStart();
   //displayLogin();
