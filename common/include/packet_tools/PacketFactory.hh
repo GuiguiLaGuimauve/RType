@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 11:41:19 2016 Maxime Lecoq
-// Last update Sun Dec 18 01:10:34 2016 lecoq
+// Last update Sun Dec 18 01:27:39 2016 lecoq
 //
 
 #ifndef PACKETFACTORY_HH_
@@ -45,6 +45,12 @@ public:
   IPacket	*getPacket(const IPacket::PacketType &, const std::string &, const std::string &);
   IPacket	*getPacket(const std::string &, const uint16_t &, const uint16_t &);
   IPacket	*getPacket(const IPacket::PacketType &, const uint16_t &, const uint16_t &);
+  IPacket	*getPacket(const std::string &, const std::vector<DataShoot *> &);
+  IPacket	*getPacket(const IPacket::PacketType &, const std::vector<DataShoot *> &);
+  IPacket	*getPacket(const std::string &, const std::vector<DataEnnemy *> &);
+  IPacket	*getPacket(const IPacket::PacketType &, const std::vector<DataEnnemy *> &);
+  IPacket	*getPacket(const std::string &, const std::vector<DataBackground *> &);
+  IPacket	*getPacket(const IPacket::PacketType &, const std::vector<DataBackground *> &);
   
   void		getPacket(const uint8_t *) const;
   void		enable(const std::string &);
@@ -79,6 +85,12 @@ public:
 
   IPacket	*move(const uint16_t &, const uint16_t &);
   IPacket	*shoot(const uint16_t &, const uint16_t &);
+
+  IPacket	*getShoots(const std::vector<DataShoot *>&);
+
+  IPacket	*getEnnemies(const std::vector<DataEnnemy *>&);
+
+  IPacket	*getBackgrounds(const std::vector<DataBackground *>&);
 private:
   PacketContener<void>										*_pkt1;
   PacketContener<const std::string &, const IPacket::PacketType &>				*_pkt2;
@@ -89,8 +101,81 @@ private:
   PacketContener<const DataRoom *>								*_pkt7;
   PacketContener<const std::string &, const std::string &>					*_pkt8;
   PacketContener<const uint16_t &, const uint16_t &>						*_pkt9;
+  PacketContener<const std::vector<DataShoot *> &>						*_pkt10;
+  PacketContener<const std::vector<DataEnnemy *> &>						*_pkt11;
+  PacketContener<const std::vector<DataBackground *> &>						*_pkt12;
 };
 
+
+template<>
+class PacketContener<const std::vector<DataBackground *> &>
+{
+public:
+  typedef IPacket *(PacketFactory::*ptr)(const std::vector<DataBackground *> &);
+  PacketContener(PacketFactory *p) : _p(p)
+  {
+    _map["background"] = &PacketFactory::getBackgrounds;
+    _converter[IPacket::PacketType::ERROR_PACKET] = "background";
+  };
+  ~PacketContener() {};
+  void	enable(const std::string &s)
+  {
+    if (_map.find(s) != _map.end())
+      _enableMap[s] = _map[s]; 
+  }
+  IPacket	*getPacket(const std::string &s, const std::vector<DataBackground *> &m)
+  {
+  if (_enableMap.find(s) != _enableMap.end())
+    return ((_p->*_enableMap[s])(m));
+  return (NULL);
+  }
+  IPacket	*getPacket(const IPacket::PacketType &s, const std::vector<DataBackground *> &m)
+  {
+  if (_converter.find(s) != _converter.end() && _enableMap.find(_converter[s]) != _enableMap.end())
+    return ((_p->*_enableMap[_converter[s]])(m));
+  return (NULL);
+  }
+private:
+  std::map<std::string, ptr>    _map;
+  std::map<IPacket::PacketType, std::string>    _converter;
+  std::map<std::string, ptr>    _enableMap;
+  PacketFactory                 *_p;
+};
+
+template<>
+class PacketContener<const std::vector<DataEnnemy *> &>
+{
+public:
+  typedef IPacket *(PacketFactory::*ptr)(const std::vector<DataEnnemy *> &);
+  PacketContener(PacketFactory *p) : _p(p)
+  {
+    _map["ennemies"] = &PacketFactory::getEnnemies;
+    _converter[IPacket::PacketType::ERROR_PACKET] = "ennemies";
+  };
+  ~PacketContener() {};
+  void	enable(const std::string &s)
+  {
+    if (_map.find(s) != _map.end())
+      _enableMap[s] = _map[s]; 
+  }
+  IPacket	*getPacket(const std::string &s, const std::vector<DataEnnemy *> &m)
+  {
+  if (_enableMap.find(s) != _enableMap.end())
+    return ((_p->*_enableMap[s])(m));
+  return (NULL);
+  }
+  IPacket	*getPacket(const IPacket::PacketType &s, const std::vector<DataEnnemy *> &m)
+  {
+  if (_converter.find(s) != _converter.end() && _enableMap.find(_converter[s]) != _enableMap.end())
+    return ((_p->*_enableMap[_converter[s]])(m));
+  return (NULL);
+  }
+private:
+  std::map<std::string, ptr>    _map;
+  std::map<IPacket::PacketType, std::string>    _converter;
+  std::map<std::string, ptr>    _enableMap;
+  PacketFactory                 *_p;
+};
 
 template<>
 class PacketContener<const uint16_t &, const uint16_t &>
@@ -120,6 +205,41 @@ public:
   {
   if (_converter.find(s) != _converter.end() && _enableMap.find(_converter[s]) != _enableMap.end())
     return ((_p->*_enableMap[_converter[s]])(m, t));
+  return (NULL);
+  }
+private:
+  std::map<std::string, ptr>    _map;
+  std::map<IPacket::PacketType, std::string>    _converter;
+  std::map<std::string, ptr>    _enableMap;
+  PacketFactory                 *_p;
+};
+
+template<>
+class PacketContener<const std::vector<DataShoot *> &>
+{
+public:
+  typedef IPacket *(PacketFactory::*ptr)(const std::vector<DataShoot *> &);
+  PacketContener(PacketFactory *p) : _p(p)
+  {
+    _map["shoots"] = &PacketFactory::getShoots;
+    _converter[IPacket::PacketType::ERROR_PACKET] = "shoots";
+  };
+  ~PacketContener() {};
+  void	enable(const std::string &s)
+  {
+    if (_map.find(s) != _map.end())
+      _enableMap[s] = _map[s]; 
+  }
+  IPacket	*getPacket(const std::string &s, const std::vector<DataShoot *> &m)
+  {
+  if (_enableMap.find(s) != _enableMap.end())
+    return ((_p->*_enableMap[s])(m));
+  return (NULL);
+  }
+  IPacket	*getPacket(const IPacket::PacketType &s, const std::vector<DataShoot *> &m)
+  {
+  if (_converter.find(s) != _converter.end() && _enableMap.find(_converter[s]) != _enableMap.end())
+    return ((_p->*_enableMap[_converter[s]])(m));
   return (NULL);
   }
 private:

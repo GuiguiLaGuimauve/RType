@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 11:43:18 2016 Maxime Lecoq
-// Last update Sun Dec 18 01:11:41 2016 lecoq
+// Last update Sun Dec 18 01:25:11 2016 lecoq
 //
 
 #include	"PacketFactory.hh"
@@ -21,10 +21,9 @@ PacketFactory::PacketFactory()
   _pkt7 = new PacketContener<const DataRoom *>(this);
   _pkt8 = new PacketContener<const std::string &, const std::string &>(this);
   _pkt9 = new PacketContener<const uint16_t &, const uint16_t &>(this);
+  _pkt10 = new PacketContener<const std::vector<DataShoot *> &>(this);
   /*
   _mapData["players"] = &PacketFactory::players;
-  _mapData["shoots"] = &PacketFactory::shoots;
-  _mapData["ennemy"] = &PacketFactory::ennemy;
   _mapData["background"] = &PacketFactory::background;
   */
 }
@@ -40,6 +39,7 @@ PacketFactory::~PacketFactory()
   delete _pkt7;
   delete _pkt8;
   delete _pkt9;
+  delete _pkt10;
 }
 
 IPacket		*PacketFactory::getPacket(const std::string &p) 
@@ -132,6 +132,16 @@ IPacket		*PacketFactory::getPacket(const IPacket::PacketType &p, const uint16_t 
   return (_pkt9->getPacket(p, m, t));
 }
 
+IPacket		*PacketFactory::getPacket(const std::string &p, const std::vector<DataShoot *> &m) 
+{
+  return (_pkt10->getPacket(p, m));
+}
+
+IPacket		*PacketFactory::getPacket(const IPacket::PacketType &p, const std::vector<DataShoot *> &m) 
+{
+  return (_pkt10->getPacket(p, m));
+}
+
 void		PacketFactory::getPacket(const uint8_t *p) const
 {
   (void)p;
@@ -148,6 +158,7 @@ void		PacketFactory::enable(const std::string &packet)
   _pkt7->enable(packet);
   _pkt8->enable(packet);
   _pkt9->enable(packet);
+  _pkt10->enable(packet);
 }
 
 IPacket		*PacketFactory::getError(const std::string &m, const IPacket::PacketType &p) 
@@ -300,6 +311,20 @@ IPacket		*PacketFactory::move(const uint16_t &m, const uint16_t &t)
 IPacket		*PacketFactory::shoot(const uint16_t &m, const uint16_t &t)
 {
   IPacket	*ret= new PacketShoot(m, t);
+
+  return (ret);  
+}
+
+IPacket		*PacketFactory::getShoots(const std::vector<DataShoot *> &m)
+{
+  IPacket	*ret= new PacketShoots(m);
+
+  return (ret);  
+}
+
+IPacket		*PacketFactory::getEnnemies(const std::vector<DataEnnemy *> &m)
+{
+  IPacket	*ret= new PacketEnnemies(m);
 
   return (ret);  
 }
