@@ -39,7 +39,8 @@ namespace Packet
         LOGIN			= 0x14,
         REGISTER		= 0x15,
         LOGOUT			= 0x16,
-
+        ASKROOMDATA = 0x17,
+        
         DISCONNECT		= 0x20,
         SHOOT			= 0x21,
         MOVE			= 0x22,
@@ -56,13 +57,13 @@ namespace Packet
 
     /*! Clean all necessary data for packet management */
     virtual ~IPacket(){};
-	
+
     /*! Return the packet's type */
     virtual PacketType getType() const = 0;
-	
+
 	/*! Return the packet's timer ID */
 	virtual uint32_t getTickId() const = 0;
-	
+
 	/*! Change the packet's timer ID */
 	virtual void setTickId(uint32_t tickId) = 0;
 
@@ -71,16 +72,16 @@ namespace Packet
 
     /*! Return packet's data */
     virtual uint8_t* getData() const = 0;
-	
+
 	/*! Generate the packet for network transition */
     virtual uint8_t *generate() const = 0;
-	
+
 	/*! Return true if the packet is a TCP packet */
 	virtual bool isTcp() const = 0;
-	
+
 	/*! Return true if the packet is a UDP packet */
 	virtual bool isUdp() const = 0;
-	
+
 	/*! Instanciate a PacketUnknown from the current packet */
     virtual PacketUnknown getPacketUnknown() const = 0;
   };

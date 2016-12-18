@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Fri Dec 16 18:09:21 2016 lecoq
+// Last update Sun Dec 18 14:54:55 2016 lecoq
 //
 
 #include	"CoreServer.hh"
@@ -57,6 +57,9 @@ bool	CoreServer::initManager()
        _tcp = _manager->getNetworkTCPManager();
        _udp = _manager->getNetworkUDPManager();
        _gameManager = _manager->getGameManager();
+       _read = _pkt->getPacketQueueRead();
+       _write = _pkt->getPacketQueueWrite();
+       _factory = _pkt->getPacketFactory();
      }
    catch (AError const &e)
      {
