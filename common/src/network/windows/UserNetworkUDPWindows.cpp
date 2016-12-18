@@ -4,7 +4,7 @@
 // Login   <dufren_b@epitech.net>
 //
 // Started on  Fri Dec 02 15:02:22 2016 julien dufrene
-// Last update Thu Dec 15 15:45:53 2016 julien dufrene
+// Last update Sun Dec 18 20:13:27 2016 lecoq
 //
 
 #include "UserNetworkUDPWindows.hh"
@@ -45,8 +45,8 @@ IUserNetwork		*UserNetworkUDPWindows::readSocket(ISocket *net)
 			i++;
 		}
 		res[i] = 0;
-		std::string tmp(res);
-		buff_r.push(tmp);
+                PacketUnknown pkt((uint8_t *)res, RecvBytes);
+		buff_r.push(pkt);
 	}
 	else
 	{
@@ -67,7 +67,7 @@ void			UserNetworkUDPWindows::writeSocket(ISocket *net)
 	DWORD			SendBytes;
 	DWORD			Flags;
 	int			nb;
-	std::string		write;
+	PacketUnknown           write;
 	sockaddr_in		s_out;
 
 	if ((nb = inet_pton(AF_INET, _ip.c_str(), &s_out.sin_addr.s_addr)) <= 0)
@@ -78,14 +78,12 @@ void			UserNetworkUDPWindows::writeSocket(ISocket *net)
 	s_out.sin_family = AF_INET;
 	if (WSAHtons(_fd, _port, &(s_out.sin_port)) == SOCKET_ERROR)
 		std::cerr << "Error on WSAHtons: " << WSAGetLastError() << std::endl;
-	write = buff_w.front();
-	DataBuf.len = write.size();
-	DataBuf.buf = (char *)write.c_str();
+	write = buff_w.pop();
+	DataBuf.len = write.getPacketSize();
+	DataBuf.buf = (char *)(write.getPacketData());
 	Flags = 0;
 	if ((nb = WSASendTo(_fd, &DataBuf, 1, &SendBytes, 0, (sockaddr *)&s_out, sizeof (s_out), NULL, NULL)) == SOCKET_ERROR || write.size() != SendBytes)
 		std::cerr << "Error on WSASendTo: " << WSAGetLastError() << std::endl;
-	else
-	  buff_w.pop();
 }
 
 void			UserNetworkUDPWindows::closeFd()

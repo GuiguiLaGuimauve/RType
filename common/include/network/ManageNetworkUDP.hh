@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Fri Dec 16 11:43:03 2016 julien dufrene
-// Last update Sat Dec 17 09:54:22 2016 lecoq
+// Last update Sun Dec 18 19:45:24 2016 lecoq
 //
 
 #ifndef		__MANAGENETWORKUDP_HH__
@@ -36,7 +36,7 @@ namespace Network
     bool				run();
     bool				run(const uint32_t &, const uint32_t & = 0);
     bool				tryConnectClient(const uint32_t &, const std::string &);
-    void				pushToServ(const std::string &);
+    void				pushToServ(const PacketUnknown &);
   private:
     /* _serv est un attribut permettant de reconnaire le serveur auquel le client est actuellement connecté.*/
     IUserNetwork			*_serv;

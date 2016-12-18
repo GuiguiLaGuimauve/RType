@@ -5,7 +5,7 @@
 // Login   <bertho_i@epitech.net>
 // 
 // Started on  Tue Jun 14 16:46:23 2016 Simon BERTHO
-// Last update Sat Nov 12 14:06:51 2016 lecoq
+// Last update Sun Dec 18 19:46:02 2016 lecoq
 //
 
 #include "Buffer.hh"
@@ -14,78 +14,44 @@
 Buffer::Buffer() {}
 
 Buffer::~Buffer() {}
-/*
+
 void	Buffer::push(const PacketUnknown &pkt)
 {
-  list.push(pkt);
+  listS.push(pkt);
 }
 
 PacketUnknown		Buffer::pop()
 {
-  if (list.empty())
+  if (listS.empty())
     {
       PacketUnknown pkt;
       return (pkt);
     }
-  PacketUnknown		dest = list.front();
-  list.pop();
+  PacketUnknown		dest = listS.front();
+  listS.pop();
   return (dest);
 }
 
 size_t	Buffer::len() const
 {
-  return (list.size());
+  return (listS.size());
 }
 
 void	Buffer::clear()
 {
-  while (!list.empty())
-    list.pop();
+  while (!listS.empty())
+    listS.pop();
 }
 
 PacketUnknown	Buffer::front()
 {
-  return (list.front());
+  return (listS.front());
 }
-*/
+
 
 bool	Buffer::isEmpty() const
 {
 	if (listS.empty() == true)
 		return (false);
 	return (true);
-}
-
-void	Buffer::push(const std::string &pkt)
-{
-	listS.push(pkt);
-}
-
-const std::string		Buffer::pop()
-{
-	if (listS.empty())
-	{
-		std::cerr << "Buffer: pop on empty buffer" << std::endl;
-		std::string pkt = "";
-		return (pkt);
-	}
-	std::string		dest = listS.front();
-	listS.pop();
-	return (dest);
-}
-
-size_t	Buffer::len() const
-{
-	return (listS.size());
-}
-
-void	Buffer::clear()
-{
-	while (!listS.empty())
-		listS.pop();
-}
-
-std::string	Buffer::front()
-{
-	return (listS.front());
 }

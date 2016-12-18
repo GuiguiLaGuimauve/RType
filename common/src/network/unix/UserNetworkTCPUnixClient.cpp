@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 //
 // Started on  Fri Oct 21 15:02:22 2016 julien dufrene
-// Last update Thu Dec 15 16:41:14 2016 julien dufrene
+// Last update Sun Dec 18 20:10:32 2016 lecoq
 //
 
 #include "UserNetworkTCPUnixClient.hh"
@@ -25,8 +25,8 @@ IUserNetwork		*UserNetworkTCPUnixClient::readSocket(ISocket *net)
   if ((nb = recv(_fd, buff, 16384, 0)) > 0)
     {
       buff[nb] = 0;
-      std::string	tmp(buff);
-      buff_r.push(tmp);
+      PacketUnknown pkt((uint8_t *)buff, nb);
+      buff_r.push(pkt);
     }
   if (nb == 0 || nb == -1)
     {
@@ -40,11 +40,10 @@ IUserNetwork		*UserNetworkTCPUnixClient::readSocket(ISocket *net)
 void			UserNetworkTCPUnixClient::writeSocket(ISocket *net)
 {
   (void)net;
-  std::string		to_write;
+  PacketUnknown         to_write;
 
   to_write = buff_w.front();
-  if (send(_fd, to_write.c_str(), to_write.size(), 0) == -1)
+  if (send(_fd, to_write.getPacketData(), to_write.getPacketSize(), 0) != to_write.getPacketSize())
     std::cerr << "Error on write" << std::endl;
-  else
-    buff_w.pop();
+  buff_w.pop();                                
 }

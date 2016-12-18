@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 11:41:19 2016 Maxime Lecoq
-// Last update Sun Dec 18 15:36:37 2016 lecoq
+// Last update Sun Dec 18 19:17:12 2016 lecoq
 //
 
 #ifndef PACKETFACTORY_HH_
@@ -81,6 +81,7 @@ public:
   IPacket	*watchGame(const std::string &);
   IPacket	*music(const std::string &);
   IPacket	*sound(const std::string &);
+  IPacket	*askRoomData(const std::string &);
 
   IPacket	*getRooms(const std::vector<DataRoom *> &);
 
@@ -132,6 +133,7 @@ public:
   void		revSound(const uint8_t *);
   void		revPing(const uint8_t *);
   void		revPong(const uint8_t *);
+  void		revAskRoomData(const uint8_t *);
 private:
   PacketContener<void>										*_pkt1;
   PacketContener<const std::string &, const IPacket::PacketType &>				*_pkt2;
@@ -185,6 +187,7 @@ public:
     _map[IPacket::PacketType::SOUND] = &PacketFactory::revSound;
     _map[IPacket::PacketType::PING] = &PacketFactory::revPing;
     _map[IPacket::PacketType::PONG] = &PacketFactory::revPong;
+    _map[IPacket::PacketType::ASKROOMDATA] = &PacketFactory::revAskRoomData;
     _converter["error"] = IPacket::PacketType::ERROR_PACKET;
     _converter["welcome"] = IPacket::PacketType::WELCOME;
     _converter["connect"] = IPacket::PacketType::CONNECT;
@@ -213,6 +216,7 @@ public:
     _converter["sound"] = IPacket::PacketType::SOUND;
     _converter["ping"] = IPacket::PacketType::PING;
     _converter["pong"] = IPacket::PacketType::PONG;
+    _converter["askroomdata"] = IPacket::PacketType::ASKROOMDATA;
 };
   ~PacketContener() {};
   void	enable(const std::string &s)
@@ -743,6 +747,7 @@ public:
   _map["watchgame"] = &PacketFactory::watchGame;
   _map["music"] = &PacketFactory::music;
   _map["sound"] = &PacketFactory::sound;
+  _map["askroomdata"] = &PacketFactory::askRoomData;
   _converter[IPacket::PacketType::ERROR_PACKET] = "welcome";
   _converter[IPacket::PacketType::ERROR_PACKET] = "joinroom";
   _converter[IPacket::PacketType::ERROR_PACKET] = "joinerror";
@@ -751,6 +756,7 @@ public:
   _converter[IPacket::PacketType::ERROR_PACKET] = "watchgame";
   _converter[IPacket::PacketType::ERROR_PACKET] = "music";
   _converter[IPacket::PacketType::ERROR_PACKET] = "sound";
+  _converter[IPacket::PacketType::ERROR_PACKET] = "askroomdata";
 };
   ~PacketContener() {};
   void	enable(const std::string &s)

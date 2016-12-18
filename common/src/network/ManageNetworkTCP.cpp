@@ -77,7 +77,9 @@ std::vector<IUserNetwork *>	ManageNetworkTCP::execClient()
 			{
 				_user[i]->readSocket(_net);
 				if (_user[i]->haveSomethingToRead() == true)
-					std::cout << "READ: " << _user[i]->popBufferRead() << std::endl;
+				  {
+				    std::cout << "READ: " << std::endl;
+				  }
 			}
 		if (_user[i]->getStatus() == true)
 			if (FD_ISSET(_user[i]->getFd(), &fd_write))
@@ -103,12 +105,15 @@ std::vector<IUserNetwork *>	ManageNetworkTCP::execServer()
 				  if (u != NULL && u->getFd() != _user[i]->getFd() && u->getStatus() == true)
 				  {
 				    
-					  u->pushBufferWrite("WELCOME ON TCP SERVER");
+				    //					  u->pushBufferWrite("WELCOME ON TCP SERVER");
+					  std::cout << "new client" << std::endl;
 					  newuser.push_back(u);
 				  }
 				  else
-					  if (_user[i]->getStatus() == true && _user[i]->haveSomethingToRead() == true)
-					    std::cout << "READ: " << _user[i]->popBufferRead() << std::endl;
+				    if (_user[i]->getStatus() == true && _user[i]->haveSomethingToRead() == true)
+				      {
+					std::cout << "READ: " << std::endl;
+				      }
 			  }
 		  if (_user[i]->getStatus() == true)
 			  if (FD_ISSET(_user[i]->getFd(), &fd_write))
@@ -199,7 +204,7 @@ bool			ManageNetworkTCP::tryConnectClient(const uint32_t &port, const std::strin
   return (true);
 }
 
-void		ManageNetworkTCP::pushToServ(const std::string &m)
+void		ManageNetworkTCP::pushToServ(const PacketUnknown &m)
 {
 	if (_initServ == true)
 	{

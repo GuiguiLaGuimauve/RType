@@ -61,12 +61,12 @@ int32_t			AUserNetwork::getFd() const
 	return (_fd);
 }
 
-void			AUserNetwork::pushBufferWrite(const std::string &mes)
+void			AUserNetwork::pushBufferWrite(const PacketUnknown &mes)
 {
 	buff_w.push(mes);
 }
 
-const std::string		AUserNetwork::popBufferRead()
+PacketUnknown		AUserNetwork::popBufferRead()
 {
 	return (buff_r.pop());
 }

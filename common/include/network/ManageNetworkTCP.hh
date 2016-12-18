@@ -30,7 +30,7 @@ namespace Network
     bool					run();
     bool					run(const uint32_t &, const uint32_t & = 0);
     bool					tryConnectClient(const uint32_t &, const std::string &);
-    void					pushToServ(const std::string &);
+    void					pushToServ(const PacketUnknown &);
   private:
     /* fd_read est un attribut contentant un descripteur de fichier de lecture. */
     fd_set					fd_read;

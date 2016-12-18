@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Fri Oct 21 14:44:09 2016 julien dufrene
-// Last update Mon Nov 14 19:57:21 2016 lecoq
+// Last update Sun Dec 18 19:34:05 2016 lecoq
 //
 
 #ifndef _IUSERNETWORK_HH_
@@ -17,6 +17,7 @@
 #else
 	#include <unistd.h>
 #endif
+#include "PacketUnknown.hpp"
 
 namespace Network
 {
@@ -43,9 +44,9 @@ namespace Network
     /*! La methode getIp() permet de récupérer l'adresse ip du client. */
     virtual const std::string		&getIp() const = 0;
     /*! La méthode pushBufferWrite() permet d'ajouter une chaine dans le buffer d'écriture */
-    virtual void					pushBufferWrite(const std::string &) = 0;
+    virtual void					pushBufferWrite(const PacketUnknown &) = 0;
 	/*! La méthode popBufferRead() permet de récupérer une chaine dans le buffer de lecture */
-    virtual const std::string		popBufferRead() = 0;
+    virtual PacketUnknown		popBufferRead() = 0;
     /*! La méthode haveSomethingToWrite() permet de savoir si il y a quelque chose à écrire. */
     virtual void				closeFd() = 0;
 	/* La méthode haveSomethingToWrite() permet de savoir si il y a des pacquets dans le buffer d'écriture */
