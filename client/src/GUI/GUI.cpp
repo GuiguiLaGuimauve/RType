@@ -23,13 +23,10 @@ GUI::GUI()
   _userEvents->bindKey(KEY_LEFT, EventPart::Event::KEY_LEFT);
   _userEvents->bindKey(KEY_DOWN, EventPart::Event::KEY_DOWN);
   _userEvents->bindKey(KEY_ATTACK, EventPart::Event::KEY_ATTACK);
-  // display init
-  displayStart();
+  //display init
+  //displayStart();
   //displayLogin();
-  //  displayMenu();
-  showPopup("Yolo");
- showPopup("Yolo");
- showPopup("SWAGGGGGGGGGGGGGGGGGGGg");
+  //displayMenu();
 }
 
 GUI::~GUI()
@@ -125,23 +122,143 @@ void		GUI::callback()
 void		GUI::displayGame()
 {
   /* Load le bon background en fonction du stage séléctionné */
-
   _gameWidgets = new Game;
+
+  //this->_gameWidgets->levelId = ...
+  _win->setBackground("../client/Assets/RType_background.bmp");
+  //_win->setBackground(this->backgroundMap[this->_gameWidgets->levelId]);// Ou on pourrait set le levelId ?
+
+  struct data oui;
+
+  this->players.push_back(oui);
+  oui.x = 150;
+  oui.y = 150;
+  oui.health = 75;
+  this->players.push_back(oui);
+  oui.x = 300;
+  oui.y = 300;
+  oui.health = 50;
+  this->players.push_back(oui);
+  oui.x = 450;
+  oui.y = 450;
+  oui.health = 25;
+  this->players.push_back(oui);
+
+  //PLAYERS
+  for (unsigned int i = 0; i < players.size(); i++)
+    {
+      IWidget *temp;
+      int red[4] = {3, 161, 36, 255};
+      int green[4] = {198, 0, 212, 3};
+      int blue[4] = {252, 252, 43, 5};
+
+      temp = _win->addWidget((_win->getWidth() / 4) * i, 0, _win->getWidth() / players.size(), 100);
+
+      Style sheart = temp->getStyle();
+      sheart.image = "Heart" + std::to_string(i + 1);
+      temp->setStyle(sheart);
+
+      temp = _win->addWidget((_win->getWidth() / 4) * i + 100, 30, _win->getWidth() / players.size(), 100);
+      std::string non = " " + std::to_string(players[i].health) + " %";
+      sheart.image = "";
+      temp->setText(non);
+      sheart.textColor = Color(red[i], green[i], blue[i]);
+      sheart.policeSize = 60;
+      temp->setStyle(sheart);
+      
+      Style s1 = temp->getStyle();
+
+      temp = _win->addWidget(players[i].x, 100 + players[i].y, 34, 20);
+      s1.image = "Ship" + std::to_string(i + 1);
+      s1.policeSize = 50;
+      temp->setStyle(s1);
+    }
+
+  oui.x = 500;
+  oui.y = 50;
+  this->shots.push_back(oui);
+  oui.x = 550;
+  oui.y = 150;
+  this->shots.push_back(oui);
+  oui.x = 550;
+  oui.y = 300;
+  this->shots.push_back(oui);
+  oui.x = 650;
+  oui.y = 450;
+  this->shots.push_back(oui);
+
+  //SHOTS
+  for (unsigned int i = 0; i < shots.size(); i++)
+    {
+      IWidget *temp;
+
+      temp = _win->addWidget(shots[i].x, 100 + shots[i].y, 34, 20);
+
+      Style s3 = temp->getStyle();
+
+      //s.image = "Shot-" + _gameWidgets->shots[i].name;
+      s3.image = "Shot-" + std::to_string(/*i + */1);
+      temp->setStyle(s3);
+    }
+
+  oui.x = 1200;
+  oui.y = 150;
+  this->monsters.push_back(oui);
+
+  // MONSTERS
+  for (unsigned int i = 0; i < monsters.size(); i++)
+    {
+      IWidget *temp;
+
+      temp = _win->addWidget(monsters[i].x, 100 + monsters[i].y, 25, 25);
+
+      Style s4 = temp->getStyle();
+
+      s4.image = "Bydos";
+      temp->setStyle(s4);
+    }
+
+  // Envs
+  /*for (int i = 0; i < envs.size(); i++)
+    {
+      IWidget *temp;
+      temp = _win->addWidget(envs[i].x, 100 + envs[i].y, 34, 20);
+
+      Style s5 = temp->getStyle();
+
+      //s.image = "Env-" + _gameWidgets->envs[i].name;
+      s5.image = "Env-" + std::to_string();
+      temp->setStyle(s5);
+      }*/
 }
 
 void		GUI::displayStart()
 {
   // custom window
-  //_win->setBackground("/home/bertho_i/Downloads/Patate_pokémon.png");
-  _win->setBackground("background1.jpg");
+  _win->setBackground("../client/Assets/RType_background.bmp");
   // init
   _startWidgets = new Start;
-  _startWidgets->imput = _win->addWidget(50, 50, 300, 75);
-  _startWidgets->button = _win->addWidget(50, 150, 300, 75);
+  _startWidgets->title = _win->addWidget(_win->getWidth() / 3 + 60, _win->getHeight() / 4, _win->getWidth() / 2, 100);
+  _startWidgets->texte = _win->addWidget(_win->getWidth() / 3 - 80, _win->getHeight() / 2 - 100, _win->getWidth() / 2, 100);
+  _startWidgets->imput = _win->addWidget(_win->getWidth() / 3, _win->getHeight() / 2 + 20, _win->getWidth() / 2, 75);
+  _startWidgets->button = _win->addWidget(_win->getWidth() / 3 + 170, (2 * _win->getHeight()) / 3, 250, 40);
   // custom button
-  Style		s;
-  s = _startWidgets->button->getStyle();
-  _startWidgets->button->setText("Connect.");
+  _startWidgets->texte->setText("ENTER THE ADDRESS:PORT");
+  _startWidgets->button->setText("CONNECT");
+
+  Style		logoStyle = _startWidgets->title->getStyle();
+  logoStyle.image = "Logo";
+
+  Style		s = _startWidgets->button->getStyle();
+  s.form = RECTANGLE;
+  s.textColor = Color(255, 215, 0);
+  s.policeSize = 35;
+
+  _startWidgets->title->setStyle(logoStyle);
+  _startWidgets->imput->setStyle(s);
+  _startWidgets->texte->setStyle(s);
+  _startWidgets->button->setStyle(s);
+
   _startWidgets->button->setOnClick([](IWidget *fuckingButton, CLICK)
 				    {
 				      auto eq = fuckingButton->getEventQueue();
@@ -151,25 +268,19 @@ void		GUI::displayStart()
   _startWidgets->button->setOnHover([](IWidget *w)
 				    {
 				      Style s1 = w->getStyle();
-				      s1.backgroundColor.blue += 100;
- 				      s1.backgroundColor.green += 100;
+				      s1.textColor.blue += 100;
+ 				      s1.textColor.green += 100;
 				      w->setStyle(s1);
 				    });
   _startWidgets->button->setOnLeaveHover([](IWidget *w)
 					 {
 					   Style s2 = w->getStyle();
-					   s2.backgroundColor.blue -= 100;
-					   s2.backgroundColor.green -= 100;
+					   s2.textColor.blue -= 100;
+					   s2.textColor.green -= 100;
 					   w->setStyle(s2);
 					 });
-  s.form = RECTANGLE;
-  s.textColor = Color(0, 0, 250);
-  s.policeSize = 35;
-  s.backgroundColor = Color(250, 0, 0);
-  _startWidgets->button->setStyle(s);
+
   // custom imput
-  s.backgroundColor = Color(250, 250, 250);
-  _startWidgets->imput->setStyle(s);
   _startWidgets->imput->setOnTextEntered([](IWidget *w, const std::string &c)
 					 {
 					   if (c[0] == 127 || c[0] == 8)
@@ -179,7 +290,7 @@ void		GUI::displayStart()
 						 tmp.pop_back();
 					       w->setText(tmp);
 					     }
-					   else if (isprint(c[0]))
+					   else if (isprint(c[0]) && w->getText().size() < 25)
 					     w->setText(w->getText() + c);
 					 });
   // ergonomie focus
@@ -188,64 +299,63 @@ void		GUI::displayStart()
 
 void		GUI::displayMenu()
 {
-  _win->setBackground("background1.jpg");
+  _win->setBackground("../client/Assets/RType_background.bmp");
   _menuWidgets = new Menu;
 
-  _menuWidgets->GameContainer = _win->addWidget(300, 100, 1000, 300);
+  _menuWidgets->GameContainer = _win->addWidget(_win->getWidth() / 6, 100, 1000, 300);
+  _menuWidgets->GameInfos = _win->addWidget(3 * (_win->getWidth() / 4), 100, 1000, 300);
+  _menuWidgets->createGame = _win->addWidget(3 * (_win->getWidth() / 4), 5 * (_win->getHeight() / 6), 50, 60);
+  _menuWidgets->profile = _win->addWidget(3 * (_win->getWidth() / 4), _win->getHeight() / 2, _win->getHeight() / 4, 300);
+  _menuWidgets->confirm = _win->addWidget(4 * (_win->getWidth() / 5), 5 * (_win->getHeight() / 6) + 10, _win->getHeight() / 5, 45);
   _menuWidgets->GameContainer->setText("Games");
-  _menuWidgets->createGame = _win->addWidget(1450, 100, 300, 300);
+  _menuWidgets->GameInfos->setText("Infos");
   _menuWidgets->createGame->setText("+");
-  _menuWidgets->profile = _win->addWidget(300, 500, 1000, 300);
   _menuWidgets->profile->setText("Profile");
-  _menuWidgets->confirm = _win->addWidget(1450, 500, 300, 300);
   _menuWidgets->confirm->setText("Confirm");
 
   Style		s = _menuWidgets->confirm->getStyle();
   s.form = RECTANGLE;
-  s.textColor = Color(0, 0, 250);
+  s.textColor = Color(255, 215, 0);
+  //s.backgroundColor = Color(250, 0, 0);
+
   s.policeSize = 35;
-  s.backgroundColor = Color(250, 0, 0);
-
   _menuWidgets->GameContainer->setStyle(s);
   _menuWidgets->profile->setStyle(s);
-  _menuWidgets->createGame->setStyle(s);
+  _menuWidgets->GameInfos->setStyle(s);
   _menuWidgets->confirm->setStyle(s);
+  s.policeSize = 60;
+  _menuWidgets->createGame->setStyle(s);
 
-  s.image = "Ship1";
-  _menuWidgets->profile->setStyle(s);
-  _menuWidgets->GameContainer->setStyle(s);
-
-  _menuWidgets->confirm->setText("Confirm");
   _menuWidgets->confirm->setOnClick([](IWidget *, CLICK){std::cout << "Let's connect !" << std::endl;});
   _menuWidgets->confirm->setOnHover([](IWidget *w)
 				    {
 				      Style s1 = w->getStyle();
-				      s1.backgroundColor.blue += 100;
- 				      s1.backgroundColor.green += 100;
+				      
+				      s1.textColor.blue += 100;
+ 				      s1.textColor.green += 100;
 				      w->setStyle(s1);
 				    });
   _menuWidgets->confirm->setOnLeaveHover([](IWidget *w)
 					 {
 					   Style s2 = w->getStyle();
-					   s2.backgroundColor.blue -= 100;
-					   s2.backgroundColor.green -= 100;
+					   s2.textColor.blue -= 100;
+					   s2.textColor.green -= 100;
 					   w->setStyle(s2);
 					 });
 
-  _menuWidgets->createGame->setText("+");
   _menuWidgets->createGame->setOnClick([](IWidget *, CLICK){std::cout << "Let's try to create a game !" << std::endl;});
   _menuWidgets->createGame->setOnHover([](IWidget *w)
 				    {
 				      Style s3 = w->getStyle();
-				      s3.backgroundColor.blue += 100;
- 				      s3.backgroundColor.green += 100;
+				      s3.textColor.blue += 100;
+ 				      s3.textColor.green += 100;
 				      w->setStyle(s3);
 				    });
   _menuWidgets->createGame->setOnLeaveHover([](IWidget *w)
 					 {
 					   Style s4 = w->getStyle();
-					   s4.backgroundColor.blue -= 100;
-					   s4.backgroundColor.green -= 100;
+					   s4.textColor.blue -= 100;
+					   s4.textColor.green -= 100;
 					   w->setStyle(s4);
 					 });
 
@@ -256,7 +366,7 @@ void		GUI::displayMenu()
 void		GUI::displayLogin()
 {
   _loginWidgets = new Login;
-  _win->setBackground("background1.jpg");
+  _win->setBackground("../client/Assets/RType_background.bmp");
   _loginWidgets->login = _win->addWidget(300, 120, 300, 75);
   _loginWidgets->password = _win->addWidget(300, 220, 300, 75);
   _loginWidgets->confirm = _win->addWidget(300, 370, 300, 75);
@@ -270,7 +380,6 @@ void		GUI::displayLogin()
   _loginWidgets->login->setStyle(s);
   _loginWidgets->password->setStyle(s);
   _loginWidgets->confirm->setStyle(s);
-
 
   /* je gère le clic, le hover et le unhover */
   _loginWidgets->confirm->setText("Confirm");
@@ -294,7 +403,6 @@ void		GUI::displayLogin()
 					   s2.backgroundColor.green -= 100;
 					   w->setStyle(s2);
 					 });
-
 
   /* Je gère l'édition des 2 inputs */
   _loginWidgets->login->setOnTextEntered([](IWidget *w, const std::string &c)
@@ -321,9 +429,6 @@ void		GUI::displayLogin()
 					   else if (isprint(c[0]))
 					     w->setText(w->getText() + c);
 					 });
-
-
-
 
   // ergonomie focus
   _focusWidget = _loginWidgets->login;

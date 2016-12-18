@@ -22,8 +22,20 @@ namespace Gui
   class GUI: public IGUI
   {
   protected:
+
+    struct      data
+    {
+      int x = 50;
+      int y = 50;
+      int health = 100;
+      //char *name = "1";
+      int       type = 1;
+    };
+    
     struct Start
     {
+      IWidget	*title = NULL;
+      IWidget	*texte = NULL;
       IWidget	*imput = NULL;
       IWidget	*button = NULL;
     };
@@ -38,6 +50,7 @@ namespace Gui
     struct Menu
     {
       IWidget	*GameContainer = NULL;
+      IWidget	*GameInfos = NULL;
       //std::vector<IWidget*>	Games = NULL;
       IWidget	*profile = NULL;
       IWidget	*createGame = NULL;
@@ -48,6 +61,7 @@ namespace Gui
 
     struct Game
     {
+      uint8_t                   levelId;
     };
   public:
     GUI();
@@ -81,6 +95,11 @@ namespace Gui
     Game	*_gameWidgets = NULL;
     // popup
     IWidget  *_fadedWidget = NULL;
+    /* temp pour test GUI */
+    std::vector<data>   players;
+    std::vector<data>   shots;
+    std::vector<data>   envs;
+    std::vector<data>   monsters;
   };
 }
 

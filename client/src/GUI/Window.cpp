@@ -7,8 +7,11 @@ Window::Window(int w, int h, const std::string &s):
 {
   _hidden = false;
   _queue = NULL;
+  sf::VideoMode	vm = sf::VideoMode::getDesktopMode();
+  _width = vm.width;
+  _height = vm.height;
   _win = new sf::RenderWindow(sf::VideoMode(_width, _height), _title,
-			      sf::Style::Close | sf::Style::Titlebar);
+			      sf::Style::Fullscreen);
   _win->setTitle("RType");
 }
 
@@ -80,7 +83,11 @@ void        Window::resize(int w, int h)
 void        Window::setBackground(const std::string &s)
 {
   if (_loadBackground.loadFromFile(s))
-    _background.setTexture(_loadBackground);
+    {
+      _loadBackground.setRepeated(true);
+      _background.setTexture(_loadBackground);
+      _background.setTextureRect({ 0, 0, _width, _height });
+    }
 }
 
 
