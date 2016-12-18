@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 11:41:19 2016 Maxime Lecoq
-// Last update Sun Dec 18 01:27:39 2016 lecoq
+// Last update Sun Dec 18 14:07:57 2016 lecoq
 //
 
 #ifndef PACKETFACTORY_HH_
@@ -16,6 +16,7 @@
 # include	<map>
 # include	"IPacket.hh"
 # include	"PacketList.h"
+# include	"CatchIt.hpp"
 
 using namespace Packet;
 
@@ -51,9 +52,12 @@ public:
   IPacket	*getPacket(const IPacket::PacketType &, const std::vector<DataEnnemy *> &);
   IPacket	*getPacket(const std::string &, const std::vector<DataBackground *> &);
   IPacket	*getPacket(const IPacket::PacketType &, const std::vector<DataBackground *> &);
+  IPacket	*getPacket(const std::string &, const std::vector<DataPlayer *> &);
+  IPacket	*getPacket(const IPacket::PacketType &, const std::vector<DataPlayer *> &);
   
   void		getPacket(const uint8_t *) const;
-  void		enable(const std::string &);
+  void		enableSerialiser(const std::string &);
+  void		enableDeserialiser(const std::string &);
 
   IPacket	*getConnect();
   IPacket	*udpDataFree();
@@ -91,6 +95,37 @@ public:
   IPacket	*getEnnemies(const std::vector<DataEnnemy *>&);
 
   IPacket	*getBackgrounds(const std::vector<DataBackground *>&);
+
+  IPacket	*getPlayers(const std::vector<DataPlayer *>&);
+
+  void		revErrorPacket(const uint8_t *);
+  void		revWelcome(const uint8_t *);
+  void		revConnect(const uint8_t *);
+  void		revRooms(const uint8_t *);
+  void		revCreateRoom(const uint8_t *);
+  void		revJoinRoom(const uint8_t *);
+  void		revJoinError(const uint8_t *);
+  void		revStartGame(const uint8_t *);
+  void		revStartError(const uint8_t *);
+  void		revLeaveRoom(const uint8_t *);
+  void		revUdpData(const uint8_t *);
+  void		revUdpDataFree(const uint8_t *);
+  void		revRoomData(const uint8_t *);
+  void		revWatchGame(const uint8_t *);
+  void		revLogin(const uint8_t *);
+  void		revRegister(const uint8_t *);
+  void		revLogout(const uint8_t *);
+  void		revDisconnect(const uint8_t *);
+  void		revShoot(const uint8_t *);
+  void		revMove(const uint8_t *);
+  void		revPlayers(const uint8_t *);
+  void		revShoots(const uint8_t *);
+  void		revEnnemies(const uint8_t *);
+  void		revBackgrounds(const uint8_t *);
+  void		revMusic(const uint8_t *);
+  void		revSound(const uint8_t *);
+  void		revPing(const uint8_t *);
+  void		revPong(const uint8_t *);
 private:
   PacketContener<void>										*_pkt1;
   PacketContener<const std::string &, const IPacket::PacketType &>				*_pkt2;
@@ -104,8 +139,129 @@ private:
   PacketContener<const std::vector<DataShoot *> &>						*_pkt10;
   PacketContener<const std::vector<DataEnnemy *> &>						*_pkt11;
   PacketContener<const std::vector<DataBackground *> &>						*_pkt12;
+  PacketContener<const std::vector<DataPlayer *> &>						*_pkt13;
+  PacketContener<const uint8_t *>								*_pktDeserialiser;
 };
 
+
+template<>
+class PacketContener<const uint8_t *>
+{
+public:
+  typedef void (PacketFactory::*ptr)(const uint8_t *);
+  PacketContener(PacketFactory *p) : _p(p)
+  {
+    _map[IPacket::PacketType::ERROR_PACKET] = &PacketFactory::revErrorPacket;
+    _map[IPacket::PacketType::WELCOME] = &PacketFactory::revWelcome;
+    _map[IPacket::PacketType::CONNECT] = &PacketFactory::revConnect;
+    _map[IPacket::PacketType::ROOMS] = &PacketFactory::revRooms;
+    _map[IPacket::PacketType::CREATE_ROOM] = &PacketFactory::revCreateRoom;
+    _map[IPacket::PacketType::JOIN_ROOM] = &PacketFactory::revJoinRoom;
+    _map[IPacket::PacketType::JOIN_ERROR] = &PacketFactory::revJoinError;
+    _map[IPacket::PacketType::START_GAME] = &PacketFactory::revStartGame;
+    _map[IPacket::PacketType::START_ERROR] = &PacketFactory::revStartError;
+    _map[IPacket::PacketType::LEAVE_ROOM] = &PacketFactory::revLeaveRoom;
+    _map[IPacket::PacketType::UDP_DATA] = &PacketFactory::revUdpData;
+    _map[IPacket::PacketType::UDP_DATA_FREE] = &PacketFactory::revUdpDataFree;
+    _map[IPacket::PacketType::ROOM_DATA] = &PacketFactory::revRoomData;
+    _map[IPacket::PacketType::WATCH_GAME] = &PacketFactory::revWatchGame;
+    _map[IPacket::PacketType::LOGIN] = &PacketFactory::revLogin;
+    _map[IPacket::PacketType::REGISTER] = &PacketFactory::revRegister;
+    _map[IPacket::PacketType::LOGOUT] = &PacketFactory::revLogout;
+    _map[IPacket::PacketType::DISCONNECT] = &PacketFactory::revDisconnect;
+    _map[IPacket::PacketType::SHOOT] = &PacketFactory::revShoot;
+    _map[IPacket::PacketType::MOVE] = &PacketFactory::revMove;
+    _map[IPacket::PacketType::PLAYERS] = &PacketFactory::revPlayers;
+    _map[IPacket::PacketType::SHOOTS] = &PacketFactory::revShoots;
+    _map[IPacket::PacketType::ENNEMIES] = &PacketFactory::revEnnemies;
+    _map[IPacket::PacketType::BACKGROUNDS] = &PacketFactory::revBackgrounds;
+    _map[IPacket::PacketType::MUSIC] = &PacketFactory::revMusic;
+    _map[IPacket::PacketType::SOUND] = &PacketFactory::revSound;
+    _map[IPacket::PacketType::PING] = &PacketFactory::revPing;
+    _map[IPacket::PacketType::PONG] = &PacketFactory::revPong;
+    _converter["error"] = IPacket::PacketType::ERROR_PACKET;
+    _converter["welcome"] = IPacket::PacketType::WELCOME;
+    _converter["connect"] = IPacket::PacketType::CONNECT;
+    _converter["rooms"] = IPacket::PacketType::ROOMS;
+    _converter["createroom"] = IPacket::PacketType::CREATE_ROOM;
+    _converter["joinroom"] = IPacket::PacketType::JOIN_ROOM;
+    _converter["joinerror"] = IPacket::PacketType::JOIN_ERROR;
+    _converter["startgame"] = IPacket::PacketType::START_GAME;
+    _converter["starterror"] = IPacket::PacketType::START_ERROR;
+    _converter["leaveroom"] = IPacket::PacketType::LEAVE_ROOM;
+    _converter["udpdata"] = IPacket::PacketType::UDP_DATA;
+    _converter["udpdatafree"] = IPacket::PacketType::UDP_DATA_FREE;
+    _converter["roomdata"] = IPacket::PacketType::ROOM_DATA;
+    _converter["watchgame"] = IPacket::PacketType::WATCH_GAME;
+    _converter["login"] = IPacket::PacketType::LOGIN;
+    _converter["register"] = IPacket::PacketType::REGISTER;
+    _converter["logout"] = IPacket::PacketType::LOGOUT;
+    _converter["disconnect"] = IPacket::PacketType::DISCONNECT;
+    _converter["shoot"] = IPacket::PacketType::SHOOT;
+    _converter["move"] = IPacket::PacketType::MOVE;
+    _converter["players"] = IPacket::PacketType::PLAYERS;
+    _converter["shoots"] = IPacket::PacketType::SHOOTS;
+    _converter["ennemies"] = IPacket::PacketType::ENNEMIES;
+    _converter["background"] = IPacket::PacketType::BACKGROUNDS;
+    _converter["music"] = IPacket::PacketType::MUSIC;
+    _converter["sound"] = IPacket::PacketType::SOUND;
+    _converter["ping"] = IPacket::PacketType::PING;
+    _converter["pong"] = IPacket::PacketType::PONG;
+};
+  ~PacketContener() {};
+  void	enable(const std::string &s)
+  {
+    if (_converter.find(s) != _converter.end() && _map.find(_converter[s]) != _map.end())
+      _enableMap[_converter[s]] = _map[_converter[s]];
+  }
+  void	getPacket(const uint8_t *pa)
+  {
+    IPacket::PacketType p = (IPacket::PacketType)pa[0];
+
+    if (_enableMap.find(p) != _enableMap.end())
+      (_p->*_enableMap[p])(pa);
+  }
+private:
+  std::map<IPacket::PacketType, ptr>    _map;
+  std::map<std::string, IPacket::PacketType>    _converter;
+  std::map<IPacket::PacketType, ptr>    _enableMap;
+  PacketFactory                 *_p;
+};
+
+template<>
+class PacketContener<const std::vector<DataPlayer *> &>
+{
+public:
+  typedef IPacket *(PacketFactory::*ptr)(const std::vector<DataPlayer *> &);
+  PacketContener(PacketFactory *p) : _p(p)
+  {
+    _map["players"] = &PacketFactory::getPlayers;
+    _converter[IPacket::PacketType::ERROR_PACKET] = "background";
+  };
+  ~PacketContener() {};
+  void	enable(const std::string &s)
+  {
+    if (_map.find(s) != _map.end())
+      _enableMap[s] = _map[s]; 
+  }
+  IPacket	*getPacket(const std::string &s, const std::vector<DataPlayer *> &m)
+  {
+  if (_enableMap.find(s) != _enableMap.end())
+    return ((_p->*_enableMap[s])(m));
+  return (NULL);
+  }
+  IPacket	*getPacket(const IPacket::PacketType &s, const std::vector<DataPlayer *> &m)
+  {
+  if (_converter.find(s) != _converter.end() && _enableMap.find(_converter[s]) != _enableMap.end())
+    return ((_p->*_enableMap[_converter[s]])(m));
+  return (NULL);
+  }
+private:
+  std::map<std::string, ptr>    _map;
+  std::map<IPacket::PacketType, std::string>    _converter;
+  std::map<std::string, ptr>    _enableMap;
+  PacketFactory                 *_p;
+};
 
 template<>
 class PacketContener<const std::vector<DataBackground *> &>
