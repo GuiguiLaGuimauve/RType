@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Fri Dec 16 18:35:41 2016 lecoq
+// Last update Sun Dec 18 14:55:03 2016 lecoq
 //
 
 #include	"CoreClient.hh"
@@ -82,6 +82,9 @@ bool	CoreClient::initManager()
       _eventQueue = _manager->getEventQueue();
       _gui->setEventQueue(_eventQueue);
       _gui->setSoundManager(_sound);
+      _read = _pkt->getPacketQueueRead();
+      _write = _pkt->getPacketQueueWrite();
+      _factory = _pkt->getPacketFactory();
     }
   catch (AError const &e)
     {
