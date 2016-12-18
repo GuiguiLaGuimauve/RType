@@ -8,23 +8,23 @@
 #include <stdint.h>
 #include <vector>
 #include "APacket.hh"
-#include "DataPlayerPosition.hpp"
+#include "DataPlayer.hpp"
 
 namespace Packet {
 
 	class PacketPlayers : public APacket {
 
 	public:
-		PacketPlayers(const std::vector<DataPlayerPosition *> & players);
+		PacketPlayers(const std::vector<DataPlayer *> & players);
 		PacketPlayers(const uint8_t *data);
 		~PacketPlayers();
 
-		std::vector<DataPlayerPosition *> getPlayers() const;
+		std::vector<DataPlayer *> getPlayers() const;
 		bool isTcp() const;
 		bool isUdp() const;
 
 	protected:
-		std::vector<DataPlayerPosition *> _players;
+		std::vector<DataPlayer *> _players;
 	};
 };
 

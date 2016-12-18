@@ -13,6 +13,11 @@ PacketRoomData::PacketRoomData(const DataRoom *dataroom)
 	_type = IPacket::PacketType::ROOM_DATA;
 	_tickId = 0;
 	_dataroom = (DataRoom *)dataroom;
+	
+	ps.add((uint16_t)dataroom->getName().size());
+	ps.add(dataroom->getName());
+	dataPacketSize += 2 + (uint32_t)(dataroom->getName().size());
+	
 	ps.add((uint16_t)_dataroom->getNbPlayers());
 	dataPacketSize += 2;
 	for (uint64_t i = 0; i < _dataroom->getPlayers().size(); i++)
@@ -52,6 +57,9 @@ PacketRoomData::PacketRoomData(const uint8_t *data)
 	for (uint32_t a = 0; a < _size; a++)
 		_data[a] = data[a + 9];
 
+	_dataroom->setName(pd.getString(posInPacket + 2, pd.get16(posInPacket)));
+	posInPacket += 2 + (uint32_t)pd.get16(posInPacket);
+	
 	uint64_t playersLength = pd.get16(posInPacket);
 	posInPacket += 2;
 	std::vector<DataPlayer *> tmp;

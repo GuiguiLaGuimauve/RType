@@ -19,15 +19,27 @@ namespace Packet {
 		std::string getName() const { return (_name); };
 		uint16_t getStageSucceed() const { return (_stageSucceed); };
 		uint16_t getGamePlayed() const { return (_gamePlayed); };
+		uint16_t getX() const { return (_x); };
+		uint16_t getY() const { return (_y); };
+		uint8_t getId() const { return (_id); };
+		uint8_t getHealth() const { return (_health); };
 
 		void setName(const std::string & name) { _name = name; };
 		void setStageSucceed(const uint16_t & stageSucceed) { _stageSucceed = stageSucceed; };
 		void setGamePlayed(const uint16_t & gamePlayed) { _gamePlayed = gamePlayed; };
+		void setId(const uint8_t & id) { _id = id; };
+		void setX(const uint16_t & x) { _x = x; };
+		void setY(const uint16_t & y) { _y = y; };
+		void setHealth(const uint8_t & health) { _health = health; };
 
 	protected:
 		std::string _name;
 		uint16_t _stageSucceed;
 		uint16_t _gamePlayed;
+		uint8_t _id;
+		uint16_t _x;
+		uint16_t _y;
+		uint8_t _health;
 	};
 };
 

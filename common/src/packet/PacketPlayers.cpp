@@ -5,7 +5,7 @@
 #include <iostream>
 #include "PacketPlayers.hh"
 
-PacketPlayers::PacketPlayers(const std::vector<DataPlayerPosition *> & players)
+PacketPlayers::PacketPlayers(const std::vector<DataPlayer *> & players)
 {
 	PacketSerializer ps;
 	uint32_t dataPacketSize = 0;
@@ -52,7 +52,7 @@ PacketPlayers::PacketPlayers(const uint8_t *data)
 	posInPacket += 2;
 	for (uint64_t i = 0; i < playersLength; i++)
 	{
-		DataPlayerPosition *playersTemp = new DataPlayerPosition();
+		DataPlayer *playersTemp = new DataPlayer();
 
 		playersTemp->setId(pd.get8(posInPacket));
 		posInPacket += 1;
@@ -73,7 +73,7 @@ PacketPlayers::~PacketPlayers()
 {
 }
 
-std::vector<DataPlayerPosition *> PacketPlayers::getPlayers() const
+std::vector<DataPlayer *> PacketPlayers::getPlayers() const
 {
 	return (_players);
 }
