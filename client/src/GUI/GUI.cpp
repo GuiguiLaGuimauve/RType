@@ -12,6 +12,7 @@ GUI::GUI()
   SpriteMap::SpriteMapLoad();
   _win = new Window;
   _userEvents = new GuiEventManager(static_cast<Window *> (_win)->getSfmlWinPtr());
+  //_audio = new Audio::SoundManager;
   _coreQueue = NULL;
   _guiQueue = new EventPart::EventQueue;
   // set event queue
@@ -267,6 +268,7 @@ void		GUI::displayStart()
 {
   // custom window
   _win->setBackground("../client/Assets/RType_background.bmp");
+  _audio->playMusic("TitleScreen");
   // init
   _startWidgets = new Start;
   _startWidgets->title = _win->addWidget(_win->getWidth() / 3 + 60, _win->getHeight() / 4, _win->getWidth() / 2, 100);
@@ -347,7 +349,6 @@ void		GUI::displayMenu()
   Style		s = _menuWidgets->confirm->getStyle();
   s.form = RECTANGLE;
   s.textColor = Color(255, 215, 0);
-  //s.backgroundColor = Color(250, 0, 0);
 
   s.policeSize = 35;
   _menuWidgets->GameContainer->setStyle(s);
@@ -357,7 +358,13 @@ void		GUI::displayMenu()
   s.policeSize = 60;
   _menuWidgets->createGame->setStyle(s);
 
-  _menuWidgets->confirm->setOnClick([](IWidget *, CLICK){std::cout << "Let's connect !" << std::endl;});
+  _menuWidgets->confirm->setOnClick([](IWidget *widget, CLICK)
+				    {
+				      std::cout << "Let's connect !" << std::endl;
+				      auto eq = widget->getEventQueue();
+				      eq->push(EventPart::Event(EventPart::Event::BUTTON_JOIN_GAME));
+
+				    });
   _menuWidgets->confirm->setOnHover([](IWidget *w)
 				    {
 				      Style s1 = w->getStyle();
@@ -374,7 +381,12 @@ void		GUI::displayMenu()
 					   w->setStyle(s2);
 					 });
 
-  _menuWidgets->createGame->setOnClick([](IWidget *, CLICK){std::cout << "Let's try to create a game !" << std::endl;});
+  _menuWidgets->createGame->setOnClick([](IWidget *widget, CLICK)
+				       {
+					 std::cout << "Let's try to create a game !" << std::endl;
+					 auto eq = widget->getEventQueue();
+					 eq->push(EventPart::Event(EventPart::Event::BUTTON_CREATE_GAME));
+				       });
   _menuWidgets->createGame->setOnHover([](IWidget *w)
 				    {
 				      Style s3 = w->getStyle();
@@ -503,6 +515,7 @@ void		GUI::deleteWidgets()
 void			GUI::setSoundManager(Audio::ISoundManager *sound)
 {
   _audio = sound;
+  loadSoundAssets();
 }
 
 void			GUI::showPopup(const std::string &string, int tMilli)
@@ -520,4 +533,13 @@ void			GUI::showPopup(const std::string &string, int tMilli)
   style.textColor.red = 250;
   _fadedWidget->setStyle(style);
   _fadedWidget->showPopup(string, tMilli);
+}
+
+void			GUI::loadSoundAssets()
+{
+  _audio->loadSound("../client/Assets/TitleScreen.wav", "TitleScreen");
+  _audio->loadSound("../client/Assets/Stage1.wav", "Stage1");
+  _audio->loadSound("../client/Assets/Stage2.wav", "Stage2");
+  _audio->loadSound("../client/Assets/Stage3.wav", "Stage3");
+  _audio->loadSound("../client/Assets/Stage4.wav", "Stage4");
 }

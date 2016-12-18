@@ -7,6 +7,7 @@
 #include <iostream>
 #include <cctype>
 #include <cstdio>
+#include <utility>
 
 #include "IGUI.hh"
 
@@ -76,6 +77,7 @@ namespace Gui
     void	setEventQueue(EventPart::IEventQueue *);
     void	setSoundManager(Audio::ISoundManager *);
     void	showPopup(const std::string &s, int tMilli = 2000);
+    void	loadSoundAssets();
   protected:
     void	deleteWidgets();
   protected:

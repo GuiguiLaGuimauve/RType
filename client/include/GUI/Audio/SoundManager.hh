@@ -3,6 +3,7 @@
 
 #include <map>
 #include <list>
+#include <iostream>
 
 #include <SFML/Audio.hpp>
 #include <SFML/Window.hpp>
@@ -19,11 +20,16 @@ namespace Gui
       SoundManager();
       virtual ~SoundManager();
 
-      void      playSound(const std::string &, int = 50) ;
-      void      stopSound(const std::string &);
+      void	loadSound(const std::string &path, const std::string &key);
+      void      playSound(const std::string &, int = 50);
+      void      playMusic(const std::string &, int = 50);
+      void      stopMusic();
+      void	clearCurrentSounds();
     protected:
       std::map<std::string, sf::SoundBuffer *>	_soundsMemory;
-      std::list<sf::Sound *>			_soundsInProgress;
+      std::list<sf::Sound *>			_currentSounds;
+      sf::Sound					*_music = NULL;
+      std::string				_musicName = "";
     };
   }
 }
