@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 10:50:29 2016 Maxime Lecoq
-// Last update Thu Dec 15 15:07:57 2016 lecoq
+// Last update Sun Dec 18 14:22:56 2016 lecoq
 //
 
 #ifndef AMANAGEPACKET_HH_
@@ -20,6 +20,7 @@ public:
   ~AManagePacket();
   IPacketQueue *getPacketQueueRead() const;
   IPacketQueue *getPacketQueueWrite() const;
+  PacketFactory getPacketFactory() const;
 protected:
   IPacketQueue	*_queueRead;
   IPacketQueue	*_queueWrite;
