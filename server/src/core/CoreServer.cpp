@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Mon Dec 19 12:17:53 2016 julien dufrene
+// Last update Mon Dec 19 14:13:11 2016 lecoq
 //
 
 #include	"CoreServer.hh"
@@ -42,6 +42,14 @@ void CoreServer::run()
 
 bool	CoreServer::managePackets()
 {
+  while (_read->isEmpty() == false)
+    {
+      PacketC tmp = _read->pop();
+      std::cout << (int)tmp.getPacket().getPacketData()[0] << std::endl;
+      IPacket *packet = _factory->getPacket(tmp.getPacket().getPacketData());
+      if (packet != NULL && _packetPtr.find(packet->getType()) != _packetPtr.end())
+	(this->*_packetPtr[packet->getType()])(packet, tmp.getNetwork());
+    }
   return (true);
 }
 
@@ -85,7 +93,8 @@ void CoreServer::deleteManager()
 bool		CoreServer::connect(const IPacket *pa, IUserNetwork *u)
 {
   PacketConnect	*p = (PacketConnect *)pa;
-  IPacket	*co = _factory->getPacket("error packet");
+  std::cout << p->getCode() << std::endl;
+  IPacket	*co = _factory->getPacket("error");
   PacketC	ret(co->getPacketUnknown(), u);
   _write->push(ret);
   return (true);
