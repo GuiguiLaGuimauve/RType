@@ -302,14 +302,14 @@ void		GUI::displayStart()
 				      auto eq = fuckingButton->getEventQueue();
 				      eq->push(EventPart::Event(EventPart::Event::BUTTON_CONNECT));
 				      std::cout << "try connect" << std::endl;
-				    });
+				      });
   _startWidgets->button->setOnHover([](IWidget *w)
 				    {
 				      Style s1 = w->getStyle();
 				      s1.textColor.blue += 100;
  				      s1.textColor.green += 100;
 				      w->setStyle(s1);
-				    });
+				      });
   _startWidgets->button->setOnLeaveHover([](IWidget *w)
 					 {
 					   Style s2 = w->getStyle();
@@ -430,7 +430,9 @@ void		GUI::displayLogin()
   s.policeSize = 35;
 
   _loginWidgets->login->setStyle(s);
+  s.password = true;
   _loginWidgets->password->setStyle(s);
+  s.password = false;
   _loginWidgets->confirm->setStyle(s);
   
   _loginWidgets->chevron1->setText(">");

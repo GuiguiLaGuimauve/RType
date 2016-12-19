@@ -1,0 +1,17 @@
+#include "Widget.hh"
+
+void	TextColorFocus(IWidget *w)
+{
+  Style	s1 = w->getStyle();
+  s1.textColor.blue += 100;
+  s1.textColor.green += 100;
+  w->setStyle(s1);
+}
+
+void	TextColorNoFocus(IWidget *w)
+{
+  Style	s1 = w->getStyle();
+  s1.textColor.blue += 100;
+  s1.textColor.green += 100;
+  w->setStyle(s1);
+}

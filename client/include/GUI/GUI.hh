@@ -84,6 +84,10 @@ namespace Gui
     void	setSoundManager(Audio::ISoundManager *);
     void	showPopup(const std::string &s, int tMilli = 2000);
     void	loadSoundAssets();
+    void	TextColorNoFocus(IWidget *w);
+    void	TextColorFocus(IWidget *w);
+    void	SetOnTextEntered(IWidget *w, const std::string &c);
+
   protected:
     void	deleteWidgets();
   protected:

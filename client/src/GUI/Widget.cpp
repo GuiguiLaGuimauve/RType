@@ -79,10 +79,15 @@ void                Widget::move(int x, int y)
 void                Widget::setText(const std::string &s)
 {
   _text = s;
-  if (!_style.password())
+  if (!_style.password)
 	_sfmlText.setString(_text);
   else
-	  _sfmlText.setString("*" * _text.size());
+    {
+      std::string temp;
+      for (unsigned int i = 0; i < _text.size(); i++)
+	temp += "*";
+      _sfmlText.setString(temp);
+    }
 }
 
 std::string         Widget::getText() const
