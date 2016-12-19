@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:19:16 2016 Maxime Lecoq
-// Last update Mon Dec 19 15:25:28 2016 lecoq
+// Last update Mon Dec 19 15:40:35 2016 lecoq
 //
 
 #ifndef CORECLIENT_HH_
@@ -15,6 +15,8 @@
 # include	"ACore.hh"
 # include	"ManagerClient.hh"
 # include	"EventQueue.hh"
+# include	"StringCk.hpp"
+# include	"Vector.hh"
 
 using namespace Gui;
 using namespace Gui::Audio;
@@ -24,7 +26,9 @@ using namespace EventPart;
 
 class CoreClient : public ACore
 {
-  public:
+# define IP_FORMAT_ERROR "The IP is not correct"
+# define PORT_FORMAT_ERROR "The port is not correct"
+public:
   CoreClient();
   ~CoreClient();
   void		run();

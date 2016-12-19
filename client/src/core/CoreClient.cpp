@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Mon Dec 19 15:28:16 2016 lecoq
+// Last update Mon Dec 19 15:53:56 2016 lecoq
 //
 
 #include	"CoreClient.hh"
@@ -126,10 +126,40 @@ bool	CoreClient::quit(EventPart::Event e)
 
 bool	CoreClient::tryConnect(EventPart::Event e)
 {
-  Convert<uint32_t>	conv;
+  std::string             port;
+  Convert<int32_t>        conv;
+  Convert<uint32_t>       conv2;
+  uint64_t                i;
+  std::vector<std::string>        ip;
+  Vector          vec;
+  StringCk                strCk;
 
+
+  port = e.dataString["PORT"];
+  ip = vec.getVector(e.dataString["IP"], '.');  
+  if (ip.size() != 4)
+    {
+      _gui->showPopup(IP_FORMAT_ERROR);
+      return (true);
+    }
+  if (strCk.isNumber(port) == false || conv.toNumber(port) < 1024)
+    {
+      _gui->showPopup(PORT_FORMAT_ERROR);
+      return (true);
+    }
+  i = 0;
+  while (i < ip.size())
+    {
+      if (strCk.isNumber(ip[i]) == false || conv.toNumber(ip[i]) < 0 \
+	  || conv.toNumber(ip[i]) > 255)
+	{
+	  _gui->showPopup(IP_FORMAT_ERROR);
+	  return (true);
+	}
+      i++;
+    }
   if (_tcp->tryConnectClient(conv.toNumber(e.dataString["PORT"]), e.dataString["IP"]) == false)
-    std::cout << "ploup" << std::endl;
+    _gui->showPopup("Connection failed", 2000);
   return (true);
 }
 
