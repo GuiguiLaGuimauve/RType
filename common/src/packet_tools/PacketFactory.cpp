@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 11:43:18 2016 Maxime Lecoq
-// Last update Mon Dec 19 10:21:38 2016 lecoq
+// Last update Mon Dec 19 10:37:21 2016 lecoq
 //
 
 #include	"PacketFactory.hh"
@@ -192,9 +192,9 @@ IPacket		*PacketFactory::getPacket(const IPacket::PacketType &p, const std::vect
   return (_pkt13->getPacket(p, m));
 }
 
-void		PacketFactory::getPacket(const uint8_t *p) const
+IPacket		*PacketFactory::getPacket(const uint8_t *p) const
 {
-  _pktDeserialiser->getPacket(p);
+  return (_pktDeserialiser->getPacket(p));
 }
 
 void		PacketFactory::enableSerialiser(const std::string &packet)
@@ -422,179 +422,179 @@ IPacket		*PacketFactory::getPlayers(const std::vector<DataPlayer *> &m)
   return (ret);  
 }
 
-void		PacketFactory::revErrorPacket(const uint8_t *p)
+IPacket		*PacketFactory::revErrorPacket(const uint8_t *p)
 {
-  PacketError	*pa = new PacketError(p);
-  throw CatchIt<PacketError*>(pa);
+  IPacket	*pa = new PacketError(p);
+  return (pa);
 }
 
-void		PacketFactory::revWelcome(const uint8_t *p)
+IPacket		*PacketFactory::revWelcome(const uint8_t *p)
 {
-  PacketWelcome *pa = new PacketWelcome(p);
-  throw CatchIt<PacketWelcome*>(pa);
+  IPacket *pa = new PacketWelcome(p);
+  return (pa);
 }
 
-void		PacketFactory::revConnect(const uint8_t *p)
+IPacket		*PacketFactory::revConnect(const uint8_t *p)
 {
-  PacketConnect *pa = new PacketConnect(p);
-  throw CatchIt<PacketConnect*>(pa);
+  IPacket *pa = new PacketConnect(p);
+  return (pa);
 }
 
-void		PacketFactory::revRooms(const uint8_t *p)
+IPacket		*PacketFactory::revRooms(const uint8_t *p)
 {
-  PacketRooms *pa = new PacketRooms(p);
-  throw CatchIt<PacketRooms*>(pa); 
+  IPacket *pa = new PacketRooms(p);
+  return (pa); 
 }
 
-void		PacketFactory::revCreateRoom(const uint8_t *p)
+IPacket		*PacketFactory::revCreateRoom(const uint8_t *p)
 {
-  PacketCreateRoom *pa = new PacketCreateRoom(p);
-  throw CatchIt<PacketCreateRoom*>(pa); 
+  IPacket *pa = new PacketCreateRoom(p);
+  return (pa); 
 }
 
-void		PacketFactory::revJoinRoom(const uint8_t *p)
+IPacket		*PacketFactory::revJoinRoom(const uint8_t *p)
 {
-  PacketJoinRoom *pa = new PacketJoinRoom(p);
-  throw CatchIt<PacketJoinRoom*>(pa); 
+  IPacket *pa = new PacketJoinRoom(p);
+  return (pa); 
 }
 
-void		PacketFactory::revJoinError(const uint8_t *p)
+IPacket		*PacketFactory::revJoinError(const uint8_t *p)
 {
-  PacketJoinError *pa = new PacketJoinError(p);
-  throw CatchIt<PacketJoinError*>(pa);
+  IPacket *pa = new PacketJoinError(p);
+  return (pa);
 }
 
-void		PacketFactory::revStartGame(const uint8_t *p)
+IPacket		*PacketFactory::revStartGame(const uint8_t *p)
 {
-  PacketStartGame *pa = new PacketStartGame(p);
-  throw CatchIt<PacketStartGame*>(pa); 
+  IPacket *pa = new PacketStartGame(p);
+  return (pa); 
 }
 
-void		PacketFactory::revStartError(const uint8_t *p)
+IPacket		*PacketFactory::revStartError(const uint8_t *p)
 {
-  PacketStartError *pa = new PacketStartError(p);
-  throw CatchIt<PacketStartError*>(pa);
+  IPacket *pa = new PacketStartError(p);
+  return (pa);
   
 }
 
-void		PacketFactory::revLeaveRoom(const uint8_t *p)
+IPacket		*PacketFactory::revLeaveRoom(const uint8_t *p)
 {
-  PacketLeaveRoom *pa = new PacketLeaveRoom(p);
-  throw CatchIt<PacketLeaveRoom*>(pa);
+  IPacket *pa = new PacketLeaveRoom(p);
+  return (pa);
 }
 
-void		PacketFactory::revUdpData(const uint8_t *p)
+IPacket		*PacketFactory::revUdpData(const uint8_t *p)
 {
-  PacketUdpData *pa = new PacketUdpData(p);
-  throw CatchIt<PacketUdpData*>(pa);
+  IPacket *pa = new PacketUdpData(p);
+  return (pa);
 }
 
-void		PacketFactory::revUdpDataFree(const uint8_t *p)
+IPacket		*PacketFactory::revUdpDataFree(const uint8_t *p)
 {
-  PacketUdpDataFree *pa = new PacketUdpDataFree(p);
-  throw CatchIt<PacketUdpDataFree*>(pa);
+  IPacket *pa = new PacketUdpDataFree(p);
+  return (pa);
 }
 
-void		PacketFactory::revRoomData(const uint8_t *p)
+IPacket		*PacketFactory::revRoomData(const uint8_t *p)
 {
-  PacketRoomData *pa = new PacketRoomData(p);
-  throw CatchIt<PacketRoomData*>(pa);  
+  IPacket *pa = new PacketRoomData(p);
+  return (pa);  
 }
 
-void		PacketFactory::revWatchGame(const uint8_t *p)
+IPacket		*PacketFactory::revWatchGame(const uint8_t *p)
 {
-  PacketWatchGame *pa = new PacketWatchGame(p);
-  throw CatchIt<PacketWatchGame*>(pa);
+  IPacket *pa = new PacketWatchGame(p);
+  return (pa);
 }
 
-void		PacketFactory::revLogin(const uint8_t *p)
+IPacket		*PacketFactory::revLogin(const uint8_t *p)
 {
-  PacketLogin *pa = new PacketLogin(p);
-  throw CatchIt<PacketLogin*>(pa);
+  IPacket *pa = new PacketLogin(p);
+  return (pa);
 }
 
-void		PacketFactory::revRegister(const uint8_t *p)
+IPacket		*PacketFactory::revRegister(const uint8_t *p)
 {
-  PacketRegister *pa = new PacketRegister(p);
-  throw CatchIt<PacketRegister*>(pa);
+  IPacket *pa = new PacketRegister(p);
+  return (pa);
 }
 
-void		PacketFactory::revLogout(const uint8_t *p)
+IPacket		*PacketFactory::revLogout(const uint8_t *p)
 {
-  PacketLogout *pa = new PacketLogout(p);
-  throw CatchIt<PacketLogout*>(pa);
+  IPacket *pa = new PacketLogout(p);
+  return (pa);
 }
 
-void		PacketFactory::revDisconnect(const uint8_t *p)
+IPacket		*PacketFactory::revDisconnect(const uint8_t *p)
 {
-  PacketDisconnect *pa = new PacketDisconnect(p);
-  throw CatchIt<PacketDisconnect*>(pa);
+  IPacket *pa = new PacketDisconnect(p);
+  return (pa);
 }
 
-void		PacketFactory::revShoot(const uint8_t *p)
+IPacket		*PacketFactory::revShoot(const uint8_t *p)
 {
-  PacketShoot *pa = new PacketShoot(p);
-  throw CatchIt<PacketShoot*>(pa);  
+  IPacket *pa = new PacketShoot(p);
+  return (pa);  
 }
 
-void		PacketFactory::revMove(const uint8_t *p)
+IPacket		*PacketFactory::revMove(const uint8_t *p)
 {
-  PacketMove *pa = new PacketMove(p);
-  throw CatchIt<PacketMove*>(pa);
+  IPacket *pa = new PacketMove(p);
+  return (pa);
 }
 
-void		PacketFactory::revPlayers(const uint8_t *p)
+IPacket		*PacketFactory::revPlayers(const uint8_t *p)
 {
-  PacketPlayers *pa = new PacketPlayers(p);
-  throw CatchIt<PacketPlayers*>(pa);
+  IPacket *pa = new PacketPlayers(p);
+  return (pa);
 }
 
-void		PacketFactory::revShoots(const uint8_t *p)
+IPacket		*PacketFactory::revShoots(const uint8_t *p)
 {
-  PacketShoots *pa = new PacketShoots(p);
-  throw CatchIt<PacketShoots*>(pa);
+  IPacket *pa = new PacketShoots(p);
+  return (pa);
 }
 
-void		PacketFactory::revEnnemies(const uint8_t *p)
+IPacket		*PacketFactory::revEnnemies(const uint8_t *p)
 {
-  PacketEnnemies *pa = new PacketEnnemies(p);
-  throw CatchIt<PacketEnnemies*>(pa);
+  IPacket *pa = new PacketEnnemies(p);
+  return (pa);
 }
 
 
-void		PacketFactory::revBackgrounds(const uint8_t *p)
+IPacket		*PacketFactory::revBackgrounds(const uint8_t *p)
 {
-  PacketBackgrounds *pa = new PacketBackgrounds(p);
-  throw CatchIt<PacketBackgrounds*>(pa);
+  IPacket *pa = new PacketBackgrounds(p);
+  return (pa);
 }
 
-void		PacketFactory::revMusic(const uint8_t *p)
+IPacket		*PacketFactory::revMusic(const uint8_t *p)
 {
-  PacketMusic *pa = new PacketMusic(p);
-  throw CatchIt<PacketMusic*>(pa);  
+  IPacket *pa = new PacketMusic(p);
+  return (pa);  
 }
 
-void		PacketFactory::revSound(const uint8_t *p)
+IPacket		*PacketFactory::revSound(const uint8_t *p)
 {
-  PacketSound *pa = new PacketSound(p);
-  throw CatchIt<PacketSound*>(pa);  
+  IPacket *pa = new PacketSound(p);
+  return (pa);  
 }
 
-void		PacketFactory::revPing(const uint8_t *p)
+IPacket		*PacketFactory::revPing(const uint8_t *p)
 {
-  PacketPing *pa = new PacketPing(p);
-  throw CatchIt<PacketPing*>(pa);
+  IPacket *pa = new PacketPing(p);
+  return (pa);
   
 }
 
-void		PacketFactory::revPong(const uint8_t *p)
+IPacket		*PacketFactory::revPong(const uint8_t *p)
 {
-  PacketPong *pa = new PacketPong(p);
-  throw CatchIt<PacketPong*>(pa);
+  IPacket *pa = new PacketPong(p);
+  return (pa);
 }
 
-void		PacketFactory::revAskRoomData(const uint8_t *p)
+IPacket		*PacketFactory::revAskRoomData(const uint8_t *p)
 {
-  PacketAskRoomData *pa = new PacketAskRoomData(p);
-  throw CatchIt<PacketAskRoomData*>(pa);
+  IPacket *pa = new PacketAskRoomData(p);
+  return (pa);
 }

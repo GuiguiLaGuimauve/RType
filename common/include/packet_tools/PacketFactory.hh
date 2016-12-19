@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 11:41:19 2016 Maxime Lecoq
-// Last update Sun Dec 18 19:17:12 2016 lecoq
+// Last update Mon Dec 19 10:30:26 2016 lecoq
 //
 
 #ifndef PACKETFACTORY_HH_
@@ -59,7 +59,7 @@ public:
   IPacket	*getPacket(const std::string &, const std::vector<DataPlayer *> &);
   IPacket	*getPacket(const IPacket::PacketType &, const std::vector<DataPlayer *> &);
   
-  void		getPacket(const uint8_t *) const;
+  IPacket *	getPacket(const uint8_t *) const;
   void		enableSerialiser(const std::string &);
   void		enableDeserialiser(const std::string &);
 
@@ -105,35 +105,35 @@ public:
 
   IPacket	*getPlayers(const std::vector<DataPlayer *>&);
 
-  void		revErrorPacket(const uint8_t *);
-  void		revWelcome(const uint8_t *);
-  void		revConnect(const uint8_t *);
-  void		revRooms(const uint8_t *);
-  void		revCreateRoom(const uint8_t *);
-  void		revJoinRoom(const uint8_t *);
-  void		revJoinError(const uint8_t *);
-  void		revStartGame(const uint8_t *);
-  void		revStartError(const uint8_t *);
-  void		revLeaveRoom(const uint8_t *);
-  void		revUdpData(const uint8_t *);
-  void		revUdpDataFree(const uint8_t *);
-  void		revRoomData(const uint8_t *);
-  void		revWatchGame(const uint8_t *);
-  void		revLogin(const uint8_t *);
-  void		revRegister(const uint8_t *);
-  void		revLogout(const uint8_t *);
-  void		revDisconnect(const uint8_t *);
-  void		revShoot(const uint8_t *);
-  void		revMove(const uint8_t *);
-  void		revPlayers(const uint8_t *);
-  void		revShoots(const uint8_t *);
-  void		revEnnemies(const uint8_t *);
-  void		revBackgrounds(const uint8_t *);
-  void		revMusic(const uint8_t *);
-  void		revSound(const uint8_t *);
-  void		revPing(const uint8_t *);
-  void		revPong(const uint8_t *);
-  void		revAskRoomData(const uint8_t *);
+  IPacket		*revErrorPacket(const uint8_t *);
+  IPacket		*revWelcome(const uint8_t *);
+  IPacket		*revConnect(const uint8_t *);
+  IPacket		*revRooms(const uint8_t *);
+  IPacket		*revCreateRoom(const uint8_t *);
+  IPacket		*revJoinRoom(const uint8_t *);
+  IPacket		*revJoinError(const uint8_t *);
+  IPacket		*revStartGame(const uint8_t *);
+  IPacket		*revStartError(const uint8_t *);
+  IPacket		*revLeaveRoom(const uint8_t *);
+  IPacket		*revUdpData(const uint8_t *);
+  IPacket		*revUdpDataFree(const uint8_t *);
+  IPacket		*revRoomData(const uint8_t *);
+  IPacket		*revWatchGame(const uint8_t *);
+  IPacket		*revLogin(const uint8_t *);
+  IPacket		*revRegister(const uint8_t *);
+  IPacket		*revLogout(const uint8_t *);
+  IPacket		*revDisconnect(const uint8_t *);
+  IPacket		*revShoot(const uint8_t *);
+  IPacket		*revMove(const uint8_t *);
+  IPacket		*revPlayers(const uint8_t *);
+  IPacket		*revShoots(const uint8_t *);
+  IPacket		*revEnnemies(const uint8_t *);
+  IPacket		*revBackgrounds(const uint8_t *);
+  IPacket		*revMusic(const uint8_t *);
+  IPacket		*revSound(const uint8_t *);
+  IPacket		*revPing(const uint8_t *);
+  IPacket		*revPong(const uint8_t *);
+  IPacket		*revAskRoomData(const uint8_t *);
 private:
   PacketContener<void>										*_pkt1;
   PacketContener<const std::string &, const IPacket::PacketType &>				*_pkt2;
@@ -156,7 +156,7 @@ template<>
 class PacketContener<const uint8_t *>
 {
 public:
-  typedef void (PacketFactory::*ptr)(const uint8_t *);
+  typedef IPacket  *(PacketFactory::*ptr)(const uint8_t *);
   PacketContener(PacketFactory *p) : _p(p)
   {
     _map[IPacket::PacketType::ERROR_PACKET] = &PacketFactory::revErrorPacket;
@@ -224,12 +224,13 @@ public:
     if (_converter.find(s) != _converter.end() && _map.find(_converter[s]) != _map.end())
       _enableMap[_converter[s]] = _map[_converter[s]];
   }
-  void	getPacket(const uint8_t *pa)
+  IPacket	*getPacket(const uint8_t *pa)
   {
     IPacket::PacketType p = (IPacket::PacketType)pa[0];
 
     if (_enableMap.find(p) != _enableMap.end())
-      (_p->*_enableMap[p])(pa);
+      return ((_p->*_enableMap[p])(pa));
+    return (NULL);
   }
   bool	isEnable(const std::string &s)
   {

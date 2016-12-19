@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Mon Dec 19 10:17:17 2016 lecoq
+// Last update Mon Dec 19 10:38:43 2016 lecoq
 //
 
 #include	"CoreClient.hh"
@@ -68,17 +68,9 @@ bool	CoreClient::managePackets()
     {
       PacketC tmp = _read->pop();
       std::cout << (int)tmp.getPacket().getPacketData()[0] << std::endl;
-      try
-	{
-	  _factory->getPacket(tmp.getPacket().getPacketData());
-	}
-      catch (CatchIt<IPacket *> const &pa)
-	{
-	  IPacket *p = pa.getIt();
-	  std::cout << "plop" << std::endl;
-	  if (_packetPtr.find(p->getType()) != _packetPtr.end())
-	    (this->*_packetPtr[p->getType()])(tmp);
-	}
+      IPacket *packet = _factory->getPacket(tmp.getPacket().getPacketData());
+      if (packet != NULL && _packetPtr.find(packet->getType()) != _packetPtr.end())
+	(this->*_packetPtr[packet->getType()])(tmp);
     }
   return (true);
 }
