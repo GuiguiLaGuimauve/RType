@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Fri Dec 16 11:37:09 2016 julien dufrene
-// Last update Sun Dec 18 19:43:35 2016 lecoq
+// Last update Mon Dec 19 21:57:45 2016 julien dufrene
 //
 
 #include	"ManageNetworkUDP.hh"
@@ -61,7 +61,7 @@ std::vector<IUserNetwork *>	ManageNetworkUDP::execClient()
       {
 	std::cout << "READ: " << std::endl;
       }
-  if (_serv->haveSomethingToWrite() == true)
+  if (_serv->getStatus() == true && _serv->haveSomethingToWrite() == true)
     _serv->writeSocket(_net);
   return (newuser);
 }
@@ -116,8 +116,9 @@ bool		ManageNetworkUDP::run(const uint32_t &port, const uint32_t &maxCl)
   _init = true;
   if (maxCl != 0 && _net->bindIt(port) == false)
     return (false);
+  /*
 #ifdef _WIN32
-  IUserNetwork *u = new UserNetworkUDPWindows();
+    IUserNetwork *u = new UserNetworkUDPWindows();
 #else
   IUserNetwork *u = new UserNetworkUDPUnix();
 #endif // _WIN32
@@ -125,7 +126,7 @@ bool		ManageNetworkUDP::run(const uint32_t &port, const uint32_t &maxCl)
   u->setFd(_net->getFdSocket());
   u->setPort(port);
   u->setStatus(true);
-  _user.push_back(u);
+  _user.push_back(u);*/
   std::cout << "User Network UDP prepared: " << _user[0]->getFd() << std::endl;
   return (true);
 }
