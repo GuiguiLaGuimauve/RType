@@ -21,7 +21,6 @@ PacketConnect::PacketConnect()
 	_tickId = 0;
 	_code = (uint16_t)timePtr->tm_yday + PACKET_GROUP + PACKET_VERSION;
 
-	std::cout << "code : " << _code << std::endl;
 	ps.add(_code);
 	dataPacketSize += 2;
 
