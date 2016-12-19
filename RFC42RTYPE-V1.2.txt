@@ -312,11 +312,7 @@ Category: Limited
 		 {
 			uint16_t Room name size
 			int8_t[] Room name
-			uint16_t Number of player
-			{
-			 	uint16_t Player name size
-				int8_t[] Player name
-			} []
+			uint8_t Nb players
 			uint8_t Max player allowed
 			uint8_t Level Stage
 		 } [] 
