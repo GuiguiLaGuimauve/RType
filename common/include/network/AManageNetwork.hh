@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Fri Dec 16 11:41:23 2016 julien dufrene
-// Last update Sun Dec 18 19:44:11 2016 lecoq
+// Last update Mon Dec 19 16:55:29 2016 lecoq
 //
 
 
@@ -51,6 +51,8 @@ namespace Network
     IPacketQueue			*_read;
     IPacketQueue			*_write;
     PacketFactory			*_factory;
+    int					_sec;
+    int					_usec;
   };
 };
 

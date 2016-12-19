@@ -54,8 +54,8 @@ bool			ManageNetworkTCP::selectIt()
   struct timeval	timeout;
 	uint32_t		err;
 
-	timeout.tv_sec = 2;
-	timeout.tv_usec = 0;
+	timeout.tv_sec = _sec;
+	timeout.tv_usec = _usec;
 	if (getMaxFd() != 0)
 	  {
 	    err = select(getMaxFd(), &fd_read, &fd_write, NULL, &timeout);
@@ -152,6 +152,8 @@ bool		ManageNetworkTCP::run()
     }
 #endif
   _init = true;
+  _sec = 0;
+  _usec = 2;
   return (true);
 }
 

@@ -5,6 +5,8 @@ using namespace Network;
 AManageNetwork::AManageNetwork() {
   _port = 4242;
   _init = false;
+  _sec = 2;
+  _usec = 0;
 }
 
 uint32_t			AManageNetwork::getMaxFd() const

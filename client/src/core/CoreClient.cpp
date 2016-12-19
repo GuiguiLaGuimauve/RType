@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Mon Dec 19 16:19:58 2016 lecoq
+// Last update Mon Dec 19 16:57:20 2016 lecoq
 //
 
 #include	"CoreClient.hh"
@@ -25,8 +25,6 @@ CoreClient::~CoreClient()
 {
 }
 
-int plop = 0;
-
 void	CoreClient::run()
 {
   bool	loop;
@@ -37,13 +35,11 @@ void	CoreClient::run()
     {
       if (manageGui() == false || manageNetwork() == false || managePackets() == false)
 	loop = false;
-      plop++;
     }
 }
 
 bool	CoreClient::manageGui()
 {
-  std::cout << "gui : " << plop << std::endl;
   _gui->callback();
   while (_eventQueue->empty() == false)
     {
@@ -51,13 +47,11 @@ bool	CoreClient::manageGui()
       if (_eventPtr.find(e.type) != _eventPtr.end() && ((this->*_eventPtr[e.type])(e)) == false)
 	return (false);
     }
-  std::cout << "gui : " << plop << std::endl;
   return (true);
 }
 
 bool	CoreClient::manageNetwork()
 {
-  std::cout << "net : " << plop << std::endl;	
   _tcp->init();
   _udp->init();
   if (_tcp->selectIt() == false || _udp->selectIt() == false)
@@ -67,13 +61,11 @@ bool	CoreClient::manageNetwork()
       _tcp->updateUsers(_tcp->execServer());
       _udp->updateUsers(_udp->execServer());
     }
-  std::cout << "net : " << plop << std::endl;
   return (true);
 }
 
 bool	CoreClient::managePackets()
 {
-  std::cout << "pack : " << plop << std::endl;
   while (_read->isEmpty() == false)
     {
       PacketC tmp = _read->pop();
@@ -82,7 +74,6 @@ bool	CoreClient::managePackets()
       if (packet != NULL && _packetPtr.find(packet->getType()) != _packetPtr.end())
 	(this->*_packetPtr[packet->getType()])(packet, tmp.getNetwork());
     }
-  std::cout << "pack : " << plop << std::endl;
   return (true);
 }
 
