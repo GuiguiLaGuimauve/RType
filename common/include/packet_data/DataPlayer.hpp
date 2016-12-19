@@ -17,6 +17,7 @@ namespace Packet {
 		~DataPlayer() {};
 
 		std::string getName() const { return (_name); };
+		std::string getPassword() const { return (_pw); };
 		uint16_t getStageSucceed() const { return (_stageSucceed); };
 		uint16_t getGamePlayed() const { return (_gamePlayed); };
 		uint16_t getX() const { return (_x); };
@@ -26,6 +27,7 @@ namespace Packet {
 		bool getOnline() const { return (_online); };
 
 		void setName(const std::string & name) { _name = name; };
+		void setPassword(const std::string & pw) { _pw = pw; };
 		void setStageSucceed(const uint16_t & stageSucceed) { _stageSucceed = stageSucceed; };
 		void setGamePlayed(const uint16_t & gamePlayed) { _gamePlayed = gamePlayed; };
 		void setId(const uint8_t & id) { _id = id; };
@@ -36,6 +38,7 @@ namespace Packet {
 
 	protected:
 		std::string _name;
+		std::string _pw;
 		uint16_t _stageSucceed;
 		uint16_t _gamePlayed;
 		uint8_t _id;
