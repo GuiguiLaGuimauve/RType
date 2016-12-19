@@ -494,3 +494,5 @@ Category: Limited
 
 	This is a two-way handshake, the sequence is not crypted in the
 	package.
+	If the sequence is good the communications between server and
+	client begin normaly
