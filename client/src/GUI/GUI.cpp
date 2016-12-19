@@ -41,6 +41,8 @@ GUI::~GUI()
 
 void		GUI::callback()
 {
+  static int v = 0;
+  std::cout << "Oui " << v << std::endl;
   _userEvents->callback();
   _win->drawAll();
   while (!_guiQueue->empty())
@@ -149,6 +151,8 @@ void		GUI::callback()
       if (ep.type != EventPart::Event::DEFAULT && _coreQueue)
 	_coreQueue->push(ep);
     }
+  std::cout << "Non " << v << std::endl;
+  v++;
 }
 
 void		GUI::displayGame()
@@ -281,6 +285,8 @@ void		GUI::displayStart()
   _startWidgets->texte->setText("ENTER THE ADDRESS:PORT");
   _startWidgets->button->setText("CONNECT");
 
+  std::cout << "JE SUIS  ENCORE DANS START" << std::endl;
+  
   Style		logoStyle = _startWidgets->title->getStyle();
   logoStyle.image = "Logo";
 
@@ -499,28 +505,20 @@ void		GUI::setEventQueue(EventPart::IEventQueue *eq)
 void		GUI::deleteWidgets()
 {
   _win->deleteAllWidgets();
-    /*if (_startWidgets)
-    {
-      _win->deleteWidget(_startWidgets->imput);
-      _win->deleteWidget(_startWidgets->button);
-      delete _startWidgets;
-      _startWidgets = NULL;
-    }
+  _hoverWidget = NULL;
+  _focusWidget = NULL;
+  if (_startWidgets)
+    delete _startWidgets;
   if (_loginWidgets)
-    {
-      delete _loginWidgets;
-      _loginWidgets = NULL;
-    }
+    delete _loginWidgets;
   if (_menuWidgets)
-    {
-      delete _menuWidgets;
-      _menuWidgets = NULL;
-    }
+    delete _menuWidgets;
   if (_gameWidgets)
-    {
-      delete _gameWidgets;
-      _gameWidgets = NULL;
-      }*/
+    delete _gameWidgets;
+  _startWidgets = NULL;
+  _loginWidgets = NULL;
+  _menuWidgets = NULL;
+  _gameWidgets = NULL;
 }
 
 void			GUI::setSoundManager(Audio::ISoundManager *sound)
