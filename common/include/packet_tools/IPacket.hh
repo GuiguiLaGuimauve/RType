@@ -14,16 +14,18 @@
 
 #include "PacketUnknown.hpp"
 
-#define PACKET_GROUP 6
-#define PACKET_VERSION 2
-
 namespace Packet
 {
   /*! IPacket define all methods for all packets */
   class	IPacket
   {
   public:
-     /*! PacketType contains all differents values in the packets for the common protocol */
+#define PACKET_GROUP 6
+#define PACKET_VERSION 2
+#define ERROR_MESSAGE "A Packet Crashed"
+#define ACCEPT_MESSAGE "Hi, you are accepted by rembur_g server's"
+
+    /*! PacketType contains all differents values in the packets for the common protocol */
      enum class PacketType : uint8_t {
         ERROR_PACKET	= 0x00,
         WELCOME			= 0x01,

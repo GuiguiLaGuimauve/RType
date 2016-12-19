@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 11:43:18 2016 Maxime Lecoq
-// Last update Mon Dec 19 10:37:21 2016 lecoq
+// Last update Mon Dec 19 15:00:03 2016 lecoq
 //
 
 #include	"PacketFactory.hh"
@@ -292,6 +292,13 @@ IPacket		*PacketFactory::sound(const std::string &m)
 IPacket		*PacketFactory::askRoomData(const std::string &m) 
 {
   IPacket	*ret = new PacketAskRoomData(m);
+
+  return (ret);
+}
+
+IPacket		*PacketFactory::accept(const std::string &m) 
+{
+  IPacket	*ret = new PacketAccept(m);
 
   return (ret);
 }
@@ -596,5 +603,11 @@ IPacket		*PacketFactory::revPong(const uint8_t *p)
 IPacket		*PacketFactory::revAskRoomData(const uint8_t *p)
 {
   IPacket *pa = new PacketAskRoomData(p);
+  return (pa);
+}
+
+IPacket		*PacketFactory::revAccept(const uint8_t *p)
+{
+  IPacket *pa = new PacketAccept(p);
   return (pa);
 }

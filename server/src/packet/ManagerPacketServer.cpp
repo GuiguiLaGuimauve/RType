@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 10:58:37 2016 Maxime Lecoq
-// Last update Sun Dec 18 19:19:16 2016 lecoq
+// Last update Mon Dec 19 14:58:47 2016 lecoq
 //
 
 #include "ManagePacketServer.hh"
@@ -28,6 +28,7 @@ ManagePacketServer::ManagePacketServer()
   _factory->enableSerialiser("sound");
   _factory->enableSerialiser("ping");
   _factory->enableSerialiser("pong");
+  _factory->enableSerialiser("accept");
   _factory->enableDeserialiser("error");
   _factory->enableDeserialiser("connect");
   _factory->enableDeserialiser("createroom");

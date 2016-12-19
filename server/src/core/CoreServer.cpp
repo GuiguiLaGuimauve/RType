@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Mon Dec 19 14:37:28 2016 lecoq
+// Last update Mon Dec 19 15:20:06 2016 lecoq
 //
 
 #include	"CoreServer.hh"
@@ -93,6 +93,20 @@ void CoreServer::deleteManager()
 bool		CoreServer::connect(const IPacket *pa, IUserNetwork *u)
 {
   PacketConnect	*p = (PacketConnect *)pa;
-  std::cout << p->getCode() << std::endl;
+  PacketConnect	ck;
+
+  std::cout << _factory->isEnableSerialise("error") << " " << _factory->isEnableSerialise("accept") << std::endl;
+  if (p->getCode() != ck.getCode())
+    {
+      IPacket       *co = _factory->getPacket("error", ERROR_MESSAGE, CONNECT);
+      PacketC       ret(co->getPacketUnknown(), u);
+      _write->push(ret);
+    }
+  else
+    {
+      IPacket       *co = _factory->getPacket("accept", ACCEPT_MESSAGE);
+      PacketC       ret(co->getPacketUnknown(), u);
+      _write->push(ret);
+    }
   return (true);
 }

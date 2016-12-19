@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 11:41:19 2016 Maxime Lecoq
-// Last update Mon Dec 19 10:30:26 2016 lecoq
+// Last update Mon Dec 19 14:58:29 2016 lecoq
 //
 
 #ifndef PACKETFACTORY_HH_
@@ -27,8 +27,6 @@ class	PacketFactory
 {
 public:
   PacketFactory();
-  //  PacketFactory(const PacketFactory &);
-  //PacketFactory &operator=(const PacketFactory &);
   ~PacketFactory();
   bool		isEnableSerialise(const std::string &);
   bool		isEnableDeserialise(const std::string &);
@@ -82,6 +80,7 @@ public:
   IPacket	*music(const std::string &);
   IPacket	*sound(const std::string &);
   IPacket	*askRoomData(const std::string &);
+  IPacket	*accept(const std::string &);
 
   IPacket	*getRooms(const std::vector<DataRoom *> &);
 
@@ -134,6 +133,7 @@ public:
   IPacket		*revPing(const uint8_t *);
   IPacket		*revPong(const uint8_t *);
   IPacket		*revAskRoomData(const uint8_t *);
+  IPacket		*revAccept(const uint8_t *);
 private:
   PacketContener<void>										*_pkt1;
   PacketContener<const std::string &, const IPacket::PacketType &>				*_pkt2;
@@ -188,6 +188,7 @@ public:
     _map[IPacket::PacketType::PING] = &PacketFactory::revPing;
     _map[IPacket::PacketType::PONG] = &PacketFactory::revPong;
     _map[IPacket::PacketType::ASKROOMDATA] = &PacketFactory::revAskRoomData;
+    _map[IPacket::PacketType::ACCEPT] = &PacketFactory::revAccept;
     _converter["error"] = IPacket::PacketType::ERROR_PACKET;
     _converter["welcome"] = IPacket::PacketType::WELCOME;
     _converter["connect"] = IPacket::PacketType::CONNECT;
@@ -217,6 +218,7 @@ public:
     _converter["ping"] = IPacket::PacketType::PING;
     _converter["pong"] = IPacket::PacketType::PONG;
     _converter["askroomdata"] = IPacket::PacketType::ASKROOMDATA;
+    _converter["accept"] = IPacket::PacketType::ACCEPT;
 };
   ~PacketContener() {};
   void	enable(const std::string &s)
@@ -749,6 +751,7 @@ public:
   _map["music"] = &PacketFactory::music;
   _map["sound"] = &PacketFactory::sound;
   _map["askroomdata"] = &PacketFactory::askRoomData;
+  _map["accept"] = &PacketFactory::accept;
   _converter[IPacket::PacketType::ERROR_PACKET] = "welcome";
   _converter[IPacket::PacketType::ERROR_PACKET] = "joinroom";
   _converter[IPacket::PacketType::ERROR_PACKET] = "joinerror";
@@ -758,6 +761,7 @@ public:
   _converter[IPacket::PacketType::ERROR_PACKET] = "music";
   _converter[IPacket::PacketType::ERROR_PACKET] = "sound";
   _converter[IPacket::PacketType::ERROR_PACKET] = "askroomdata";
+  _converter[IPacket::PacketType::ERROR_PACKET] = "accept";
 };
   ~PacketContener() {};
   void	enable(const std::string &s)
