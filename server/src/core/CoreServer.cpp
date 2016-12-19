@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Mon Dec 19 09:49:02 2016 lecoq
+// Last update Mon Dec 19 12:17:53 2016 julien dufrene
 //
 
 #include	"CoreServer.hh"
@@ -14,11 +14,10 @@ CoreServer::CoreServer()
 {
   _manager = new ManagerServer;
   _isInit = false;
+  _packetPtr[IPacket::PacketType::CONNECT] = &CoreServer::connect;
 }
 
-CoreServer::~CoreServer()
-{
-}
+CoreServer::~CoreServer() {}
 
 void CoreServer::run()
 {
@@ -81,4 +80,13 @@ void CoreServer::deleteManager()
    _manager->deleteManager();
    delete _manager;
    _isInit = false;
+}
+
+bool		CoreServer::connect(const IPacket *pa, IUserNetwork *u)
+{
+  PacketConnect	*p = (PacketConnect *)pa;
+  IPacket	*co = _factory->getPacket("error packet");
+  PacketC	ret(co->getPacketUnknown(), u);
+  _write->push(ret);
+  return (true);
 }

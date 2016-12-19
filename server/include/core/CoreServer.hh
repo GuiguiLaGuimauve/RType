@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:19:16 2016 Maxime Lecoq
-// Last update Fri Dec 16 18:06:41 2016 lecoq
+// Last update Mon Dec 19 12:15:52 2016 julien dufrene
 //
 
 #ifndef CORESERVER_HH_
@@ -13,6 +13,8 @@
 
 # include "ACore.hh"
 # include "ManagerServer.hh"
+# include <map>
+# include "IPacket.hh"
 
 using namespace Network;
 using namespace Error;
@@ -28,8 +30,12 @@ class CoreServer : public ACore
 private:
   bool		managePackets();
 private:
-  IManagerServer	*_manager;
-  IGameManager		*_gameManager;
+  typedef bool	(CoreServer::*fPkt)(const IPacket *, IUserNetwork *);
+  bool		connect(const IPacket *, IUserNetwork *);
+private:
+  IManagerServer			*_manager;
+  IGameManager				*_gameManager;
+  std::map<IPacket::PacketType, fPkt>	_packetPtr;
 };
 
 #endif /* !CORESERVER_HH_ */
