@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Mon Dec 19 15:29:36 2016 lecoq
+// Last update Mon Dec 19 17:46:14 2016 lecoq
 //
 
 #include	"CoreServer.hh"
@@ -15,6 +15,7 @@ CoreServer::CoreServer()
   _manager = new ManagerServer;
   _isInit = false;
   _packetPtr[IPacket::PacketType::CONNECT] = &CoreServer::connect;
+  _packetPtr[IPacket::PacketType::LOGIN] = &CoreServer::login;
 }
 
 CoreServer::~CoreServer() {}
@@ -108,5 +109,28 @@ bool		CoreServer::connect(const IPacket *pa, IUserNetwork *u)
       PacketC       ret(co->getPacketUnknown(), u);
       _write->push(ret);
     }
+  return (true);
+}
+
+bool		CoreServer::login(const IPacket *pa, IUserNetwork *u)
+{
+  /*  PacketConnect	*p = (PacketConnect *)pa;
+  PacketConnect	ck;
+
+  std::cout << _factory->isEnableSerialise("error") << " " << _factory->isEnableSerialise("accept") << std::endl;
+  if (p->getCode() != ck.getCode())
+    {
+      IPacket       *co = _factory->getPacket("error", ERROR_CONNECT, IPacket::PacketType::CONNECT);
+      PacketC       ret(co->getPacketUnknown(), u);
+      _write->push(ret);
+    }
+  else
+    {
+      IPacket       *co = _factory->getPacket("accept", ACCEPT_MESSAGE);
+      PacketC       ret(co->getPacketUnknown(), u);
+      _write->push(ret);
+      }*/
+  (void)pa;
+  (void)u;
   return (true);
 }

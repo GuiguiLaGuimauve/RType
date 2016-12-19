@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:19:16 2016 Maxime Lecoq
-// Last update Mon Dec 19 12:15:52 2016 julien dufrene
+// Last update Mon Dec 19 17:41:06 2016 lecoq
 //
 
 #ifndef CORESERVER_HH_
@@ -32,6 +32,7 @@ private:
 private:
   typedef bool	(CoreServer::*fPkt)(const IPacket *, IUserNetwork *);
   bool		connect(const IPacket *, IUserNetwork *);
+  bool		login(const IPacket *, IUserNetwork *);
 private:
   IManagerServer			*_manager;
   IGameManager				*_gameManager;

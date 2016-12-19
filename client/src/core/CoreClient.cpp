@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Mon Dec 19 16:57:20 2016 lecoq
+// Last update Mon Dec 19 17:45:28 2016 lecoq
 //
 
 #include	"CoreClient.hh"
@@ -16,6 +16,7 @@ CoreClient::CoreClient()
   _isInit = false;
   _eventPtr[EventPart::Event::QUIT] = &CoreClient::quit;
   _eventPtr[EventPart::Event::TRY_CONNECT] = &CoreClient::tryConnect;
+  _eventPtr[EventPart::Event::TRY_LOGIN] = &CoreClient::tryLogin;
   _packetPtr[IPacket::PacketType::WELCOME] = &CoreClient::welcome;
   _packetPtr[IPacket::PacketType::ACCEPT] = &CoreClient::accept;
   _packetPtr[IPacket::PacketType::ERROR_PACKET] = &CoreClient::errorPacket;
@@ -112,7 +113,8 @@ bool	CoreClient::initManager()
 
 void CoreClient::deleteManager()
 {
- if (_isInit == true)
+  _sound->stopMusic();
+  if (_isInit == true)
    _manager->deleteManager();
    delete _manager;
    _isInit = false;
@@ -163,9 +165,23 @@ bool	CoreClient::tryConnect(EventPart::Event e)
   return (true);
 }
 
+bool	CoreClient::tryLogin(EventPart::Event e)
+{
+  if (e.dataString["LOGIN"].empty() == true || e.dataString["PWD"].empty() == true)
+    _gui->showPopup(LOGIN_ERROR);
+  else
+    {
+      IPacket *pa = _factory->getPacket("login", e.dataString["LOGIN"], e.dataString["PWD"]);
+      _tcp->pushToServ(pa->getPacketUnknown());
+    }
+  return (true);
+}
+
 bool		CoreClient::errorPacket(const IPacket *pa, IUserNetwork *u)
 {
-  (void)pa;
+  PacketError	*p = (PacketError *)pa;
+  
+  _gui->showPopup(p->getMessage());
   (void)u;
   return (true);
 }

@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:19:16 2016 Maxime Lecoq
-// Last update Mon Dec 19 15:40:35 2016 lecoq
+// Last update Mon Dec 19 17:35:28 2016 lecoq
 //
 
 #ifndef CORECLIENT_HH_
@@ -28,6 +28,8 @@ class CoreClient : public ACore
 {
 # define IP_FORMAT_ERROR "The IP is not correct"
 # define PORT_FORMAT_ERROR "The port is not correct"
+# define LOGIN_ERROR	"Login or password is empty"
+  
 public:
   CoreClient();
   ~CoreClient();
@@ -43,6 +45,7 @@ private:
 
   bool                          quit(EventPart::Event);
   bool                          tryConnect(EventPart::Event);
+  bool                          tryLogin(EventPart::Event);
 
   bool				welcome(const IPacket *, IUserNetwork *);
   bool				accept(const IPacket *, IUserNetwork *);
