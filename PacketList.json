@@ -21,34 +21,9 @@
 		"name": "Connect",
 		"type": "CONNECT",
 		"network": "tcp",
-		"arguments": []
-	}, {
-		"name": "Rooms",
-		"type": "ROOMS",
-		"network": "tcp",
 		"arguments": [{
-			"type": "std::vector<DataRoom *>",
-			"name": "rooms",
-			"vector": [{
-					"type": "std::string",
-					"name": "name"
-				}, {
-					"type": "std::vector<DataPlayerName *>",
-					"name": "players",
-					"vector": [{
-						"type": "std::string",
-						"name": "name"
-					}]
-				},
-
-				{
-					"type": "uint8_t",
-					"name": "maxPlayers"
-				}, {
-					"type": "uint8_t",
-					"name": "level"
-				}
-			]
+			"type": "uint16_t",
+			"name": "code"
 		}]
 	}, {
 		"name": "CreateRoom",
@@ -118,30 +93,6 @@
 		"network": "tcp",
 		"arguments": []
 	}, {
-		"name": "roomData",
-		"type": "ROOM_DATA",
-		"network": "tcp",
-		"arguments": [{
-			"type": "std::vector<DataPlayer *>",
-			"name": "players",
-			"vector": [{
-				"type": "std::string",
-				"name": "name"
-			}, {
-				"type": "uint16_t",
-				"name": "stageSucceed"
-			}, {
-				"type": "uint16_t",
-				"name": "gamePlayed"
-			}]
-		}, {
-			"type": "uint8_t",
-			"name": "maxPlayers"
-		}, {
-			"type": "uint8_t",
-			"name": "level"
-		}]
-	}, {
 		"name": "watchGame",
 		"type": "WATCH_GAME",
 		"network": "tcp",
@@ -202,27 +153,6 @@
 		}, {
 			"type": "uint16_t",
 			"name": "y"
-		}]
-	}, {
-		"name": "players",
-		"type": "PLAYERS",
-		"network": "udp",
-		"arguments": [{
-			"type": "std::vector<DataPlayerPosition *>",
-			"name": "players",
-			"vector": [{
-				"type": "uint8_t",
-				"name": "id"
-			}, {
-				"type": "uint16_t",
-				"name": "x"
-			}, {
-				"type": "uint16_t",
-				"name": "y"
-			}, {
-				"type": "uint8_t",
-				"name": "health"
-			}]
 		}]
 	}, {
 		"name": "shoots",

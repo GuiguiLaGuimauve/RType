@@ -13,14 +13,16 @@ namespace Packet {
 	class PacketConnect : public APacket {
 
 	public:
-		PacketConnect();
+		PacketConnect(const uint16_t & code);
 		PacketConnect(const uint8_t *data);
 		~PacketConnect();
 
+		uint16_t getCode() const;
 		bool isTcp() const;
 		bool isUdp() const;
 
 	protected:
+		uint16_t _code;
 	};
 };
 
