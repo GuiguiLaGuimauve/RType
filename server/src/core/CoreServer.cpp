@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Mon Dec 19 14:13:11 2016 lecoq
+// Last update Mon Dec 19 14:37:28 2016 lecoq
 //
 
 #include	"CoreServer.hh"
@@ -94,8 +94,5 @@ bool		CoreServer::connect(const IPacket *pa, IUserNetwork *u)
 {
   PacketConnect	*p = (PacketConnect *)pa;
   std::cout << p->getCode() << std::endl;
-  IPacket	*co = _factory->getPacket("error");
-  PacketC	ret(co->getPacketUnknown(), u);
-  _write->push(ret);
   return (true);
 }
