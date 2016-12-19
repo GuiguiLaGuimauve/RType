@@ -17,6 +17,7 @@
 #include "GuiEventManager.hh"
 #include "EventQueue.hh"
 #include "Key.hh"
+#include "DataRoom.hpp"
 
 namespace Gui
 {
@@ -39,6 +40,7 @@ namespace Gui
       IWidget	*texte = NULL;
       IWidget	*imput = NULL;
       IWidget	*button = NULL;
+      IWidget	*chevron = NULL;
     };
 
     struct Login
@@ -48,6 +50,8 @@ namespace Gui
       IWidget	*text1 = NULL;
       IWidget	*text2 = NULL;
       IWidget	*confirm = NULL;
+      IWidget	*chevron1 = NULL;
+      IWidget	*chevron2 = NULL;
     };
 
     struct Menu
@@ -86,7 +90,8 @@ namespace Gui
     Audio::ISoundManager	*_audio;
     IWindow			*_win;
     IGuiEventManager		*_userEvents;
-    //    GameInfo			_gameInfo;
+    std::vector<Packet::DataRoom*>	_menuInfos;
+    //GameInfo			_gameInfo;
     EventPart::IEventQueue	*_coreQueue;
     EventPart::IEventQueue	*_guiQueue;
     // gestion effets graphiques

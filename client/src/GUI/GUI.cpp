@@ -41,8 +41,6 @@ GUI::~GUI()
 
 void		GUI::callback()
 {
-  static int v = 0;
-  std::cout << "Oui " << v << std::endl;
   _userEvents->callback();
   _win->drawAll();
   while (!_guiQueue->empty())
@@ -151,8 +149,6 @@ void		GUI::callback()
       if (ep.type != EventPart::Event::DEFAULT && _coreQueue)
 	_coreQueue->push(ep);
     }
-  std::cout << "Non " << v << std::endl;
-  v++;
 }
 
 void		GUI::displayGame()
@@ -279,14 +275,14 @@ void		GUI::displayStart()
   _startWidgets = new Start;
   _startWidgets->title = _win->addWidget(_win->getWidth() / 3 + 60, _win->getHeight() / 4, _win->getWidth() / 2, 100);
   _startWidgets->texte = _win->addWidget(_win->getWidth() / 3 - 80, _win->getHeight() / 2 - 100, _win->getWidth() / 2, 100);
-  _startWidgets->imput = _win->addWidget(_win->getWidth() / 3, _win->getHeight() / 2 + 20, _win->getWidth() / 2, 75);
+  _startWidgets->imput = _win->addWidget(_win->getWidth() / 3, _win->getHeight() / 2 + 20, _win->getWidth() / 2, 175);
   _startWidgets->button = _win->addWidget(_win->getWidth() / 3 + 170, (2 * _win->getHeight()) / 3, 250, 40);
+  _startWidgets->chevron = _win->addWidget((_win->getWidth() / 3) - 200, _win->getHeight() / 2 + 20, 0, 0);
   // custom button
   _startWidgets->texte->setText("ENTER THE ADDRESS:PORT");
   _startWidgets->button->setText("CONNECT");
+  _startWidgets->chevron->setText(">");
 
-  std::cout << "JE SUIS  ENCORE DANS START" << std::endl;
-  
   Style		logoStyle = _startWidgets->title->getStyle();
   logoStyle.image = "Logo";
 
@@ -299,6 +295,7 @@ void		GUI::displayStart()
   _startWidgets->imput->setStyle(s);
   _startWidgets->texte->setStyle(s);
   _startWidgets->button->setStyle(s);
+  _startWidgets->chevron->setStyle(s);
 
   _startWidgets->button->setOnClick([](IWidget *fuckingButton, CLICK)
 				    {
@@ -372,7 +369,6 @@ void		GUI::displayMenu()
 				      std::cout << "Let's connect !" << std::endl;
 				      auto eq = widget->getEventQueue();
 				      eq->push(EventPart::Event(EventPart::Event::BUTTON_JOIN_GAME));
-
 				    });
   _menuWidgets->confirm->setOnHover([](IWidget *w)
 				    {
@@ -420,11 +416,13 @@ void		GUI::displayLogin()
   deleteWidgets();
   _loginWidgets = new Login;
   _win->setBackground("../client/Assets/RType_background.bmp");
-  _loginWidgets->login = _win->addWidget(_win->getWidth() / 3, _win->getHeight() / 4, _win->getWidth() / 2, 100);
-  _loginWidgets->password = _win->addWidget(_win->getWidth() / 3, _win->getHeight() / 2, _win->getWidth() / 2, 100);
+  _loginWidgets->login = _win->addWidget(_win->getWidth() / 3, _win->getHeight() / 4, _win->getWidth() / 2, 180);
+  _loginWidgets->password = _win->addWidget(_win->getWidth() / 3, _win->getHeight() / 2, _win->getWidth() / 2, 180);
   _loginWidgets->confirm = _win->addWidget(_win->getWidth() / 3 + 150, (2 * _win->getHeight()) / 3,  250, 50);
   _loginWidgets->text1 = _win->addWidget(_win->getWidth() / 3 + 150, _win->getHeight() / 4 - 100, 0, 0);
   _loginWidgets->text2 = _win->addWidget(_win->getWidth() / 3 + 100, _win->getHeight() / 2 - 100, 0, 0);
+  _loginWidgets->chevron1 = _win->addWidget(_win->getWidth() / 3 - 200, _win->getHeight() / 4, 0, 0);
+  _loginWidgets->chevron2 = _win->addWidget(_win->getWidth() / 3 - 200, _win->getHeight() / 2, 0, 0);
 
   Style		s = _loginWidgets->login->getStyle();
   s.form = RECTANGLE;
@@ -434,6 +432,11 @@ void		GUI::displayLogin()
   _loginWidgets->login->setStyle(s);
   _loginWidgets->password->setStyle(s);
   _loginWidgets->confirm->setStyle(s);
+  
+  _loginWidgets->chevron1->setText(">");
+  _loginWidgets->chevron2->setText(">");
+  _loginWidgets->chevron1->setStyle(s);
+  _loginWidgets->chevron2->setStyle(s);
 
   s.policeSize = 50;
   _loginWidgets->text1->setStyle(s);
@@ -464,6 +467,20 @@ void		GUI::displayLogin()
 					 });
 
   /* Je gère l'édition des 2 inputs */
+  _loginWidgets->login->setOnFocus([](IWidget *w)
+					 {
+					   Style sfoc1 = w->getStyle();
+					   sfoc1.textColor.blue += 100;
+					   sfoc1.textColor.green += 100;
+					   w->setStyle(sfoc1);
+					 });
+  _loginWidgets->login->setOnLeaveFocus([](IWidget *w)
+					 {
+					   Style sfoc1 = w->getStyle();
+					   sfoc1.textColor.blue -= 100;
+					   sfoc1.textColor.green -= 100;
+					   w->setStyle(sfoc1);
+					 });
   _loginWidgets->login->setOnTextEntered([](IWidget *w, const std::string &c)
 					 {
 					   if (c[0] == 127 || c[0] == 8)
@@ -475,6 +492,20 @@ void		GUI::displayLogin()
 					     }
 					   else if (isprint(c[0]))
 					     w->setText(w->getText() + c);
+					 });
+  _loginWidgets->password->setOnFocus([](IWidget *w)
+					 {
+					   Style sfoc1 = w->getStyle();
+					   sfoc1.textColor.blue += 100;
+					   sfoc1.textColor.green += 100;
+					   w->setStyle(sfoc1);
+					 });
+  _loginWidgets->password->setOnLeaveFocus([](IWidget *w)
+					 {
+					   Style sfoc1 = w->getStyle();
+					   sfoc1.textColor.blue -= 100;
+					   sfoc1.textColor.green -= 100;
+					   w->setStyle(sfoc1);
 					 });
   _loginWidgets->password->setOnTextEntered([](IWidget *w, const std::string &c)
 					 {
@@ -490,7 +521,7 @@ void		GUI::displayLogin()
 					 });
 
   // ergonomie focus
-  _focusWidget = _loginWidgets->login;
+  //_focusWidget = _loginWidgets->login;
 }
 
 void		GUI::updateGameInfo(/*const GameInfo &*/)
