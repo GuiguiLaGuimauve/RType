@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:19:16 2016 Maxime Lecoq
-// Last update Sun Dec 18 20:34:25 2016 lecoq
+// Last update Mon Dec 19 09:32:48 2016 lecoq
 //
 
 #ifndef CORECLIENT_HH_
@@ -32,6 +32,7 @@ class CoreClient : public ACore
   void		deleteManager();
 private:
   typedef bool (CoreClient::*fEvent)(EventPart::Event);
+  typedef bool (CoreClient::*fPkt)(PacketC &);
   bool		manageGui();
   bool		manageNetwork();
   bool		managePackets();
@@ -39,12 +40,14 @@ private:
   bool                          quit(EventPart::Event);
   bool                          tryConnect(EventPart::Event);
 
+  bool				welcome(PacketC &);
 private:
   IManagerClient	*_manager;
   IGUI			*_gui;
   ISoundManager		*_sound;
   IEventQueue		*_eventQueue;
   std::map<EventPart::Event::TYPE, fEvent>      _eventPtr;
+  std::map<IPacket::PacketType, fPkt>      _packetPtr;
 };
 
 #endif /* !CORECLIENT_HH_ */

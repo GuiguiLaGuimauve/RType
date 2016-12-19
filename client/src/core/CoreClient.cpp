@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Sun Dec 18 20:34:03 2016 lecoq
+// Last update Mon Dec 19 09:44:50 2016 lecoq
 //
 
 #include	"CoreClient.hh"
@@ -16,10 +16,13 @@ CoreClient::CoreClient()
   _isInit = false;
   _eventPtr[EventPart::Event::QUIT] = &CoreClient::quit;
   _eventPtr[EventPart::Event::TRY_CONNECT] = &CoreClient::tryConnect;
+  _packetPtr[IPacket::PacketType::WELCOME] = &CoreClient::welcome;
 }
 
 CoreClient::~CoreClient()
 {
+  _manager->deleteManager();
+  delete _manager;
 }
 
 void	CoreClient::run()
@@ -63,21 +66,19 @@ bool	CoreClient::manageNetwork()
 
 bool	CoreClient::managePackets()
 {
-  return (true);
-}
-
-bool	CoreClient::quit(EventPart::Event e)
-{
-  (void)e;
-  return (false);
-}
-
-bool	CoreClient::tryConnect(EventPart::Event e)
-{
-  Convert<uint32_t>	conv;
-
-  if (_tcp->tryConnectClient(conv.toNumber(e.dataString["PORT"]), e.dataString["IP"]) == false)
-    std::cout << "ploup" << std::endl;
+  while (_read->isEmpty() == false)
+    {
+      PacketC tmp = _read->pop();
+      try
+	{
+	  _factory->getPacket(tmp.getPacket().getPacketData());
+	}
+	catch (IPacket const &p)
+	{
+	  if (_packetPtr.find(p.getType()) != _packetPtr.end())
+	    (this->*_packetPtr[p.getType()])(tmp);
+	}
+    }
   return (true);
 }
 
@@ -120,4 +121,26 @@ void CoreClient::deleteManager()
    _manager->deleteManager();
    delete _manager;
    _isInit = false;
+}
+
+bool	CoreClient::quit(EventPart::Event e)
+{
+  (void)e;
+  return (false);
+}
+
+bool	CoreClient::tryConnect(EventPart::Event e)
+{
+  Convert<uint32_t>	conv;
+
+  if (_tcp->tryConnectClient(conv.toNumber(e.dataString["PORT"]), e.dataString["IP"]) == false)
+    std::cout << "ploup" << std::endl;
+  return (true);
+}
+
+bool		CoreClient::welcome(PacketC &p)
+{
+  std::cout << "welcome recu" << std::endl;
+  (void)p;
+  return (true);
 }
