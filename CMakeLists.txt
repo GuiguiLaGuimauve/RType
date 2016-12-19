@@ -73,6 +73,7 @@ FILE (GLOB_RECURSE client_src "client/src/*.cpp")
 # Flags Unix
 IF (UNIX)
 	add_definitions(-W -Wall -Wextra -Wshadow)
+	add_definitions(-g)
 ENDIF (UNIX)
 
 # Enable C++ 11
