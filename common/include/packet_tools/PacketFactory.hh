@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 11:41:19 2016 Maxime Lecoq
-// Last update Mon Dec 19 14:58:29 2016 lecoq
+// Last update Mon Dec 19 16:17:30 2016 lecoq
 //
 
 #ifndef PACKETFACTORY_HH_
@@ -256,7 +256,7 @@ public:
   PacketContener(PacketFactory *p) : _p(p)
   {
     _map["players"] = &PacketFactory::getPlayers;
-    _converter[IPacket::PacketType::ERROR_PACKET] = "background";
+    _converter[IPacket::PacketType::PLAYERS] = "players";
   };
   ~PacketContener() {};
   void	enable(const std::string &s)
@@ -298,7 +298,7 @@ public:
   PacketContener(PacketFactory *p) : _p(p)
   {
     _map["background"] = &PacketFactory::getBackgrounds;
-    _converter[IPacket::PacketType::ERROR_PACKET] = "background";
+    _converter[IPacket::PacketType::BACKGROUNDS] = "background";
   };
   ~PacketContener() {};
   void	enable(const std::string &s)
@@ -340,7 +340,7 @@ public:
   PacketContener(PacketFactory *p) : _p(p)
   {
     _map["ennemies"] = &PacketFactory::getEnnemies;
-    _converter[IPacket::PacketType::ERROR_PACKET] = "ennemies";
+    _converter[IPacket::PacketType::ENNEMIES] = "ennemies";
   };
   ~PacketContener() {};
   void	enable(const std::string &s)
@@ -383,8 +383,8 @@ public:
   {
     _map["move"] = &PacketFactory::move;
     _map["shoot"] = &PacketFactory::shoot;
-    _converter[IPacket::PacketType::ERROR_PACKET] = "move";
-    _converter[IPacket::PacketType::ERROR_PACKET] = "shoot";
+    _converter[IPacket::PacketType::MOVE] = "move";
+    _converter[IPacket::PacketType::SHOOT] = "shoot";
   };
   ~PacketContener() {};
   void	enable(const std::string &s)
@@ -426,7 +426,7 @@ public:
   PacketContener(PacketFactory *p) : _p(p)
   {
     _map["shoots"] = &PacketFactory::getShoots;
-    _converter[IPacket::PacketType::ERROR_PACKET] = "shoots";
+    _converter[IPacket::PacketType::SHOOTS] = "shoots";
   };
   ~PacketContener() {};
   void	enable(const std::string &s)
@@ -469,8 +469,8 @@ public:
   {
     _map["login"] = &PacketFactory::login;
     _map["register"] = &PacketFactory::tryRegister;
-    _converter[IPacket::PacketType::ERROR_PACKET] = "login";
-    _converter[IPacket::PacketType::ERROR_PACKET] = "register";
+    _converter[IPacket::PacketType::LOGIN] = "login";
+    _converter[IPacket::PacketType::REGISTER] = "register";
   };
   ~PacketContener() {};
   void	enable(const std::string &s)
@@ -513,8 +513,8 @@ public:
   typedef IPacket *(PacketFactory::*ptr)(const DataRoom *);
   PacketContener(PacketFactory *p) : _p(p)
   {
-    _map["dataroom"] = &PacketFactory::getDataRoom;
-    _converter[IPacket::PacketType::ERROR_PACKET] = "dataroom";
+    _map["roomdata"] = &PacketFactory::getDataRoom;
+    _converter[IPacket::PacketType::ROOM_DATA] = "roomdata";
   };
   ~PacketContener() {};
   void	enable(const std::string &s)
@@ -560,7 +560,7 @@ public:
   PacketContener(PacketFactory *p) : _p(p)
   {
     _map["udpdata"] = &PacketFactory::udpData;
-    _converter[IPacket::PacketType::ERROR_PACKET] = "udpdata";
+    _converter[IPacket::PacketType::UDP_DATA] = "udpdata";
   };
   ~PacketContener() {};
   void	enable(const std::string &s)
@@ -605,7 +605,7 @@ public:
   PacketContener(PacketFactory *p) : _p(p)
   {
   _map["createroom"] = &PacketFactory::createRoom;
-  _converter[IPacket::PacketType::ERROR_PACKET] = "createroom";
+  _converter[IPacket::PacketType::CREATE_ROOM] = "createroom";
 };
   ~PacketContener() {};
   void	enable(const std::string &s)
@@ -650,8 +650,8 @@ private:
 public:
   PacketContener(PacketFactory *p) : _p(p)
   {
-  _map["getrooms"] = &PacketFactory::getRooms;
-  _converter[IPacket::PacketType::ERROR_PACKET] = "getrooms";
+  _map["rooms"] = &PacketFactory::getRooms;
+  _converter[IPacket::PacketType::ROOMS] = "rooms";
 };
   ~PacketContener() {};
   void	enable(const std::string &s)
@@ -752,16 +752,16 @@ public:
   _map["sound"] = &PacketFactory::sound;
   _map["askroomdata"] = &PacketFactory::askRoomData;
   _map["accept"] = &PacketFactory::accept;
-  _converter[IPacket::PacketType::ERROR_PACKET] = "welcome";
-  _converter[IPacket::PacketType::ERROR_PACKET] = "joinroom";
-  _converter[IPacket::PacketType::ERROR_PACKET] = "joinerror";
-  _converter[IPacket::PacketType::ERROR_PACKET] = "startgame";
-  _converter[IPacket::PacketType::ERROR_PACKET] = "leaveroom";
-  _converter[IPacket::PacketType::ERROR_PACKET] = "watchgame";
-  _converter[IPacket::PacketType::ERROR_PACKET] = "music";
-  _converter[IPacket::PacketType::ERROR_PACKET] = "sound";
-  _converter[IPacket::PacketType::ERROR_PACKET] = "askroomdata";
-  _converter[IPacket::PacketType::ERROR_PACKET] = "accept";
+  _converter[IPacket::PacketType::WELCOME] = "welcome";
+  _converter[IPacket::PacketType::JOIN_ROOM] = "joinroom";
+  _converter[IPacket::PacketType::JOIN_ERROR] = "joinerror";
+  _converter[IPacket::PacketType::START_GAME] = "startgame";
+  _converter[IPacket::PacketType::LEAVE_ROOM] = "leaveroom";
+  _converter[IPacket::PacketType::WATCH_GAME] = "watchgame";
+  _converter[IPacket::PacketType::MUSIC] = "music";
+  _converter[IPacket::PacketType::SOUND] = "sound";
+  _converter[IPacket::PacketType::ASKROOMDATA] = "askroomdata";
+  _converter[IPacket::PacketType::ACCEPT] = "accept";
 };
   ~PacketContener() {};
   void	enable(const std::string &s)
@@ -810,12 +810,12 @@ public:
   _map["disconnect"] = &PacketFactory::disconnect;
   _map["ping"] = &PacketFactory::ping;
   _map["pong"] = &PacketFactory::pong;
-  _converter[IPacket::PacketType::ERROR_PACKET] = "connect";
-  _converter[IPacket::PacketType::ERROR_PACKET] = "udpdatafree";
-  _converter[IPacket::PacketType::ERROR_PACKET] = "logout";
-  _converter[IPacket::PacketType::ERROR_PACKET] = "disconnect";
-  _converter[IPacket::PacketType::ERROR_PACKET] = "ping";
-  _converter[IPacket::PacketType::ERROR_PACKET] = "pong";
+  _converter[IPacket::PacketType::CONNECT] = "connect";
+  _converter[IPacket::PacketType::UDPDATAFREE] = "udpdatafree";
+  _converter[IPacket::PacketType::LOGOUT] = "logout";
+  _converter[IPacket::PacketType::DISCONNECT] = "disconnect";
+  _converter[IPacket::PacketType::PING] = "ping";
+  _converter[IPacket::PacketType::PONG] = "pong";
 };
   ~PacketContener() {};
   void	enable(const std::string &s)
