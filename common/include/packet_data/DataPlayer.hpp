@@ -23,6 +23,7 @@ namespace Packet {
 		uint16_t getY() const { return (_y); };
 		uint8_t getId() const { return (_id); };
 		uint8_t getHealth() const { return (_health); };
+		bool getOnline() const { return (_online); };
 
 		void setName(const std::string & name) { _name = name; };
 		void setStageSucceed(const uint16_t & stageSucceed) { _stageSucceed = stageSucceed; };
@@ -31,6 +32,7 @@ namespace Packet {
 		void setX(const uint16_t & x) { _x = x; };
 		void setY(const uint16_t & y) { _y = y; };
 		void setHealth(const uint8_t & health) { _health = health; };
+		void setOnline(const bool & status) { _online = status; }
 
 	protected:
 		std::string _name;
@@ -40,6 +42,7 @@ namespace Packet {
 		uint16_t _x;
 		uint16_t _y;
 		uint8_t _health;
+		bool _online;
 	};
 };
 
