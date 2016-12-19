@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Mon Dec 19 09:47:39 2016 lecoq
+// Last update Mon Dec 19 09:49:08 2016 lecoq
 //
 
 #include	"CoreClient.hh"
@@ -21,8 +21,6 @@ CoreClient::CoreClient()
 
 CoreClient::~CoreClient()
 {
-  //  _manager->deleteManager();
-  //delete _manager;
 }
 
 void	CoreClient::run()

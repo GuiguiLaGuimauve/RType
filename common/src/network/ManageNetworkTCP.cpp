@@ -86,6 +86,7 @@ std::vector<IUserNetwork *>	ManageNetworkTCP::execClient()
 				  {
 				    PacketUnknown pk = _user[i]->popBufferRead();
 				    _read->push(PacketC(pk, _user[i]));
+				    std::cout << "un packet est lu" << std::endl;
 				  }
 			}
 		if (_user[i]->getStatus() == true)
@@ -120,6 +121,7 @@ std::vector<IUserNetwork *>	ManageNetworkTCP::execServer()
 				      {
 					PacketUnknown pk = _user[i]->popBufferRead();
 					_read->push(PacketC(pk, _user[i]));
+					std::cout << "un packet est lu" << std::endl;
 				      }
 			  }
 		  if (_user[i]->getStatus() == true)
