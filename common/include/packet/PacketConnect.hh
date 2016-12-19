@@ -13,7 +13,7 @@ namespace Packet {
 	class PacketConnect : public APacket {
 
 	public:
-		PacketConnect(const uint16_t & code);
+		PacketConnect();
 		PacketConnect(const uint8_t *data);
 		~PacketConnect();
 

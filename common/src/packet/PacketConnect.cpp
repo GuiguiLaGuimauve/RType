@@ -4,15 +4,19 @@
 
 #include <iostream>
 #include "PacketConnect.hh"
+#include <ctime>
+#pragma warning(disable : 4996)
 
-PacketConnect::PacketConnect(const uint16_t & code)
+PacketConnect::PacketConnect()
 {
 	PacketSerializer ps;
 	uint32_t dataPacketSize = 0;
+	time_t t = time(NULL);
+	tm* timePtr = localtime(&t);
 
 	_type = IPacket::PacketType::CONNECT;
 	_tickId = 0;
-	_code = code;
+	_code = (uint16_t)timePtr->tm_yday + 6 + 2;
 
 	ps.add(_code);
 	dataPacketSize += 2;

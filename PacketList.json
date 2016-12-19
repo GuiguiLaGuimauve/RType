@@ -21,10 +21,7 @@
 		"name": "Connect",
 		"type": "CONNECT",
 		"network": "tcp",
-		"arguments": [{
-			"type": "uint16_t",
-			"name": "code"
-		}]
+		"arguments": []
 	}, {
 		"name": "CreateRoom",
 		"type": "CREATE_ROOM",
