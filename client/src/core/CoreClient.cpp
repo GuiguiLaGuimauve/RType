@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Mon Dec 19 10:47:07 2016 lecoq
+// Last update Mon Dec 19 11:10:42 2016 lecoq
 //
 
 #include	"CoreClient.hh"
@@ -136,6 +136,8 @@ bool		CoreClient::welcome(const IPacket *pa, const IUserNetwork *u)
   PacketWelcome	*p = (PacketWelcome *)pa;
   IPacket	*co = _factory->getPacket("connect");
   PacketC	ret(co->getPacketUnknown(), (IUserNetwork *)u);
+
+  std::cout << p->getMessage() << std::endl;
   _write->push(ret);
   return (true);
 }

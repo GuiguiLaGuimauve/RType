@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Sat Nov 12 09:39:16 2016 Maxime Lecoq
-// Last update Thu Dec 15 18:17:00 2016 lecoq
+// Last update Mon Dec 19 11:09:20 2016 lecoq
 //
 
 #ifndef PACKET_HPP_
@@ -21,7 +21,7 @@ class	PacketC
 {
 public:
   PacketC() : _n(NULL) {};
-  PacketC(PacketUnknown &p, IUserNetwork *n) : _p(p), _n(n) {};
+  PacketC(PacketUnknown p, IUserNetwork *n) : _p(p), _n(n) {};
   ~PacketC() {};
   PacketUnknown getPacket() const { return (_p); };
   IUserNetwork	*getNetwork() const { return (_n); };
