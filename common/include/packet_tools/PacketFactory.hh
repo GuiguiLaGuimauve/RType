@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 11:41:19 2016 Maxime Lecoq
-// Last update Mon Dec 19 16:17:30 2016 lecoq
+// Last update Mon Dec 19 16:20:34 2016 lecoq
 //
 
 #ifndef PACKETFACTORY_HH_
@@ -811,7 +811,7 @@ public:
   _map["ping"] = &PacketFactory::ping;
   _map["pong"] = &PacketFactory::pong;
   _converter[IPacket::PacketType::CONNECT] = "connect";
-  _converter[IPacket::PacketType::UDPDATAFREE] = "udpdatafree";
+  _converter[IPacket::PacketType::UDP_DATA_FREE] = "udpdatafree";
   _converter[IPacket::PacketType::LOGOUT] = "logout";
   _converter[IPacket::PacketType::DISCONNECT] = "disconnect";
   _converter[IPacket::PacketType::PING] = "ping";
