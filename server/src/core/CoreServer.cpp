@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Mon Dec 19 09:21:03 2016 lecoq
+// Last update Mon Dec 19 09:47:48 2016 lecoq
 //
 
 #include	"CoreServer.hh"
@@ -18,8 +18,8 @@ CoreServer::CoreServer()
 
 CoreServer::~CoreServer()
 {
-  _manager->deleteManager();
-  delete _manager;
+  //  _manager->deleteManager();
+  //delete _manager;
 }
 
 void CoreServer::run()
