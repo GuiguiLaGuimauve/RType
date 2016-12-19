@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 11:43:18 2016 Maxime Lecoq
-// Last update Sun Dec 18 19:18:10 2016 lecoq
+// Last update Mon Dec 19 10:11:14 2016 lecoq
 //
 
 #include	"PacketFactory.hh"
@@ -194,7 +194,7 @@ IPacket		*PacketFactory::getPacket(const IPacket::PacketType &p, const std::vect
 
 void		PacketFactory::getPacket(const uint8_t *p) const
 {
-  (void)p;
+  _pktDeserialiser->getPacket(p);
 }
 
 void		PacketFactory::enableSerialiser(const std::string &packet)
