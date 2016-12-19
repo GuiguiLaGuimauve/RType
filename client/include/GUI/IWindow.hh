@@ -25,6 +25,7 @@ namespace Gui
     virtual void		setTitle(const std::string &) = 0;
     virtual std::string		getTitle() const = 0;
     virtual bool		isOpen() = 0;
+    virtual void		deleteAllWidgets() = 0;
   };
 }
 

@@ -153,6 +153,7 @@ void		GUI::callback()
 
 void		GUI::displayGame()
 {
+  deleteWidgets();
   /* Load le bon background en fonction du stage séléctionné */
   _gameWidgets = new Game;
 
@@ -266,6 +267,7 @@ void		GUI::displayGame()
 
 void		GUI::displayStart()
 {
+  deleteWidgets();
   // custom window
   _win->setBackground("../client/Assets/RType_background.bmp");
   _audio->playMusic("TitleScreen");
@@ -332,6 +334,7 @@ void		GUI::displayStart()
 
 void		GUI::displayMenu()
 {
+  deleteWidgets();
   _win->setBackground("../client/Assets/RType_background.bmp");
   _menuWidgets = new Menu;
 
@@ -408,24 +411,31 @@ void		GUI::displayMenu()
 
 void		GUI::displayLogin()
 {
+  deleteWidgets();
   _loginWidgets = new Login;
   _win->setBackground("../client/Assets/RType_background.bmp");
-  _loginWidgets->login = _win->addWidget(300, 120, 300, 75);
-  _loginWidgets->password = _win->addWidget(300, 220, 300, 75);
-  _loginWidgets->confirm = _win->addWidget(300, 370, 300, 75);
+  _loginWidgets->login = _win->addWidget(_win->getWidth() / 3, _win->getHeight() / 4, _win->getWidth() / 2, 100);
+  _loginWidgets->password = _win->addWidget(_win->getWidth() / 3, _win->getHeight() / 2, _win->getWidth() / 2, 100);
+  _loginWidgets->confirm = _win->addWidget(_win->getWidth() / 3 + 150, (2 * _win->getHeight()) / 3,  250, 50);
+  _loginWidgets->text1 = _win->addWidget(_win->getWidth() / 3 + 150, _win->getHeight() / 4 - 100, 0, 0);
+  _loginWidgets->text2 = _win->addWidget(_win->getWidth() / 3 + 100, _win->getHeight() / 2 - 100, 0, 0);
 
   Style		s = _loginWidgets->login->getStyle();
   s.form = RECTANGLE;
-  s.textColor = Color(0, 0, 250);
+  s.textColor = Color(255, 215, 0);
   s.policeSize = 35;
-  s.backgroundColor = Color(250, 0, 0);
 
   _loginWidgets->login->setStyle(s);
   _loginWidgets->password->setStyle(s);
   _loginWidgets->confirm->setStyle(s);
 
+  s.policeSize = 50;
+  _loginWidgets->text1->setStyle(s);
+  _loginWidgets->text2->setStyle(s);
   /* je gère le clic, le hover et le unhover */
   _loginWidgets->confirm->setText("Confirm");
+  _loginWidgets->text1->setText("LOGIN");
+  _loginWidgets->text2->setText("PASSWORD");
   _loginWidgets->confirm->setOnClick([](IWidget *w, CLICK)
 				  {
 				    auto eq = w->getEventQueue();
@@ -435,15 +445,15 @@ void		GUI::displayLogin()
   _loginWidgets->confirm->setOnHover([](IWidget *w)
 				    {
 				      Style s1 = w->getStyle();
-				      s1.backgroundColor.blue += 100;
- 				      s1.backgroundColor.green += 100;
+				      s1.textColor.blue += 100;
+ 				      s1.textColor.green += 100;
 				      w->setStyle(s1);
 				    });
   _loginWidgets->confirm->setOnLeaveHover([](IWidget *w)
 					 {
 					   Style s2 = w->getStyle();
-					   s2.backgroundColor.blue -= 100;
-					   s2.backgroundColor.green -= 100;
+					   s2.textColor.blue -= 100;
+					   s2.textColor.green -= 100;
 					   w->setStyle(s2);
 					 });
 
@@ -488,7 +498,8 @@ void		GUI::setEventQueue(EventPart::IEventQueue *eq)
 
 void		GUI::deleteWidgets()
 {
-  if (_startWidgets)
+  _win->deleteAllWidgets();
+    /*if (_startWidgets)
     {
       _win->deleteWidget(_startWidgets->imput);
       _win->deleteWidget(_startWidgets->button);
@@ -509,7 +520,7 @@ void		GUI::deleteWidgets()
     {
       delete _gameWidgets;
       _gameWidgets = NULL;
-    }
+      }*/
 }
 
 void			GUI::setSoundManager(Audio::ISoundManager *sound)

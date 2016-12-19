@@ -32,6 +32,7 @@ namespace Gui
     std::string		getTitle() const;
     bool		isOpen();
     sf::RenderWindow	*getSfmlWinPtr();
+    void		deleteAllWidgets();
   protected:
     int				_width;
     int				_height;

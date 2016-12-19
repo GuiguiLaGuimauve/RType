@@ -127,3 +127,10 @@ sf::RenderWindow	*Window::getSfmlWinPtr()
 {
   return (_win);
 }
+
+void	Window::deleteAllWidgets()
+{
+  for (auto elem : _list)
+    delete elem;
+  _list.clear();
+}

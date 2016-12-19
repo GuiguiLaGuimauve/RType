@@ -45,6 +45,8 @@ namespace Gui
     {
       IWidget	*login = NULL;
       IWidget	*password = NULL;
+      IWidget	*text1 = NULL;
+      IWidget	*text2 = NULL;
       IWidget	*confirm = NULL;
     };
 
