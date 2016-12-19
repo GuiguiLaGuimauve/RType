@@ -79,7 +79,10 @@ void                Widget::move(int x, int y)
 void                Widget::setText(const std::string &s)
 {
   _text = s;
-  _sfmlText.setString(_text);
+  if (!_style.password())
+	_sfmlText.setString(_text);
+  else
+	  _sfmlText.setString("*" * _text.size());
 }
 
 std::string         Widget::getText() const
@@ -195,6 +198,7 @@ void                Widget::setStyle(const Style &s)
       _background = SpriteMap::getSprite(_style.image);
       _background.setPosition(this->getX(), this->getY());
     }
+	setText(getText());
 }
 
 Style               Widget::getStyle() const

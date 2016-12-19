@@ -21,6 +21,7 @@ namespace Gui
     FORM	form = NO_FORM;
     Color	backgroundColor;
     int		opacity = 100;
+	bool	password = false;
   };
 }
 

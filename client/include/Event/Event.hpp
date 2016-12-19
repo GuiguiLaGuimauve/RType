@@ -30,8 +30,8 @@ namespace EventPart
 	CLICK, // int["X"] int ["Y"] int["CLICK"]
 	MOUSE__MOVED, // int["X"] int ["Y"]
 	TEXT, // string["CHAR"]
-	BUTTON_CONNECT, // string["IP"] string["PORT"]
-	BUTTON_LOGIN, // string["LOGIN"] string["PWD"]
+	BUTTON_CONNECT,
+	BUTTON_LOGIN,
 	BUTTON_JOIN_GAME, // string["GAME_NAME"]
 	BUTTON_CREATE_GAME, // string["GAME_NAME"]
 	KEY_ATTACK,
