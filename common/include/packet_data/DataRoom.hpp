@@ -22,7 +22,7 @@ namespace Packet {
 	  std::vector<DataPlayer *> getPlayers() const { return (_players); };
 	  uint8_t getMaxPlayers() const { return (_maxPlayers); };
 	  uint8_t getLevel() const { return (_level); };
-	  uint16_t getNbPlayers() const { return (_players.size()); };
+	  uint16_t getNbPlayers() const { return ((uint16_t)_players.size()); };
 	  
 	  void setName(const std::string & name) { _name = name; };
 	  void setPlayers(const std::vector<DataPlayer *> & players) { _players = players; };

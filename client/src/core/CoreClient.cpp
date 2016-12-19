@@ -135,7 +135,7 @@ bool		CoreClient::welcome(const IPacket *pa, const IUserNetwork *u)
 {
   PacketWelcome	*p = (PacketWelcome *)pa;
   IPacket	*co = _factory->getPacket("connect");
-  PacketC	ret(co, u);
+  PacketC	ret(co->getPacketUnknown(), (IUserNetwork *)u);
   _write->push(ret);
   return (true);
 }

@@ -82,7 +82,7 @@ void			UserNetworkUDPWindows::writeSocket(ISocket *net)
 	DataBuf.len = write.getPacketSize();
 	DataBuf.buf = (char *)(write.getPacketData());
 	Flags = 0;
-	if ((nb = WSASendTo(_fd, &DataBuf, 1, &SendBytes, 0, (sockaddr *)&s_out, sizeof (s_out), NULL, NULL)) == SOCKET_ERROR || write.size() != SendBytes)
+	if ((nb = WSASendTo(_fd, &DataBuf, 1, &SendBytes, 0, (sockaddr *)&s_out, sizeof (s_out), NULL, NULL)) == SOCKET_ERROR || DataBuf.len != SendBytes)
 		std::cerr << "Error on WSASendTo: " << WSAGetLastError() << std::endl;
 }
 
