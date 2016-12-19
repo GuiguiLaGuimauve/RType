@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Mon Dec 19 10:38:43 2016 lecoq
+// Last update Mon Dec 19 10:47:07 2016 lecoq
 //
 
 #include	"CoreClient.hh"
@@ -70,7 +70,7 @@ bool	CoreClient::managePackets()
       std::cout << (int)tmp.getPacket().getPacketData()[0] << std::endl;
       IPacket *packet = _factory->getPacket(tmp.getPacket().getPacketData());
       if (packet != NULL && _packetPtr.find(packet->getType()) != _packetPtr.end())
-	(this->*_packetPtr[packet->getType()])(tmp);
+	(this->*_packetPtr[packet->getType()])(packet, tmp.getNetwork());
     }
   return (true);
 }
@@ -131,9 +131,11 @@ bool	CoreClient::tryConnect(EventPart::Event e)
   return (true);
 }
 
-bool		CoreClient::welcome(PacketC &p)
+bool		CoreClient::welcome(const IPacket *pa, const IUserNetwork *u)
 {
-  std::cout << "welcome recu" << std::endl;
-  (void)p;
+  PacketWelcome	*p = (PacketWelcome *)pa;
+  IPacket	*co = _factory->getPacket("connect");
+  PacketC	ret(co, u);
+  _write->push(ret);
   return (true);
 }
