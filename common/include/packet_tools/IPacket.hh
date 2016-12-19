@@ -43,6 +43,7 @@ namespace Packet
         REGISTER		= 0x15,
         LOGOUT			= 0x16,
         ASKROOMDATA = 0x17,
+		ACCEPT = 0x18,
         
         DISCONNECT		= 0x20,
         SHOOT			= 0x21,

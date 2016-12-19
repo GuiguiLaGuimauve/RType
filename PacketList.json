@@ -18,10 +18,13 @@
 			"name": "message"
 		}]
 	}, {
-		"name": "Connect",
-		"type": "CONNECT",
+		"name": "Accept",
+		"type": "ACCEPT",
 		"network": "tcp",
-		"arguments": []
+		"arguments": [{
+			"type": "std::string",
+			"name": "message"
+		}]
 	}, {
 		"name": "CreateRoom",
 		"type": "CREATE_ROOM",
