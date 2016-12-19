@@ -4,7 +4,7 @@
 // Login   <dufren_b@epitech.net>
 //
 // Started on  Fri Dec 02 15:02:22 2016 julien dufrene
-// Last update Sun Dec 18 20:13:27 2016 lecoq
+// Last update Tue Dec 20 00:50:15 2016 julien dufrene
 //
 
 #include "UserNetworkUDPWindows.hh"
@@ -47,6 +47,16 @@ IUserNetwork		*UserNetworkUDPWindows::readSocket(ISocket *net)
 		res[i] = 0;
                 PacketUnknown pkt((uint8_t *)res, RecvBytes);
 		buff_r.push(pkt);
+		if (s_in.sin_addr.s_addr != inet_addr(_ip.c_str())
+		    && s_in.sin_port != htons(_port))
+		  {
+		    IUserNetwork        *u = new UserNetworkUDPUnix(*this);
+		    u->setIp(inet_ntoa(s_in.sin_addr));
+		    u->setFd(_fd);
+		    u->setPort(s_in.sin_port);
+		    u->setFd(net->getFdSocket());
+		    return (u);
+		  }
 	}
 	else
 	{

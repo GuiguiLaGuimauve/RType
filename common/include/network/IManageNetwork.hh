@@ -5,7 +5,7 @@
 ** Login   <lecoq_m@epitech.net>
 **
 ** Started on  Mon Oct 17 13:11:20 2016 Maxime Lecoq
-// Last update Sun Dec 18 20:21:37 2016 lecoq
+// Last update Mon Dec 19 23:21:55 2016 julien dufrene
 */
 
 #ifndef		__IMANAGENETWORK_HH__
@@ -62,10 +62,10 @@ namespace Network
     fr :La méthode tryConnectClient() permet au client d'essayer de se connecter à un server. */
     virtual bool				tryConnectClient(const uint32_t &, const std::string &) = 0;
     /*!
-      en :
-      fr :
+      en :updateUsers() updates the user list (add/delete) and return a vector of disconnected users's pseudo
+      fr :La méthode updateUsers() permet de mettre à jour la liste des clients (ajout/suppression) et renvoie les pseudos des utilisateurs déconnectés.
      */
-    virtual void				updateUsers(const std::vector<IUserNetwork *> &) = 0;
+    virtual std::vector<std::string>		updateUsers(const std::vector<IUserNetwork *> &) = 0;
     /*!
       en :pushToServ(message) is used to send message to the server. (DEBUG)
       fr :La méthode pushToServ(message) sert à envoyer un message au serveur. (DEBUG) */
@@ -73,6 +73,11 @@ namespace Network
     virtual void				setPacketQueueRead(const IPacketQueue *) = 0;
     virtual void				setPacketQueueWrite(const IPacketQueue *) = 0;
     virtual void				setPacketFactory(const PacketFactory *) = 0;
+    /*
+      en :hasServerRunning() is used only on client side to check if it is connected to a server.
+      fr :La méthode hasServerRunning() permet de savoir si le client est connecté à un serveur.
+     */
+    virtual bool				hasServerRunning() const = 0;
   };
 };
 

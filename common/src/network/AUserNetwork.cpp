@@ -6,6 +6,7 @@ AUserNetwork::AUserNetwork()
 {
 	_fd = -1;
 	_ip = "";
+	_pseudo = "";
 	_port = 4243;
 	_status = false;
 }
@@ -49,6 +50,16 @@ void			AUserNetwork::setIp(const std::string &ip)
 const std::string		&AUserNetwork::getIp() const
 {
 	return (_ip);
+}
+
+void			AUserNetwork::setPseudo(const std::string &p)
+{
+	_pseudo = p;
+}
+
+const std::string		&AUserNetwork::getPseudo() const
+{
+	return (_pseudo);
 }
 
 uint32_t		AUserNetwork::getPort() const

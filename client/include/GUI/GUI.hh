@@ -58,6 +58,7 @@ namespace Gui
     {
       IWidget	*GameContainer = NULL;
       IWidget	*GameInfos = NULL;
+      IWidget	*selectedGame = NULL;
       //std::vector<IWidget*>	Games = NULL;
       IWidget	*profile = NULL;
       IWidget	*createGame = NULL;
@@ -95,6 +96,7 @@ namespace Gui
     IWindow			*_win;
     IGuiEventManager		*_userEvents;
     std::vector<Packet::DataRoom*>	_menuInfos;
+    Packet::DataRoom		*_currentGame = NULL;
     //GameInfo			_gameInfo;
     EventPart::IEventQueue	*_coreQueue;
     EventPart::IEventQueue	*_guiQueue;

@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Thu Dec 15 15:33:48 2016 julien dufrene
-// Last update Sun Dec 18 20:12:06 2016 lecoq
+// Last update Tue Dec 20 00:49:31 2016 julien dufrene
 //
 
 #include "UserNetworkUDPUnix.hh"
@@ -18,7 +18,6 @@ UserNetworkUDPUnix::~UserNetworkUDPUnix() {}
 
 IUserNetwork		*UserNetworkUDPUnix::readSocket(ISocket *net)
 {
-  (void)net;
   char                  buff[16384];
   int32_t               nb;
   sockaddr_in		s_in;
@@ -35,10 +34,11 @@ IUserNetwork		*UserNetworkUDPUnix::readSocket(ISocket *net)
       if (s_in.sin_addr.s_addr != inet_addr(_ip.c_str())
 	  && s_in.sin_port != htons(_port))
 	  {
-	    IUserNetwork	*u = new UserNetworkUDPUnix();
+	    IUserNetwork	*u = new UserNetworkUDPUnix(*this);
 	    u->setIp(inet_ntoa(s_in.sin_addr));
 	    u->setFd(_fd);
 	    u->setPort(s_in.sin_port);
+	    u->setFd(net->getFdSocket());
 	    return (u);
 	  }
     }

@@ -364,6 +364,30 @@ void		GUI::displayMenu()
   s.policeSize = 60;
   _menuWidgets->createGame->setStyle(s);
 
+  int i = 0;
+  for (auto elem : _menuInfos)
+    {
+      IWidget *temp = _win->addWidget(_win->getWidth() / 6, 100 + ((i + 1) * 100), _win->getWidth() / 2, 100);
+      Style sgame = temp->getStyle();
+      sgame.policeSize = 20;
+      sgame.textColor = Color(255, 215, 255) = 20;
+      temp->setStyle(sgame);
+      temp->setText(elem->getName() + "\t" + std::to_string(elem->getPlayers().size()) + "/" + std::to_string(elem->getMaxPlayers()) + "\tStage " + std::to_string(elem->getLevel()));
+      // Mettre le OnClick à envoi d'Event avec numero de Game à update (voir avec ClientCore & Max)
+      i++;
+    }
+
+  if (_currentGame)
+    {
+      _menuWidgets->selectedGame = _win->addWidget(3 * (_win->getWidth() / 4), 100, 300, 300);
+      s.policeSize = 20;
+      _menuWidgets->selectedGame->setStyle(s);
+      _menuWidgets->selectedGame->setText("Name : " + _currentGame->getName() + "\nPlayers :\n");
+      for (auto elem : _currentGame->getPlayers())
+	_menuWidgets->selectedGame->setText(_menuWidgets->selectedGame->getText() + elem->getName() + "\n");
+  }
+
+
   _menuWidgets->confirm->setOnClick([](IWidget *widget, CLICK)
 				    {
 				      std::cout << "Let's connect !" << std::endl;
