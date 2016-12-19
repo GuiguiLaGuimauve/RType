@@ -13,7 +13,7 @@ namespace Packet {
 	class DataPlayer {
 
 	public:
-		DataPlayer() {};
+		DataPlayer() {_online = false;};
 		~DataPlayer() {};
 
 		std::string getName() const { return (_name); };
