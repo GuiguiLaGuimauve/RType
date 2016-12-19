@@ -16,7 +16,7 @@ PacketConnect::PacketConnect()
 
 	_type = IPacket::PacketType::CONNECT;
 	_tickId = 0;
-	_code = (uint16_t)timePtr->tm_yday + 6;
+	_code = (uint16_t)timePtr->tm_yday + PACKET_GROUP + PACKET_VERSION;
 
 	ps.add(_code);
 	dataPacketSize += 2;

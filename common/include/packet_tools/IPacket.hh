@@ -14,6 +14,9 @@
 
 #include "PacketUnknown.hpp"
 
+#define PACKET_GROUP 6
+#define PACKET_VERSION 2
+
 namespace Packet
 {
   /*! IPacket define all methods for all packets */
