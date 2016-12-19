@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Mon Dec 19 13:48:24 2016 lecoq
+// Last update Mon Dec 19 15:28:16 2016 lecoq
 //
 
 #include	"CoreClient.hh"
@@ -17,6 +17,8 @@ CoreClient::CoreClient()
   _eventPtr[EventPart::Event::QUIT] = &CoreClient::quit;
   _eventPtr[EventPart::Event::TRY_CONNECT] = &CoreClient::tryConnect;
   _packetPtr[IPacket::PacketType::WELCOME] = &CoreClient::welcome;
+  _packetPtr[IPacket::PacketType::ACCEPT] = &CoreClient::accept;
+  _packetPtr[IPacket::PacketType::ERROR_PACKET] = &CoreClient::errorPacket;
 }
 
 CoreClient::~CoreClient()
@@ -131,6 +133,13 @@ bool	CoreClient::tryConnect(EventPart::Event e)
   return (true);
 }
 
+bool		CoreClient::errorPacket(const IPacket *pa, IUserNetwork *u)
+{
+  (void)pa;
+  (void)u;
+  return (true);
+}
+
 bool		CoreClient::welcome(const IPacket *pa, IUserNetwork *u)
 {
   PacketWelcome	*p = (PacketWelcome *)pa;
@@ -139,5 +148,15 @@ bool		CoreClient::welcome(const IPacket *pa, IUserNetwork *u)
 
   std::cout << p->getMessage() << std::endl;
   _write->push(ret);
+  return (true);
+}
+
+bool		CoreClient::accept(const IPacket *pa, IUserNetwork *u)
+{
+  PacketAccept	*p = (PacketAccept *)pa;
+
+  std::cout << p->getMessage() << std::endl;
+  _gui->displayLogin();
+  (void)u;
   return (true);
 }

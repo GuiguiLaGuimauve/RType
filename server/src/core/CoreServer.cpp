@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Mon Dec 19 15:20:06 2016 lecoq
+// Last update Mon Dec 19 15:29:36 2016 lecoq
 //
 
 #include	"CoreServer.hh"
@@ -98,7 +98,7 @@ bool		CoreServer::connect(const IPacket *pa, IUserNetwork *u)
   std::cout << _factory->isEnableSerialise("error") << " " << _factory->isEnableSerialise("accept") << std::endl;
   if (p->getCode() != ck.getCode())
     {
-      IPacket       *co = _factory->getPacket("error", ERROR_MESSAGE, CONNECT);
+      IPacket       *co = _factory->getPacket("error", ERROR_CONNECT, IPacket::PacketType::CONNECT);
       PacketC       ret(co->getPacketUnknown(), u);
       _write->push(ret);
     }

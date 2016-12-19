@@ -22,7 +22,7 @@ namespace Packet
   public:
 #define PACKET_GROUP 6
 #define PACKET_VERSION 2
-#define ERROR_MESSAGE "A Packet Crashed"
+#define ERROR_CONNECT "Connection to the server failed"
 #define ACCEPT_MESSAGE "Hi, you are accepted by rembur_g server's"
 
     /*! PacketType contains all differents values in the packets for the common protocol */

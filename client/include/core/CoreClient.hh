@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:19:16 2016 Maxime Lecoq
-// Last update Mon Dec 19 11:12:21 2016 lecoq
+// Last update Mon Dec 19 15:25:28 2016 lecoq
 //
 
 #ifndef CORECLIENT_HH_
@@ -41,6 +41,8 @@ private:
   bool                          tryConnect(EventPart::Event);
 
   bool				welcome(const IPacket *, IUserNetwork *);
+  bool				accept(const IPacket *, IUserNetwork *);
+  bool				errorPacket(const IPacket *, IUserNetwork *);
 private:
   IManagerClient	*_manager;
   IGUI			*_gui;
