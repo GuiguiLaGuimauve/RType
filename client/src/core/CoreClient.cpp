@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Mon Dec 19 10:08:38 2016 lecoq
+// Last update Mon Dec 19 10:17:17 2016 lecoq
 //
 
 #include	"CoreClient.hh"
@@ -72,11 +72,12 @@ bool	CoreClient::managePackets()
 	{
 	  _factory->getPacket(tmp.getPacket().getPacketData());
 	}
-	catch (IPacket const &p)
+      catch (CatchIt<IPacket *> const &pa)
 	{
+	  IPacket *p = pa.getIt();
 	  std::cout << "plop" << std::endl;
-	  if (_packetPtr.find(p.getType()) != _packetPtr.end())
-	    (this->*_packetPtr[p.getType()])(tmp);
+	  if (_packetPtr.find(p->getType()) != _packetPtr.end())
+	    (this->*_packetPtr[p->getType()])(tmp);
 	}
     }
   return (true);
