@@ -464,7 +464,7 @@ Category: Limited
 
 	For the handshake in TCP connection, when the client is accept
 	the server will begin the handshake.
-	The value of the packet will be the version number add to the
+	The value of the packet will be the RFC version (2) add to the
 	number of people in the group (6) and add to the day number.
 	The server will check this number and tell if the client is
 	allowed on the server.
