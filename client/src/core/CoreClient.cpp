@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Mon Dec 19 09:58:38 2016 lecoq
+// Last update Mon Dec 19 10:07:02 2016 lecoq
 //
 
 #include	"CoreClient.hh"
@@ -67,7 +67,7 @@ bool	CoreClient::managePackets()
   while (_read->isEmpty() == false)
     {
       PacketC tmp = _read->pop();
-      std::cout << tmp.getPacket().getPacketData()[0] << std::endl;
+      std::cout << (int)tmp.getPacket().getPacketData()[0] << std::endl;
       try
 	{
 	  _factory->getPacket(tmp.getPacket().getPacketData());
