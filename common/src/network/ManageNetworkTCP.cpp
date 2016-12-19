@@ -70,66 +70,66 @@ bool			ManageNetworkTCP::selectIt()
 
 std::vector<IUserNetwork *>	ManageNetworkTCP::execClient()
 {
-	std::vector<IUserNetwork *>	newuser;
-	int32_t						i;
-	int32_t						add;
-
-	i = 0;
-	add = 0;
-	while (i < (int32_t)_user.size() - add)
-	{
-		if (_user[i]->getStatus() == true)
-			if (FD_ISSET(_user[i]->getFd(), &fd_read))
-			{
-				_user[i]->readSocket(_net);
-				if (_user[i]->haveSomethingToRead() == true)
-				  {
-				    PacketUnknown pk = _user[i]->popBufferRead();
-				    _read->push(PacketC(pk, _user[i]));
-				    std::cout << "un packet est lu" << std::endl;
-				  }
-			}
-		if (_user[i]->getStatus() == true)
-			if (FD_ISSET(_user[i]->getFd(), &fd_write))
-				_user[i]->writeSocket(_net);
-		i++;
-	}
-	return (newuser);
+  std::vector<IUserNetwork *>	newuser;
+  int32_t			i;
+  int32_t			add;
+  
+  i = 0;
+  add = 0;
+  while (i < (int32_t)_user.size() - add)
+    {
+      if (_user[i]->getStatus() == true)
+	if (FD_ISSET(_user[i]->getFd(), &fd_read))
+	  {
+	    _user[i]->readSocket(_net);
+	    if (_user[i]->getStatus() == true && _user[i]->haveSomethingToRead() == true)
+	      {
+		PacketUnknown pk = _user[i]->popBufferRead();
+		_read->push(PacketC(pk, _user[i]));
+		std::cout << "un packet est lu" << std::endl;
+	      }
+	  }
+      if (_user[i]->getStatus() == true)
+	if (FD_ISSET(_user[i]->getFd(), &fd_write))
+	  _user[i]->writeSocket(_net);
+      i++;
+    }
+  return (newuser);
 }
 
 std::vector<IUserNetwork *>	ManageNetworkTCP::execServer()
 {
-	std::vector<IUserNetwork *>	newuser;
-	IUserNetwork				*u;
-	int32_t						i;
-
-	i = 0;
-	while (i < (int32_t)_user.size())
+  std::vector<IUserNetwork *>	newuser;
+  IUserNetwork			*u;
+  int32_t			i;
+  
+  i = 0;
+  while (i < (int32_t)_user.size())
+    {
+      if (_user[i]->getStatus() == true)
+	if (FD_ISSET(_user[i]->getFd(), &fd_read))
 	  {
-		  if (_user[i]->getStatus() == true)
-			  if (FD_ISSET(_user[i]->getFd(), &fd_read))
-			  {
-				  u = _user[i]->readSocket(_net);
-				  if (u != NULL && u->getFd() != _user[i]->getFd() && u->getStatus() == true)
-				  {
-				    u->pushBufferWrite(_factory->getPacket("welcome", WELCOME_SERVERM)->getPacketUnknown());
-				    std::cout << "new client" << std::endl;
-				    newuser.push_back(u);
-				  }
-				  else
-				    if (_user[i]->getStatus() == true && _user[i]->haveSomethingToRead() == true)
-				      {
-					PacketUnknown pk = _user[i]->popBufferRead();
-					_read->push(PacketC(pk, _user[i]));
-					std::cout << "un packet est lu" << std::endl;
-				      }
-			  }
-		  if (_user[i]->getStatus() == true)
-			  if (FD_ISSET(_user[i]->getFd(), &fd_write))
-				  _user[i]->writeSocket(_net);
-		  i++;
-	}
-	return (newuser);
+	    u = _user[i]->readSocket(_net);
+	    if (u != NULL && u->getFd() != _user[i]->getFd() && u->getStatus() == true)
+	      {
+		u->pushBufferWrite(_factory->getPacket("welcome", WELCOME_SERVERM)->getPacketUnknown());
+		std::cout << "new client" << std::endl;
+		newuser.push_back(u);
+	      }
+	    else
+	      if (_user[i]->getStatus() == true && _user[i]->haveSomethingToRead() == true)
+		{
+		  PacketUnknown pk = _user[i]->popBufferRead();
+		  _read->push(PacketC(pk, _user[i]));
+		  std::cout << "un packet est lu" << std::endl;
+		}
+	  }
+      if (_user[i]->getStatus() == true)
+	if (FD_ISSET(_user[i]->getFd(), &fd_write))
+	  _user[i]->writeSocket(_net);
+      i++;
+    }
+  return (newuser);
 }
 
 bool		ManageNetworkTCP::run()
