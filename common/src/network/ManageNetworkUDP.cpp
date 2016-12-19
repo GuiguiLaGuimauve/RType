@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Fri Dec 16 11:37:09 2016 julien dufrene
-// Last update Mon Dec 19 23:34:02 2016 julien dufrene
+// Last update Mon Dec 19 23:36:38 2016 root
 //
 
 #include	"ManageNetworkUDP.hh"
@@ -127,7 +127,7 @@ bool		ManageNetworkUDP::run(const uint32_t &port, const uint32_t &maxCl)
   u->setPort(port);
   u->setStatus(true);
   _user.push_back(u);*/
-  std::cout << "User Network UDP prepared: " << _net->getFd() << std::endl;
+  std::cout << "User Network UDP prepared: " << _net->getFdSocket() << std::endl;
   return (true);
 }
 
