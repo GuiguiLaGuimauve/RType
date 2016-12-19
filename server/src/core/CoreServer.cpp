@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Mon Dec 19 17:46:14 2016 lecoq
+// Last update Mon Dec 19 17:48:59 2016 lecoq
 //
 
 #include	"CoreServer.hh"
@@ -130,6 +130,9 @@ bool		CoreServer::login(const IPacket *pa, IUserNetwork *u)
       PacketC       ret(co->getPacketUnknown(), u);
       _write->push(ret);
       }*/
+  /*if (register(p->getLogin(), p->getPassword()) == false)
+  {
+  }*/
   (void)pa;
   (void)u;
   return (true);
