@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Fri Dec 16 11:41:23 2016 julien dufrene
-// Last update Mon Dec 19 16:55:29 2016 lecoq
+// Last update Mon Dec 19 23:40:14 2016 julien dufrene
 //
 
 
@@ -33,9 +33,10 @@ namespace Network
     virtual bool				run(const uint32_t &, const uint32_t & = 0) = 0;
     virtual bool				tryConnectClient(const uint32_t &, const std::string &) = 0;
     virtual void				pushToServ(const PacketUnknown &) = 0;
+    bool	                                hasServerRunning() const;
     uint32_t					getMaxFd() const;
     ISocket					*getSocket() const;
-    void					updateUsers(const std::vector<IUserNetwork *> &);
+    std::vector<std::string>			updateUsers(const std::vector<IUserNetwork *> &);
     void				        setPacketQueueRead(const IPacketQueue *c) { _read = (IPacketQueue *)c; };
     void			                setPacketQueueWrite(const IPacketQueue *c){  _write = (IPacketQueue *)c; };
     void		                        setPacketFactory(const PacketFactory *c) { _factory = (PacketFactory *)c; };
@@ -48,6 +49,10 @@ namespace Network
     uint32_t				_port;
     /* _init est un attribut permettant de savoir si le core à été lancer en tant que serveur/client ou aucun des deux. */
     bool				_init;
+    /* _serv est un attribut permettant de reconnaire le serveur auquel le client est actuellement connecté.*/
+    IUserNetwork                                *_serv;
+    /* _initServ est un attribut permettant de savoir si un client est connecté au serveur. */
+    bool                                _initServ;
     IPacketQueue			*_read;
     IPacketQueue			*_write;
     PacketFactory			*_factory;

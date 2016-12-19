@@ -31,15 +31,15 @@ namespace Network
     bool					run(const uint32_t &, const uint32_t & = 0);
     bool					tryConnectClient(const uint32_t &, const std::string &);
     void					pushToServ(const PacketUnknown &);
+    bool	                                hasServerRunning() const
+    {
+      return (_initServ);
+    };
   private:
     /* fd_read est un attribut contentant un descripteur de fichier de lecture. */
     fd_set					fd_read;
     /* fd_write est un attribut contentant un descripteur de fichier d'écriture. */
     fd_set					fd_write;
-    /* _serv est un attribut permettant de reconnaire le serveur auquel le client est actuellement connecté.*/
-    IUserNetwork				*_serv;
-    /* _initServ est un attribut permettant de savoir si un client est connecté au serveur. */
-    bool                                _initServ;
   };
 };
 

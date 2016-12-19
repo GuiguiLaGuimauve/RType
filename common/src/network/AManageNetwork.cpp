@@ -29,8 +29,12 @@ uint32_t			AManageNetwork::getMaxFd() const
 	}
       return (res + 1);
     }
-  else
-    return (0);
+  return (0);
+}
+
+bool		AManageNetwork::hasServerRunning() const
+{
+  return (_initServ);
 }
 
 ISocket		*AManageNetwork::getSocket() const
@@ -38,14 +42,17 @@ ISocket		*AManageNetwork::getSocket() const
   return (_net);
 }
 
-void			AManageNetwork::updateUsers(const std::vector<IUserNetwork *> &user)
+std::vector<std::string>	AManageNetwork::updateUsers(const std::vector<IUserNetwork *> &user)
 {
-  uint32_t	i = 0;
+  uint32_t			i = 0;
+  std::vector<std::string>	del;
 
   while (i < _user.size())
     {
       if (_user[i]->getStatus() == false)
 	{
+	  if (_user[i]->getPseudo().empty() != true)
+	    del.push_back(_user[i]->getPseudo());
 	  std::cout << "Erase client from list: " << _user[i]->getFd() << std::endl;
 	  delete (_user[i]);
 	  _user.erase(_user.begin() + i);
@@ -63,5 +70,6 @@ void			AManageNetwork::updateUsers(const std::vector<IUserNetwork *> &user)
 	}
       i++;
     }
+  return (del);
 }
 

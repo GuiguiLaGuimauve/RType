@@ -113,7 +113,7 @@ std::vector<IUserNetwork *>	ManageNetworkTCP::execServer()
 	    if (u != NULL && u->getFd() != _user[i]->getFd() && u->getStatus() == true)
 	      {
 		u->pushBufferWrite(_factory->getPacket("welcome", WELCOME_SERVERM)->getPacketUnknown());
-		std::cout << "new client" << std::endl;
+		std::cout << "new client tcp" << std::endl;
 		newuser.push_back(u);
 	      }
 	    else
