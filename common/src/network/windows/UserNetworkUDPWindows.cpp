@@ -50,7 +50,7 @@ IUserNetwork		*UserNetworkUDPWindows::readSocket(ISocket *net)
 		if (s_in.sin_addr.s_addr != inet_addr(_ip.c_str())
 		    && s_in.sin_port != htons(_port))
 		  {
-		    IUserNetwork        *u = new UserNetworkUDPUnix(*this);
+		    IUserNetwork        *u = new UserNetworkUDPWindows(*this);
 		    u->setIp(inet_ntoa(s_in.sin_addr));
 		    u->setFd(_fd);
 		    u->setPort(s_in.sin_port);

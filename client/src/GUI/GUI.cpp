@@ -113,6 +113,16 @@ void		GUI::callback()
                                   "PWD", _loginWidgets->password->getText());
 	    break ;
 	  }
+	case EventPart::Event::BUTTON_CREATE_GAME :
+	{
+		ep = EventPart::Event(EventPart::Event::CREATE_GAME);
+		break;
+	}
+	case EventPart::Event::BUTTON_JOIN_GAME:
+	{
+		ep = EventPart::Event(EventPart::Event::JOIN_GAME);
+		break ;
+	}
 	case EventPart::Event::KEY_ATTACK :
 	{
 		if (_gameWidgets)
@@ -185,13 +195,13 @@ void		GUI::displayGame()
       int green[4] = {198, 0, 212, 3};
       int blue[4] = {252, 252, 43, 5};
 
-      temp = _win->addWidget((_win->getWidth() / 4) * i, 0, _win->getWidth() / players.size(), 100);
+      temp = _win->addWidget((_win->getWidth() / 4) * (int) i, 0, _win->getWidth() / (int) players.size(), 100);
 
       Style sheart = temp->getStyle();
       sheart.image = "Heart" + std::to_string(i + 1);
       temp->setStyle(sheart);
 
-      temp = _win->addWidget((_win->getWidth() / 4) * i + 100, 30, _win->getWidth() / players.size(), 100);
+      temp = _win->addWidget((_win->getWidth() / 4) * (int) i + 100, 30, _win->getWidth() / (int) players.size(), 100);
       std::string non = " " + std::to_string(players[i].health) + " %";
       sheart.image = "";
       temp->setText(non);
@@ -304,34 +314,17 @@ void		GUI::displayStart()
 				      eq->push(EventPart::Event(EventPart::Event::BUTTON_CONNECT));
 				      std::cout << "try connect" << std::endl;
 				      });
-  _startWidgets->button->setOnHover([](IWidget *w)
-				    {
-				      Style s1 = w->getStyle();
-				      s1.textColor.blue += 100;
- 				      s1.textColor.green += 100;
-				      w->setStyle(s1);
-				      });
-  _startWidgets->button->setOnLeaveHover([](IWidget *w)
-					 {
-					   Style s2 = w->getStyle();
-					   s2.textColor.blue -= 100;
-					   s2.textColor.green -= 100;
-					   w->setStyle(s2);
-					 });
+  _startWidgets->button->setOnHover(TextColorFocus);
+  _startWidgets->button->setOnLeaveHover(TextColorNoFocus);
 
   // custom imput
-  _startWidgets->imput->setOnTextEntered([](IWidget *w, const std::string &c)
-					 {
-					   if (c[0] == 127 || c[0] == 8)
-					     {
-					       std::string tmp = w->getText();
-					       if (tmp.length() > 0)
-						 tmp.pop_back();
-					       w->setText(tmp);
-					     }
-					   else if (isprint(c[0]) && w->getText().size() < 25)
-					     w->setText(w->getText() + c);
-					 });
+  _startWidgets->imput->setOnTextEntered([](IWidget *w, const std::string &s)
+  {
+	  if (s[0] == '\n')
+		  w->getEventQueue()->push(EventPart::Event(EventPart::Event::BUTTON_CONNECT));
+	  else
+		  textEntered(w, s);
+  });
   // ergonomie focus
   _focusWidget = _startWidgets->imput;
 }
@@ -395,21 +388,8 @@ void		GUI::displayMenu()
 				      auto eq = widget->getEventQueue();
 				      eq->push(EventPart::Event(EventPart::Event::BUTTON_JOIN_GAME));
 				    });
-  _menuWidgets->confirm->setOnHover([](IWidget *w)
-				    {
-				      Style s1 = w->getStyle();
-				      
-				      s1.textColor.blue += 100;
- 				      s1.textColor.green += 100;
-				      w->setStyle(s1);
-				    });
-  _menuWidgets->confirm->setOnLeaveHover([](IWidget *w)
-					 {
-					   Style s2 = w->getStyle();
-					   s2.textColor.blue -= 100;
-					   s2.textColor.green -= 100;
-					   w->setStyle(s2);
-					 });
+  _menuWidgets->confirm->setOnHover(TextColorFocus);
+  _menuWidgets->confirm->setOnLeaveHover(TextColorNoFocus);
 
   _menuWidgets->createGame->setOnClick([](IWidget *widget, CLICK)
 				       {
@@ -417,20 +397,8 @@ void		GUI::displayMenu()
 					 auto eq = widget->getEventQueue();
 					 eq->push(EventPart::Event(EventPart::Event::BUTTON_CREATE_GAME));
 				       });
-  _menuWidgets->createGame->setOnHover([](IWidget *w)
-				    {
-				      Style s3 = w->getStyle();
-				      s3.textColor.blue += 100;
- 				      s3.textColor.green += 100;
-				      w->setStyle(s3);
-				    });
-  _menuWidgets->createGame->setOnLeaveHover([](IWidget *w)
-					 {
-					   Style s4 = w->getStyle();
-					   s4.textColor.blue -= 100;
-					   s4.textColor.green -= 100;
-					   w->setStyle(s4);
-					 });
+  _menuWidgets->createGame->setOnHover(TextColorFocus);
+  _menuWidgets->createGame->setOnLeaveHover(TextColorNoFocus);
 
   // ergonomie focus
   _focusWidget = _menuWidgets->confirm;
@@ -478,74 +446,28 @@ void		GUI::displayLogin()
 			            eq->push(EventPart::Event(EventPart::Event::BUTTON_LOGIN));
 				    std::cout << "Let's connect !" << std::endl;
 				  });
-  _loginWidgets->confirm->setOnHover([](IWidget *w)
-				    {
-				      Style s1 = w->getStyle();
-				      s1.textColor.blue += 100;
- 				      s1.textColor.green += 100;
-				      w->setStyle(s1);
-				    });
-  _loginWidgets->confirm->setOnLeaveHover([](IWidget *w)
-					 {
-					   Style s2 = w->getStyle();
-					   s2.textColor.blue -= 100;
-					   s2.textColor.green -= 100;
-					   w->setStyle(s2);
-					 });
+  _loginWidgets->confirm->setOnHover(TextColorFocus);
+  _loginWidgets->confirm->setOnLeaveHover(TextColorNoFocus);
 
   /* Je gère l'édition des 2 inputs */
-  _loginWidgets->login->setOnFocus([](IWidget *w)
-					 {
-					   Style sfoc1 = w->getStyle();
-					   sfoc1.textColor.blue += 100;
-					   sfoc1.textColor.green += 100;
-					   w->setStyle(sfoc1);
-					 });
-  _loginWidgets->login->setOnLeaveFocus([](IWidget *w)
-					 {
-					   Style sfoc1 = w->getStyle();
-					   sfoc1.textColor.blue -= 100;
-					   sfoc1.textColor.green -= 100;
-					   w->setStyle(sfoc1);
-					 });
-  _loginWidgets->login->setOnTextEntered([](IWidget *w, const std::string &c)
-					 {
-					   if (c[0] == 127 || c[0] == 8)
-					     {
-					       std::string tmp = w->getText();
-					       if (tmp.length() > 0)
-						 tmp.pop_back();
-					       w->setText(tmp);
-					     }
-					   else if (isprint(c[0]))
-					     w->setText(w->getText() + c);
-					 });
-  _loginWidgets->password->setOnFocus([](IWidget *w)
-					 {
-					   Style sfoc1 = w->getStyle();
-					   sfoc1.textColor.blue += 100;
-					   sfoc1.textColor.green += 100;
-					   w->setStyle(sfoc1);
-					 });
-  _loginWidgets->password->setOnLeaveFocus([](IWidget *w)
-					 {
-					   Style sfoc1 = w->getStyle();
-					   sfoc1.textColor.blue -= 100;
-					   sfoc1.textColor.green -= 100;
-					   w->setStyle(sfoc1);
-					 });
-  _loginWidgets->password->setOnTextEntered([](IWidget *w, const std::string &c)
-					 {
-					   if (c[0] == 127 || c[0] == 8)
-					     {
-					       std::string tmp = w->getText();
-					       if (tmp.length() > 0)
-						 tmp.pop_back();
-					       w->setText(tmp);
-					     }
-					   else if (isprint(c[0]))
-					     w->setText(w->getText() + c);
-					 });
+  _loginWidgets->login->setOnFocus(TextColorFocus);
+  _loginWidgets->login->setOnLeaveFocus(TextColorNoFocus);
+  _loginWidgets->login->setOnTextEntered([](IWidget *w, const std::string &s)
+  {
+	  if (s[0] == '\n')
+		  w->getEventQueue()->push(EventPart::Event(EventPart::Event::BUTTON_LOGIN));
+	  else
+		  textEntered(w, s);
+  });
+  _loginWidgets->password->setOnFocus(TextColorFocus);
+  _loginWidgets->password->setOnLeaveFocus(TextColorNoFocus);
+  _loginWidgets->password->setOnTextEntered([](IWidget *w, const std::string &s)
+  {
+	  if (s[0] == '\n')
+		  w->getEventQueue()->push(EventPart::Event(EventPart::Event::BUTTON_LOGIN));
+	  else
+		  textEntered(w, s);
+  });
 
   // ergonomie focus
   //_focusWidget = _loginWidgets->login;
@@ -592,7 +514,7 @@ void			GUI::showPopup(const std::string &string, int tMilli)
       _win->deleteWidget(_fadedWidget);
     }
   // other init
-  _fadedWidget = _win->addWidget(50, 350, string.size() * 20, 50);
+  _fadedWidget = _win->addWidget(50, 350, (int) string.size() * 20, 50);
   auto style = _fadedWidget->getStyle();
   style.backgroundColor.green = 250;
   style.form = RECTANGLE;
@@ -604,11 +526,11 @@ void			GUI::showPopup(const std::string &string, int tMilli)
 
 void			GUI::loadSoundAssets()
 {
-  _audio->loadSound("../client/Assets/TitleScreen.wav", "TitleScreen");
-  _audio->loadSound("../client/Assets/Stage1.wav", "Stage1");
-  _audio->loadSound("../client/Assets/Stage2.wav", "Stage2");
-  _audio->loadSound("../client/Assets/Stage3.wav", "Stage3");
-  _audio->loadSound("../client/Assets/Stage4.wav", "Stage4");
+  _audio->loadSound("../client/Assets/TitleScreen.ogg", "TitleScreen");
+  _audio->loadSound("../client/Assets/Stage1.ogg", "Stage1");
+  _audio->loadSound("../client/Assets/Stage2.ogg", "Stage2");
+  _audio->loadSound("../client/Assets/Stage3.ogg", "Stage3");
+  _audio->loadSound("../client/Assets/Stage4.ogg", "Stage4");
 }
 
 void			GUI::setRooms(const std::vector<DataRoom *> &d)

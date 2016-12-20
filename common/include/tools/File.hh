@@ -5,7 +5,7 @@
 // Login   <lecoq_m@epitech.net>
 // 
 // Started on  Sat Apr 23 09:11:38 2016 Maxime LECOQ
-// Last update Tue Dec 20 03:09:38 2016 lecoq
+// Last update Tue Dec 20 09:59:12 2016 julien dufrene
 //
 
 #ifndef		__FILE_HH__
@@ -15,7 +15,10 @@
 # include	<string>
 # include       <sstream>
 # include       <fstream>
+#ifdef _WIN32
+#else
 # include	<unistd.h>
+#endif
 # include	"ErrorOpen.hpp"
 
 class		File

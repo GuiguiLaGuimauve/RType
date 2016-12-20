@@ -5,7 +5,7 @@
 // Login   <lecoq_m@epitech.net>
 // 
 // Started on  Sat Apr 23 09:15:25 2016 Maxime LECOQ
-// Last update Tue Apr 26 17:19:36 2016 Maxime LECOQ
+// Last update Tue Dec 20 09:57:10 2016 julien dufrene
 //
 
 #include	"File.hh"

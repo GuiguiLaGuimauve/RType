@@ -83,7 +83,7 @@ public:
 
     sf::Sprite	sprite(_textureMap[tname], sf::IntRect(x, y, w, h));
 
-    sprite.setScale(xScale, yScale);
+    sprite.setScale((float) xScale, (float) yScale);
     _spriteMap[sname] = sprite;
   }
 
