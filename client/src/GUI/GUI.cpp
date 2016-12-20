@@ -282,7 +282,8 @@ void		GUI::displayStart()
   _startWidgets->texte->setText("ENTER THE ADDRESS:PORT");
   _startWidgets->button->setText("CONNECT");
   _startWidgets->chevron->setText(">");
-
+  _startWidgets->imput->setText("127.0.0.1:4242");
+  
   Style		logoStyle = _startWidgets->title->getStyle();
   logoStyle.image = "Logo";
 
@@ -345,12 +346,12 @@ void		GUI::displayMenu()
   _menuWidgets->GameInfos = _win->addWidget(3 * (_win->getWidth() / 4), 100, 1000, 300);
   _menuWidgets->createGame = _win->addWidget(3 * (_win->getWidth() / 4), 5 * (_win->getHeight() / 6), 50, 60);
   _menuWidgets->profile = _win->addWidget(3 * (_win->getWidth() / 4), _win->getHeight() / 2, _win->getHeight() / 4, 300);
-  _menuWidgets->confirm = _win->addWidget(4 * (_win->getWidth() / 5), 5 * (_win->getHeight() / 6) + 10, _win->getHeight() / 5, 45);
+  _menuWidgets->confirm = _win->addWidget(4 * (_win->getWidth() / 5), 5 * (_win->getHeight() / 6) + 10, 135, 45);
   _menuWidgets->GameContainer->setText("Games");
   _menuWidgets->GameInfos->setText("Infos");
   _menuWidgets->createGame->setText("+");
   _menuWidgets->profile->setText("Profile");
-  _menuWidgets->confirm->setText("Confirm");
+  _menuWidgets->confirm->setText("Join");
 
   Style		s = _menuWidgets->confirm->getStyle();
   s.form = RECTANGLE;
