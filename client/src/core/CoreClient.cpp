@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Tue Dec 20 02:10:45 2016 lecoq
+// Last update Tue Dec 20 02:27:29 2016 lecoq
 //
 
 #include	"CoreClient.hh"
@@ -68,6 +68,7 @@ bool	CoreClient::manageNetwork()
     {
       _gui->displayStart();
       _isConnectToServ = false;
+      _tcp->run();
     }
   return (true);
 }
