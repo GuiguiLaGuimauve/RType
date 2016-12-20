@@ -44,8 +44,9 @@ namespace Packet
         LOGIN			= 0x14,
         REGISTER		= 0x15,
         LOGOUT			= 0x16,
-        ASKROOMDATA = 0x17,
-		ACCEPT = 0x18,
+        ASKROOMDATA 	= 0x17,
+		ACCEPT 			= 0x18,
+		PROFILE 		= 0x19,
         
         DISCONNECT		= 0x20,
         SHOOT			= 0x21,
