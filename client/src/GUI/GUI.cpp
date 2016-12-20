@@ -153,6 +153,25 @@ void		GUI::callback()
 			ep = EventPart::Event(EventPart::Event::MOVE_RIGHT);
 		break;
 	}
+	case EventPart::Event::LOGIN_SWITCH_IMPUT :
+	{
+		if (_loginWidgets)
+		{
+			if (_focusWidget == _loginWidgets->login)
+			{
+				_loginWidgets->login->onLeaveFocus();
+				_focusWidget = _loginWidgets->password;
+				_loginWidgets->password->onFocus();
+			}
+			else if (_focusWidget == _loginWidgets->password)
+			{
+				_loginWidgets->password->onLeaveFocus();
+				_focusWidget = _loginWidgets->login;
+				_loginWidgets->login->onFocus();
+			}
+		}
+	break;
+	}
 	default :
 	  ep.type = EventPart::Event::DEFAULT;
 	}
@@ -454,7 +473,9 @@ void		GUI::displayLogin()
   _loginWidgets->login->setOnLeaveFocus(TextColorNoFocus);
   _loginWidgets->login->setOnTextEntered([](IWidget *w, const std::string &c)
   {
-	  if (c[0] == '\n')
+	  if (c[0] == '\t')
+		  w->getEventQueue()->push(EventPart::Event(EventPart::Event::LOGIN_SWITCH_IMPUT));
+	  else if (c[0] == '\n')
 	    w->getEventQueue()->push(EventPart::Event(EventPart::Event::BUTTON_LOGIN));
 	  else
 	    textEntered(w, c);
@@ -463,7 +484,9 @@ void		GUI::displayLogin()
   _loginWidgets->password->setOnLeaveFocus(TextColorNoFocus);
   _loginWidgets->password->setOnTextEntered([](IWidget *w, const std::string &c)
   {
-	  if (c[0] == '\n')
+	  if (c[0] == '\t')
+		  w->getEventQueue()->push(EventPart::Event(EventPart::Event::LOGIN_SWITCH_IMPUT));
+	  else if (c[0] == '\n')
 	    w->getEventQueue()->push(EventPart::Event(EventPart::Event::BUTTON_LOGIN));
 	  else
 	    textEntered(w, c);
