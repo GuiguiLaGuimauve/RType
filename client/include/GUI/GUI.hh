@@ -8,6 +8,7 @@
 #include <cctype>
 #include <cstdio>
 #include <utility>
+#include <sstream>
 
 #include "IGUI.hh"
 
@@ -72,6 +73,7 @@ namespace Gui
       IWidget	*profileInfo = NULL; // affiches les informations liées au user
       IWidget	*createGame = NULL; // bouton pour créer une gaùe
       IWidget	*confirm = NULL; // bouton pour confirmier
+	  IWidget	*watchButton = NULL; // bouton pour regarder
       /* Vecteur de joueurs connectés */
       /* Container des joueurs connectés */
     };

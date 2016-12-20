@@ -53,7 +53,8 @@ namespace EventPart
 	TRY_CONNECT, // string["IP"] string["PORT"]
 	TRY_LOGIN, // string["LOGIN"] string["PWD"]
 	CREATE_GAME, // string["GAME_NAME"]
-	JOIN_GAME // string["GAME_NAME"]
+	JOIN_GAME, // string["GAME_NAME"]
+	WATCH_GAME // string["GAME_NAME"]
       };
     
     // constructeur classique

@@ -124,6 +124,11 @@ void		GUI::callback()
 		ep = EventPart::Event(EventPart::Event::JOIN_GAME, "GAME_NAME", _currentGame->getName());
 		break ;
 	}
+	case EventPart::Event::BUTTON_WATCH_GAME:
+	{
+		ep = EventPart::Event(EventPart::Event::WATCH_GAME, "GAME_NAME", _currentGame->getName());
+		break;
+	}
 	case EventPart::Event::KEY_ATTACK :
 	{
 		if (_gameWidgets)
@@ -435,6 +440,21 @@ void		GUI::displayMenu()
 	});
 	_menuWidgets->confirm->setOnHover(TextColorFocus);
 	_menuWidgets->confirm->setOnLeaveHover(TextColorNoFocus);
+	// bouton pour regarder la game
+	_menuWidgets->watchButton = _win->addWidget(4 * (_win->getWidth() / 5), 5 * (_win->getHeight() / 6) + 100, 135, 45);
+	_menuWidgets->watchButton->setText("WATCH");
+	s = _menuWidgets->watchButton->getStyle();
+	s.policeSize = 20;
+	s.textColor = Color(255, 215, 0);
+	_menuWidgets->watchButton->setStyle(s);
+	_menuWidgets->watchButton->setOnClick([](IWidget *widget, CLICK)
+	{
+		std::cout << "Let's connect !" << std::endl;
+		auto eq = widget->getEventQueue();
+		eq->push(EventPart::Event(EventPart::Event::BUTTON_WATCH_GAME));
+	});
+	_menuWidgets->watchButton->setOnHover(TextColorFocus);
+	_menuWidgets->watchButton->setOnLeaveHover(TextColorNoFocus);
 	//std::cout << "A l'initialisation, la size de mes Rooms est " << _menuInfos.size() << std::endl;
 	// affichage de toutes les rooms
 	int i = 0;
@@ -631,15 +651,40 @@ void			GUI::setProfile(DataPlayer *p)
 
 void		GUI::updateCurrentGame()
 {
+	// affichage du texte
 	if (_currentGame)
 	{
-		_menuWidgets->selectedGame->setText(_currentGame->getName());
+		std::stringstream ss;
+		ss << _currentGame->getName();
+		ss << "\n nb watchers = ";
+		ss << _currentGame->getWatchers().size();
+		_menuWidgets->selectedGame->setText(ss.str());
+	}
+	else
+	{
+		_menuWidgets->selectedGame->setText("");
+	}
+	// affichage du bouton join
+	if (_currentGame && _currentGame->getNbPlayers() < _currentGame->getMaxPlayers())
+	{
 		_menuWidgets->confirm->setText("JOIN");
-		_menuWidgets->confirm->resize(200, 200);
+		_menuWidgets->confirm->resize(200, 75);
 	}
 	else
 	{
 		_menuWidgets->confirm->setText("");
 		_menuWidgets->confirm->resize(0, 0);
+	}
+	// bouton watch
+	// affichage du bouton join
+	if (_currentGame)
+	{
+		_menuWidgets->watchButton->setText("WATCH");
+		_menuWidgets->watchButton->resize(200, 75);
+	}
+	else
+	{
+		_menuWidgets->watchButton->setText("");
+		_menuWidgets->watchButton->resize(0, 0);
 	}
 }
