@@ -70,7 +70,7 @@ namespace Gui
       IWidget	*GameText = NULL; // affiche le texte "GAME"
       IWidget	*GameInfos = NULL; // affiche le texte "Info"
       IWidget	*selectedGame = NULL; // va servir à affichier les infos de la game selectionnée
-	  int		selectedRoom = -1; // id dans le vecteur de la game selectionnée
+      int		selectedRoom = -1; // id dans le vecteur de la game selectionnée
       std::vector<IWidget *>	games; // affichage de toutes les games
       IWidget	*profile = NULL; // affiche "PROFILE"
       IWidget	*profileInfo = NULL; // affiches les informations liées au user
