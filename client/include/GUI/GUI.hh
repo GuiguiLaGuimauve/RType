@@ -98,6 +98,7 @@ namespace Gui
     void		setProfile(DataPlayer *p);
   protected:
     void	deleteWidgets();
+	void	updateCurrentGame();
   protected:
     Audio::ISoundManager	*_audio;
     IWindow					*_win;
