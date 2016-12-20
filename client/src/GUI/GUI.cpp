@@ -340,13 +340,15 @@ void		GUI::displayStart()
   // custom imput
   _startWidgets->imput->setOnTextEntered([](IWidget *w, const std::string &c)
   {
-	  if (c[0] == '\n')
-	    w->getEventQueue()->push(EventPart::Event(EventPart::Event::BUTTON_CONNECT));
+	  //std::cout << "TOUCHE  = " << (int) c[0] << std::endl;
+	  if (c[0] == '\n' || c[0] == '\r')
+		w->getEventQueue()->push(EventPart::Event(EventPart::Event::BUTTON_CONNECT));
 	  else
 	    textEntered(w, c);
   });
   // ergonomie focus
   _focusWidget = _startWidgets->imput;
+  _focusWidget->onFocus();
 }
 
 void		GUI::displayMenu()
@@ -422,6 +424,7 @@ void		GUI::displayMenu()
 
   // ergonomie focus
   _focusWidget = _menuWidgets->confirm;
+  _focusWidget->onFocus();
 }
 
 void		GUI::displayLogin()
@@ -474,7 +477,7 @@ void		GUI::displayLogin()
   _loginWidgets->login->setOnLeaveFocus(TextColorNoFocus);
   _loginWidgets->login->setOnTextEntered([](IWidget *w, const std::string &c)
   {
-	  if (c[0] == '\t')
+	  if (c[0] == '\n' || c[0] == '\r')
 		  w->getEventQueue()->push(EventPart::Event(EventPart::Event::LOGIN_SWITCH_IMPUT));
 	  else if (c[0] == '\n')
 	    w->getEventQueue()->push(EventPart::Event(EventPart::Event::BUTTON_LOGIN));
@@ -485,7 +488,7 @@ void		GUI::displayLogin()
   _loginWidgets->password->setOnLeaveFocus(TextColorNoFocus);
   _loginWidgets->password->setOnTextEntered([](IWidget *w, const std::string &c)
   {
-	  if (c[0] == '\t')
+	  if (c[0] == '\n' || c[0] == '\r')
 		  w->getEventQueue()->push(EventPart::Event(EventPart::Event::LOGIN_SWITCH_IMPUT));
 	  else if (c[0] == '\n')
 	    w->getEventQueue()->push(EventPart::Event(EventPart::Event::BUTTON_LOGIN));
@@ -495,6 +498,7 @@ void		GUI::displayLogin()
 
   // ergonomie focus
   _focusWidget = _loginWidgets->login;
+  _focusWidget->onFocus();
 }
 
 void		GUI::updateGameInfo(/*const GameInfo &*/)
