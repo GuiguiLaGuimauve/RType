@@ -34,4 +34,8 @@
 #define BACKGROUND_COLOR_G		0
 #define BACKGROUND_COLOR_B		0
 
+#define TEXT_DEFAULT_IP			"127.0.0.1:4242"
+#define TEXT_ADDRESS			"ENTER THE ADDRESS"
+#define TEXT_CONNECT			"CONNECT"
+
 #endif

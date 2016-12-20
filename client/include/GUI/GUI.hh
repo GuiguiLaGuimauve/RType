@@ -19,6 +19,9 @@
 #include "Key.hh"
 #include "DataRoom.hpp"
 
+#define GUI_WIDTH 1920
+#define GUI_HEIGHT 1080
+
 void	TextColorNoFocus(Gui::IWidget *w);
 void	TextColorFocus(Gui::IWidget *w);
 void	textEntered(Gui::IWidget *w, const std::string &c);
@@ -45,7 +48,7 @@ namespace Gui
     {
       IWidget	*title = NULL;
       IWidget	*texte = NULL;
-      IWidget	*imput = NULL;
+      IWidget	*input = NULL;
       IWidget	*button = NULL;
       IWidget	*chevron = NULL;
     };

@@ -52,7 +52,7 @@ void                Widget::draw()
     {
       _win->draw(_background);
     }
-  if (_text != "")
+  if (_sfmlText.getString() != "")
     _win->draw(_sfmlText);
 }
 
@@ -111,16 +111,21 @@ void                Widget::move(int x, int y)
 
 void                Widget::setText(const std::string &s)
 {
-  _text = s;
-  if (!_style.password)
-	_sfmlText.setString(_text);
-  else
-    {
-      std::string temp;
-      for (unsigned int i = 0; i < _text.size(); i++)
-	temp += "*";
-      _sfmlText.setString(temp);
-    }
+	_text = s;
+	std::string tmp = "";
+
+	if (_style.inputMode)
+		tmp += ">  ";
+	if (!_style.password)
+		tmp += _text;
+	else
+	{
+		for (unsigned int i = 0; i < _text.size(); i++)
+			tmp += "*";
+	}
+	if (_style.inputMode)
+		tmp += "  <";
+	_sfmlText.setString(tmp);
 }
 
 std::string         Widget::getText() const

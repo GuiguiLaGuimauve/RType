@@ -90,7 +90,7 @@ void		GUI::callback()
 	  case EventPart::Event::BUTTON_CONNECT :
           {
 	    std::string stringIp, stringPort;
-            auto tmpIp = _startWidgets->imput->getText();
+            auto tmpIp = _startWidgets->input->getText();
             bool founded = false;
             for(unsigned int i = 0; i < tmpIp.size(); i++)
 	      {
@@ -297,57 +297,80 @@ void		GUI::displayGame()
 
 void		GUI::displayStart()
 {
+  // Delete widget
   deleteWidgets();
-  // custom window
-  _win->setBackground(PICTURE_BACKGROUND);
-  _audio->playMusic("TitleScreen");
-  // init
-  _startWidgets = new Start;
-  _startWidgets->title = _win->addWidget((_win->getWidth() - 445) / 2, _win->getHeight() / 6, 0, 0);
-  _startWidgets->texte = _win->addWidget(_win->getWidth() / 3 - 80, _win->getHeight() / 2 - 100, _win->getWidth() / 2, 100);
-  _startWidgets->imput = _win->addWidget(_win->getWidth() / 3, _win->getHeight() / 2 + 20, _win->getWidth() / 2, 175);
-  _startWidgets->button = _win->addWidget(_win->getWidth() / 3 + 170, (2 * _win->getHeight()) / 3, 250, 40);
-  _startWidgets->chevron = _win->addWidget((_win->getWidth() / 3) - 200, _win->getHeight() / 2 + 20, 0, 0);
-  // custom button
-  _startWidgets->texte->setText("ENTER THE ADDRESS");
-  _startWidgets->button->setText("CONNECT");
-  _startWidgets->chevron->setText(">");
-  _startWidgets->imput->setText("127.0.0.1:4242");
-  
-  Style		logoStyle = _startWidgets->title->getStyle();
-  logoStyle.image = "Logo";
 
-  Style		s = _startWidgets->button->getStyle();
+  // Set Background
+  _win->setBackground(PICTURE_BACKGROUND);
+
+  // Launch music
+  _audio->playMusic("TitleScreen");
+  
+  // Init startWidgets
+  _startWidgets = new Start;
+
+  // Default text style
+  Style	s;
   s.form = NO_FORM;
   s.textColor = Color(255, 215, 0);
   s.policeSize = 35;
 
-  _startWidgets->imput->setStyle(s);
-  _startWidgets->button->setStyle(s);
-  _startWidgets->title->setStyle(logoStyle);
-  _startWidgets->texte->setStyle(s);
-  _startWidgets->chevron->setStyle(s);
+  // Default input style
+  Style	inputStyle;
+  inputStyle.form = NO_FORM;
+  inputStyle.textColor = Color(255, 215, 0);
+  inputStyle.policeSize = 35;
+  inputStyle.inputMode = true;
 
+  // Sprite : Logo
+  _startWidgets->title = _win->addWidget((GUI_WIDTH - 445) / 2, GUI_HEIGHT / 6, 0, 0);
+  Style	titleStyle;
+  titleStyle.image = "Logo";
+  _startWidgets->title->setStyle(titleStyle);
+  
+  // Text : Enter the address
+  _startWidgets->texte = _win->addWidget(0, 0, GUI_WIDTH / 2, 100);
+  _startWidgets->texte->setText(TEXT_ADDRESS);
+  _startWidgets->texte->setStyle(s);
+  _startWidgets->texte->move((GUI_WIDTH - _startWidgets->texte->getTextWidth()) / 2, 400);
+
+  // Input : address
+  _startWidgets->input = _win->addWidget(0, 0, GUI_WIDTH / 2, 175);
+  _startWidgets->input->setText(TEXT_DEFAULT_IP);
+  _startWidgets->input->setStyle(inputStyle);
+  _startWidgets->input->move((GUI_WIDTH - _startWidgets->input->getTextWidth()) / 2, 600);
+  
+  // Button : connect
+  _startWidgets->button = _win->addWidget(0, 0, 250, 40);
+  _startWidgets->button->setText(TEXT_CONNECT);
+  _startWidgets->button->setStyle(s);
+  _startWidgets->button->move((GUI_WIDTH - _startWidgets->button->getTextWidth()) / 2, 800);
+  
+  // On click
   _startWidgets->button->setOnClick([](IWidget *fuckingButton, CLICK)
-				    {
-				      auto eq = fuckingButton->getEventQueue();
-				      eq->push(EventPart::Event(EventPart::Event::BUTTON_CONNECT));
-				      std::cout << "try connect" << std::endl;
-				      });
+	{
+		auto eq = fuckingButton->getEventQueue();
+		eq->push(EventPart::Event(EventPart::Event::BUTTON_CONNECT));
+		std::cout << "try connect" << std::endl;
+	});
   _startWidgets->button->setOnHover(TextColorFocus);
   _startWidgets->button->setOnLeaveHover(TextColorNoFocus);
 
-  // custom imput
-  _startWidgets->imput->setOnTextEntered([](IWidget *w, const std::string &c)
+  // On Key Pressed
+  _startWidgets->input->setOnTextEntered([](IWidget *w, const std::string &c)
   {
-	  //std::cout << "TOUCHE  = " << (int) c[0] << std::endl;
+	  // Catch event
 	  if (c[0] == '\n' || c[0] == '\r')
 		w->getEventQueue()->push(EventPart::Event(EventPart::Event::BUTTON_CONNECT));
 	  else
 	    textEntered(w, c);
+
+	  // Move text
+	  w->move((GUI_WIDTH - w->getTextWidth()) / 2, 600);
   });
-  // ergonomie focus
-  _focusWidget = _startWidgets->imput;
+
+  // Defaut focus
+  _focusWidget = _startWidgets->input;
   _focusWidget->onFocus();
 }
 
@@ -569,19 +592,24 @@ void			GUI::showPopup(const std::string &string, int tMilli)
   if (_fadedWidget)
 	_win->deleteWidget(_fadedWidget);
 
+  // Create widget
+  _fadedWidget = _win->addWidget(0, 0, 1920, 40);
+
   // Get style
-  _fadedWidget = _win->addWidget(0, 1030, 1920, 50);
   auto style = _fadedWidget->getStyle();
 
   // Edit style
   style.textColor = Color(TEXT_COLOR_R, TEXT_COLOR_G, TEXT_COLOR_B);
-  style.backgroundColor = Color(BACKGROUND_COLOR_R, BACKGROUND_COLOR_G, BACKGROUND_COLOR_B);
-  style.form = RECTANGLE;
   style.policeSize = 24;
 
   // Set style
   _fadedWidget->setStyle(style);
+
+  // Show Popup
   _fadedWidget->showPopup(string, tMilli);
+
+  // Define position
+  _fadedWidget->move((_win->getWidth() - _fadedWidget->getTextWidth()) / 2, 1040);
 }
 
 void			GUI::loadSoundAssets()
