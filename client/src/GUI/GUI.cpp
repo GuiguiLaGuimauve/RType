@@ -318,14 +318,14 @@ void		GUI::displayStart()
   logoStyle.image = "Logo";
 
   Style		s = _startWidgets->button->getStyle();
-  s.form = RECTANGLE;
+  s.form = NO_FORM;
   s.textColor = Color(255, 215, 0);
   s.policeSize = 35;
 
-  _startWidgets->title->setStyle(logoStyle);
   _startWidgets->imput->setStyle(s);
-  _startWidgets->texte->setStyle(s);
   _startWidgets->button->setStyle(s);
+  _startWidgets->title->setStyle(logoStyle);
+  _startWidgets->texte->setStyle(s);
   _startWidgets->chevron->setStyle(s);
 
   _startWidgets->button->setOnClick([](IWidget *fuckingButton, CLICK)
@@ -369,7 +369,7 @@ void		GUI::displayMenu()
   _menuWidgets->confirm->setText("Join");
 
   Style		s = _menuWidgets->confirm->getStyle();
-  s.form = RECTANGLE;
+  s.form = NO_FORM;
   s.textColor = Color(255, 215, 0);
 
   s.policeSize = 35;
@@ -387,21 +387,30 @@ void		GUI::displayMenu()
       IWidget *temp = _win->addWidget(_win->getWidth() / 6, 100 + ((i + 1) * 100), _win->getWidth() / 2, 100);
       Style sgame = temp->getStyle();
       sgame.policeSize = 20;
-      sgame.textColor = Color(255, 215, 255) = 20;
+      sgame.textColor = Color(255, 215, 255);
       temp->setStyle(sgame);
-      temp->setText(elem->getName() + "\t" + std::to_string(elem->getPlayers().size()) + "/" + std::to_string(elem->getMaxPlayers()) + "\tStage " + std::to_string(elem->getLevel()));
+      temp->setText(elem->getName() + "\t" + std::to_string(elem->getPlayers().size())
+		    + "/" + std::to_string(elem->getMaxPlayers())
+		    + "\tStage " + std::to_string(elem->getLevel() + 1));
       // Mettre le OnClick à envoi d'Event avec numero de Game à update (voir avec ClientCore & Max)
       i++;
     }
 
+  if (!_currentGame)
+    if (_menuInfos.size())
+      _currentGame = _menuInfos[0];
+
   if (_currentGame)
     {
-      _menuWidgets->selectedGame = _win->addWidget(3 * (_win->getWidth() / 4), 100, 300, 300);
+      _menuWidgets->selectedGame = _win->addWidget(3 * (_win->getWidth() / 4), 150, 300, 300);
       s.policeSize = 20;
       _menuWidgets->selectedGame->setStyle(s);
-      _menuWidgets->selectedGame->setText("Name : " + _currentGame->getName() + "\nPlayers :\n");
+      _menuWidgets->selectedGame->setText("Name : " + _currentGame->getName() + "\n\nPlayers :\n\n");
       for (auto elem : _currentGame->getPlayers())
-	_menuWidgets->selectedGame->setText(_menuWidgets->selectedGame->getText() + elem->getName() + "\n");
+	_menuWidgets->selectedGame->setText(_menuWidgets->selectedGame->getText() +
+					    elem->getName() + "\t"
+					    + std::to_string(elem->getStageSucceed()) + "/"
+					    + std::to_string(elem->getGamePlayed())+ "\n");
   }
 
   _menuWidgets->confirm->setOnClick([](IWidget *widget, CLICK)
@@ -441,7 +450,7 @@ void		GUI::displayLogin()
   _loginWidgets->chevron2 = _win->addWidget(_win->getWidth() / 3 - 200, _win->getHeight() / 2, 0, 0);
 
   Style		s = _loginWidgets->login->getStyle();
-  s.form = RECTANGLE;
+  s.form = NO_FORM;
   s.textColor = Color(255, 215, 0);
   s.policeSize = 35;
 
