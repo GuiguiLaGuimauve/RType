@@ -5,7 +5,7 @@
 // Login   <rembur_g@epitech.eu>
 //
 // Started on  Thu Dec 15 16:07:43 2016 La Guimauve
-// Last update Fri Dec 16 09:06:23 2016 La Guimauve
+// Last update Tue Dec 20 11:10:50 2016 La Guimauve
 //
 
 #ifdef unix
@@ -22,7 +22,7 @@ bool DLloaderUnix<T>::loadLib(const std::string &path)
   if (this->_lib == NULL)
   {
     std::cerr << "Could not load DLL \"" << path << "\"" << std::endl;
-    throw std::runtime("Library not found in the directory");
+    throw Error::RunTimeError("Library not found in the directory");
   }
   return (true);
 }
@@ -30,14 +30,14 @@ bool DLloaderUnix<T>::loadLib(const std::string &path)
 bool DLloaderUnix<T>::extractLib(const std::string &func)
 {
   if (this->_lib == NULL)
-    throw std::runtime("No lib loaded");
+    throw Error::RunTimeError("No lib loaded");
 
   this->_extract = dlsym(this->_lib, func.c_str());
   if (this->_extract == NULL)
   {
     std::cerr << "Could not locate the function \"" << func << "\" in DLL\""
               << this->_lib << "\"" << std::endl;
-    throw std::runtime("function not found in the lib");
+    throw Error::RunTimeError("function not found in the lib");
   }
 
   this->_func = reinterpret_cast<T*>(this->_extract);
@@ -51,14 +51,14 @@ bool DLloaderUnix<T>::loadandextract(const std::string &path, const std::string 
   if (this->_lib == NULL)
   {
     std::cerr << "Could not load DLL \"" << path << "\"" << std::endl;
-    throw std::runtime("Library not found in the directory");
+    throw Error::RunTimeError("Library not found in the directory");
   }
   this->_extract = dlsym(this->_lib, func.c_str());
   if (this->_extract == NULL)
   {
     std::cerr << "Could not locate the function \"" << func << "\" in DLL\""
               << this->_lib << "\"" << std::endl;
-    throw std::runtime("function not found in the lib");
+    throw Error::RunTimeError("function not found in the lib");
   }
 
   this->_func = reinterpret_cast<T*>(this->_extract);
