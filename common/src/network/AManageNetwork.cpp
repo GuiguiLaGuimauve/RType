@@ -80,13 +80,14 @@ std::vector<std::string>	AManageNetwork::updateUsers(const std::vector<IUserNetw
 bool			AManageNetwork::inList(const std::string &n, const std::vector<std::string> &li)
 {
   uint64_t		i;
-
+  StringCk		st;
+  
   i = 0;
   if (n.empty() == true)
     return (false);
   while (i < li.size())
     {
-      if (n == li[i])
+      if (st.lower(n) == st.lower(li[i]))
 	return (true);
       i++;
     }

@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Mon Dec 19 23:24:16 2016 Maxime Lecoq
-// Last update Tue Dec 20 12:03:17 2016 lecoq
+// Last update Tue Dec 20 13:16:14 2016 lecoq
 //
 
 #include	"ServerData.hh"
@@ -49,7 +49,9 @@ bool	ServerData::loginPlayer(const std::string &name, const std::string &pwd)
 
 bool	ServerData::registerPlayer(const std::string &name, const std::string &pwd)
 {
-  if (name.empty() == true || pwd.empty() == true || playerExist(name) == true)
+  StringCk	st;
+  
+  if (name.empty() == true || pwd.empty() == true || playerExist(name) == true || playerExist(st.lower(name)) == true)
     return (false);
   DataPlayer	*player = new DataPlayer;
 
@@ -97,11 +99,12 @@ DataPlayer	*ServerData::getPlayer(const std::string &name) const
 bool		ServerData::playerExist(const std::string &name) const
 {
   uint64_t	i;
-
+  StringCk	st;
+  
   i = 0;
   while (i < _player.size())
     {
-      if (_player[i]->getName() == name)
+      if (st.lower(_player[i]->getName()) == st.lower(name))
 	return (true);
       i++;
     }
@@ -111,11 +114,12 @@ bool		ServerData::playerExist(const std::string &name) const
 uint64_t	ServerData::getPlayerPos(const std::string &name) const
 {
   uint64_t	i;
-
+  StringCk	st;
+  
   i = 0;
   while (i < _player.size())
     {
-      if (_player[i]->getName() == name)
+      if (st.lower(_player[i]->getName()) == st.lower(name))
 	return (i);
       i++;
     }
@@ -124,8 +128,10 @@ uint64_t	ServerData::getPlayerPos(const std::string &name) const
 
 bool	ServerData::createRoom(const std::string &name, const uint8_t &mPlayer, const std::string &player)
 {
+  StringCk	st;
+  
   std::cout << "try createRoom" << std::endl;
-  if (name.empty() == true || mPlayer == 0 || playerExist(player) == false || roomExist(name) == true)
+  if (name.empty() == true || mPlayer == 0 || playerExist(player) == false || roomExist(name) == true || roomExist(st.lower(name)) == true)
     return (false);
   uint8_t nbPlayer;
   
@@ -195,11 +201,12 @@ DataRoom	*ServerData::getRoom(const std::string &name) const
 bool		ServerData::roomExist(const std::string &name) const
 {
   uint64_t	i;
-
+  StringCk	st;
+  
   i = 0;
   while (i < _room.size())
     {
-      if (_room[i]->getName() == name)
+      if (st.lower(_room[i]->getName()) == st.lower(name))
 	return (true);
       i++;
     }
@@ -209,11 +216,12 @@ bool		ServerData::roomExist(const std::string &name) const
 uint64_t		ServerData::getRoomPos(const std::string &name) const
 {
   uint64_t	i;
-
+  StringCk	st;
+  
   i = 0;
   while (i < _room.size())
     {
-      if (_room[i]->getName() == name)
+      if (st.lower(_room[i]->getName()) == st.lower(name))
 	return (i);
       i++;
     }

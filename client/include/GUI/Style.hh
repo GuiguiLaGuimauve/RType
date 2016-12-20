@@ -26,6 +26,7 @@ namespace Gui
 	bool	password = false;
 	// animations
 	int		frequency = -1;
+	bool	move_animation = false;
 	std::map<std::string, std::vector<std::string> > anims; // string == NORMAL || RIGHT || LEFT || TOP || BOTTOM
   };
 }

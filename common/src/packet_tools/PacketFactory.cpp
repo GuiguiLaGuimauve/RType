@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 11:43:18 2016 Maxime Lecoq
-// Last update Mon Dec 19 15:00:03 2016 lecoq
+// Last update Tue Dec 20 12:43:05 2016 lecoq
 //
 
 #include	"PacketFactory.hh"
@@ -25,6 +25,7 @@ PacketFactory::PacketFactory()
   _pkt11 = new PacketContener<const std::vector<DataEnnemy *> &>(this);
   _pkt12 = new PacketContener<const std::vector<DataBackground *> &>(this);
   _pkt13 = new PacketContener<const std::vector<DataPlayer *> &>(this);
+  _pkt14 = new PacketContener<const DataPlayer *>(this);
   _pktDeserialiser = new PacketContener<const uint8_t *>(this);
 }
 
@@ -43,6 +44,7 @@ PacketFactory::~PacketFactory()
   delete _pkt11;
   delete _pkt12;
   delete _pkt13;
+  delete _pkt14;
   delete _pktDeserialiser;
 }
 
@@ -212,6 +214,7 @@ void		PacketFactory::enableSerialiser(const std::string &packet)
   _pkt11->enable(packet);
   _pkt12->enable(packet);
   _pkt13->enable(packet);
+  _pkt14->enable(packet);
 }
 
 void		PacketFactory::enableDeserialiser(const std::string &packet)
@@ -429,6 +432,14 @@ IPacket		*PacketFactory::getPlayers(const std::vector<DataPlayer *> &m)
   return (ret);  
 }
 
+IPacket		*PacketFactory::getProfile(const DataPlayer *m)
+{
+  IPacket	*ret= new PacketProfile(m);
+
+  return (ret);  
+}
+
+
 IPacket		*PacketFactory::revErrorPacket(const uint8_t *p)
 {
   IPacket	*pa = new PacketError(p);
@@ -609,5 +620,11 @@ IPacket		*PacketFactory::revAskRoomData(const uint8_t *p)
 IPacket		*PacketFactory::revAccept(const uint8_t *p)
 {
   IPacket *pa = new PacketAccept(p);
+  return (pa);
+}
+
+IPacket		*PacketFactory::revProfile(const uint8_t *p)
+{
+  IPacket *pa = new PacketProfile(p);
   return (pa);
 }
