@@ -1,5 +1,6 @@
 #include "GUI.hh"
 #include "SpriteMap.hpp"
+#include "Assets.hh"
 
 using namespace Gui;
 
@@ -168,7 +169,7 @@ void		GUI::displayGame()
   _gameWidgets = new Game;
 
   //this->_gameWidgets->levelId = ...
-  _win->setBackground("../client/Assets/RType_background.bmp");
+  _win->setBackground(PICTURE_BACKGROUND);
   //_win->setBackground(this->backgroundMap[this->_gameWidgets->levelId]);// Ou on pourrait set le levelId ?
 
   struct data oui;
@@ -279,17 +280,17 @@ void		GUI::displayStart()
 {
   deleteWidgets();
   // custom window
-  _win->setBackground("../client/Assets/RType_background.bmp");
+  _win->setBackground(PICTURE_BACKGROUND);
   _audio->playMusic("TitleScreen");
   // init
   _startWidgets = new Start;
-  _startWidgets->title = _win->addWidget(_win->getWidth() / 3 + 60, _win->getHeight() / 4, _win->getWidth() / 2, 100);
+  _startWidgets->title = _win->addWidget((_win->getWidth() - 445) / 2, _win->getHeight() / 6, 0, 0);
   _startWidgets->texte = _win->addWidget(_win->getWidth() / 3 - 80, _win->getHeight() / 2 - 100, _win->getWidth() / 2, 100);
   _startWidgets->imput = _win->addWidget(_win->getWidth() / 3, _win->getHeight() / 2 + 20, _win->getWidth() / 2, 175);
   _startWidgets->button = _win->addWidget(_win->getWidth() / 3 + 170, (2 * _win->getHeight()) / 3, 250, 40);
   _startWidgets->chevron = _win->addWidget((_win->getWidth() / 3) - 200, _win->getHeight() / 2 + 20, 0, 0);
   // custom button
-  _startWidgets->texte->setText("ENTER THE ADDRESS:PORT");
+  _startWidgets->texte->setText("ENTER THE ADDRESS");
   _startWidgets->button->setText("CONNECT");
   _startWidgets->chevron->setText(">");
   _startWidgets->imput->setText("127.0.0.1:4242");
@@ -349,7 +350,7 @@ void		GUI::displayStart()
 void		GUI::displayMenu()
 {
   deleteWidgets();
-  _win->setBackground("../client/Assets/RType_background.bmp");
+  _win->setBackground(PICTURE_BACKGROUND);
   _menuWidgets = new Menu;
 
   _menuWidgets->GameContainer = _win->addWidget(_win->getWidth() / 6, 100, 1000, 300);
@@ -450,7 +451,7 @@ void		GUI::displayLogin()
 {
   deleteWidgets();
   _loginWidgets = new Login;
-  _win->setBackground("../client/Assets/RType_background.bmp");
+  _win->setBackground(PICTURE_BACKGROUND);
   _loginWidgets->login = _win->addWidget(_win->getWidth() / 3, _win->getHeight() / 4, _win->getWidth() / 2, 180);
   _loginWidgets->password = _win->addWidget(_win->getWidth() / 3, _win->getHeight() / 2, _win->getWidth() / 2, 180);
   _loginWidgets->confirm = _win->addWidget(_win->getWidth() / 3 + 150, (2 * _win->getHeight()) / 3,  250, 50);
@@ -614,11 +615,11 @@ void			GUI::showPopup(const std::string &string, int tMilli)
 
 void			GUI::loadSoundAssets()
 {
-  _audio->loadSound("../client/Assets/TitleScreen.ogg", "TitleScreen");
-  _audio->loadSound("../client/Assets/Stage1.ogg", "Stage1");
-  _audio->loadSound("../client/Assets/Stage2.ogg", "Stage2");
-  _audio->loadSound("../client/Assets/Stage3.ogg", "Stage3");
-  _audio->loadSound("../client/Assets/Stage4.ogg", "Stage4");
+  _audio->loadSound(SOUNDS_TITLESCREEN, "TitleScreen");
+  _audio->loadSound(SOUNDS_STAGE1, "Stage1");
+  _audio->loadSound(SOUNDS_STAGE2, "Stage2");
+  _audio->loadSound(SOUNDS_STAGE3, "Stage3");
+  _audio->loadSound(SOUNDS_STAGE4, "Stage4");
 }
 
 void			GUI::setRooms(const std::vector<DataRoom *> &d)

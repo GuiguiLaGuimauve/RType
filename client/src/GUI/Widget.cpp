@@ -8,7 +8,7 @@ Widget::Widget(sf::RenderWindow *w, int x, int y, int width, int height, const s
   _ptrClick(NULL), _ptrFocus(NULL), _ptrLeaveFocus(NULL),
   _ptrHover(NULL), _ptrLeaveHover(NULL), _ptrText(NULL), _eventQueue(NULL)
 {
-  _font.loadFromFile("../client/font/PrStart.ttf");
+  _font.loadFromFile(FONT_PTSTART);
   setStyle(_style);
   move(_x, _y);
   resize(_width, _height);
