@@ -32,19 +32,19 @@ void                Widget::draw()
 	  if (_style.move_animation == false)
 	  {
 		  auto sprites = _animations["NORMAL"];
-		  if (_anim_timer.getTimeMilli() > _style.frequency * sprites.size())
+		  if (_anim_timer.getTimeMilli() > _style.frequency * (int)sprites.size())
 			  _anim_timer.reset();
 		  int i = _anim_timer.getTimeMilli() / _style.frequency;
-		  if (i < sprites.size())
+		  if (i < (int)sprites.size())
 		    _win->draw(sprites[i]);
 	  }
 	  else
 	  {
 		  auto sprites = _animations[_direction];
-		  if (_anim_timer.getTimeMilli() > _style.frequency)
+		  if (_anim_timer.getTimeMilli() > _style.frequency * (int)sprites.size())
 			  _anim_timer.reset();
 		  int i = _anim_timer.getTimeMilli() / _style.frequency;
-		  if (i < sprites.size())
+		  if (i < (int)sprites.size())
 		    _win->draw(sprites[i]);
 	  }
   }

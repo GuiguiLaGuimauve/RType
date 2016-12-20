@@ -21,8 +21,8 @@ namespace Gui
       virtual ~SoundManager();
 
       void	loadSound(const std::string &path, const std::string &key);
-      void      playSound(const std::string &, int = 50);
-      void      playMusic(const std::string &, int = 50);
+      void      playSound(const std::string &, float = 50.0);
+      void      playMusic(const std::string &, float = 50.0);
       void      stopMusic();
       void	clearCurrentSounds();
     protected:

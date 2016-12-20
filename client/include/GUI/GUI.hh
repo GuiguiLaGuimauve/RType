@@ -68,6 +68,7 @@ namespace Gui
       IWidget	*selectedGame = NULL;
       //std::vector<IWidget*>	Games = NULL;
       IWidget	*profile = NULL;
+      IWidget	*profileInfo = NULL;
       IWidget	*createGame = NULL;
       IWidget	*confirm = NULL;
       /* Vecteur de joueurs connectés */

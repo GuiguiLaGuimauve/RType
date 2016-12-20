@@ -22,7 +22,7 @@ void		SoundManager::loadSound(const std::string &filepath, const std::string &ke
   _soundsMemory[key] = buffer;
 }
 
-void		SoundManager::playSound(const std::string &key, int volume)
+void		SoundManager::playSound(const std::string &key, float volume)
 {
   auto i = _soundsMemory.find(key);
   
@@ -37,7 +37,7 @@ void		SoundManager::playSound(const std::string &key, int volume)
     }
 }
 
-void		SoundManager::playMusic(const std::string &key, int volume)
+void		SoundManager::playMusic(const std::string &key, float volume)
 {
   if (_musicName == key)
     return;

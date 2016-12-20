@@ -361,25 +361,36 @@ void		GUI::displayMenu()
   _menuWidgets->GameInfos = _win->addWidget(3 * (_win->getWidth() / 4), 100, 1000, 300);
   _menuWidgets->createGame = _win->addWidget(3 * (_win->getWidth() / 4), 5 * (_win->getHeight() / 6), 50, 60);
   _menuWidgets->profile = _win->addWidget(3 * (_win->getWidth() / 4), _win->getHeight() / 2, _win->getHeight() / 4, 300);
+  _menuWidgets->profileInfo = _win->addWidget(3 * (_win->getWidth() / 4), _win->getHeight() / 2 + 100, _win->getHeight() / 4, 300);
   _menuWidgets->confirm = _win->addWidget(4 * (_win->getWidth() / 5), 5 * (_win->getHeight() / 6) + 10, 135, 45);
   _menuWidgets->GameContainer->setText("Games");
   _menuWidgets->GameInfos->setText("Infos");
   _menuWidgets->createGame->setText("+");
   _menuWidgets->profile->setText("Profile");
-  _menuWidgets->confirm->setText("Join");
+  if (_profile != NULL)
+    {
+      _menuWidgets->profileInfo->setText("Name :\t" + _profile->getName()
+				     + "\nPlay/Succes :\t" + std::to_string(_profile->getGamePlayed())
+				     + "/" + std::to_string(_profile->getStageSucceed()));
+    }
+    _menuWidgets->confirm->setText("Join");
 
   Style		s = _menuWidgets->confirm->getStyle();
   s.form = NO_FORM;
-  s.textColor = Color(255, 215, 0);
+  s.textColor = Color(255, 215, 255);
 
+  s.policeSize = 20;
+  _menuWidgets->profileInfo->setStyle(s);
   s.policeSize = 35;
   _menuWidgets->GameContainer->setStyle(s);
   _menuWidgets->profile->setStyle(s);
   _menuWidgets->GameInfos->setStyle(s);
+  s.textColor = Color(255, 215, 0);
   _menuWidgets->confirm->setStyle(s);
   s.policeSize = 60;
   _menuWidgets->createGame->setStyle(s);
-
+  s.textColor = Color(255, 215, 255);  
+  
   std::cout << "A l'initialisation, la size de mes Rooms est " << _menuInfos.size() << std::endl;
   int i = 0;
   for (auto elem : _menuInfos)
@@ -578,5 +589,8 @@ void			GUI::setRooms(const std::vector<DataRoom *> &d)
 
 void			GUI::setProfile(DataPlayer *p)
 {
+  std::cout << "Je met a jour le profile, mon nom est " << p->getName()
+	    << " mon nombre partie jouees/gagnes" << std::to_string(p->getGamePlayed())
+	    << "/" << std::to_string(p->getStageSucceed()) << std::endl;
   _profile = p;
 }
