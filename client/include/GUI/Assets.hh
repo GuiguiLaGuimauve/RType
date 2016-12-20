@@ -26,12 +26,16 @@
 #define SOUNDS_STAGE4 			"assets/sounds/stage4.ogg"
 
 
-#define TEXT_COLOR_R			240
-#define TEXT_COLOR_G			195
-#define TEXT_COLOR_B			50
+#define TEXT_COLOR_R			255
+#define TEXT_COLOR_G			215
+#define TEXT_COLOR_B			0
 
 #define BACKGROUND_COLOR_R		0
 #define BACKGROUND_COLOR_G		0
 #define BACKGROUND_COLOR_B		0
+
+#define TEXT_DEFAULT_IP			"127.0.0.1:4242"
+#define TEXT_ADDRESS			"ENTER THE ADDRESS"
+#define TEXT_CONNECT			"CONNECT"
 
 #endif
