@@ -396,6 +396,7 @@ void		GUI::displayStart()
 void		GUI::displayMenu()
 {
 	Style		s;
+	updateGameInfo();
 	deleteWidgets();
 	_win->setBackground(PICTURE_BACKGROUND);
 	_menuWidgets = new Menu;
@@ -433,7 +434,7 @@ void		GUI::displayMenu()
 	_menuWidgets->createGame->setOnLeaveHover(TextColorNoFocus);
 
 	// init profile text
-	_menuWidgets->profile = _win->addWidget(3 * (_win->getWidth() / 4), _win->getHeight() / 2, _win->getHeight() / 4, 300);
+	_menuWidgets->profile = _win->addWidget(3 * (_win->getWidth() / 4), 3 * (_win->getHeight() / 4), _win->getHeight() / 4, 300);
 	_menuWidgets->profile->setText("Profile");
 	s = _menuWidgets->profile->getStyle();
 	s.policeSize = 35;
@@ -441,7 +442,7 @@ void		GUI::displayMenu()
 	_menuWidgets->profile->setStyle(s);
 
 	// init profile into
-	_menuWidgets->profileInfo = _win->addWidget(3 * (_win->getWidth() / 4), _win->getHeight() / 2 + 100, _win->getHeight() / 4, 300);
+	_menuWidgets->profileInfo = _win->addWidget(3 * (_win->getWidth() / 4), 3 * (_win->getHeight() / 4) + 100, _win->getHeight() / 4, 300);
 	if (_profile != NULL)
 	{
 	  _menuWidgets->profileInfo->setText("Name :\t" + _profile->getName()
@@ -454,23 +455,39 @@ void		GUI::displayMenu()
 	_menuWidgets->profileInfo->setStyle(s);
 
 	// bouton confirm pour join
-	_menuWidgets->confirm = _win->addWidget(4 * (_win->getWidth() / 5), 5 * (_win->getHeight() / 6) + 10, 135, 45);
-	_menuWidgets->confirm->setText("Join");
+	_menuWidgets->confirm = _win->addWidget(3 * (_win->getWidth() / 4), 600, 100, 35);
+	_menuWidgets->confirm->setText("JOIN");
 	s = _menuWidgets->confirm->getStyle();
 	s.policeSize = 20;
 	s.textColor = Color(255, 215, 0);
 	_menuWidgets->confirm->setStyle(s);
 	_menuWidgets->confirm->setOnClick([](IWidget *widget, CLICK)
 	{
-		std::cout << "Let's connect !" << std::endl;
+		std::cout << "Let's join !" << std::endl;
 		auto eq = widget->getEventQueue();
 		eq->push(EventPart::Event(EventPart::Event::BUTTON_JOIN_GAME));
 	});
 	_menuWidgets->confirm->setOnHover(TextColorFocus);
 	_menuWidgets->confirm->setOnLeaveHover(TextColorNoFocus);
 
+	// bouton confirm pour leave
+	_menuWidgets->leaveButton = _win->addWidget(3 * (_win->getWidth() / 4), 600, 100, 35);
+	_menuWidgets->leaveButton->setText("LEAVE");
+	s = _menuWidgets->leaveButton->getStyle();
+	s.policeSize = 20;
+	s.textColor = Color(255, 215, 0);
+	_menuWidgets->leaveButton->setStyle(s);
+	_menuWidgets->leaveButton->setOnClick([](IWidget *widget, CLICK)
+	{
+		std::cout << "Let's leave !" << std::endl;
+		auto eq = widget->getEventQueue();
+		eq->push(EventPart::Event(EventPart::Event::BUTTON_LEAVE_GAME));
+	});
+	_menuWidgets->leaveButton->setOnHover(TextColorFocus);
+	_menuWidgets->leaveButton->setOnLeaveHover(TextColorNoFocus);
+
 	// bouton pour regarder la game
-	_menuWidgets->watchButton = _win->addWidget(4 * (_win->getWidth() / 5), 5 * (_win->getHeight() / 6) + 100, 135, 45);
+	_menuWidgets->watchButton = _win->addWidget(5 * (_win->getWidth() / 6), 600, 100, 35);
 	_menuWidgets->watchButton->setText("WATCH");
 	s = _menuWidgets->watchButton->getStyle();
 	s.policeSize = 20;
@@ -478,12 +495,28 @@ void		GUI::displayMenu()
 	_menuWidgets->watchButton->setStyle(s);
 	_menuWidgets->watchButton->setOnClick([](IWidget *widget, CLICK)
 	{
-		std::cout << "Let's connect !" << std::endl;
+		std::cout << "Let's watch !" << std::endl;
 		auto eq = widget->getEventQueue();
 		eq->push(EventPart::Event(EventPart::Event::BUTTON_WATCH_GAME));
 	});
 	_menuWidgets->watchButton->setOnHover(TextColorFocus);
 	_menuWidgets->watchButton->setOnLeaveHover(TextColorNoFocus);
+
+	// bouton pour lancer la game
+	_menuWidgets->startButton = _win->addWidget(5 * (_win->getWidth() / 6) + 120, 600, 100, 35);
+	_menuWidgets->startButton->setText("START");
+	s = _menuWidgets->startButton->getStyle();
+	s.policeSize = 20;
+	s.textColor = Color(255, 215, 0);
+	_menuWidgets->startButton->setStyle(s);
+	_menuWidgets->startButton->setOnClick([](IWidget *widget, CLICK)
+	{
+		std::cout << "Let's begin !" << std::endl;
+		auto eq = widget->getEventQueue();
+		eq->push(EventPart::Event(EventPart::Event::BUTTON_START_GAME));
+	});
+	_menuWidgets->startButton->setOnHover(TextColorFocus);
+	_menuWidgets->startButton->setOnLeaveHover(TextColorNoFocus);
 
 	// affichage de toutes les rooms dans updateGameInfo()
 	// affichage des infos de la game selectionnée
@@ -492,6 +525,7 @@ void		GUI::displayMenu()
 	s.policeSize = 20;
 	s.textColor = Color(255, 215, 255);
 	_menuWidgets->selectedGame->setStyle(s);
+	//Set la room par defaut a la premiere
 	updateCurrentGame();// A mettre a la reception d'un setDataRoom()
 }
 
@@ -590,7 +624,7 @@ void		GUI::updateGameInfo(/*const GameInfo &*/)
 		       });
       _menuWidgets->games.push_back(temp);
       i++;
-    }  
+    }
 }
 
 void		GUI::setEventQueue(EventPart::IEventQueue *eq)
@@ -685,7 +719,11 @@ void			GUI::setProfile(DataPlayer *p)
 
 void		GUI::updateCurrentGame()
 {
-	// affichage du texte
+  if (!_currentGame)
+    if (_menuInfos.size() != 0)
+      _currentGame = _menuInfos[0];
+
+  // affichage du texte
 	if (_currentGame)
 	{
 		std::stringstream ss;
@@ -707,26 +745,61 @@ void		GUI::updateCurrentGame()
 		_menuWidgets->selectedGame->setText("");
 	}
 	// affichage du bouton join
-	if (_currentGame && _currentGame->getNbPlayers() < _currentGame->getMaxPlayers())
+	if (_currentGame && _currentGame->getNbPlayers() < _currentGame->getMaxPlayers()
+	    && isInGame(_currentGame->getPlayers()) == false)
 	{
-		_menuWidgets->confirm->setText("JOIN");
-		_menuWidgets->confirm->resize(200, 75);
+	  _menuWidgets->confirm->setText("JOIN");
+	  _menuWidgets->confirm->resize(100, 35);
 	}
 	else
 	{
-		_menuWidgets->confirm->setText("");
-		_menuWidgets->confirm->resize(0, 0);
+	  _menuWidgets->confirm->setText("");
+	  _menuWidgets->confirm->resize(0, 0);
+	}
+	// affichage du bouton leave
+	if (_currentGame && _profile && isInGame(_currentGame->getPlayers()) == true)
+	{
+	  _menuWidgets->leaveButton->setText("LEAVE");
+	  _menuWidgets->leaveButton->resize(100, 35);
+	}
+	else
+	{
+	  _menuWidgets->leaveButton->setText("");
+	  _menuWidgets->leaveButton->resize(0, 0);
 	}
 	// bouton watch
 	// affichage du bouton watch
-	if (_currentGame)
+	if (_currentGame && isInGame(_currentGame->getPlayers()) == false)
 	{
 		_menuWidgets->watchButton->setText("WATCH");
-		_menuWidgets->watchButton->resize(200, 75);
+		_menuWidgets->watchButton->resize(100, 35);
 	}
 	else
 	{
 		_menuWidgets->watchButton->setText("");
 		_menuWidgets->watchButton->resize(0, 0);
 	}
+	// bouton start
+	// affichage du bouton watch
+	if (_currentGame && _profile && _currentGame->getPlayers()[0]->getName() == _profile->getName())
+	{
+	  _menuWidgets->startButton->setText("START");
+	  _menuWidgets->startButton->resize(100, 35);
+	}
+	else
+	{
+	  _menuWidgets->startButton->setText("");
+	  _menuWidgets->startButton->resize(0, 0);
+	}
+}
+
+bool	GUI::isInGame(std::vector<DataPlayer*> roomPlayers)
+{
+  if (_profile)
+    for (auto elem : roomPlayers)
+      {
+	if (elem->getName() == _profile->getName())
+	  return (true);
+      }
+  return (false);
 }
