@@ -11,7 +11,6 @@ GuiEventManager::GuiEventManager(sf::Window *w):
   _keys[sf::Keyboard::Up] = KEY_UP;
   _keys[sf::Keyboard::Space] = KEY_ATTACK;
   _keys[sf::Keyboard::Escape] = KEY_QUIT;
-  _keys[sf::Keyboard::Q] = KEY_QUIT;
 }
 
 GuiEventManager::~GuiEventManager()
