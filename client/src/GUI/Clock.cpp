@@ -30,7 +30,7 @@ int					Clock::getTime()
   int					dest;
 
   tmp = std::chrono::system_clock::now();
-  dest = std::chrono::duration_cast<std::chrono::seconds>(tmp - first).count();
+  dest = (int) std::chrono::duration_cast<std::chrono::seconds>(tmp - first).count();
   return (dest);
 }
 
@@ -40,7 +40,7 @@ int					Clock::getTimeMilli()
   int					dest;
 
   tmp = std::chrono::system_clock::now();
-  dest = std::chrono::duration_cast<std::chrono::milliseconds>(tmp - first).count();
+  dest = (int) std::chrono::duration_cast<std::chrono::milliseconds>(tmp - first).count();
   return (dest);
 }
 
@@ -50,6 +50,6 @@ int					Clock::getTimeNano()
   int					dest;
 
   tmp = std::chrono::system_clock::now();
-  dest = std::chrono::duration_cast<std::chrono::nanoseconds>(tmp - first).count();
+  dest = (int) std::chrono::duration_cast<std::chrono::nanoseconds>(tmp - first).count();
   return (dest);
 }
