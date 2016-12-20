@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Mon Dec 19 23:24:16 2016 Maxime Lecoq
-// Last update Tue Dec 20 22:35:58 2016 julien dufrene
+// Last update Tue Dec 20 23:14:47 2016 lecoq
 //
 
 #include	"ServerData.hh"
@@ -51,8 +51,9 @@ bool	ServerData::loginPlayer(const std::string &name, const std::string &pwd)
   if (name.empty() == true || pwd.empty() == true || playerExist(name) == false)
     return (false);
   DataPlayer	*player = getPlayer(name);
-
-  if (player->getPassword() == pwd && player->getOnline() == false)
+  Crypt		cr;
+  
+  if (player->getPassword() == cr._sha1(pwd) && player->getOnline() == false)
     {
       player->setOnline(true);
       std::cout << name << " just login" << std::endl;
@@ -69,9 +70,11 @@ bool	ServerData::registerPlayer(const std::string &name, const std::string &pwd)
   if (name.empty() == true || pwd.empty() == true || playerExist(name) == true || playerExist(st.lower(name)) == true)
     return (false);
   DataPlayer	*player = new DataPlayer;
-
+  Crypt		cr;
+  
   player->setName(name);
-  player->setPassword(pwd);
+  std::cout << pwd << " " << cr._sha1(pwd) << " " << cr._sha1(pwd) << std::endl;
+  player->setPassword(cr._sha1(pwd));
   player->setOnline(true);
   _player.push_back(player);
   std::cout << name << " just register" << std::endl;

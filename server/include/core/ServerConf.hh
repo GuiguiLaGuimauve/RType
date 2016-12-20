@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Tue Dec 20 02:32:21 2016 Maxime Lecoq
-// Last update Tue Dec 20 21:58:09 2016 julien dufrene
+// Last update Tue Dec 20 23:00:20 2016 lecoq
 //
 
 #ifndef SERVERCONF_HH_
@@ -19,6 +19,7 @@
 # include "File.hh"
 # include "Convert.hpp"
 # include "Vector.hh"
+# include "Crypt.hh"
 
 class ServerConf {
 public:
