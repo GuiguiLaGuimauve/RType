@@ -57,11 +57,11 @@ void                Widget::resize(int w, int h)
 {
   _width = w;
   _height = h;
-  _rectangle.setSize(sf::Vector2f(_width, _height));
+  _rectangle.setSize(sf::Vector2f((float) _width, (float) _height));
   // plus tard il y aura un truc pour redimensionner l'image
   // solution => http://fr.sfml-dev.org/forums/index.php?topic=10739.0
   if (_width != 0)
-    _circle.setRadius(_width / 2);
+    _circle.setRadius((float) _width / 2);
   else
     _circle.setRadius(0);
 }
@@ -70,10 +70,12 @@ void                Widget::move(int x, int y)
 {
   _x = x;
   _y = y;
-  _rectangle.move(_x, _y);
-  _circle.move(_x, _y);
-  _sfmlText.setPosition(_x, _y);
-  _background.move(_x, _y);
+  float X = (float) _x;
+  float Y = (float) _y;
+  _rectangle.move(X, Y);
+  _circle.move(X, Y);
+  _sfmlText.setPosition(X, Y);
+  _background.move(X, Y);
 }
 
 void                Widget::setText(const std::string &s)
@@ -201,7 +203,7 @@ void                Widget::setStyle(const Style &s)
   if (_style.image != "")
     {
       _background = SpriteMap::getSprite(_style.image);
-      _background.setPosition(this->getX(), this->getY());
+      _background.setPosition((float) getX(), (float) getY());
     }
 	setText(getText());
 }
