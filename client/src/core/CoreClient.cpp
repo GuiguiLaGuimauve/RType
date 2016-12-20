@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Tue Dec 20 13:59:22 2016 lecoq
+// Last update Tue Dec 20 21:06:46 2016 lecoq
 //
 
 #include	"CoreClient.hh"
@@ -23,7 +23,7 @@ CoreClient::CoreClient()
   _packetPtr[IPacket::PacketType::ERROR_PACKET] = &CoreClient::errorPacket;
   _packetPtr[IPacket::PacketType::ROOMS] = &CoreClient::rooms;
   _packetPtr[IPacket::PacketType::PROFILE] = &CoreClient::profile;
-  _isConnectToServ = false;
+  _status = "connect";
 }
 
 CoreClient::~CoreClient()
@@ -67,11 +67,11 @@ bool	CoreClient::manageNetwork()
       _tcp->updateUsers(_tcp->execClient());
       _udp->updateUsers(_udp->execClient());
     }
-  if (_isConnectToServ == true && _tcp->hasServerRunning() == false)
+  if (_status != "connect" && _tcp->hasServerRunning() == false)
     {
       _gui->displayStart();
-      _isConnectToServ = false;
       _tcp->run();
+      _status = "connect";
     }
   return (true);
 }
@@ -196,7 +196,6 @@ bool	CoreClient::createGame(EventPart::Event e)
 {
   IPacket *pa = _factory->getPacket("createroom", rmname, 4);
   _tcp->pushToServ(pa->getPacketUnknown());
-  std::cout << "plop" << std::endl;
   (void)e;
   return (true);
 }
@@ -227,7 +226,7 @@ bool		CoreClient::accept(const IPacket *pa, IUserNetwork *u)
 
   std::cout << p->getMessage() << std::endl;
   _gui->displayLogin();
-  _isConnectToServ = true;
+  _status = "login";
   (void)u;
   return (true);
 }
@@ -237,7 +236,7 @@ bool		CoreClient::rooms(const IPacket *pa, IUserNetwork *u)
   PacketRooms	*p = (PacketRooms *)pa;
 
   _gui->setRooms(p->getRooms());
-  _gui->displayMenu();
+  _status = "rooms";
   (void)u;
   return (true);
 }
@@ -247,6 +246,8 @@ bool		CoreClient::profile(const IPacket *pa, IUserNetwork *u)
   PacketProfile	*p = (PacketProfile *)pa;
 
   _gui->setProfile(p->getPlayer());
+  if (_status == "login")
+    _gui->displayMenu();
   (void)u;
   return (true);
 }
