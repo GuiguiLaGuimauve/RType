@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 //
 // Started on  Fri Oct 21 14:44:09 2016 julien dufrene
-// Last update Mon Dec 19 23:16:00 2016 julien dufrene
+// Last update Tue Dec 20 13:41:38 2016 lecoq
 //
 
 #ifndef _AUSERNETWORK_HH_
@@ -14,6 +14,7 @@
 #include "IUserNetwork.hh"
 #include "Buffer.hh"
 #include <iostream>
+#include "PacketDeserializer.hh"
 
 namespace Network
 {
@@ -59,6 +60,7 @@ namespace Network
     void                                        setPseudo(const std::string &);
     /* La méthode getPseudo() permet de récupérer le pseudo de l'utilisateur */
     const std::string				&getPseudo() const;
+    void					cutRead(uint8_t *, const int32_t &);
   protected:
     /* Le booléen _status permet de savoir si l'utilisateur est connecté ou non */
     bool				_status;

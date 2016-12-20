@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 11:43:18 2016 Maxime Lecoq
-// Last update Tue Dec 20 12:43:05 2016 lecoq
+// Last update Tue Dec 20 13:32:01 2016 lecoq
 //
 
 #include	"PacketFactory.hh"
@@ -192,6 +192,16 @@ IPacket		*PacketFactory::getPacket(const std::string &p, const std::vector<DataP
 IPacket		*PacketFactory::getPacket(const IPacket::PacketType &p, const std::vector<DataPlayer *> &m) 
 {
   return (_pkt13->getPacket(p, m));
+}
+
+IPacket		*PacketFactory::getPacket(const std::string &p, const DataPlayer *m) 
+{
+  return (_pkt14->getPacket(p, m));
+}
+
+IPacket		*PacketFactory::getPacket(const IPacket::PacketType &p, const DataPlayer *m) 
+{
+  return (_pkt14->getPacket(p, m));
 }
 
 IPacket		*PacketFactory::getPacket(const uint8_t *p) const

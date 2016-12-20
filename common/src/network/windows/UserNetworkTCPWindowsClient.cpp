@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Fri Oct 21 15:02:22 2016 julien dufrene
-// Last update Sun Dec 18 20:09:32 2016 lecoq
+// Last update Tue Dec 20 13:39:05 2016 lecoq
 //
 
 #include "UserNetworkTCPWindowsClient.hh"
@@ -32,15 +32,16 @@ IUserNetwork		*UserNetworkTCPWindowsClient::readSocket(ISocket *net)
 	if (WSARecv(_fd, &DataBuf, 1, &RecvBytes, &Flags, NULL, NULL) != SOCKET_ERROR)
 	{
 		char			*res = new char[RecvBytes];
-		uint32_t		i = 0;
+		int32_t			i = 0;
 		while (i < RecvBytes)
 		{
 			res[i] = DataBuf.buf[i];
 			i++;
 		}
 		res[i] = 0;
-		PacketUnknown pkt((uint8_t *)res, RecvBytes);
-		buff_r.push(pkt);   
+		cutRead((uint8_t *)res, i);
+		//		PacketUnknown pkt((uint8_t *)res, RecvBytes);
+		//buff_r.push(pkt);   
 	}
 	else
 	{

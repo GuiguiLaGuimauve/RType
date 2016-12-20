@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Fri Oct 21 14:44:09 2016 julien dufrene
-// Last update Mon Dec 19 23:16:13 2016 julien dufrene
+// Last update Tue Dec 20 13:35:46 2016 lecoq
 //
 
 #ifndef _IUSERNETWORK_HH_

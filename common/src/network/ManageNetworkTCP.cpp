@@ -82,7 +82,7 @@ std::vector<IUserNetwork *>	ManageNetworkTCP::execClient()
 	if (FD_ISSET(_user[i]->getFd(), &fd_read))
 	  {
 	    _user[i]->readSocket(_net);
-	    if (_user[i]->getStatus() == true && _user[i]->haveSomethingToRead() == true)
+	    while (_user[i]->getStatus() == true && _user[i]->haveSomethingToRead() == true)
 	      {
 		PacketUnknown pk = _user[i]->popBufferRead();
 		_read->push(PacketC(pk, _user[i]));
@@ -117,7 +117,7 @@ std::vector<IUserNetwork *>	ManageNetworkTCP::execServer()
 		newuser.push_back(u);
 	      }
 	    else
-	      if (_user[i]->getStatus() == true && _user[i]->haveSomethingToRead() == true)
+	      while (_user[i]->getStatus() == true && _user[i]->haveSomethingToRead() == true)
 		{
 		  PacketUnknown pk = _user[i]->popBufferRead();
 		  _read->push(PacketC(pk, _user[i]));
