@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Fri Dec 16 11:37:09 2016 julien dufrene
-// Last update Tue Dec 20 00:47:25 2016 julien dufrene
+// Last update Tue Dec 20 09:46:56 2016 julien dufrene
 //
 
 #include	"ManageNetworkUDP.hh"
@@ -76,7 +76,7 @@ std::vector<IUserNetwork *>	ManageNetworkUDP::execServer()
   while (i < (int32_t)_user.size())
     {
       u = _user[i]->readSocket(_net);
-      if (_user[i]->getIp() != u->getIp())
+      if (_user[i]->getIp() != u->getIp() || _user[i]->getPort() != u->getPort())
 	{
 	  std::cout << "new client udp" << std::endl;
 	  if (u->haveSomethingToRead() == true)
