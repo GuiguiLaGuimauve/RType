@@ -5,7 +5,7 @@
 ** Login   <lecoq_m@epitech.net>
 **
 ** Started on  Mon Oct 17 13:11:20 2016 Maxime Lecoq
-// Last update Tue Dec 20 04:04:09 2016 lecoq
+// Last update Tue Dec 20 13:21:01 2016 lecoq
 */
 
 #ifndef		__IMANAGENETWORK_HH__
@@ -19,6 +19,7 @@
 #include	"IUserNetwork.hh"
 #include        "IPacketQueue.hh"
 #include        "PacketFactory.hh"
+#include	"StringCk.hpp"
 
 namespace Network
 {

@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 10:58:37 2016 Maxime Lecoq
-// Last update Mon Dec 19 14:59:02 2016 lecoq
+// Last update Tue Dec 20 12:44:08 2016 lecoq
 //
 
 #include "ManagerPacketClient.hh"
@@ -45,7 +45,8 @@ ManagerPacketClient::ManagerPacketClient()
   _factory->enableDeserialiser("sound");
   _factory->enableDeserialiser("ping");
   _factory->enableDeserialiser("pong");
-  _factory->enableDeserialiser("accept"); 
+  _factory->enableDeserialiser("accept");
+  _factory->enableDeserialiser("profile"); 
 }
 
 ManagerPacketClient::~ManagerPacketClient()

@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 11:41:19 2016 Maxime Lecoq
-// Last update Mon Dec 19 16:34:12 2016 lecoq
+// Last update Tue Dec 20 12:58:32 2016 lecoq
 //
 
 #ifndef PACKETFACTORY_HH_
@@ -56,6 +56,8 @@ public:
   IPacket	*getPacket(const IPacket::PacketType &, const std::vector<DataBackground *> &);
   IPacket	*getPacket(const std::string &, const std::vector<DataPlayer *> &);
   IPacket	*getPacket(const IPacket::PacketType &, const std::vector<DataPlayer *> &);
+  IPacket	*getPacket(const std::string &, const DataPlayer *);
+  IPacket	*getPacket(const IPacket::PacketType &, const DataPlayer *);
   
   IPacket *	getPacket(const uint8_t *) const;
   void		enableSerialiser(const std::string &);
@@ -104,6 +106,8 @@ public:
 
   IPacket	*getPlayers(const std::vector<DataPlayer *>&);
 
+  IPacket	*getProfile(const DataPlayer *);
+  
   IPacket		*revErrorPacket(const uint8_t *);
   IPacket		*revWelcome(const uint8_t *);
   IPacket		*revConnect(const uint8_t *);
@@ -134,6 +138,7 @@ public:
   IPacket		*revPong(const uint8_t *);
   IPacket		*revAskRoomData(const uint8_t *);
   IPacket		*revAccept(const uint8_t *);
+  IPacket		*revProfile(const uint8_t *);
 private:
   PacketContener<void>										*_pkt1;
   PacketContener<const std::string &, const IPacket::PacketType &>				*_pkt2;
@@ -148,6 +153,7 @@ private:
   PacketContener<const std::vector<DataEnnemy *> &>						*_pkt11;
   PacketContener<const std::vector<DataBackground *> &>						*_pkt12;
   PacketContener<const std::vector<DataPlayer *> &>						*_pkt13;
+  PacketContener<const DataPlayer *>								*_pkt14;
   PacketContener<const uint8_t *>								*_pktDeserialiser;
 };
 
@@ -189,6 +195,7 @@ public:
     _map[IPacket::PacketType::PONG] = &PacketFactory::revPong;
     _map[IPacket::PacketType::ASKROOMDATA] = &PacketFactory::revAskRoomData;
     _map[IPacket::PacketType::ACCEPT] = &PacketFactory::revAccept;
+    _map[IPacket::PacketType::PROFILE] = &PacketFactory::revProfile;
     _converter["error"] = IPacket::PacketType::ERROR_PACKET;
     _converter["welcome"] = IPacket::PacketType::WELCOME;
     _converter["connect"] = IPacket::PacketType::CONNECT;
@@ -219,6 +226,7 @@ public:
     _converter["pong"] = IPacket::PacketType::PONG;
     _converter["askroomdata"] = IPacket::PacketType::ASKROOMDATA;
     _converter["accept"] = IPacket::PacketType::ACCEPT;
+    _converter["profile"] = IPacket::PacketType::PROFILE;
 };
   ~PacketContener() {};
   void	enable(const std::string &s)
@@ -247,6 +255,48 @@ private:
   std::map<IPacket::PacketType, ptr>    _enableMap;
   PacketFactory                 *_p;
 };
+template<>
+class PacketContener<const DataPlayer *>
+{
+public:
+  typedef IPacket *(PacketFactory::*ptr)(const DataPlayer *);
+  PacketContener(PacketFactory *p) : _p(p)
+  {
+    _map["profile"] = &PacketFactory::getProfile;
+    _converter[IPacket::PacketType::PROFILE] = "profile";
+  };
+  ~PacketContener() {};
+  void	enable(const std::string &s)
+  {
+    if (_map.find(s) != _map.end())
+      _enableMap[s] = _map[s]; 
+  }
+  IPacket	*getPacket(const std::string &s, const DataPlayer *m)
+  {
+  if (_enableMap.find(s) != _enableMap.end())
+    return ((_p->*_enableMap[s])(m));
+  return (NULL);
+  }
+  IPacket	*getPacket(const IPacket::PacketType &s, const DataPlayer *m)
+  {
+  if (_converter.find(s) != _converter.end() && _enableMap.find(_converter[s]) != _enableMap.end())
+    return ((_p->*_enableMap[_converter[s]])(m));
+  return (NULL);
+  }
+  bool	isEnable(const std::string &s)
+  {
+    if (_enableMap.find(s) != _enableMap.end())
+      return (true);
+    else
+      return (false);
+  }
+private:
+  std::map<std::string, ptr>    _map;
+  std::map<IPacket::PacketType, std::string>    _converter;
+  std::map<std::string, ptr>    _enableMap;
+  PacketFactory                 *_p;
+};
+
 
 template<>
 class PacketContener<const std::vector<DataPlayer *> &>
