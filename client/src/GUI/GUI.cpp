@@ -614,11 +614,11 @@ void			GUI::showPopup(const std::string &string, int tMilli)
 
 void			GUI::loadSoundAssets()
 {
-  _audio->loadSound("../client/Assets/TitleScreen.wav", "TitleScreen");
-  _audio->loadSound("../client/Assets/Stage1.wav", "Stage1");
-  _audio->loadSound("../client/Assets/Stage2.wav", "Stage2");
-  _audio->loadSound("../client/Assets/Stage3.wav", "Stage3");
-  _audio->loadSound("../client/Assets/Stage4.wav", "Stage4");
+  _audio->loadSound("../client/Assets/TitleScreen.ogg", "TitleScreen");
+  _audio->loadSound("../client/Assets/Stage1.ogg", "Stage1");
+  _audio->loadSound("../client/Assets/Stage2.ogg", "Stage2");
+  _audio->loadSound("../client/Assets/Stage3.ogg", "Stage3");
+  _audio->loadSound("../client/Assets/Stage4.ogg", "Stage4");
 }
 
 void			GUI::setRooms(const std::vector<DataRoom *> &d)
