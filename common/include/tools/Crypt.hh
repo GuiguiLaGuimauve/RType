@@ -5,7 +5,7 @@
 // Login   <rembur_g@epitech.eu>
 //
 // Started on  Mon Dec 19 23:31:10 2016 La Guimauve
-// Last update Mon Dec 19 23:50:33 2016 La Guimauve
+// Last update Tue Dec 20 00:04:54 2016 lecoq
 //
 
 #ifndef _CRYPT_HH_
