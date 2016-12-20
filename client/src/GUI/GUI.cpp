@@ -124,9 +124,19 @@ void		GUI::callback()
 		ep = EventPart::Event(EventPart::Event::JOIN_GAME, "GAME_NAME", _currentGame->getName());
 		break ;
 	}
+	case EventPart::Event::BUTTON_LEAVE_GAME:
+	{
+		ep = EventPart::Event(EventPart::Event::LEAVE_GAME, "GAME_NAME", _currentGame->getName());
+		break ;
+	}
 	case EventPart::Event::BUTTON_WATCH_GAME:
 	{
 		ep = EventPart::Event(EventPart::Event::WATCH_GAME, "GAME_NAME", _currentGame->getName());
+		break;
+	}
+	case EventPart::Event::BUTTON_START_GAME:
+	{
+		ep = EventPart::Event(EventPart::Event::START_GAME, "GAME_NAME", _currentGame->getName());
 		break;
 	}
 	case EventPart::Event::KEY_ATTACK :
@@ -525,7 +535,6 @@ void		GUI::displayMenu()
 	s.policeSize = 20;
 	s.textColor = Color(255, 215, 255);
 	_menuWidgets->selectedGame->setStyle(s);
-	//Set la room par defaut a la premiere
 	updateCurrentGame();// A mettre a la reception d'un setDataRoom()
 }
 
@@ -728,8 +737,8 @@ void		GUI::updateCurrentGame()
 	{
 		std::stringstream ss;
 		ss << "Name : " << _currentGame->getName();
-		ss << "\n\nWatchers : ";
-		ss << _currentGame->getWatchers().size();
+		if (_currentGame->getWatchers().size() != 0)
+		  ss << "\n\nWatchers : " << _currentGame->getWatchers().size();
 		ss << "\n\nPlayers :\n";
 		for (unsigned int i = 0; i < _currentGame->getPlayers().size(); i++)
 		  {
