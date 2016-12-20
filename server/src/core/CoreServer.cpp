@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Tue Dec 20 04:21:16 2016 lecoq
+// Last update Tue Dec 20 11:15:13 2016 lecoq
 //
 
 #include	"CoreServer.hh"
@@ -145,7 +145,7 @@ bool		CoreServer::login(const IPacket *pa, IUserNetwork *u)
 bool		CoreServer::createRoom(const IPacket *pa, IUserNetwork *u)
 {
   PacketCreateRoom *p = (PacketCreateRoom *)pa;
-
+  
   if (_data->createRoom(p->getGameName(), p->getMaxPlayers(), u->getPseudo()) == false)
     {
       IPacket *pac = _factory->getPacket("error", ERROR_CREATE_ROOM, IPacket::PacketType::CREATE_ROOM);

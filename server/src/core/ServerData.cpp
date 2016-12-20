@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Mon Dec 19 23:24:16 2016 Maxime Lecoq
-// Last update Tue Dec 20 04:40:32 2016 lecoq
+// Last update Tue Dec 20 11:21:01 2016 lecoq
 //
 
 #include	"ServerData.hh"
@@ -125,7 +125,7 @@ uint64_t	ServerData::getPlayerPos(const std::string &name) const
 bool	ServerData::createRoom(const std::string &name, const uint8_t &mPlayer, const std::string &player)
 {
   std::cout << "try createRoom" << std::endl;
-  if (name.empty() == true || mPlayer != 0 || playerExist(player) == false)
+  if (name.empty() == true || mPlayer == 0 || playerExist(player) == false || roomExist(name) == true)
     return (false);
   uint8_t nbPlayer;
   
