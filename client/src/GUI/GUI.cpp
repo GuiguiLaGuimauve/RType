@@ -193,12 +193,11 @@ void		GUI::callback()
 		int nb = 0;
 		for (auto room : _menuWidgets->games)
 		{
-			if (room->getX() == e.dataInt["X"] && room->getY() == e.dataInt["Y"])
-				_menuWidgets->selectedRoom = nb;
-			else
-				nb++;
+		  if (room->getX() == e.dataInt["X"] && room->getY() == e.dataInt["Y"])
+		    break;
+		  nb++;
 		}
-		_currentGame = _menuInfos[0];
+		_currentGame = _menuInfos[nb];
 		updateCurrentGame();
 		break;
 	}
@@ -406,10 +405,10 @@ void		GUI::displayStart()
 void		GUI::displayMenu()
 {
 	Style		s;
-	updateGameInfo();
 	deleteWidgets();
 	_win->setBackground(PICTURE_BACKGROUND);
 	_menuWidgets = new Menu;
+	updateGameInfo();
 
 	// init le gameText
 	_menuWidgets->GameText = _win->addWidget(_win->getWidth() / 6, 100, 0, 0);
@@ -616,6 +615,10 @@ void		GUI::updateGameInfo(/*const GameInfo &*/)
 {
   // Todo : Update game info
   int i = 0;
+
+  if (_menuWidgets)
+    if (_menuWidgets->games.size() != 0)
+      _menuWidgets->games.clear();
   for (auto elem : _menuInfos)
     {
       // crée un widget pour chaque room
