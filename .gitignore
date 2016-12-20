@@ -27,6 +27,7 @@
 *.out
 *.app
 
+**/b/
 **/build/
 **/CMakeCache.txt
 **/cmake_install.cmake
@@ -37,3 +38,4 @@
 **/Debug/
 RType_server
 RType
+.conf

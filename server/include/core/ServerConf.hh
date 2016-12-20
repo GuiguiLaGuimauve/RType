@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Tue Dec 20 02:32:21 2016 Maxime Lecoq
-// Last update Tue Dec 20 04:44:16 2016 lecoq
+// Last update Tue Dec 20 21:58:09 2016 julien dufrene
 //
 
 #ifndef SERVERCONF_HH_
@@ -28,6 +28,8 @@ public:
   std::vector<DataPlayer *>	getPlayers() const;
   bool				findSomething() const;
   void				write(const std::vector<DataPlayer *> &);
+  bool				query() const;
+  void				save();
 private:
   bool				notInList(const std::string &);
 private:

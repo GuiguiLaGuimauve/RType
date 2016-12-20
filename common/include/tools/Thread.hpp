@@ -5,35 +5,38 @@
 // Login   <rembur_g@epitech.eu>
 //
 // Started on  Fri Dec  2 13:38:28 2016 La Guimauve
-// Last update Sat Dec 17 20:07:16 2016 La Guimauve
+// Last update Tue Dec 20 22:35:17 2016 julien dufrene
 //
 
 #ifndef _THREAD_HH_
 # define _THREAD_HH_
 
-#include "Ithread.hh"
+#include "IThread.hh"
 
 namespace mythrd
 {
-  class thread : public Ithread
+  class Thread : public IThread
   {
   private:
     std::thread thr;
   public:
+    Thread() {};
     template <typename T, typename ... A>
-    thread(T&& func, A&&... args)
+    Thread(T&& func, A&&... args)
     {
       this->thr = std::thread(func, args...);
     };
-
-	  template <typename C>
-    explicit thread(C&& f)
+    template <typename C>
+    explicit Thread(C&& f)
     {
       this->thr = std::thread(f);
-	  };
+    };
 
-    ~thread(){};
-
+    ~Thread(){};
+    void	pause(const uint32_t &a) const
+    {
+      std::this_thread::sleep_for(std::chrono::seconds(a));
+    }
     bool joinable() const
     {
       return (this->thr.joinable());

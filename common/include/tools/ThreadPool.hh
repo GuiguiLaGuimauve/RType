@@ -5,7 +5,7 @@
 // Login   <rembur_g@epitech.eu>
 //
 // Started on  Wed Dec  7 13:53:17 2016 La Guimauve
-// Last update Sat Dec 17 20:12:37 2016 La Guimauve
+// Last update Tue Dec 20 22:15:54 2016 julien dufrene
 //
 
 #ifndef THREADPOOL_HH_
@@ -15,7 +15,7 @@
 #include <deque>
 #include <condition_variable>
 #include "mutex.hh"
-#include "thread.hpp"
+#include "Thread.hpp"
 #include "Workers.hh"
 
 class Workers;

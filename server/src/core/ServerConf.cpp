@@ -5,17 +5,16 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Tue Dec 20 02:35:23 2016 Maxime Lecoq
-// Last update Tue Dec 20 03:29:47 2016 lecoq
+// Last update Tue Dec 20 22:37:52 2016 julien dufrene
 //
 
 #include	"ServerConf.hh"
 
 ServerConf::ServerConf()
 {
-  File f(".conf");
-
   try
     {
+      File f(".conf");
       std::string		content = f.read();
       std::vector<std::string>	tab;
       Vector			vec;
@@ -43,6 +42,7 @@ ServerConf::ServerConf()
     }
   catch (AError const &e)
     {
+      std::cout << e.what() << std::endl;
     }
 }
 
@@ -88,6 +88,26 @@ std::vector<DataPlayer *>	ServerConf::getPlayers() const
   return (_player);
 }
 
+bool				ServerConf::query() const
+{
+  std::string			str;
+  bool				ok;
+
+  ok = false;
+  while (ok == false)
+    {
+      std::cout << "[.conf] file found, do you want to reload it [yes/no]: ";
+      std::cin >> str;
+      if (str.compare("yes") == 0 && str.compare("no") == 0)
+	std::cout << "Answer not correct!" << std::endl;
+      else
+	ok = true;
+    }
+  if (str.compare("yes") == 0)
+    return (true);
+  return (false);
+}
+
 void				ServerConf::write(const std::vector<DataPlayer *> &pl)
 {
   std::string		header;
@@ -105,7 +125,8 @@ void				ServerConf::write(const std::vector<DataPlayer *> &pl)
     }
   try
     {
-      fi.writeTronc(header + msg);
+      if (msg.empty() == false)
+	fi.writeTronc(header + msg);
     }
   catch (AError const &e)
     {

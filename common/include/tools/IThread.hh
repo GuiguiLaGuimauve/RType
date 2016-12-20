@@ -5,7 +5,7 @@
 // Login   <rembur_g@epitech.eu>
 //
 // Started on  Fri Dec  2 13:32:58 2016 La Guimauve
-// Last update Wed Dec  7 13:41:41 2016 La Guimauve
+// Last update Tue Dec 20 22:07:29 2016 julien dufrene
 //
 
 #ifndef _ITHREAD_HH_
@@ -15,10 +15,10 @@
 
 namespace mythrd
 {
-  class Ithread
+  class IThread
   {
   public:
-    virtual ~Ithread() {};
+    virtual ~IThread() {};
 
     virtual bool joinable() const = 0;
     virtual void join() = 0;

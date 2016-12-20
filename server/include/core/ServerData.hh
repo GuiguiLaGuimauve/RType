@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Mon Dec 19 23:14:36 2016 Maxime Lecoq
-// Last update Tue Dec 20 13:05:50 2016 lecoq
+// Last update Tue Dec 20 22:23:00 2016 julien dufrene
 //
 
 #ifndef SERVERDATA_HH_
@@ -18,6 +18,7 @@
 # include "DataPlayer.hpp"
 # include "ServerConf.hh"
 # include "StringCk.hpp"
+# include "Thread.hpp"
 
 class ServerData {
 public:
@@ -45,11 +46,14 @@ private:
   bool		playerAlreadyInRoom(const std::string &);
   bool		deletePlayerInRoom(const std::string &, DataRoom *);
   void		deletePlayerOfRoom(const std::string &);
+  void		save();
 private:
   std::vector<DataRoom *>	_room;
   std::vector<DataPlayer *>	_player;
   bool				_isUpdate;
   ServerConf			_conf;
+  mythrd::Thread		*_thread;
+  bool				_isRunning;
 };
 
 #endif /* !SERVERDATA_HH_ */

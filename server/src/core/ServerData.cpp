@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Mon Dec 19 23:24:16 2016 Maxime Lecoq
-// Last update Tue Dec 20 13:16:14 2016 lecoq
+// Last update Tue Dec 20 22:35:58 2016 julien dufrene
 //
 
 #include	"ServerData.hh"
@@ -14,9 +14,22 @@ ServerData::ServerData() : _isUpdate(false)
 {
   if (_conf.findSomething() == true)
     {
-      _player = _conf.getPlayers();
+      if (_conf.query() == true)
+	_player = _conf.getPlayers();
       _conf.reset();
     }
+  _isRunning = true;
+  _thread = new mythrd::Thread(&ServerData::save, this);
+}
+
+void	        ServerData::save()
+{
+  while (_isRunning == true)
+    {
+      _conf.write(_player);
+      _thread->pause(2);
+    }
+  std::cout << "End of saving thread" << std::endl; 
 }
 
 ServerData::~ServerData()
@@ -24,6 +37,8 @@ ServerData::~ServerData()
   uint64_t	i;
 
   i = 0;
+  _isRunning = false;
+  _thread->join();
   while (i < _player.size())
     delete _player[i++];
   i = 0;
