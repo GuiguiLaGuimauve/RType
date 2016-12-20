@@ -206,6 +206,22 @@ void                Widget::setStyle(const Style &s)
       _background.setPosition((float) getX(), (float) getY());
     }
 	setText(getText());
+	// animation part
+	if (_style.frequency > 0)
+	{
+		for (auto it_map = _style.anims.begin(); it_map != _style.anims.end(); it_map++)
+		{
+			std::vector<std::string> v = _style.anims[std::get<0>(*it_map)];
+			std::vector<sf::Sprite> dest;
+			for (auto i : v)
+			{
+				sf::Sprite tmp_sprite = SpriteMap::getSprite(i);
+				tmp_sprite.setPosition((float)getX(), (float)getY());
+				dest.push_back(tmp_sprite);
+			}
+			animations[std::get<0>(*it_map)] = dest;
+		}
+	}
 }
 
 Style               Widget::getStyle() const
@@ -218,4 +234,10 @@ void	Widget::showPopup(const std::string &s, int tMilli)
   setText(s);
   timeLimit = tMilli;
   clock.reset();
+}
+
+int		Widget::getTextWidth()
+{
+	int dest = (int) _sfmlText.getGlobalBounds().width;
+	return dest;
 }

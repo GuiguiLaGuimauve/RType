@@ -2,6 +2,8 @@
 #define STYLE_HH
 
 #include <string>
+#include <map>
+#include <vector>
 
 #include "Color.hh"
 #include "Police.hh"
@@ -22,6 +24,9 @@ namespace Gui
     Color	backgroundColor;
     int		opacity = 100;
 	bool	password = false;
+	// animations
+	int		frequency = -1;
+	std::map<std::string, std::vector<std::string> > anims; // string == NORMAL || RIGHT || LEFT || TOP || BOTTOM
   };
 }
 
