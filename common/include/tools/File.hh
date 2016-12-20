@@ -15,7 +15,9 @@
 # include	<string>
 # include       <sstream>
 # include       <fstream>
+#ifdef UNIX
 # include	<unistd.h>
+#endif
 # include	"ErrorOpen.hpp"
 
 class		File
