@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Wed Dec 21 00:03:18 2016 lecoq
+// Last update Wed Dec 21 00:24:08 2016 lecoq
 //
 
 #include	"CoreServer.hh"
@@ -141,8 +141,6 @@ bool		CoreServer::login(const IPacket *pa, IUserNetwork *u)
       DataPlayer *data = _data->getPlayer(p->getLogin());
       PacketC	c2(_factory->getPacket("profile", data)->getPacketUnknown(), u);
 
-      if (data == NULL)
-	std::cout << "PUUUUUUUUTE" << std::endl;
       _write->push(c2);
       c.setPacket(_factory->getPacket("rooms", _data->getRooms())->getPacketUnknown());
       u->setPseudo(p->getLogin());

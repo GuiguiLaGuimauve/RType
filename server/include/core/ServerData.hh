@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Mon Dec 19 23:14:36 2016 Maxime Lecoq
-// Last update Tue Dec 20 22:23:00 2016 julien dufrene
+// Last update Wed Dec 21 00:25:23 2016 lecoq
 //
 
 #ifndef SERVERDATA_HH_
