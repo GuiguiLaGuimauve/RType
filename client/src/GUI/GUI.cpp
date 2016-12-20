@@ -609,3 +609,8 @@ void			GUI::loadSoundAssets()
   _audio->loadSound("../client/Assets/Stage3.wav", "Stage3");
   _audio->loadSound("../client/Assets/Stage4.wav", "Stage4");
 }
+
+void			GUI::setRooms(const std::vector<DataRoom *> &d)
+{
+  _menuInfos = d;
+}

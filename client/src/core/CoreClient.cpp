@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Tue Dec 20 01:27:08 2016 lecoq
+// Last update Tue Dec 20 02:10:45 2016 lecoq
 //
 
 #include	"CoreClient.hh"
@@ -20,6 +20,7 @@ CoreClient::CoreClient()
   _packetPtr[IPacket::PacketType::WELCOME] = &CoreClient::welcome;
   _packetPtr[IPacket::PacketType::ACCEPT] = &CoreClient::accept;
   _packetPtr[IPacket::PacketType::ERROR_PACKET] = &CoreClient::errorPacket;
+  _packetPtr[IPacket::PacketType::ROOMS] = &CoreClient::rooms;
   _isConnectToServ = false;
 }
 
@@ -210,6 +211,16 @@ bool		CoreClient::accept(const IPacket *pa, IUserNetwork *u)
   std::cout << p->getMessage() << std::endl;
   _gui->displayLogin();
   _isConnectToServ = true;
+  (void)u;
+  return (true);
+}
+
+bool		CoreClient::rooms(const IPacket *pa, IUserNetwork *u)
+{
+  PacketRooms	*p = (PacketRooms *)pa;
+
+  _gui->setRooms(p->getRooms());
+  _gui->displayMenu();
   (void)u;
   return (true);
 }

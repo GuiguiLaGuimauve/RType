@@ -88,15 +88,15 @@ namespace Gui
     void	TextColorNoFocus(IWidget *w);
     void	TextColorFocus(IWidget *w);
     void	SetOnTextEntered(IWidget *w, const std::string &c);
-
+    void	setRooms(const std::vector<DataRoom *> &);
   protected:
     void	deleteWidgets();
   protected:
     Audio::ISoundManager	*_audio;
     IWindow			*_win;
     IGuiEventManager		*_userEvents;
-    std::vector<Packet::DataRoom*>	_menuInfos;
-    Packet::DataRoom		*_currentGame = NULL;
+    std::vector<DataRoom*>	_menuInfos;
+    DataRoom			*_currentGame = NULL;
     //GameInfo			_gameInfo;
     EventPart::IEventQueue	*_coreQueue;
     EventPart::IEventQueue	*_guiQueue;

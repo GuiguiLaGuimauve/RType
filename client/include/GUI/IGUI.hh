@@ -1,8 +1,10 @@
 #ifndef IGUI_HH
 #define IGUI_HH
 
+#include	<vector>
 #include	"IEventQueue.hh"
 #include	"ISoundManager.hh"
+#include	"DataRoom.hpp"
 
 namespace Gui
 {
@@ -20,6 +22,7 @@ namespace Gui
     virtual void	setEventQueue(EventPart::IEventQueue *) = 0;
     virtual void	setSoundManager(Audio::ISoundManager *) = 0;
     virtual void	showPopup(const std::string &s, int tMilli = 2000) = 0;
+    virtual void	setRooms(const std::vector<DataRoom *> &) = 0;
   };
 }
 

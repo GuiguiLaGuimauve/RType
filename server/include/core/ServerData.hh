@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Mon Dec 19 23:14:36 2016 Maxime Lecoq
-// Last update Tue Dec 20 01:52:16 2016 lecoq
+// Last update Tue Dec 20 02:18:27 2016 lecoq
 //
 
 #ifndef SERVERDATA_HH_
@@ -16,8 +16,6 @@
 # include <string>
 # include "DataRoom.hpp"
 # include "DataPlayer.hpp"
-
-using namespace Packet;
 
 class ServerData {
 public:
