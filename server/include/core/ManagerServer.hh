@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 15:50:05 2016 Maxime Lecoq
-// Last update Fri Dec 16 11:22:07 2016 lecoq
+// Last update Tue Dec 20 01:31:13 2016 lecoq
 //
 
 #ifndef MANAGERSERVER_HH_
@@ -29,6 +29,7 @@ public:
   void                  deleteManager();
   IGameManager		*getGameManager() const;
   IPacketManager	*getPacketManager() const;
+  ServerData            *getServerData() const; 
 private:
   IManager		*_man;
   IGameManager		*_game;
@@ -36,6 +37,7 @@ private:
   bool			_isSet;
   IManageNetwork	*_tcp;
   IManageNetwork	*_udp;
+  ServerData		*_data;
 };
 
 #endif /* !MANAGER_HH_ */

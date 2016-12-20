@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Mon Dec 19 23:24:16 2016 Maxime Lecoq
-// Last update Tue Dec 20 01:07:04 2016 lecoq
+// Last update Tue Dec 20 01:53:31 2016 lecoq
 //
 
 #include	"ServerData.hh"
@@ -30,9 +30,10 @@ bool	ServerData::loginPlayer(const std::string &name, const std::string &pwd)
     return (false);
   DataPlayer	*player = getPlayer(name);
 
-  if (player->getPassword() == pwd)
+  if (player->getPassword() == pwd && player->getOnline() == false)
     {
       player->setOnline(true);
+      std::cout << name << " just login" << std::endl;
       return (true);
     }
   else
@@ -49,6 +50,7 @@ bool	ServerData::registerPlayer(const std::string &name, const std::string &pwd)
   player->setPassword(pwd);
   player->setOnline(true);
   _player.push_back(player);
+  std::cout << name << " just register" << std::endl;
   return (true);
 }
 
@@ -56,12 +58,25 @@ void	ServerData::logoutPlayer(const std::string &name)
 {
   if (playerExist(name) == true)
     {
+      std::cout << name << " just logout" << std::endl;
       getPlayer(name)->setOnline(false);
       if (playerAlreadyInRoom(name) == true)
 	{
 	  deletePlayerOfRoom(name);
 	  _isUpdate = true;
 	}
+    }
+}
+
+void	ServerData::logout(const std::vector<std::string> &list)
+{
+  uint64_t	i;
+
+  i = 0;
+  while (i < list.size())
+    {
+      logoutPlayer(list[i]);
+      i++;
     }
 }
 

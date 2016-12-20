@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 15:44:58 2016 Maxime Lecoq
-// Last update Thu Dec 15 15:32:56 2016 lecoq
+// Last update Tue Dec 20 01:30:38 2016 lecoq
 //
 
 #ifndef IMANAGERSERVER_HH_
@@ -14,6 +14,7 @@
 # include "Manager.hh"
 # include "GameManager.hh"
 # include "ManagePacketServer.hh"
+# include "ServerData.hh"
 
 class IManagerServer : public IManager
 {
@@ -25,6 +26,7 @@ public:
   virtual void			deleteManager() = 0;
   virtual IGameManager		*getGameManager() const = 0;
   virtual IPacketManager	*getPacketManager() const = 0;
+  virtual ServerData		*getServerData() const = 0;
 };
 
 #endif /* !IMANAGER_HH_ */

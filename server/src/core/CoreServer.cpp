@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Mon Dec 19 17:48:59 2016 lecoq
+// Last update Tue Dec 20 01:55:19 2016 lecoq
 //
 
 #include	"CoreServer.hh"
@@ -33,7 +33,7 @@ void CoreServer::run()
 	loop = false;
       else
 	{
-	  _tcp->updateUsers(_tcp->execServer());
+	  _data->logout(_tcp->updateUsers(_tcp->execServer()));
 	  _udp->updateUsers(_udp->execServer());
 	}
       if (managePackets() == false)
@@ -74,6 +74,7 @@ bool	CoreServer::initManager()
        _udp->setPacketQueueRead(_read);
        _udp->setPacketQueueWrite(_write);
        _udp->setPacketFactory(_factory);
+       _data = _manager->getServerData();
      }
    catch (AError const &e)
      {
@@ -114,26 +115,23 @@ bool		CoreServer::connect(const IPacket *pa, IUserNetwork *u)
 
 bool		CoreServer::login(const IPacket *pa, IUserNetwork *u)
 {
-  /*  PacketConnect	*p = (PacketConnect *)pa;
-  PacketConnect	ck;
+  PacketLogin	*p = (PacketLogin *)pa;
+  PacketC	c;
 
-  std::cout << _factory->isEnableSerialise("error") << " " << _factory->isEnableSerialise("accept") << std::endl;
-  if (p->getCode() != ck.getCode())
+  c.setNetwork(u);
+  if (_data->loginPlayer(p->getLogin(), p->getPassword()) == false &&
+      _data->registerPlayer(p->getLogin(), p->getPassword()) == false)
     {
-      IPacket       *co = _factory->getPacket("error", ERROR_CONNECT, IPacket::PacketType::CONNECT);
-      PacketC       ret(co->getPacketUnknown(), u);
-      _write->push(ret);
+      if (p->getLogin().empty() == true || p->getPassword().empty() == true)
+	c.setPacket(_factory->getPacket("error", LOGIN_EMPTY, IPacket::PacketType::LOGIN)->getPacketUnknown());
+      else
+	c.setPacket(_factory->getPacket("error", WRONG_AUTHENTIFICATION, IPacket::PacketType::LOGIN)->getPacketUnknown());
     }
   else
     {
-      IPacket       *co = _factory->getPacket("accept", ACCEPT_MESSAGE);
-      PacketC       ret(co->getPacketUnknown(), u);
-      _write->push(ret);
-      }*/
-  /*if (register(p->getLogin(), p->getPassword()) == false)
-  {
-  }*/
-  (void)pa;
-  (void)u;
+      c.setPacket(_factory->getPacket("rooms", _data->getRooms())->getPacketUnknown());
+      u->setPseudo(p->getLogin());
+    }
+  _write->push(c);
   return (true);
 }

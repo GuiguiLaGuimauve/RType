@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 15:53:17 2016 Maxime Lecoq
-// Last update Fri Dec 16 16:28:23 2016 lecoq
+// Last update Tue Dec 20 01:31:53 2016 lecoq
 //
 
 # include	"ManagerServer.hh"
@@ -29,6 +29,7 @@ void	ManagerServer::setManager()
 	throw ErrorServer("Error to run sever udp network's");
       _game = new GameManager;
       _pkt = new ManagePacketServer;
+      _data = new ServerData;
     }
 }
 
@@ -64,3 +65,7 @@ IPacketManager		*ManagerServer::getPacketManager() const
   return (_pkt);
 }
 
+ServerData		*ManagerServer::getServerData() const
+{
+  return (_data);
+}

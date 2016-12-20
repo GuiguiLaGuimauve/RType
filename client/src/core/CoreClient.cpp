@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Mon Dec 19 17:45:28 2016 lecoq
+// Last update Tue Dec 20 01:27:08 2016 lecoq
 //
 
 #include	"CoreClient.hh"
@@ -20,6 +20,7 @@ CoreClient::CoreClient()
   _packetPtr[IPacket::PacketType::WELCOME] = &CoreClient::welcome;
   _packetPtr[IPacket::PacketType::ACCEPT] = &CoreClient::accept;
   _packetPtr[IPacket::PacketType::ERROR_PACKET] = &CoreClient::errorPacket;
+  _isConnectToServ = false;
 }
 
 CoreClient::~CoreClient()
@@ -61,6 +62,11 @@ bool	CoreClient::manageNetwork()
     {
       _tcp->updateUsers(_tcp->execServer());
       _udp->updateUsers(_udp->execServer());
+    }
+  if (_isConnectToServ == true && _tcp->hasServerRunning() == false)
+    {
+      _gui->displayStart();
+      _isConnectToServ = false;
     }
   return (true);
 }
@@ -203,6 +209,7 @@ bool		CoreClient::accept(const IPacket *pa, IUserNetwork *u)
 
   std::cout << p->getMessage() << std::endl;
   _gui->displayLogin();
+  _isConnectToServ = true;
   (void)u;
   return (true);
 }

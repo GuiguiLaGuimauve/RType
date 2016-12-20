@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:19:16 2016 Maxime Lecoq
-// Last update Mon Dec 19 17:35:28 2016 lecoq
+// Last update Tue Dec 20 01:29:12 2016 lecoq
 //
 
 #ifndef CORECLIENT_HH_
@@ -57,6 +57,7 @@ private:
   IEventQueue		*_eventQueue;
   std::map<EventPart::Event::TYPE, fEvent>      _eventPtr;
   std::map<IPacket::PacketType, fPkt>      _packetPtr;
+  bool			_isConnectToServ;
 };
 
 #endif /* !CORECLIENT_HH_ */

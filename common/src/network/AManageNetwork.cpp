@@ -7,6 +7,7 @@ AManageNetwork::AManageNetwork() {
   _init = false;
   _sec = 2;
   _usec = 0;
+  _initServ = false;
 }
 
 uint32_t			AManageNetwork::getMaxFd() const
@@ -51,6 +52,8 @@ std::vector<std::string>	AManageNetwork::updateUsers(const std::vector<IUserNetw
     {
       if (_user[i]->getStatus() == false)
 	{
+	  if (_user[i] == _serv)
+	    _initServ = false;
 	  if (_user[i]->getPseudo().empty() != true)
 	    del.push_back(_user[i]->getPseudo());
 	  std::cout << "Erase client from list: " << _user[i]->getFd() << std::endl;

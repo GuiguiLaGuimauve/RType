@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Mon Dec 19 23:14:36 2016 Maxime Lecoq
-// Last update Tue Dec 20 01:06:21 2016 lecoq
+// Last update Tue Dec 20 01:52:16 2016 lecoq
 //
 
 #ifndef SERVERDATA_HH_
@@ -36,7 +36,7 @@ public:
   bool		roomExist(const std::string &) const;
   bool		roomAreUpdate() const;
   std::vector<DataRoom *> getRooms();
-  
+  void		logout(const std::vector<std::string> &);
 private:
   uint64_t	getPlayerPos(const std::string &) const;
   uint64_t	getRoomPos(const std::string &) const;
