@@ -5,7 +5,7 @@
 // Login   <rembur_g@epitech.eu>
 //
 // Started on  Tue Dec 20 15:14:12 2016 La Guimauve
-// Last update Tue Dec 20 15:14:46 2016 La Guimauve
+// Last update Tue Dec 20 16:12:27 2016 La Guimauve
 //
 /*
     sha1.cpp - source code of
@@ -24,7 +24,7 @@
         -- Volker Grabsch <vog@notjusthosting.com>
 */
 
-#include "sha1.h"
+#include "sha1.hh"
 #include <sstream>
 #include <iomanip>
 #include <fstream>
@@ -263,9 +263,9 @@ void SHA1::buffer_to_block(const std::string &buffer, uint32 block[BLOCK_BYTES])
 }
 
 
-void SHA1::read(std::istream &is, std::string &s, int max)
+void SHA1::read(std::istream &is, std::string &s, const int max)
 {
-    char sbuf[max];
+    char *sbuf = new char[max];
     is.read(sbuf, max);
     s.assign(sbuf, is.gcount());
 }

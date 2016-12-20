@@ -25,4 +25,13 @@
 #define SOUNDS_STAGE3 			"assets/sounds/stage3.ogg"
 #define SOUNDS_STAGE4 			"assets/sounds/stage4.ogg"
 
+
+#define TEXT_COLOR_R			240
+#define TEXT_COLOR_G			195
+#define TEXT_COLOR_B			50
+
+#define BACKGROUND_COLOR_R		0
+#define BACKGROUND_COLOR_G		0
+#define BACKGROUND_COLOR_B		0
+
 #endif
