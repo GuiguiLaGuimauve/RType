@@ -113,6 +113,16 @@ void		GUI::callback()
                                   "PWD", _loginWidgets->password->getText());
 	    break ;
 	  }
+	case EventPart::Event::BUTTON_CREATE_GAME :
+	{
+		ep = EventPart::Event(EventPart::Event::CREATE_GAME);
+		break;
+	}
+	case EventPart::Event::BUTTON_JOIN_GAME:
+	{
+		ep = EventPart::Event(EventPart::Event::JOIN_GAME);
+		break ;
+	}
 	case EventPart::Event::KEY_ATTACK :
 	{
 		if (_gameWidgets)
