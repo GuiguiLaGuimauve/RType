@@ -401,7 +401,6 @@ void		GUI::displayMenu()
 	_win->setBackground(PICTURE_BACKGROUND);
 	_menuWidgets = new Menu;
 
-	std::cout << "Pendant mon initialisation, j'ai " << _menuInfos.size() << " games." << std::endl;
 	// init le gameText
 	_menuWidgets->GameText = _win->addWidget(_win->getWidth() / 6, 100, 0, 0);
 	_menuWidgets->GameText->setText("Games");
@@ -526,6 +525,7 @@ void		GUI::displayMenu()
 	s.policeSize = 20;
 	s.textColor = Color(255, 215, 255);
 	_menuWidgets->selectedGame->setStyle(s);
+	//Set la room par defaut a la premiere
 	updateCurrentGame();// A mettre a la reception d'un setDataRoom()
 }
 
@@ -706,7 +706,6 @@ void			GUI::setRooms(const std::vector<DataRoom *> &d)
 {
   std::cout << "Je recois un setRoom " << std::endl;
   _menuInfos = d;
-  std::cout << "Au setRoom, j'ai " << _menuInfos.size() << " games." << std::endl;
   updateGameInfo();
 }
 
@@ -720,7 +719,11 @@ void			GUI::setProfile(DataPlayer *p)
 
 void		GUI::updateCurrentGame()
 {
-	// affichage du texte
+  if (!_currentGame)
+    if (_menuInfos.size() != 0)
+      _currentGame = _menuInfos[0];
+
+  // affichage du texte
 	if (_currentGame)
 	{
 		std::stringstream ss;
@@ -745,18 +748,7 @@ void		GUI::updateCurrentGame()
 	if (_currentGame && _currentGame->getNbPlayers() < _currentGame->getMaxPlayers()
 	    && isInGame(_currentGame->getPlayers()) == false)
 	{
-		_menuWidgets->confirm->setText("JOIN");
-		_menuWidgets->confirm->resize(100, 35);
-	}
-	else
-	{
-		_menuWidgets->confirm->setText("");
-		_menuWidgets->confirm->resize(0, 0);
-	}
-	// affichage du bouton leave
-	if (_currentGame && _profile && isInGame(_currentGame->getPlayers()) == true)
-	{
-	  _menuWidgets->confirm->setText("LEAVE");
+	  _menuWidgets->confirm->setText("JOIN");
 	  _menuWidgets->confirm->resize(100, 35);
 	}
 	else
@@ -764,9 +756,20 @@ void		GUI::updateCurrentGame()
 	  _menuWidgets->confirm->setText("");
 	  _menuWidgets->confirm->resize(0, 0);
 	}
+	// affichage du bouton leave
+	if (_currentGame && _profile && isInGame(_currentGame->getPlayers()) == true)
+	{
+	  _menuWidgets->leaveButton->setText("LEAVE");
+	  _menuWidgets->leaveButton->resize(100, 35);
+	}
+	else
+	{
+	  _menuWidgets->leaveButton->setText("");
+	  _menuWidgets->leaveButton->resize(0, 0);
+	}
 	// bouton watch
 	// affichage du bouton watch
-	if (_currentGame)
+	if (_currentGame && isInGame(_currentGame->getPlayers()) == false)
 	{
 		_menuWidgets->watchButton->setText("WATCH");
 		_menuWidgets->watchButton->resize(100, 35);
@@ -780,13 +783,13 @@ void		GUI::updateCurrentGame()
 	// affichage du bouton watch
 	if (_currentGame && _profile && _currentGame->getPlayers()[0]->getName() == _profile->getName())
 	{
-	  _menuWidgets->watchButton->setText("START");
-	  _menuWidgets->watchButton->resize(100, 35);
+	  _menuWidgets->startButton->setText("START");
+	  _menuWidgets->startButton->resize(100, 35);
 	}
 	else
 	{
-	  _menuWidgets->watchButton->setText("");
-	  _menuWidgets->watchButton->resize(0, 0);
+	  _menuWidgets->startButton->setText("");
+	  _menuWidgets->startButton->resize(0, 0);
 	}
 }
 
