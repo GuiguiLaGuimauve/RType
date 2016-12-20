@@ -32,10 +32,11 @@ void                Widget::draw()
 	  if (_style.move_animation == false)
 	  {
 		  auto sprites = _animations["NORMAL"];
-		  if (_anim_timer.getTimeMilli() > _style.frequency)
+		  if (_anim_timer.getTimeMilli() > _style.frequency * sprites.size())
 			  _anim_timer.reset();
 		  int i = _anim_timer.getTimeMilli() / _style.frequency;
-		  _win->draw(sprites[i]);
+		  if (i < sprites.size())
+		    _win->draw(sprites[i]);
 	  }
 	  else
 	  {
@@ -43,7 +44,8 @@ void                Widget::draw()
 		  if (_anim_timer.getTimeMilli() > _style.frequency)
 			  _anim_timer.reset();
 		  int i = _anim_timer.getTimeMilli() / _style.frequency;
-		  _win->draw(sprites[i]);
+		  if (i < sprites.size())
+		    _win->draw(sprites[i]);
 	  }
   }
   else if (_style.image != "")
