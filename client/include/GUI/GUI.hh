@@ -104,6 +104,7 @@ namespace Gui
     void		setRooms(const std::vector<DataRoom *> &);
     void		setProfile(DataPlayer *p);
     bool		isInGame(std::vector<DataPlayer*>);
+    void		cleanGames();
   protected:
     void	deleteWidgets();
 	void	updateCurrentGame();

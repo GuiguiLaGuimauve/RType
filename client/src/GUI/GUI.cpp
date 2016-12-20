@@ -617,8 +617,7 @@ void		GUI::updateGameInfo(/*const GameInfo &*/)
   int i = 0;
 
   if (_menuWidgets)
-    if (_menuWidgets->games.size() != 0)
-      _menuWidgets->games.clear();
+    cleanGames();
   for (auto elem : _menuInfos)
     {
       // crée un widget pour chaque room
@@ -814,4 +813,14 @@ bool	GUI::isInGame(std::vector<DataPlayer*> roomPlayers)
 	  return (true);
       }
   return (false);
+}
+
+void	GUI::cleanGames()
+{
+  if (_menuWidgets->games.size() != 0)
+    {
+      for (auto elem : _menuWidgets->games)
+	_win->deleteWidget(elem);
+      _menuWidgets->games.clear();
+    }
 }
