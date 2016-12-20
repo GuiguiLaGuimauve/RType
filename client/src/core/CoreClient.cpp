@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Tue Dec 20 21:06:46 2016 lecoq
+// Last update Tue Dec 20 21:12:00 2016 lecoq
 //
 
 #include	"CoreClient.hh"
@@ -236,6 +236,8 @@ bool		CoreClient::rooms(const IPacket *pa, IUserNetwork *u)
   PacketRooms	*p = (PacketRooms *)pa;
 
   _gui->setRooms(p->getRooms());
+  if (_status == "login")
+    _gui->displayMenu();
   _status = "rooms";
   (void)u;
   return (true);
@@ -246,8 +248,6 @@ bool		CoreClient::profile(const IPacket *pa, IUserNetwork *u)
   PacketProfile	*p = (PacketProfile *)pa;
 
   _gui->setProfile(p->getPlayer());
-  if (_status == "login")
-    _gui->displayMenu();
   (void)u;
   return (true);
 }
