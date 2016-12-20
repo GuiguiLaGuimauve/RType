@@ -318,12 +318,12 @@ void		GUI::displayStart()
   _startWidgets->button->setOnLeaveHover(TextColorNoFocus);
 
   // custom imput
-  _startWidgets->imput->setOnTextEntered([](IWidget *w, const std::string &s)
+  _startWidgets->imput->setOnTextEntered([](IWidget *w, const std::string &c)
   {
-	  if (s[0] == '\n')
-		  w->getEventQueue()->push(EventPart::Event(EventPart::Event::BUTTON_CONNECT));
+	  if (c[0] == '\n')
+	    w->getEventQueue()->push(EventPart::Event(EventPart::Event::BUTTON_CONNECT));
 	  else
-		  textEntered(w, s);
+	    textEntered(w, c);
   });
   // ergonomie focus
   _focusWidget = _startWidgets->imput;
@@ -358,6 +358,7 @@ void		GUI::displayMenu()
   s.policeSize = 60;
   _menuWidgets->createGame->setStyle(s);
 
+  std::cout << "A l'initialisation, la size de mes Rooms est " << _menuInfos.size() << std::endl;
   int i = 0;
   for (auto elem : _menuInfos)
     {
@@ -380,7 +381,6 @@ void		GUI::displayMenu()
       for (auto elem : _currentGame->getPlayers())
 	_menuWidgets->selectedGame->setText(_menuWidgets->selectedGame->getText() + elem->getName() + "\n");
   }
-
 
   _menuWidgets->confirm->setOnClick([](IWidget *widget, CLICK)
 				    {
@@ -452,25 +452,25 @@ void		GUI::displayLogin()
   /* Je gère l'édition des 2 inputs */
   _loginWidgets->login->setOnFocus(TextColorFocus);
   _loginWidgets->login->setOnLeaveFocus(TextColorNoFocus);
-  _loginWidgets->login->setOnTextEntered([](IWidget *w, const std::string &s)
+  _loginWidgets->login->setOnTextEntered([](IWidget *w, const std::string &c)
   {
-	  if (s[0] == '\n')
-		  w->getEventQueue()->push(EventPart::Event(EventPart::Event::BUTTON_LOGIN));
+	  if (c[0] == '\n')
+	    w->getEventQueue()->push(EventPart::Event(EventPart::Event::BUTTON_LOGIN));
 	  else
-		  textEntered(w, s);
+	    textEntered(w, c);
   });
   _loginWidgets->password->setOnFocus(TextColorFocus);
   _loginWidgets->password->setOnLeaveFocus(TextColorNoFocus);
-  _loginWidgets->password->setOnTextEntered([](IWidget *w, const std::string &s)
+  _loginWidgets->password->setOnTextEntered([](IWidget *w, const std::string &c)
   {
-	  if (s[0] == '\n')
-		  w->getEventQueue()->push(EventPart::Event(EventPart::Event::BUTTON_LOGIN));
+	  if (c[0] == '\n')
+	    w->getEventQueue()->push(EventPart::Event(EventPart::Event::BUTTON_LOGIN));
 	  else
-		  textEntered(w, s);
+	    textEntered(w, c);
   });
 
   // ergonomie focus
-  //_focusWidget = _loginWidgets->login;
+  _focusWidget = _loginWidgets->login;
 }
 
 void		GUI::updateGameInfo(/*const GameInfo &*/)
@@ -535,5 +535,6 @@ void			GUI::loadSoundAssets()
 
 void			GUI::setRooms(const std::vector<DataRoom *> &d)
 {
+  std::cout << "Je recois un setRoom " << std::endl;
   _menuInfos = d;
 }
