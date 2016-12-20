@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Tue Dec 20 22:18:03 2016 lecoq
+// Last update Tue Dec 20 23:54:26 2016 lecoq
 //
 
 #include	"CoreClient.hh"
@@ -18,6 +18,9 @@ CoreClient::CoreClient()
   _eventPtr[EventPart::Event::TRY_CONNECT] = &CoreClient::tryConnect;
   _eventPtr[EventPart::Event::TRY_LOGIN] = &CoreClient::tryLogin;
   _eventPtr[EventPart::Event::CREATE_GAME] = &CoreClient::createGame;
+  _eventPtr[EventPart::Event::LEAVE_GAME] = &CoreClient::leaveRoom;
+  _eventPtr[EventPart::Event::JOIN_GAME] = &CoreClient::joinRoom;
+  _eventPtr[EventPart::Event::WATCH_GAME] = &CoreClient::watchRoom;
   _packetPtr[IPacket::PacketType::WELCOME] = &CoreClient::welcome;
   _packetPtr[IPacket::PacketType::ACCEPT] = &CoreClient::accept;
   _packetPtr[IPacket::PacketType::ERROR_PACKET] = &CoreClient::errorPacket;
@@ -197,6 +200,27 @@ bool	CoreClient::createGame(EventPart::Event e)
   IPacket *pa = _factory->getPacket("createroom", rmname, 4);
   _tcp->pushToServ(pa->getPacketUnknown());
   (void)e;
+  return (true);
+}
+
+bool	CoreClient::leaveRoom(EventPart::Event e)
+{
+  IPacket *pa = _factory->getPacket("leaveroom", e.dataString["GAME_NAME"]);
+  _tcp->pushToServ(pa->getPacketUnknown());
+  return (true);
+}
+
+bool	CoreClient::joinRoom(EventPart::Event e)
+{
+  IPacket *pa = _factory->getPacket("joinroom", e.dataString["GAME_NAME"]);
+  _tcp->pushToServ(pa->getPacketUnknown());
+  return (true);
+}
+
+bool	CoreClient::watchRoom(EventPart::Event e)
+{
+  IPacket *pa = _factory->getPacket("watchroom", e.dataString["GAME_NAME"]);
+  _tcp->pushToServ(pa->getPacketUnknown());
   return (true);
 }
 
