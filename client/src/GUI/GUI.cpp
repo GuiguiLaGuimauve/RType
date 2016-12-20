@@ -348,6 +348,7 @@ void		GUI::displayStart()
   });
   // ergonomie focus
   _focusWidget = _startWidgets->imput;
+  _focusWidget->onFocus();
 }
 
 void		GUI::displayMenu()
@@ -423,6 +424,7 @@ void		GUI::displayMenu()
 
   // ergonomie focus
   _focusWidget = _menuWidgets->confirm;
+  _focusWidget->onFocus();
 }
 
 void		GUI::displayLogin()
@@ -496,6 +498,7 @@ void		GUI::displayLogin()
 
   // ergonomie focus
   _focusWidget = _loginWidgets->login;
+  _focusWidget->onFocus();
 }
 
 void		GUI::updateGameInfo(/*const GameInfo &*/)
