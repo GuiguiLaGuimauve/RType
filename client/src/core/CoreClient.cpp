@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Tue Dec 20 04:25:08 2016 lecoq
+// Last update Tue Dec 20 04:44:12 2016 lecoq
 //
 
 #include	"CoreClient.hh"
@@ -48,7 +48,7 @@ bool	CoreClient::manageGui()
   while (_eventQueue->empty() == false)
     {
       EventPart::Event e = _eventQueue->pop();
-      std::cout << "Event type : " << (int)e.type << std::endl;
+      std::cout << "Event Gui recy -> type : " << (int)e.type << std::endl;
       if (_eventPtr.find(e.type) != _eventPtr.end() && ((this->*_eventPtr[e.type])(e)) == false)
 	return (false);
     }

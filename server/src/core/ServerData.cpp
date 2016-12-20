@@ -5,12 +5,19 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Mon Dec 19 23:24:16 2016 Maxime Lecoq
-// Last update Tue Dec 20 04:18:28 2016 lecoq
+// Last update Tue Dec 20 04:40:32 2016 lecoq
 //
 
 #include	"ServerData.hh"
 
-ServerData::ServerData() : _isUpdate(false) {}
+ServerData::ServerData() : _isUpdate(false)
+{
+  if (_conf.findSomething() == true)
+    {
+      _player = _conf.getPlayers();
+      _conf.reset();
+    }
+}
 
 ServerData::~ServerData()
 {
@@ -283,7 +290,11 @@ void			ServerData::deletePlayerOfRoom(const std::string &player)
   while (i < _room.size())
     {
       if (deletePlayerInRoom(player, _room[i]) == true)
-	return;
+	{
+	  if (_room[i]->getPlayers().size() == 0)
+	    _room.erase(_room.begin() + i);
+	  return;
+	}
       i++;
     }
 }
