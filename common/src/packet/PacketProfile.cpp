@@ -65,3 +65,8 @@ bool PacketProfile::isUdp() const
 {
 	return (false);
 }
+
+DataPlayer *PacketProfile::getPlayer() const
+{
+  return (_player);
+}
