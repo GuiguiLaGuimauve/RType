@@ -76,3 +76,34 @@ std::vector<std::string>	AManageNetwork::updateUsers(const std::vector<IUserNetw
   return (del);
 }
 
+
+bool			AManageNetwork::inList(const std::string &n, const std::vector<std::string> &li)
+{
+  uint64_t		i;
+
+  i = 0;
+  if (n.empty() == true)
+    return (false);
+  while (i < li.size())
+    {
+      if (n == li[i])
+	return (true);
+      i++;
+    }
+
+  return (false);
+}
+
+void			AManageNetwork::pushToClients(const std::vector<std::string> &list, const PacketUnknown &p)
+{
+  uint64_t		i;
+
+  i = 0;
+  while (i < _user.size())
+    {
+      if (inList(_user[i]->getPseudo(), list) == true)
+	_user[i]->pushBufferWrite(p);
+      i++;
+    }
+}
+

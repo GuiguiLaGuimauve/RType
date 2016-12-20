@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Mon Dec 19 23:14:36 2016 Maxime Lecoq
-// Last update Tue Dec 20 02:18:27 2016 lecoq
+// Last update Tue Dec 20 04:14:30 2016 lecoq
 //
 
 #ifndef SERVERDATA_HH_
@@ -16,6 +16,7 @@
 # include <string>
 # include "DataRoom.hpp"
 # include "DataPlayer.hpp"
+# include "ServerConf.hh"
 
 class ServerData {
 public:
@@ -35,6 +36,7 @@ public:
   bool		roomAreUpdate() const;
   std::vector<DataRoom *> getRooms();
   void		logout(const std::vector<std::string> &);
+  std::vector<std::string> getOnlineClients() const;
 private:
   uint64_t	getPlayerPos(const std::string &) const;
   uint64_t	getRoomPos(const std::string &) const;
@@ -46,6 +48,7 @@ private:
   std::vector<DataRoom *>	_room;
   std::vector<DataPlayer *>	_player;
   bool				_isUpdate;
+  ServerConf			_conf;
 };
 
 #endif /* !SERVERDATA_HH_ */

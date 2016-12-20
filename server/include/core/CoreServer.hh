@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:19:16 2016 Maxime Lecoq
-// Last update Tue Dec 20 01:38:05 2016 lecoq
+// Last update Tue Dec 20 03:46:13 2016 lecoq
 //
 
 #ifndef CORESERVER_HH_
@@ -24,6 +24,7 @@ class CoreServer : public ACore
 {
   #define LOGIN_EMPTY "Login or password is empty"
   #define WRONG_AUTHENTIFICATION "Authentification failed, can be an error of password or this account is already online"
+  #define ERROR_CREATE_ROOM "The creation of the room failed"
 public:
   CoreServer();
   ~CoreServer();
@@ -36,6 +37,7 @@ private:
   typedef bool	(CoreServer::*fPkt)(const IPacket *, IUserNetwork *);
   bool		connect(const IPacket *, IUserNetwork *);
   bool		login(const IPacket *, IUserNetwork *);
+  bool		createRoom(const IPacket *, IUserNetwork *);
 private:
   IManagerServer			*_manager;
   IGameManager				*_gameManager;

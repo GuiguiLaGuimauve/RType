@@ -5,7 +5,7 @@
 // Login   <lecoq_m@epitech.net>
 // 
 // Started on  Sun Apr 24 21:20:40 2016 Maxime LECOQ
-// Last update Fri Oct 28 16:41:10 2016 lecoq
+// Last update Tue Dec 20 03:24:22 2016 lecoq
 //
 
 #ifndef		__VECTOR_HH__
@@ -36,8 +36,10 @@ namespace Tools {
       std::vector<std::string>      getVector() const;
       /* La méthode getVector(const std::string &, const char &) const permet de recuperer un tableau de string en fonction d'une chaîne de caractère et séparer par un délimiteur. */
       std::vector<std::string>      getVector(const std::string &, const char &);
+      std::vector<std::string>      getVector(const std::string &, const char *);
       /* La méthode getVector(const std::string &, const char &) const permet de recuperer un tableau de string en fonction d'une chaîne de caractère et séparer par un délimiteur. */
       std::vector<std::string>      getVector(const char *, const char &);
+      std::vector<std::string>      getVector(const char *, const char *);
     };
     /* La classe Devectorize permet de gerer le passage de tableau de string en string. */
     class           Devectorize
@@ -67,8 +69,10 @@ namespace Tools {
 
     /* La méthode getVector(const std::string &, const char &) utiliser Vectorize pour récupérer un tableau de string. */
     std::vector<std::string>	getVector(const std::string &, const char &);
+    std::vector<std::string>	getVector(const std::string &, const char *);
     /* La méthode getVector(const std::string &, const char &) utiliser Vectorize pour récupérer un tableau de string. */
     std::vector<std::string>	getVector(const char *, const char &);
+    std::vector<std::string>	getVector(const char *, const char *);
     /* La méthode getString(std::vector<std::string> &, const char &) utiliser Devectorize pour récupérer une string. */
     std::string			getString(std::vector<std::string> &, const char &);
   };

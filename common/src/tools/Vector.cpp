@@ -5,7 +5,7 @@
 // Login   <lecoq_m@epitech.net>
 // 
 // Started on  Sun Apr 24 21:26:17 2016 Maxime LECOQ
-// Last update Tue Apr 26 18:25:39 2016 Maxime LECOQ
+// Last update Tue Dec 20 03:27:35 2016 lecoq
 //
 
 #include	"Vector.hh"
@@ -31,7 +31,17 @@ std::vector<std::string>	Vector::getVector(const std::string &s, const char &c)
   return (_v.getVector(s, c));
 }
 
+std::vector<std::string>	Vector::getVector(const std::string &s, const char *c)
+{
+  return (_v.getVector(s, c));
+}
+
 std::vector<std::string>	Vector::getVector(const char *s, const char &c)
+{
+  return (_v.getVector(s, c));
+}
+
+std::vector<std::string>	Vector::getVector(const char *s, const char *c)
 {
   return (_v.getVector(s, c));
 }
@@ -92,6 +102,25 @@ std::vector<std::string>        Vector::Vectorize::getVector(const std::string &
   return (ret);
 }
 
+std::vector<std::string>        Vector::Vectorize::getVector(const std::string &s, const char *c)
+{
+  std::string                   tmp;
+  size_t                        found;
+  std::vector<std::string>      ret;
+  std::string			si(c);
+  
+  tmp = s;
+  while ((found = tmp.find(c)) < tmp.size())
+    {
+      if (tmp.substr(0, found).empty() == false) 
+	ret.push_back(tmp.substr(0, found));
+      tmp = tmp.substr(found + si.size(), tmp.size());
+    }
+  if (tmp.empty() == false)
+    ret.push_back(tmp);
+  return (ret);
+}
+
 std::vector<std::string>        Vector::Vectorize::getVector(const char *s, const char &c)
 {
   std::string                   tmp(s);
@@ -103,6 +132,24 @@ std::vector<std::string>        Vector::Vectorize::getVector(const char *s, cons
       if (tmp.substr(0, found).empty() == false) 
 	ret.push_back(tmp.substr(0, found));
       tmp = tmp.substr(found + 1, tmp.size());
+    }
+  if (tmp.empty() == false)
+    ret.push_back(tmp);
+  return (ret);
+}
+
+std::vector<std::string>        Vector::Vectorize::getVector(const char *s, const char *c)
+{
+  std::string                   tmp(s);
+  size_t                        found;
+  std::vector<std::string>      ret;
+  std::string			si(c);
+
+  while ((found = tmp.find(c)) < tmp.size())
+    {
+      if (tmp.substr(0, found).empty() == false) 
+	ret.push_back(tmp.substr(0, found));
+      tmp = tmp.substr(found + si.size(), tmp.size());
     }
   if (tmp.empty() == false)
     ret.push_back(tmp);

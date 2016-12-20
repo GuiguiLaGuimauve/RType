@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Tue Dec 20 02:27:29 2016 lecoq
+// Last update Tue Dec 20 04:25:08 2016 lecoq
 //
 
 #include	"CoreClient.hh"
@@ -17,6 +17,7 @@ CoreClient::CoreClient()
   _eventPtr[EventPart::Event::QUIT] = &CoreClient::quit;
   _eventPtr[EventPart::Event::TRY_CONNECT] = &CoreClient::tryConnect;
   _eventPtr[EventPart::Event::TRY_LOGIN] = &CoreClient::tryLogin;
+  _eventPtr[EventPart::Event::CREATE_GAME] = &CoreClient::createGame;
   _packetPtr[IPacket::PacketType::WELCOME] = &CoreClient::welcome;
   _packetPtr[IPacket::PacketType::ACCEPT] = &CoreClient::accept;
   _packetPtr[IPacket::PacketType::ERROR_PACKET] = &CoreClient::errorPacket;
@@ -47,6 +48,7 @@ bool	CoreClient::manageGui()
   while (_eventQueue->empty() == false)
     {
       EventPart::Event e = _eventQueue->pop();
+      std::cout << "Event type : " << (int)e.type << std::endl;
       if (_eventPtr.find(e.type) != _eventPtr.end() && ((this->*_eventPtr[e.type])(e)) == false)
 	return (false);
     }
@@ -173,6 +175,8 @@ bool	CoreClient::tryConnect(EventPart::Event e)
   return (true);
 }
 
+std::string rmname;
+
 bool	CoreClient::tryLogin(EventPart::Event e)
 {
   if (e.dataString["LOGIN"].empty() == true || e.dataString["PWD"].empty() == true)
@@ -181,8 +185,19 @@ bool	CoreClient::tryLogin(EventPart::Event e)
     {
       IPacket *pa = _factory->getPacket("login", e.dataString["LOGIN"], e.dataString["PWD"]);
       _tcp->pushToServ(pa->getPacketUnknown());
+      rmname = e.dataString["LOGIN"] + " room's";
     }
   return (true);
+}
+
+
+bool	CoreClient::createGame(EventPart::Event e)
+{
+  IPacket *pa = _factory->getPacket("createroom", rmname, 4);
+  _tcp->pushToServ(pa->getPacketUnknown());
+  std::cout << "plop" << std::endl;
+  (void)e;
+  return (false);
 }
 
 bool		CoreClient::errorPacket(const IPacket *pa, IUserNetwork *u)

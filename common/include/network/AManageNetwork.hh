@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Fri Dec 16 11:41:23 2016 julien dufrene
-// Last update Mon Dec 19 23:40:14 2016 julien dufrene
+// Last update Tue Dec 20 04:04:25 2016 lecoq
 //
 
 
@@ -32,6 +32,7 @@ namespace Network
     virtual bool				run() = 0;
     virtual bool				run(const uint32_t &, const uint32_t & = 0) = 0;
     virtual bool				tryConnectClient(const uint32_t &, const std::string &) = 0;
+    void					pushToClients(const std::vector<std::string> &, const PacketUnknown &);
     virtual void				pushToServ(const PacketUnknown &) = 0;
     bool	                                hasServerRunning() const;
     uint32_t					getMaxFd() const;
@@ -40,6 +41,8 @@ namespace Network
     void				        setPacketQueueRead(const IPacketQueue *c) { _read = (IPacketQueue *)c; };
     void			                setPacketQueueWrite(const IPacketQueue *c){  _write = (IPacketQueue *)c; };
     void		                        setPacketFactory(const PacketFactory *c) { _factory = (PacketFactory *)c; };
+  private:
+    bool                                        inList(const std::string &, const std::vector<std::string> &);
   protected:
     /* _user est un attribut qui contient la liste des utilisateurs du serveur. */
     std::vector<IUserNetwork *>		_user;

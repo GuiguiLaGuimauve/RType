@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Mon Dec 19 23:24:16 2016 Maxime Lecoq
-// Last update Tue Dec 20 01:53:31 2016 lecoq
+// Last update Tue Dec 20 04:18:28 2016 lecoq
 //
 
 #include	"ServerData.hh"
@@ -117,6 +117,7 @@ uint64_t	ServerData::getPlayerPos(const std::string &name) const
 
 bool	ServerData::createRoom(const std::string &name, const uint8_t &mPlayer, const std::string &player)
 {
+  std::cout << "try createRoom" << std::endl;
   if (name.empty() == true || mPlayer != 0 || playerExist(player) == false)
     return (false);
   uint8_t nbPlayer;
@@ -134,6 +135,7 @@ bool	ServerData::createRoom(const std::string &name, const uint8_t &mPlayer, con
   room->setPlayers(playerList);
   _room.push_back(room);
   _isUpdate = true;
+  std::cout << "room : " << name << " crée par : " << player << std::endl;
   return (true);
 }
 
@@ -148,6 +150,7 @@ bool	ServerData::joinRoom(const std::string &roomName, const std::string &player
   pl.push_back(player);
   room->setPlayers(pl);
   _isUpdate = true;
+  std::cout << "room : " << roomName << " rejointe par : " << playerName << std::endl;
   return (true);
 }
 
@@ -170,6 +173,7 @@ bool	ServerData::leaveRoom(const std::string &roomName, const std::string &playe
   if (roomExist(roomName) == false || playerExist(playerName) == false || playerInRoom(playerName, getRoom(roomName)) == false)
     return (false);
   deletePlayerInRoom(playerName, getRoom(roomName));
+  std::cout << playerName << " a quitter la room : " << roomName << std::endl;
   _isUpdate = true;
   return (true);
 }
@@ -293,4 +297,19 @@ std::vector<DataRoom *>	ServerData::getRooms()
 {
   _isUpdate = false;
   return (_room);
+}
+
+std::vector<std::string> ServerData::getOnlineClients() const
+{
+  std::vector<std::string> ret;
+  uint64_t		i;
+
+  i = 0;
+  while (i < _player.size())
+    {
+      if (_player[i]->getOnline() == true)
+	ret.push_back(_player[i]->getName());
+      i++;
+    }
+  return (ret);
 }
