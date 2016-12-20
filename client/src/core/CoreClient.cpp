@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Tue Dec 20 04:44:12 2016 lecoq
+// Last update Tue Dec 20 11:13:43 2016 julien dufrene
 //
 
 #include	"CoreClient.hh"
@@ -63,8 +63,8 @@ bool	CoreClient::manageNetwork()
     return(false);
   else
     {
-      _tcp->updateUsers(_tcp->execServer());
-      _udp->updateUsers(_udp->execServer());
+      _tcp->updateUsers(_tcp->execClient());
+      _udp->updateUsers(_udp->execClient());
     }
   if (_isConnectToServ == true && _tcp->hasServerRunning() == false)
     {
@@ -197,7 +197,7 @@ bool	CoreClient::createGame(EventPart::Event e)
   _tcp->pushToServ(pa->getPacketUnknown());
   std::cout << "plop" << std::endl;
   (void)e;
-  return (false);
+  return (true);
 }
 
 bool		CoreClient::errorPacket(const IPacket *pa, IUserNetwork *u)
