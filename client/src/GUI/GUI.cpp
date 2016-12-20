@@ -326,13 +326,13 @@ void		GUI::displayStart()
   // Default text style
   Style	s;
   s.form = NO_FORM;
-  s.textColor = Color(255, 215, 0);
+  s.textColor = Color(TEXT_COLOR_R, TEXT_COLOR_G, TEXT_COLOR_B);
   s.policeSize = 35;
 
   // Default input style
   Style	inputStyle;
   inputStyle.form = NO_FORM;
-  inputStyle.textColor = Color(255, 215, 0);
+  inputStyle.textColor = Color(TEXT_COLOR_R, TEXT_COLOR_G, TEXT_COLOR_B);
   inputStyle.policeSize = 35;
   inputStyle.inputMode = true;
 
