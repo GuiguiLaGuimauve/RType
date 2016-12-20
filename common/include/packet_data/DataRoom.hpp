@@ -13,7 +13,9 @@
 class DataRoom {
   
 public:
-  DataRoom() {};
+  DataRoom() {
+    _maxPlayers = 4;
+    _level = 0;};
   ~DataRoom() {};
   
   std::string getName() const { return (_name); };

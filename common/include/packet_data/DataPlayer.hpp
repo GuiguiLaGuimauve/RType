@@ -11,7 +11,9 @@
 class DataPlayer {
 
 public:
-  DataPlayer() {_online = false;};
+  DataPlayer() {_online = false;
+    _stageSucceed = 0;
+    _gamePlayed = 0;};
   ~DataPlayer() {};
   
   std::string getName() const { return (_name); };
