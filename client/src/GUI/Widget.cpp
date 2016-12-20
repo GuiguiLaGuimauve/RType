@@ -8,7 +8,7 @@ Widget::Widget(sf::RenderWindow *w, int x, int y, int width, int height, const s
   _ptrClick(NULL), _ptrFocus(NULL), _ptrLeaveFocus(NULL),
   _ptrHover(NULL), _ptrLeaveHover(NULL), _ptrText(NULL), _eventQueue(NULL)
 {
-  _font.loadFromFile("../client/font/PrStart.ttf");
+  _font.loadFromFile(FONT_PTSTART);
   setStyle(_style);
   move(_x, _y);
   resize(_width, _height);
@@ -206,6 +206,22 @@ void                Widget::setStyle(const Style &s)
       _background.setPosition((float) getX(), (float) getY());
     }
 	setText(getText());
+	// animation part
+	if (_style.frequency > 0)
+	{
+		for (auto it_map = _style.anims.begin(); it_map != _style.anims.end(); it_map++)
+		{
+			std::vector<std::string> v = _style.anims[std::get<0>(*it_map)];
+			std::vector<sf::Sprite> dest;
+			for (auto i : v)
+			{
+				sf::Sprite tmp_sprite = SpriteMap::getSprite(i);
+				tmp_sprite.setPosition((float)getX(), (float)getY());
+				dest.push_back(tmp_sprite);
+			}
+			animations[std::get<0>(*it_map)] = dest;
+		}
+	}
 }
 
 Style               Widget::getStyle() const
@@ -218,4 +234,10 @@ void	Widget::showPopup(const std::string &s, int tMilli)
   setText(s);
   timeLimit = tMilli;
   clock.reset();
+}
+
+int		Widget::getTextWidth()
+{
+	int dest = (int) _sfmlText.getGlobalBounds().width;
+	return dest;
 }

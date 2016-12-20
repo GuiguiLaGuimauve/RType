@@ -13,6 +13,7 @@
 
 #include <map>
 #include "SFML/Graphics.hpp"
+#include "Assets.hh"
 
 class		SpriteMap
 {
@@ -26,16 +27,17 @@ public:
     /********************************************/
     /*		LOAD	THE	TEXTURES	*/
     /********************************************/
-    LoadTexture("../client/Assets/r-typesheet42.gif", "Ships");
-    LoadTexture("../client/Assets/r-typesheet1.gif", "Shots");
-    LoadTexture("../client/Assets/r-typesheet3.gif", "PowerUp1");
-    LoadTexture("../client/Assets/r-typesheet30.gif", "Bydos");
-    LoadTexture("../client/Assets/r-typesheet20.gif", "Enemy7");
-    LoadTexture("../client/Assets/r-typesheet19.gif", "Enemy8");
-    LoadTexture("../client/Assets/r-typesheet38.gif", "Boss2");
-    LoadTexture("../client/Assets/r-typesheet37.gif", "SupBoss1");
-    LoadTexture("../client/Assets/r-type-logo.png", "Logo");
-    LoadTexture("../client/Assets/hearts.jpg", "Hearts");
+    LoadTexture(PICTURE_SHIPS, "Ships");
+    LoadTexture(PICTURE_SHOTS, "Shots");
+    LoadTexture(PICTURE_POWERUP1, "PowerUp1");
+    LoadTexture(PICTURE_BYDOS, "Bydos");
+    LoadTexture(PICTURE_ENEMY7, "Enemy7");
+    LoadTexture(PICTURE_ENEMY8, "Enemy8");
+    LoadTexture(PICTURE_BOSS2, "Boss2");
+    LoadTexture(PICTURE_SUPBOSS1, "SupBoss1");
+    LoadTexture(PICTURE_LOGO, "Logo");
+	LoadTexture(PICTURE_HEARTS, "Hearts");
+	
     
     /********************************************/
     /*		LOAD	THE	SPRITES		*/
@@ -52,7 +54,7 @@ public:
     LoadSpriteFromTexture("Boss2", "Boss2", 0, 0, 34, 20, 3, 3);
     LoadSpriteFromTexture("SupBoss1", "SupBoss1", 0, 0, 34, 20, 3, 3);
     /* Menus Sprites */
-    LoadSpriteFromTexture("Logo", "Logo", 0, 0, 480, 100, 1, 1);
+    LoadSpriteFromTexture("Logo", "Logo", 0, 0, 445, 75, 1, 1);
     LoadSpriteFromTexture("Hearts", "Heart1", 0, 0, 120, 120, 1, 1);
     LoadSpriteFromTexture("Hearts", "Heart2", 120, 0, 120, 120, 1, 1);
     LoadSpriteFromTexture("Hearts", "Heart3", 0, 130, 120, 120, 1, 1);

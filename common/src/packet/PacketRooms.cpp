@@ -66,15 +66,16 @@ PacketRooms::PacketRooms(const uint8_t *data)
 
 		uint64_t playersLength = pd.get16(posInPacket);
 		posInPacket += 2;
+		std::vector<DataPlayer *> tmpData;
 		for (uint64_t j = 0; j < playersLength; j++)
 		{
 			DataPlayer *playersTemp = new DataPlayer();
 
 			playersTemp->setName(pd.getString(posInPacket + 2, pd.get16(posInPacket)));
 			posInPacket += 2 + (uint32_t)pd.get16(posInPacket);
-			roomsTemp->getPlayers().push_back(playersTemp);
+			tmpData.push_back(playersTemp);
 		}
-
+		roomsTemp->setPlayers(tmpData);
 		roomsTemp->setMaxPlayers(pd.get8(posInPacket));
 		posInPacket += 1;
 
