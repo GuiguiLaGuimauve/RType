@@ -39,6 +39,7 @@ namespace EventPart
 	KEY_DOWN,
 	KEY_RIGHT,
 	KEY_LEFT,
+	LOGIN_SWITCH_IMPUT,
 	// events of the gui to the core
 	QUIT,
 	ATTACK,

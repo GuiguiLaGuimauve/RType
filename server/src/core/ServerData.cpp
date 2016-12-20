@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Mon Dec 19 23:24:16 2016 Maxime Lecoq
-// Last update Tue Dec 20 04:40:32 2016 lecoq
+// Last update Tue Dec 20 12:03:17 2016 lecoq
 //
 
 #include	"ServerData.hh"
@@ -66,12 +66,12 @@ void	ServerData::logoutPlayer(const std::string &name)
   if (playerExist(name) == true)
     {
       std::cout << name << " just logout" << std::endl;
-      getPlayer(name)->setOnline(false);
       if (playerAlreadyInRoom(name) == true)
 	{
 	  deletePlayerOfRoom(name);
 	  _isUpdate = true;
 	}
+      getPlayer(name)->setOnline(false);
     }
 }
 
@@ -125,7 +125,7 @@ uint64_t	ServerData::getPlayerPos(const std::string &name) const
 bool	ServerData::createRoom(const std::string &name, const uint8_t &mPlayer, const std::string &player)
 {
   std::cout << "try createRoom" << std::endl;
-  if (name.empty() == true || mPlayer != 0 || playerExist(player) == false)
+  if (name.empty() == true || mPlayer == 0 || playerExist(player) == false || roomExist(name) == true)
     return (false);
   uint8_t nbPlayer;
   
@@ -227,7 +227,14 @@ bool			ServerData::playerInRoom(const std::string &player, const DataRoom *room)
   i = 0;
   while (i < room->getPlayers().size())
     {
-      if (room->getPlayers()[i]->getName() == player || room->getWatchers()[i]->getName() == player)
+      if (room->getPlayers()[i]->getName() == player)
+	return (true);
+      i++;
+    }
+  i = 0;
+  while (i < room->getWatchers().size())
+    {
+      if (room->getWatchers()[i]->getName() == player)
 	return (true);
       i++;
     }
@@ -292,7 +299,10 @@ void			ServerData::deletePlayerOfRoom(const std::string &player)
       if (deletePlayerInRoom(player, _room[i]) == true)
 	{
 	  if (_room[i]->getPlayers().size() == 0)
-	    _room.erase(_room.begin() + i);
+	    {
+	      std::cout << _room[i]->getName() << " room's just delete" << std::endl;
+	      _room.erase(_room.begin() + i);
+	    }
 	  return;
 	}
       i++;

@@ -227,4 +227,6 @@ void		ManageNetworkTCP::pushToServ(const PacketUnknown &m)
 			i++;
 		}
 	}
+	else
+	  std::cout << "Not connected to server!" << std::endl;
 }

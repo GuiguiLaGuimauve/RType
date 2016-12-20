@@ -1,6 +1,8 @@
 #include "GUI.hh"
 
-void	Gui::GUI::TextColorFocus(Gui::IWidget *w)
+using namespace Gui;
+
+void	TextColorFocus(IWidget *w)
 {
   Style	s1 = w->getStyle();
   s1.textColor.blue += 100;
@@ -8,7 +10,7 @@ void	Gui::GUI::TextColorFocus(Gui::IWidget *w)
   w->setStyle(s1);
 }
 
-void	Gui::GUI::TextColorNoFocus(Gui::IWidget *w)
+void	TextColorNoFocus(IWidget *w)
 {
   Style	s1 = w->getStyle();
   s1.textColor.blue -= 100;
@@ -16,7 +18,7 @@ void	Gui::GUI::TextColorNoFocus(Gui::IWidget *w)
   w->setStyle(s1);
 }
 
-void	Gui::GUI::SetOnTextEntered(Gui::IWidget *w, const std::string &c)
+void	textEntered(IWidget *w, const std::string &c)
 {
   if (c[0] == 127 || c[0] == 8)
     {
