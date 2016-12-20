@@ -523,18 +523,23 @@ void		GUI::displayLogin()
 
 void		GUI::updateGameInfo(/*const GameInfo &*/)
 {
+	// Todo : Update game info
 }
 
 void		GUI::setEventQueue(EventPart::IEventQueue *eq)
 {
+  // Define Event Queue
   _coreQueue = eq;
 }
 
 void		GUI::deleteWidgets()
 {
+  // Init widget
   _win->deleteAllWidgets();
   _hoverWidget = NULL;
   _focusWidget = NULL;
+
+  // Delete defined widgets
   if (_startWidgets)
     delete _startWidgets;
   if (_loginWidgets)
@@ -543,6 +548,8 @@ void		GUI::deleteWidgets()
     delete _menuWidgets;
   if (_gameWidgets)
     delete _gameWidgets;
+
+  // Set to NULL
   _startWidgets = NULL;
   _loginWidgets = NULL;
   _menuWidgets = NULL;
@@ -551,34 +558,42 @@ void		GUI::deleteWidgets()
 
 void			GUI::setSoundManager(Audio::ISoundManager *sound)
 {
+  // Set Sound Manager
   _audio = sound;
   loadSoundAssets();
 }
 
 void			GUI::showPopup(const std::string &string, int tMilli)
 {
+  // Delete old popup
   if (_fadedWidget)
-    {
-      _win->deleteWidget(_fadedWidget);
-    }
-  // other init
-  _fadedWidget = _win->addWidget(50, 350, (int) string.size() * 20, 50);
+	_win->deleteWidget(_fadedWidget);
+
+  // Get style
+  _fadedWidget = _win->addWidget(0, 1030, 1920, 50);
   auto style = _fadedWidget->getStyle();
-  style.backgroundColor.green = 250;
+
+  // Edit style
+  style.textColor = Color(TEXT_COLOR_R, TEXT_COLOR_G, TEXT_COLOR_B);
+  style.backgroundColor = Color(BACKGROUND_COLOR_R, BACKGROUND_COLOR_G, BACKGROUND_COLOR_B);
   style.form = RECTANGLE;
   style.policeSize = 24;
-  style.textColor.red = 250;
+
+  // Set style
   _fadedWidget->setStyle(style);
   _fadedWidget->showPopup(string, tMilli);
 }
 
 void			GUI::loadSoundAssets()
 {
-  _audio->loadSound(SOUNDS_TITLESCREEN, "TitleScreen");
-  _audio->loadSound(SOUNDS_STAGE1, "Stage1");
-  _audio->loadSound(SOUNDS_STAGE2, "Stage2");
-  _audio->loadSound(SOUNDS_STAGE3, "Stage3");
-  _audio->loadSound(SOUNDS_STAGE4, "Stage4");
+	// Load title screen sound
+	_audio->loadSound(SOUNDS_TITLESCREEN, "TitleScreen");
+
+	// Load sounds for levels
+	_audio->loadSound(SOUNDS_STAGE1, "Stage1");
+	_audio->loadSound(SOUNDS_STAGE2, "Stage2");
+	_audio->loadSound(SOUNDS_STAGE3, "Stage3");
+	_audio->loadSound(SOUNDS_STAGE4, "Stage4");
 }
 
 void			GUI::setRooms(const std::vector<DataRoom *> &d)
