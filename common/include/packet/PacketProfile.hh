@@ -15,7 +15,7 @@ namespace Packet {
 	class PacketProfile : public APacket {
 
 	public:
-		PacketProfile(DataPlayer * player);
+		PacketProfile(const DataPlayer * player);
 		PacketProfile(const uint8_t *data);
 		~PacketProfile();
 

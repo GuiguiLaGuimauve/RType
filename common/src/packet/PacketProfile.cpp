@@ -5,14 +5,14 @@
 #include <iostream>
 #include "PacketProfile.hh"
 
-PacketProfile::PacketProfile(DataPlayer * player)
+PacketProfile::PacketProfile(const DataPlayer * player)
 {
 	PacketSerializer ps;
 	uint32_t dataPacketSize = 0;
 
 	_type = IPacket::PacketType::PROFILE;
 	_tickId = 0;
-	_player = player;
+	_player = (DataPlayer *)player;
 	
 	ps.add(player->getName());
 	dataPacketSize += 2 + (uint32_t)player->getName().size();
