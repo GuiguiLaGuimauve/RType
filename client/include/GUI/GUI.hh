@@ -93,6 +93,7 @@ namespace Gui
     void	showPopup(const std::string &s, int tMilli = 2000);
     void	loadSoundAssets();
     void	setRooms(const std::vector<DataRoom *> &);
+    void	setProfile(DataPlayer *p);
   protected:
     void	deleteWidgets();
   protected:
@@ -101,6 +102,7 @@ namespace Gui
     IGuiEventManager		*_userEvents;
     std::vector<DataRoom*>	_menuInfos;
     DataRoom			*_currentGame = NULL;
+    DataPlayer			*_profile = NULL;
     //GameInfo			_gameInfo;
     EventPart::IEventQueue	*_coreQueue;
     EventPart::IEventQueue	*_guiQueue;

@@ -575,3 +575,8 @@ void			GUI::setRooms(const std::vector<DataRoom *> &d)
   std::cout << "Je recois un setRoom " << std::endl;
   _menuInfos = d;
 }
+
+void			GUI::setProfile(DataPlayer *p)
+{
+  _profile = p;
+}
