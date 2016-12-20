@@ -121,7 +121,7 @@ void		GUI::callback()
 	}
 	case EventPart::Event::BUTTON_JOIN_GAME:
 	{
-		ep = EventPart::Event(EventPart::Event::JOIN_GAME);
+		ep = EventPart::Event(EventPart::Event::JOIN_GAME, "GAME_NAME", _currentGame->getName());
 		break ;
 	}
 	case EventPart::Event::KEY_ATTACK :
@@ -172,6 +172,20 @@ void		GUI::callback()
 			}
 		}
 	break;
+	}
+	case EventPart::Event::CLICK_SELECT_GAME:
+	{
+		int nb = 0;
+		for (auto room : _menuWidgets->games)
+		{
+			if (room->getX() == e.dataInt["X"] && room->getY() == e.dataInt["Y"])
+				_menuWidgets->selectedRoom = nb;
+			else
+				nb++;
+		}
+		_currentGame = _menuInfos[0];
+		updateCurrentGame();
+		break;
 	}
 	default :
 	  ep.type = EventPart::Event::DEFAULT;
@@ -376,98 +390,102 @@ void		GUI::displayStart()
 
 void		GUI::displayMenu()
 {
-  deleteWidgets();
-  _win->setBackground(PICTURE_BACKGROUND);
-  _menuWidgets = new Menu;
+	Style		s;
+	deleteWidgets();
+	_win->setBackground(PICTURE_BACKGROUND);
+	_menuWidgets = new Menu;
 
-  _menuWidgets->GameContainer = _win->addWidget(_win->getWidth() / 6, 100, 1000, 300);
-  _menuWidgets->GameInfos = _win->addWidget(3 * (_win->getWidth() / 4), 100, 1000, 300);
-  _menuWidgets->createGame = _win->addWidget(3 * (_win->getWidth() / 4), 5 * (_win->getHeight() / 6), 50, 60);
-  _menuWidgets->profile = _win->addWidget(3 * (_win->getWidth() / 4), _win->getHeight() / 2, _win->getHeight() / 4, 300);
-  _menuWidgets->profileInfo = _win->addWidget(3 * (_win->getWidth() / 4), _win->getHeight() / 2 + 100, _win->getHeight() / 4, 300);
-  _menuWidgets->confirm = _win->addWidget(4 * (_win->getWidth() / 5), 5 * (_win->getHeight() / 6) + 10, 135, 45);
-  _menuWidgets->GameContainer->setText("Games");
-  _menuWidgets->GameInfos->setText("Infos");
-  _menuWidgets->createGame->setText("+");
-  _menuWidgets->profile->setText("Profile");
-  if (_profile != NULL)
-    {
-      _menuWidgets->profileInfo->setText("Name :\t" + _profile->getName()
-				     + "\nPlay/Succes :\t" + std::to_string(_profile->getGamePlayed())
-				     + "/" + std::to_string(_profile->getStageSucceed()));
-    }
-    _menuWidgets->confirm->setText("Join");
-
-  Style		s = _menuWidgets->confirm->getStyle();
-  s.form = NO_FORM;
-  s.textColor = Color(255, 215, 255);
-
-  s.policeSize = 20;
-  _menuWidgets->profileInfo->setStyle(s);
-  s.policeSize = 35;
-  _menuWidgets->GameContainer->setStyle(s);
-  _menuWidgets->profile->setStyle(s);
-  _menuWidgets->GameInfos->setStyle(s);
-  s.textColor = Color(255, 215, 0);
-  _menuWidgets->confirm->setStyle(s);
-  s.policeSize = 60;
-  _menuWidgets->createGame->setStyle(s);
-  s.textColor = Color(255, 215, 255);  
-  
-  std::cout << "A l'initialisation, la size de mes Rooms est " << _menuInfos.size() << std::endl;
-  int i = 0;
-  for (auto elem : _menuInfos)
-    {
-      IWidget *temp = _win->addWidget(_win->getWidth() / 6, 100 + ((i + 1) * 100), _win->getWidth() / 2, 100);
-      Style sgame = temp->getStyle();
-      sgame.policeSize = 20;
-      sgame.textColor = Color(255, 215, 255);
-      temp->setStyle(sgame);
-      temp->setText(elem->getName() + "\t" + std::to_string(elem->getPlayers().size())
-		    + "/" + std::to_string(elem->getMaxPlayers())
-		    + "\tStage " + std::to_string(elem->getLevel() + 1));
-      // Mettre le OnClick à envoi d'Event avec numero de Game à update (voir avec ClientCore & Max)
-      i++;
-    }
-
-  if (!_currentGame)
-    if (_menuInfos.size())
-      _currentGame = _menuInfos[0];
-
-  if (_currentGame)
-    {
-      _menuWidgets->selectedGame = _win->addWidget(3 * (_win->getWidth() / 4), 150, 300, 300);
-      s.policeSize = 20;
-      _menuWidgets->selectedGame->setStyle(s);
-      _menuWidgets->selectedGame->setText("Name : " + _currentGame->getName() + "\n\nPlayers :\n\n");
-      for (auto elem : _currentGame->getPlayers())
-	_menuWidgets->selectedGame->setText(_menuWidgets->selectedGame->getText() +
-					    elem->getName() + "\t"
-					    + std::to_string(elem->getStageSucceed()) + "/"
-					    + std::to_string(elem->getGamePlayed())+ "\n");
-  }
-
-  _menuWidgets->confirm->setOnClick([](IWidget *widget, CLICK)
-				    {
-				      std::cout << "Let's connect !" << std::endl;
-				      auto eq = widget->getEventQueue();
-				      eq->push(EventPart::Event(EventPart::Event::BUTTON_JOIN_GAME));
-				    });
-  _menuWidgets->confirm->setOnHover(TextColorFocus);
-  _menuWidgets->confirm->setOnLeaveHover(TextColorNoFocus);
-
-  _menuWidgets->createGame->setOnClick([](IWidget *widget, CLICK)
-				       {
-					 std::cout << "Let's try to create a game !" << std::endl;
-					 auto eq = widget->getEventQueue();
-					 eq->push(EventPart::Event(EventPart::Event::BUTTON_CREATE_GAME));
-				       });
-  _menuWidgets->createGame->setOnHover(TextColorFocus);
-  _menuWidgets->createGame->setOnLeaveHover(TextColorNoFocus);
-
-  // ergonomie focus
-  _focusWidget = _menuWidgets->confirm;
-  _focusWidget->onFocus();
+	// init le gameText
+	_menuWidgets->GameText = _win->addWidget(_win->getWidth() / 6, 100, 0, 0);
+	_menuWidgets->GameText->setText("Games");
+	s = _menuWidgets->GameText->getStyle();
+	s.policeSize = 35;
+	s.textColor = Color(255, 215, 0);
+	_menuWidgets->GameText->setStyle(s);
+	// init gameInfo
+	_menuWidgets->GameInfos = _win->addWidget(3 * (_win->getWidth() / 4), 100, 1000, 300);
+	_menuWidgets->GameInfos->setText("Infos");
+	s = _menuWidgets->GameInfos->getStyle();
+	s.policeSize = 35;
+	s.textColor = Color(255, 215, 0);
+	_menuWidgets->GameInfos->setStyle(s);
+	// init createGame
+	_menuWidgets->createGame = _win->addWidget(3 * (_win->getWidth() / 4), 5 * (_win->getHeight() / 6), 50, 60);
+	_menuWidgets->createGame->setText("+");
+	s = _menuWidgets->createGame->getStyle();
+	s.policeSize = 20;
+	s.textColor = Color(255, 215, 0);
+	_menuWidgets->createGame->setStyle(s);
+	_menuWidgets->createGame->setOnClick([](IWidget *widget, CLICK)
+	{
+		std::cout << "Let's try to create a game !" << std::endl;
+		auto eq = widget->getEventQueue();
+		eq->push(EventPart::Event(EventPart::Event::BUTTON_CREATE_GAME));
+	});
+	_menuWidgets->createGame->setOnHover(TextColorFocus);
+	_menuWidgets->createGame->setOnLeaveHover(TextColorNoFocus);
+	// init profile text
+	_menuWidgets->profile = _win->addWidget(3 * (_win->getWidth() / 4), _win->getHeight() / 2, _win->getHeight() / 4, 300);
+	_menuWidgets->profile->setText("Profile");
+	s = _menuWidgets->profile->getStyle();
+	s.policeSize = 35;
+	s.textColor = Color(255, 215, 0);
+	_menuWidgets->profile->setStyle(s);
+	// init profile into
+	_menuWidgets->profileInfo = _win->addWidget(3 * (_win->getWidth() / 4), _win->getHeight() / 2 + 100, _win->getHeight() / 4, 300);
+	if (_profile != NULL)
+	{
+		_menuWidgets->profileInfo->setText("Name :\t" + _profile->getName()
+			+ "\nPlay/Succes :\t" + std::to_string(_profile->getGamePlayed())
+			+ "/" + std::to_string(_profile->getStageSucceed()));
+	}
+	s = _menuWidgets->profileInfo->getStyle();
+	s.policeSize = 20;
+	s.textColor = Color(255, 215, 255);
+	s = _menuWidgets->profileInfo->getStyle();
+	// bouton confirm pour join
+	_menuWidgets->confirm = _win->addWidget(4 * (_win->getWidth() / 5), 5 * (_win->getHeight() / 6) + 10, 135, 45);
+	_menuWidgets->confirm->setText("Join");
+	s = _menuWidgets->confirm->getStyle();
+	s.policeSize = 20;
+	s.textColor = Color(255, 215, 0);
+	_menuWidgets->confirm->setStyle(s);
+	_menuWidgets->confirm->setOnClick([](IWidget *widget, CLICK)
+	{
+		std::cout << "Let's connect !" << std::endl;
+		auto eq = widget->getEventQueue();
+		eq->push(EventPart::Event(EventPart::Event::BUTTON_JOIN_GAME));
+	});
+	_menuWidgets->confirm->setOnHover(TextColorFocus);
+	_menuWidgets->confirm->setOnLeaveHover(TextColorNoFocus);
+	//std::cout << "A l'initialisation, la size de mes Rooms est " << _menuInfos.size() << std::endl;
+	// affichage de toutes les rooms
+	int i = 0;
+	for (auto elem : _menuInfos)
+	{
+		// crée un widget pour chaque room
+		IWidget *temp = _win->addWidget(_win->getWidth() / 6, 100 + ((i + 1) * 100), _win->getWidth() / 2, 100);
+		Style sgame = temp->getStyle();
+		sgame.policeSize = 20;
+		sgame.textColor = Color(255, 215, 255);
+		temp->setStyle(sgame);
+		temp->setText(elem->getName() + "\t" + std::to_string(elem->getPlayers().size())
+			+ "/" + std::to_string(elem->getMaxPlayers())
+			+ "\tStage " + std::to_string(elem->getLevel() + 1));
+		temp->setOnClick([](IWidget *w, CLICK)
+		{
+			w->getEventQueue()->push(EventPart::Event(EventPart::Event::CLICK_SELECT_GAME, "X", w->getX(), "Y", w->getY()));
+		});
+		_menuWidgets->games.push_back(temp);
+		i++;
+	}
+	// affichage des infos de la game selectionnée
+	_menuWidgets->selectedGame = _win->addWidget(800, 300, 0, 0);
+	s = _menuWidgets->selectedGame->getStyle();
+	s.policeSize = 20;
+	s.textColor = Color(255, 215, 255);
+	_menuWidgets->selectedGame->setStyle(s);
+	updateCurrentGame();
 }
 
 void		GUI::displayLogin()
@@ -628,6 +646,7 @@ void			GUI::setRooms(const std::vector<DataRoom *> &d)
 {
   std::cout << "Je recois un setRoom " << std::endl;
   _menuInfos = d;
+  updateGameInfo();
 }
 
 void			GUI::setProfile(DataPlayer *p)
@@ -636,4 +655,19 @@ void			GUI::setProfile(DataPlayer *p)
 	    << " mon nombre partie jouees/gagnes" << std::to_string(p->getGamePlayed())
 	    << "/" << std::to_string(p->getStageSucceed()) << std::endl;
   _profile = p;
+}
+
+void		GUI::updateCurrentGame()
+{
+	if (_currentGame)
+	{
+		_menuWidgets->selectedGame->setText(_currentGame->getName());
+		_menuWidgets->confirm->setText("JOIN");
+		_menuWidgets->confirm->resize(200, 200);
+	}
+	else
+	{
+		_menuWidgets->confirm->setText("");
+		_menuWidgets->confirm->resize(0, 0);
+	}
 }

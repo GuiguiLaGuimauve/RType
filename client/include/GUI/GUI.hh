@@ -66,14 +66,15 @@ namespace Gui
 
     struct Menu
     {
-      IWidget	*GameContainer = NULL;
-      IWidget	*GameInfos = NULL;
-      IWidget	*selectedGame = NULL;
-      //std::vector<IWidget*>	Games = NULL;
-      IWidget	*profile = NULL;
-      IWidget	*profileInfo = NULL;
-      IWidget	*createGame = NULL;
-      IWidget	*confirm = NULL;
+      IWidget	*GameText = NULL; // affiche le texte "GAME"
+      IWidget	*GameInfos = NULL; // affiche le texte "Info"
+      IWidget	*selectedGame = NULL; // va servir à affichier les infos de la game selectionnée
+	  int		selectedRoom = -1; // id dans le vecteur de la game selectionnée
+      std::vector<IWidget *>	games; // affichage de toutes les games
+      IWidget	*profile = NULL; // affiche "PROFILE"
+      IWidget	*profileInfo = NULL; // affiches les informations liées au user
+      IWidget	*createGame = NULL; // bouton pour créer une gaùe
+      IWidget	*confirm = NULL; // bouton pour confirmier
       /* Vecteur de joueurs connectés */
       /* Container des joueurs connectés */
     };
@@ -90,41 +91,43 @@ namespace Gui
     void        displayGame();
     void        displayStart();
     void        displayMenu();
-    void	displayLogin();
+    void		displayLogin();
     void        updateGameInfo(/*const GameInfo &*/);
-    void	setEventQueue(EventPart::IEventQueue *);
-    void	setSoundManager(Audio::ISoundManager *);
-    void	showPopup(const std::string &s, int tMilli = 2000);
-    void	loadSoundAssets();
-    void	setRooms(const std::vector<DataRoom *> &);
-    void	setProfile(DataPlayer *p);
+    void		setEventQueue(EventPart::IEventQueue *);
+    void		setSoundManager(Audio::ISoundManager *);
+    void		showPopup(const std::string &s, int tMilli = 2000);
+    void		loadSoundAssets();
+    void		setRooms(const std::vector<DataRoom *> &);
+    void		setProfile(DataPlayer *p);
   protected:
     void	deleteWidgets();
+	void	updateCurrentGame();
   protected:
     Audio::ISoundManager	*_audio;
-    IWindow			*_win;
+    IWindow					*_win;
     IGuiEventManager		*_userEvents;
+	// pour gérer le menu
     std::vector<DataRoom*>	_menuInfos;
-    DataRoom			*_currentGame = NULL;
-    DataPlayer			*_profile = NULL;
-    //GameInfo			_gameInfo;
+    DataRoom				*_currentGame = NULL;
+    DataPlayer				*_profile = NULL;
+	// les queues d'events
     EventPart::IEventQueue	*_coreQueue;
     EventPart::IEventQueue	*_guiQueue;
     // gestion effets graphiques
-    IWidget			*_hoverWidget = NULL;
-    IWidget			*_focusWidget = NULL;
+    IWidget					*_hoverWidget = NULL;
+    IWidget					*_focusWidget = NULL;
     // liste des widgets dans les structures
-    Start	*_startWidgets = NULL;
-    Login	*_loginWidgets = NULL;
-    Menu	*_menuWidgets = NULL;
-    Game	*_gameWidgets = NULL;
+    Start					*_startWidgets = NULL;
+    Login					*_loginWidgets = NULL;
+    Menu					*_menuWidgets = NULL;
+    Game					*_gameWidgets = NULL;
     // popup
-    IWidget  *_fadedWidget = NULL;
+    IWidget					*_fadedWidget = NULL;
     /* temp pour test GUI */
-    std::vector<data>   players;
-    std::vector<data>   shots;
-    std::vector<data>   envs;
-    std::vector<data>   monsters;
+    std::vector<data>		players;
+    std::vector<data>		shots;
+    std::vector<data>		envs;
+    std::vector<data>		monsters;
   };
 }
 
