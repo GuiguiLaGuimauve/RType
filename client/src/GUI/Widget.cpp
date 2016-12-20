@@ -27,7 +27,26 @@ void                Widget::draw()
     _win->draw(_circle);
   else if (_style.form == RECTANGLE)
     _win->draw(_rectangle);
-  if (_style.image != "")
+  if (_style.frequency > 0)
+  {
+	  if (_style.move_animation == false)
+	  {
+		  auto sprites = _animations["NORMAL"];
+		  if (_anim_timer.getTimeMilli() > _style.frequency)
+			  _anim_timer.reset();
+		  int i = _anim_timer.getTimeMilli() / _style.frequency;
+		  _win->draw(sprites[i]);
+	  }
+	  else
+	  {
+		  auto sprites = _animations[_direction];
+		  if (_anim_timer.getTimeMilli() > _style.frequency)
+			  _anim_timer.reset();
+		  int i = _anim_timer.getTimeMilli() / _style.frequency;
+		  _win->draw(sprites[i]);
+	  }
+  }
+  else if (_style.image != "")
     {
       _win->draw(_background);
     }
@@ -68,6 +87,8 @@ void                Widget::resize(int w, int h)
 
 void                Widget::move(int x, int y)
 {
+	int	deltaX = _x - x;
+	int	deltaY = _y - y;
   _x = x;
   _y = y;
   float X = (float) _x;
@@ -76,6 +97,14 @@ void                Widget::move(int x, int y)
   _circle.move(X, Y);
   _sfmlText.setPosition(X, Y);
   _background.move(X, Y);
+  if (std::abs(deltaX) > std::abs(deltaY))
+  {
+	  _direction = (deltaX > 0) ? "RIGHT" : "LEFT";
+  }
+  else
+  {
+	  _direction = (deltaX > 0) ? "TOP" : "BOTTOM";
+  }
 }
 
 void                Widget::setText(const std::string &s)
@@ -209,6 +238,7 @@ void                Widget::setStyle(const Style &s)
 	// animation part
 	if (_style.frequency > 0)
 	{
+		_animations.clear();
 		for (auto it_map = _style.anims.begin(); it_map != _style.anims.end(); it_map++)
 		{
 			std::vector<std::string> v = _style.anims[std::get<0>(*it_map)];
@@ -219,7 +249,7 @@ void                Widget::setStyle(const Style &s)
 				tmp_sprite.setPosition((float)getX(), (float)getY());
 				dest.push_back(tmp_sprite);
 			}
-			animations[std::get<0>(*it_map)] = dest;
+			_animations[std::get<0>(*it_map)] = dest;
 		}
 	}
 }
