@@ -14,6 +14,7 @@ PacketProfile::PacketProfile(const DataPlayer * player)
 	_tickId = 0;
 	_player = (DataPlayer *)player;
 	
+	ps.add((uint16_t)player->getName().size()); 
 	ps.add(player->getName());
 	dataPacketSize += 2 + (uint32_t)player->getName().size();
 
