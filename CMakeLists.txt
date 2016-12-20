@@ -82,16 +82,16 @@ add_definitions(-std=c++11)
 
 # add_executable for WIN32
 IF (WIN32)
-  add_executable(RType_server ${COMMONCORE} ${COMMONPACKET} ${COMMONPACKETT} ${COMMONTOOLS} ${COMMONNETWORK} ${COMMONNETWORKWIN} ${server_src})
+  add_executable(RType_server assets/rc/server.rc ${COMMONCORE} ${COMMONPACKET} ${COMMONPACKETT} ${COMMONTOOLS} ${COMMONNETWORK} ${COMMONNETWORKWIN} ${server_src})
   IF (SFML_FOUND AND ${SFML_VERSION_P} EQUAL "2")
-  add_executable(RType ${COMMONCORE} ${COMMONPACKET} ${COMMONPACKETT} ${COMMONTOOLS} ${COMMONNETWORK} ${COMMONNETWORKWIN} ${client_src})
+  add_executable(RType_client assets/rc/client.rc ${COMMONCORE} ${COMMONPACKET} ${COMMONPACKETT} ${COMMONTOOLS} ${COMMONNETWORK} ${COMMONNETWORKWIN} ${client_src})
   ENDIF (SFML_FOUND AND ${SFML_VERSION_P} EQUAL "2")
 ENDIF (WIN32)
 
 # add_executable for UNIX
 IF (UNIX)
   IF (SFML_FOUND AND ${SFML_VERSION_P} EQUAL "2")
-  add_executable(RType ${COMMONCORE} ${COMMONPACKET} ${COMMONPACKETT} ${COMMONTOOLS} ${COMMONNETWORK} ${COMMONNETWORKUNIX} ${client_src})
+  add_executable(RType_client ${COMMONCORE} ${COMMONPACKET} ${COMMONPACKETT} ${COMMONTOOLS} ${COMMONNETWORK} ${COMMONNETWORKUNIX} ${client_src})
   ENDIF (SFML_FOUND AND ${SFML_VERSION_P} EQUAL "2")
 add_executable(RType_server ${COMMONCORE} ${COMMONPACKET} ${COMMONPACKETT} ${COMMONTOOLS} ${COMMONNETWORK} ${COMMONNETWORKUNIX} ${server_src})
 ENDIF (UNIX)
@@ -116,6 +116,6 @@ ENDIF (WIN32)
 # Link librairies
   target_link_libraries(RType_server ${CMAKE_THREAD_LIBS_INIT})
   IF (SFML_FOUND AND ${SFML_VERSION_P} EQUAL "2")
-    target_link_libraries(RType ${CMAKE_THREAD_LIBS_INIT})
-    target_link_libraries(RType ${SFML_LIBRARIES})
+    target_link_libraries(RType_client ${CMAKE_THREAD_LIBS_INIT})
+    target_link_libraries(RType_client ${SFML_LIBRARIES})
   ENDIF (SFML_FOUND AND ${SFML_VERSION_P} EQUAL "2")
