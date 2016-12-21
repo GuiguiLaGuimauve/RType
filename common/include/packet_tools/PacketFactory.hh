@@ -95,7 +95,7 @@ public:
   IPacket	*login(const std::string &, const std::string &);
   IPacket	*tryRegister(const std::string &, const std::string &);
 
-  IPacket	*move(const uint16_t &, const uint16_t &);
+  IPacket	*positionPlayer(const uint16_t &, const uint16_t &);
   IPacket	*shoot(const uint16_t &, const uint16_t &);
 
   IPacket	*getShoots(const std::vector<DataShoot *>&);
@@ -127,7 +127,7 @@ public:
   IPacket		*revLogout(const uint8_t *);
   IPacket		*revDisconnect(const uint8_t *);
   IPacket		*revShoot(const uint8_t *);
-  IPacket		*revMove(const uint8_t *);
+  IPacket		*revPositionPlayer(const uint8_t *);
   IPacket		*revPlayers(const uint8_t *);
   IPacket		*revShoots(const uint8_t *);
   IPacket		*revEnnemies(const uint8_t *);
@@ -184,7 +184,7 @@ public:
     _map[IPacket::PacketType::LOGOUT] = &PacketFactory::revLogout;
     _map[IPacket::PacketType::DISCONNECT] = &PacketFactory::revDisconnect;
     _map[IPacket::PacketType::SHOOT] = &PacketFactory::revShoot;
-    _map[IPacket::PacketType::MOVE] = &PacketFactory::revMove;
+    _map[IPacket::PacketType::POSITION_PLAYER] = &PacketFactory::revPositionPlayer;
     _map[IPacket::PacketType::PLAYERS] = &PacketFactory::revPlayers;
     _map[IPacket::PacketType::SHOOTS] = &PacketFactory::revShoots;
     _map[IPacket::PacketType::ENNEMIES] = &PacketFactory::revEnnemies;
@@ -215,7 +215,7 @@ public:
     _converter["logout"] = IPacket::PacketType::LOGOUT;
     _converter["disconnect"] = IPacket::PacketType::DISCONNECT;
     _converter["shoot"] = IPacket::PacketType::SHOOT;
-    _converter["move"] = IPacket::PacketType::MOVE;
+    _converter["positionplayer"] = IPacket::PacketType::POSITION_PLAYER;
     _converter["players"] = IPacket::PacketType::PLAYERS;
     _converter["shoots"] = IPacket::PacketType::SHOOTS;
     _converter["ennemies"] = IPacket::PacketType::ENNEMIES;
@@ -431,9 +431,9 @@ public:
   typedef IPacket *(PacketFactory::*ptr)(const uint16_t &, const uint16_t &);
   PacketContener(PacketFactory *p) : _p(p)
   {
-    _map["move"] = &PacketFactory::move;
+    _map["positionplayer"] = &PacketFactory::positionPlayer;
     _map["shoot"] = &PacketFactory::shoot;
-    _converter[IPacket::PacketType::MOVE] = "move";
+    _converter[IPacket::PacketType::POSITION_PLAYER] = "positionplayer";
     _converter[IPacket::PacketType::SHOOT] = "shoot";
   };
   ~PacketContener() {};

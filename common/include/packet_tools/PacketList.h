@@ -29,7 +29,7 @@
 # include	"PacketRegister.hh"
 # include	"PacketLogout.hh"
 # include	"PacketDisconnect.hh"
-# include	"PacketMove.hh"
+# include	"PacketPositionPlayer.hh"
 # include	"PacketShoot.hh"
 # include	"PacketMusic.hh"
 # include	"PacketSound.hh"
@@ -42,5 +42,6 @@
 # include	"PacketAskRoomData.hh"
 # include	"PacketAccept.hh"
 # include	"PacketProfile.hh"
+# include	"PacketChatMessage.hh"
 
 #endif /* !PACKETLIST_H_ */

@@ -43,7 +43,7 @@ ManagePacketServer::ManagePacketServer()
   _factory->enableDeserialiser("logout");
   _factory->enableDeserialiser("disconnect");
   _factory->enableDeserialiser("shoot");
-  _factory->enableDeserialiser("move");
+  _factory->enableDeserialiser("positionplayer");
   _factory->enableDeserialiser("ping");
   _factory->enableDeserialiser("pong");
   _factory->enableDeserialiser("askroomdata"); 

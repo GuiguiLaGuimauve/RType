@@ -50,7 +50,8 @@ namespace Packet
         
         DISCONNECT		= 0x20,
         SHOOT			= 0x21,
-        MOVE			= 0x22,
+        POSITION_PLAYER	= 0x22,
+        CHAT_MESSAGE	= 0x23,
 
         PLAYERS			= 0x81,
         SHOOTS			= 0x82,

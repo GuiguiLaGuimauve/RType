@@ -25,7 +25,7 @@ ManagerPacketClient::ManagerPacketClient()
   _factory->enableSerialiser("logout");
   _factory->enableSerialiser("disconnect");
   _factory->enableSerialiser("shoot");
-  _factory->enableSerialiser("move");
+  _factory->enableSerialiser("positionplayer");
   _factory->enableSerialiser("ping");
   _factory->enableSerialiser("pong");
   _factory->enableSerialiser("askroomdata");
