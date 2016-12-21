@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Wed Dec 21 05:36:37 2016 lecoq
+// Last update Wed Dec 21 07:49:09 2016 lecoq
 //
 
 #include	"CoreClient.hh"
@@ -27,6 +27,7 @@ CoreClient::CoreClient()
   _packetPtr[IPacket::PacketType::ERROR_PACKET] = &CoreClient::errorPacket;
   _packetPtr[IPacket::PacketType::ROOMS] = &CoreClient::rooms;
   _packetPtr[IPacket::PacketType::PROFILE] = &CoreClient::profile;
+  _packetPtr[IPacket::PacketType::UDP_DATA] = &CoreClient::udpData;
   _status = "connect";
 }
 
@@ -286,6 +287,15 @@ bool		CoreClient::profile(const IPacket *pa, IUserNetwork *u)
   PacketProfile	*p = (PacketProfile *)pa;
 
   _gui->setProfile(p->getPlayer());
+  (void)u;
+  return (true);
+}
+
+bool		CoreClient::udpData(const IPacket *pa, IUserNetwork *u)
+{
+  PacketUdpData	*p = (PacketUdpData *)pa;
+
+  std::cout << "udpData recu ip : " << (int)p->getIp()[0] << "." << (int)p->getIp()[1] << "." << (int)p->getIp()[2] << "." << (int)p->getIp()[3] << " port : " << p->getPort() << std::endl;
   (void)u;
   return (true);
 }
