@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Thu Dec 15 15:33:48 2016 julien dufrene
-// Last update Wed Dec 21 12:30:04 2016 julien dufrene
+// Last update Wed Dec 21 19:03:55 2016 julien dufrene
 //
 
 #include "UserNetworkUDPUnix.hh"
@@ -27,6 +27,7 @@ IUserNetwork		*UserNetworkUDPUnix::readSocket(ISocket *net)
   s_in.sin_addr.s_addr = inet_addr(_ip.c_str());
   s_in.sin_family = AF_INET;
   s_in.sin_port = htons(_port);
+  std::cout << "Trying to recv from: " << _ip << ":" << _port << std::endl;
   if ((nb = recvfrom(_fd, buff, 16384, 0, (sockaddr *)&s_in, &s_inLen)) > 0)
     {
       buff[nb] = 0;
@@ -45,7 +46,8 @@ IUserNetwork		*UserNetworkUDPUnix::readSocket(ISocket *net)
     }
   if (nb == -1)
     {
-      std::cerr << "Error from recv()" << std::endl;
+      perror("recvfrom");
+      std::cerr << "Error from recvfrom(): " << errno << std::endl;
       closeFd();
     }
   return (this);

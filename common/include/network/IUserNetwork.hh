@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Fri Oct 21 14:44:09 2016 julien dufrene
-// Last update Tue Dec 20 13:35:46 2016 lecoq
+// Last update Wed Dec 21 19:04:22 2016 julien dufrene
 //
 
 #ifndef _IUSERNETWORK_HH_
@@ -16,6 +16,8 @@
 #ifdef _WIN32
 #else
 #include <unistd.h>
+#include <errno.h>
+#include <stdio.h>
 #endif
 #include "PacketUnknown.hpp"
 
