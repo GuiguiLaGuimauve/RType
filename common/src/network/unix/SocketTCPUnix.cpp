@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 //
 // Started on  Fri Oct 14 11:10:10 2016 julien dufrene
-// Last update Wed Dec 21 06:37:12 2016 julien dufrene
+// Last update Wed Dec 21 13:13:19 2016 julien dufrene
 //
 
 #include "SocketTCPUnix.hh"
@@ -92,6 +92,7 @@ bool			SocketTCPUnix::acceptClient(DataClient &data)
   data.setFd(fd);
   std::string tmp(inet_ntoa(s_client.sin_addr));
   data.setIp(tmp);
+  std::cout << "Accept client ip: " << tmp << std::endl;
   return (true);
 }
 

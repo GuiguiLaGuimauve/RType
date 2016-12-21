@@ -5,7 +5,7 @@
 ** Login   <lecoq_m@epitech.net>
 **
 ** Started on  Mon Oct 17 13:11:20 2016 Maxime Lecoq
-// Last update Wed Dec 21 09:00:02 2016 julien dufrene
+// Last update Wed Dec 21 12:16:48 2016 julien dufrene
 */
 
 #ifndef		__IMANAGENETWORK_HH__
@@ -59,6 +59,10 @@ namespace Network
       fr :La méthode updateUsers() permet de mettre à jour la liste des clients (ajout/suppression) et renvoie les pseudos des utilisateurs déconnectés.
      */
     virtual std::vector<std::string>		updateUsers(const std::vector<IUserNetwork *> &) = 0;
+    /*!
+      en :pushNewUser() is used to add a new user in the manager.
+      fr :La méthode pushNewUser() est utilisée pour ajouté un nouvel utilisateur dans le manageur. */
+    virtual void				pushNewUser(IUserNetwork *) = 0;
     /*!
       en :pushTo(liste, message) is used to send message to a list of users.
       fr :La méthode pushTo(liste, message) sert à envoyer un message à une liste d'utilisateurs. */

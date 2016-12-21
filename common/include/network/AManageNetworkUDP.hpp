@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Fri Dec 16 11:43:03 2016 julien dufrene
-// Last update Wed Dec 21 09:05:24 2016 julien dufrene
+// Last update Wed Dec 21 12:16:12 2016 julien dufrene
 //
 
 #ifndef		__MANAGENETWORKUDP_HH__
@@ -46,6 +46,10 @@ namespace Network
       (void)p;
       return (res);
     };
+    void				pushNewUser(IUserNetwork *u)
+    {
+      _user.push_back(u);
+    }
   };
 };
 

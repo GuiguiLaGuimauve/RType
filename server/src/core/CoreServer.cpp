@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Wed Dec 21 09:13:30 2016 julien dufrene
+// Last update Wed Dec 21 13:34:19 2016 julien dufrene
 //
 
 #include	"CoreServer.hh"
@@ -21,6 +21,7 @@ CoreServer::CoreServer()
   _packetPtr[IPacket::PacketType::JOIN_ROOM] = &CoreServer::joinRoom;
   _packetPtr[IPacket::PacketType::WATCH_GAME] = &CoreServer::watchGame;
   _packetPtr[IPacket::PacketType::START_GAME] = &CoreServer::startGame;
+  _packetPtr[IPacket::PacketType::UDP_DATA] = &CoreServer::udpData;
 }
 
 CoreServer::~CoreServer() {}
@@ -190,8 +191,6 @@ bool		CoreServer::watchGame(const IPacket *pa, IUserNetwork *u)
 bool				CoreServer::startGame(const IPacket *pa, IUserNetwork *u)
 {
   std::vector<std::string>	playersName;
-  IUserNetwork			*serv;
-  uint8_t			*ip;
   PacketStartGame		*p = (PacketStartGame *)pa;
   IPacket			*pb;
   DataRoom			*room = _data->getRoom(p->getGameName());
@@ -204,11 +203,11 @@ bool				CoreServer::startGame(const IPacket *pa, IUserNetwork *u)
     }
   else
     {
-      serv = _tcp->getRunning();
-      if ((ip = calculIp(serv->getIp())) == NULL)
-	return (false);
-      std::cout << "send udp data ip: " << ip << " port: " << serv->getPort() << std::endl;
-      pb = _factory->getPacket("udpdata", ip, (uint16_t)serv->getPort());
+      std::cout << "tcpIP: " << u->getIp() << std::endl;
+      // if ((ip = calculIp(u->getIp())) == NULL)
+      // 	return (false);
+      // std::cout << "send udp data ip: " << ip << " port: " << u->getPort() << std::endl;
+      pb = _factory->getPacket("udpdata", u->getIp(), (uint16_t)u->getPort());
       uint64_t		i = 0;
       while (i < room->getPlayers().size())
 	{
@@ -226,3 +225,29 @@ bool				CoreServer::startGame(const IPacket *pa, IUserNetwork *u)
   return (true);
 }
 
+bool		CoreServer::udpData(const IPacket *pa, IUserNetwork *u)
+{
+  PacketUdpData                         *p = (PacketUdpData *)pa;
+  Convert<uint8_t>                      conv;
+  std::vector<std::string>              empty;
+  std::string                           ip;
+#ifdef _WIN32
+  IUserNetwork				*udpUser = new UserNetworkUDPWindows();
+#else
+  IUserNetwork				*udpUser = new UserNetworkUDPUnix();
+#endif
+
+  ip = conv.toString(p->getIp()[0]) + ".";
+  ip += conv.toString(p->getIp()[1]) + ".";
+  ip += conv.toString(p->getIp()[2]) + ".";
+  ip += conv.toString(p->getIp()[3]);
+  std::cout << "udpData recu ip : " << ip << " port : " << p->getPort() << std::endl;
+  std::cout << "tcpIP: " << u->getIp() << std::endl;
+  udpUser->setFd(_udp->getSocket()->getFdSocket());
+  udpUser->setIp(u->getIp());
+  udpUser->setPort(p->getPort());
+  udpUser->setPseudo(u->getPseudo());
+  udpUser->setStatus(true);
+  _udp->pushNewUser(udpUser);
+  return (true);
+}

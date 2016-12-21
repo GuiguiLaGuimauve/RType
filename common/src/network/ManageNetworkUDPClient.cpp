@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Fri Dec 16 11:37:09 2016 julien dufrene
-// Last update Wed Dec 21 09:02:21 2016 julien dufrene
+// Last update Wed Dec 21 12:28:58 2016 julien dufrene
 //
 
 #include	"ManageNetworkUDPClient.hh"
@@ -51,21 +51,14 @@ bool			ManageNetworkUDPClient::selectIt()
 std::vector<IUserNetwork *>	ManageNetworkUDPClient::exec()
 {
   std::vector<IUserNetwork *>	newuser;
-  IUserNetwork			*u;
 
   if (_initServ == false || _serv->getStatus() == false)
     return (newuser);
-  u = _serv->readSocket(_net);
-  if (u != NULL && u != _serv && u->getStatus() == true)
+  _serv->readSocket(_net);
+  if (_serv->getStatus() == true && _serv->haveSomethingToRead())
     {
-      //      u->pushBufferWrite("WELCOME ON UDP SERVER");
-      newuser.push_back(u);
+      std::cout << "READ: " << std::endl;
     }
-  else
-    if (_serv->getStatus() == true && _serv->haveSomethingToRead())
-      {
-	std::cout << "READ: " << std::endl;
-      }
   if (_serv->getStatus() == true && _serv->haveSomethingToWrite() == true)
     _serv->writeSocket(_net);
   return (newuser);

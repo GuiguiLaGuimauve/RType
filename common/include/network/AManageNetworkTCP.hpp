@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Wed Dec 21 00:16:17 2016 julien dufrene
-// Last update Wed Dec 21 09:04:33 2016 julien dufrene
+// Last update Wed Dec 21 12:15:30 2016 julien dufrene
 //
 
 #ifndef		__MANAGENETWORKTCP_HH__
@@ -52,6 +52,10 @@ namespace Network
     {
       (void)p; (void)ip;
       return (false);
+    }
+    void				pushNewUser(IUserNetwork *u)
+    {
+      (void)u;
     }
   protected:
     /* fd_read est un attribut contentant un descripteur de fichier de lecture. */
