@@ -312,7 +312,18 @@ Category: Limited
 		 {
 			uint16_t Room name size
 			int8_t[] Room name
-			uint8_t Nb players
+			uint16_t Number of player
+			{
+			 	uint16_t Player name size
+				int8_t[] Player name
+				uint16_t Stage suceed
+				uint16_t Game played
+			} []
+			uint16_t Number of watchers
+			{
+			 	uint16_t Watcher name size
+				int8_t[] Watcher name
+			} []
 			uint8_t Max player allowed
 			uint8_t Level Stage
 		 } [] 
@@ -385,6 +396,12 @@ Category: Limited
 		
 	Packet LOGOUT		0x15*:
 		None
+	
+	Packet CHAT_MESSAGE		0x23*:
+		uint16_t Player name size
+		int8_t[] Player name
+		uint16_t Message size
+		int8_t[] Message
 \-----------------------------------------------------------------------------/
 RType							   Guimauve shoot'em up
 Request for Comments: 42						Page[6]
@@ -401,7 +418,7 @@ Category: Limited
 		int16_t	 	Position X
 		int16_t	 	Position Y
 
-	Packet MOVE 		0x22 :
+	Packet POSITION_PLAYER	0x22 :
 		int16_t	 	Position X
 		int16_t	 	Position Y
 
