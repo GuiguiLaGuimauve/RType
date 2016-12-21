@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:19:16 2016 Maxime Lecoq
-// Last update Tue Dec 20 23:56:34 2016 lecoq
+// Last update Wed Dec 21 05:45:24 2016 lecoq
 //
 
 #ifndef CORESERVER_HH_
@@ -23,8 +23,9 @@ using namespace Error;
 class CoreServer : public ACore
 {
   #define LOGIN_EMPTY "Login or password is empty"
-  #define WRONG_AUTHENTIFICATION "Authentification failed, can be an error of password or this account is already online"
-  #define ERROR_CREATE_ROOM "The creation of the room failed"
+  #define WRONG_AUTHENTIFICATION "Authentification failed : error on password or this account is already connected"
+  #define ERROR_CREATE_ROOM "The room's creation failed"
+#define ERROR_START_GAME "Can't start the game with this room's configuration"
 public:
   CoreServer();
   ~CoreServer();
@@ -41,6 +42,7 @@ private:
   bool		leaveRoom(const IPacket *, IUserNetwork *);
   bool		joinRoom(const IPacket *, IUserNetwork *);
   bool		watchGame(const IPacket *, IUserNetwork *);
+  bool		startGame(const IPacket *, IUserNetwork *);
 private:
   IManagerServer			*_manager;
   IGameManager				*_gameManager;

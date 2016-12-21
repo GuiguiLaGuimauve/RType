@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Wed Dec 21 02:42:33 2016 julien dufrene
+// Last update Wed Dec 21 05:41:47 2016 lecoq
 //
 
 #include	"CoreServer.hh"
@@ -20,6 +20,7 @@ CoreServer::CoreServer()
   _packetPtr[IPacket::PacketType::LEAVE_ROOM] = &CoreServer::leaveRoom;
   _packetPtr[IPacket::PacketType::JOIN_ROOM] = &CoreServer::joinRoom;
   _packetPtr[IPacket::PacketType::WATCH_GAME] = &CoreServer::watchGame;
+  _packetPtr[IPacket::PacketType::START_GAME] = &CoreServer::startGame;
 }
 
 CoreServer::~CoreServer() {}
@@ -183,5 +184,22 @@ bool		CoreServer::watchGame(const IPacket *pa, IUserNetwork *u)
   PacketWatchGame *p = (PacketWatchGame *)pa;
 
   _data->watchGame(p->getGameName(), u->getPseudo());
+  return (true);
+}
+
+bool		CoreServer::startGame(const IPacket *pa, IUserNetwork *u)
+{
+  PacketStartGame *p = (PacketStartGame *)pa;
+  DataRoom	*room = _data->getRoom(p->getGameName());
+
+  if (room == NULL)
+    {
+      IPacket *pac = _factory->getPacket("error", ERROR_START_GAME, IPacket::PacketType::START_GAME);
+      PacketC c(pac->getPacketUnknown(), u);
+      _write->push(c);
+    }
+  else
+    {
+    }
   return (true);
 }

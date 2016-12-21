@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Wed Dec 21 02:57:22 2016 julien dufrene
+// Last update Wed Dec 21 05:36:37 2016 lecoq
 //
 
 #include	"CoreClient.hh"
@@ -21,6 +21,7 @@ CoreClient::CoreClient()
   _eventPtr[EventPart::Event::LEAVE_GAME] = &CoreClient::leaveRoom;
   _eventPtr[EventPart::Event::JOIN_GAME] = &CoreClient::joinRoom;
   _eventPtr[EventPart::Event::WATCH_GAME] = &CoreClient::watchRoom;
+  _eventPtr[EventPart::Event::START_GAME] = &CoreClient::startGame;
   _packetPtr[IPacket::PacketType::WELCOME] = &CoreClient::welcome;
   _packetPtr[IPacket::PacketType::ACCEPT] = &CoreClient::accept;
   _packetPtr[IPacket::PacketType::ERROR_PACKET] = &CoreClient::errorPacket;
@@ -224,6 +225,14 @@ bool	CoreClient::joinRoom(EventPart::Event e)
 bool	CoreClient::watchRoom(EventPart::Event e)
 {
   IPacket *pa = _factory->getPacket("watchgame", e.dataString["GAME_NAME"]);
+  std::vector<std::string> p;
+  _tcp->pushTo(p, pa->getPacketUnknown());
+  return (true);
+}
+
+bool	CoreClient::startGame(EventPart::Event e)
+{
+  IPacket *pa = _factory->getPacket("startgame", e.dataString["GAME_NAME"]);
   std::vector<std::string> p;
   _tcp->pushTo(p, pa->getPacketUnknown());
   return (true);
