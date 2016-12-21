@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Wed Dec 21 08:00:24 2016 lecoq
+// Last update Wed Dec 21 08:06:23 2016 lecoq
 //
 
 #include	"CoreClient.hh"
@@ -150,6 +150,16 @@ bool	CoreClient::goConnect()
   _gui->displayStart();
   _tcp->run();
   _status = "connect";  
+  return (true);
+}
+
+bool	CoreClient::goLogin()
+{  
+  return (true);
+}
+
+bool	CoreClient::goRooms()
+{  
   return (true);
 }
 
