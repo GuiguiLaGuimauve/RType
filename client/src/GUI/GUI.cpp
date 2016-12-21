@@ -367,6 +367,8 @@ void		GUI::displayStart()
   _startWidgets->input->setText(TEXT_DEFAULT_IP);
   _startWidgets->input->setStyle(inputStyle);
   _startWidgets->input->move((GUI_WIDTH - _startWidgets->input->getTextWidth()) / 2, 600);
+  _startWidgets->input->setOnFocus(TextColorFocus);
+  _startWidgets->input->setOnLeaveFocus(TextColorNoFocus);
   
   // Button : connect
   _startWidgets->button = _win->addWidget(0, 0, 250, 40);
@@ -539,74 +541,103 @@ void		GUI::displayMenu()
 
 void		GUI::displayLogin()
 {
+  // Delete all unused Widgets
   deleteWidgets();
-  _loginWidgets = new Login;
-  _win->setBackground(PICTURE_BACKGROUND);
-  _loginWidgets->login = _win->addWidget(_win->getWidth() / 3, _win->getHeight() / 4, _win->getWidth() / 2, 180);
-  _loginWidgets->password = _win->addWidget(_win->getWidth() / 3, _win->getHeight() / 2, _win->getWidth() / 2, 180);
-  _loginWidgets->confirm = _win->addWidget(_win->getWidth() / 3 + 150, (2 * _win->getHeight()) / 3,  250, 50);
-  _loginWidgets->text1 = _win->addWidget(_win->getWidth() / 3 + 150, _win->getHeight() / 4 - 100, 0, 0);
-  _loginWidgets->text2 = _win->addWidget(_win->getWidth() / 3 + 100, _win->getHeight() / 2 - 100, 0, 0);
-  _loginWidgets->chevron1 = _win->addWidget(_win->getWidth() / 3 - 200, _win->getHeight() / 4, 0, 0);
-  _loginWidgets->chevron2 = _win->addWidget(_win->getWidth() / 3 - 200, _win->getHeight() / 2, 0, 0);
 
-  Style		s = _loginWidgets->login->getStyle();
+  // Create the Login widget
+  _loginWidgets = new Login;
+
+  // Background
+  _win->setBackground(PICTURE_BACKGROUND);
+
+  // Default text style
+  Style s;
   s.form = NO_FORM;
-  s.textColor = Color(255, 215, 0);
+  s.textColor = Color(TEXT_COLOR_R, TEXT_COLOR_G, TEXT_COLOR_B);
   s.policeSize = 35;
 
-  _loginWidgets->login->setStyle(s);
-  s.password = true;
-  _loginWidgets->password->setStyle(s);
-  s.password = false;
-  _loginWidgets->confirm->setStyle(s);
-  
-  _loginWidgets->chevron1->setText(">");
-  _loginWidgets->chevron2->setText(">");
-  _loginWidgets->chevron1->setStyle(s);
-  _loginWidgets->chevron2->setStyle(s);
+  // Default text style
+  Style title;
+  title.form = NO_FORM;
+  title.textColor = Color(TEXT_COLOR_R, TEXT_COLOR_G, TEXT_COLOR_B);
+  title.policeSize = 50;
 
-  s.policeSize = 50;
-  _loginWidgets->text1->setStyle(s);
-  _loginWidgets->text2->setStyle(s);
-  /* je gère le clic, le hover et le unhover */
-  _loginWidgets->confirm->setText("Confirm");
-  _loginWidgets->text1->setText("LOGIN");
-  _loginWidgets->text2->setText("PASSWORD");
-  _loginWidgets->confirm->setOnClick([](IWidget *w, CLICK)
-				  {
-				    auto eq = w->getEventQueue();
-			            eq->push(EventPart::Event(EventPart::Event::BUTTON_LOGIN));
-				    std::cout << "Let's connect !" << std::endl;
-				  });
-  _loginWidgets->confirm->setOnHover(TextColorFocus);
-  _loginWidgets->confirm->setOnLeaveHover(TextColorNoFocus);
+  // Default input style
+  Style in;
+  in.form = NO_FORM;
+  in.textColor = Color(TEXT_COLOR_R, TEXT_COLOR_G, TEXT_COLOR_B);
+  in.policeSize = 35;
+  in.inputMode = true;
 
-  /* Je gère l'édition des 2 inputs */
+  // Default input password style
+  Style p;
+  p.form = NO_FORM;
+  p.textColor = Color(TEXT_COLOR_R, TEXT_COLOR_G, TEXT_COLOR_B);
+  p.policeSize = 35;
+  p.password = true;
+  p.inputMode = true;
+    
+  // Input : Login
+  _loginWidgets->login = _win->addWidget(0, 280, 1920, 40);
+  _loginWidgets->login->setStyle(in);
   _loginWidgets->login->setOnFocus(TextColorFocus);
   _loginWidgets->login->setOnLeaveFocus(TextColorNoFocus);
+  _loginWidgets->login->move((GUI_WIDTH - _loginWidgets->login->getTextWidth()) / 2, 280);
   _loginWidgets->login->setOnTextEntered([](IWidget *w, const std::string &c)
   {
 	  if (c[0] == '\t')
 		  w->getEventQueue()->push(EventPart::Event(EventPart::Event::LOGIN_SWITCH_IMPUT));
 	  else if (c[0] == '\n' || c[0] == '\r')
-	    w->getEventQueue()->push(EventPart::Event(EventPart::Event::BUTTON_LOGIN));
+		  w->getEventQueue()->push(EventPart::Event(EventPart::Event::BUTTON_LOGIN));
 	  else
-	    textEntered(w, c);
+		  textEntered(w, c);
+	  w->move((GUI_WIDTH - w->getTextWidth()) / 2, 280);
   });
+
+  // Input : Password
+  _loginWidgets->password = _win->addWidget(0, 640, 1920, 40);
+  _loginWidgets->password->setStyle(p);
   _loginWidgets->password->setOnFocus(TextColorFocus);
   _loginWidgets->password->setOnLeaveFocus(TextColorNoFocus);
+  _loginWidgets->password->move((GUI_WIDTH - _loginWidgets->password->getTextWidth()) / 2, 640);
   _loginWidgets->password->setOnTextEntered([](IWidget *w, const std::string &c)
   {
 	  if (c[0] == '\t')
 		  w->getEventQueue()->push(EventPart::Event(EventPart::Event::LOGIN_SWITCH_IMPUT));
 	  else if (c[0] == '\n' || c[0] == '\r')
-	    w->getEventQueue()->push(EventPart::Event(EventPart::Event::BUTTON_LOGIN));
+		  w->getEventQueue()->push(EventPart::Event(EventPart::Event::BUTTON_LOGIN));
 	  else
-	    textEntered(w, c);
+		  textEntered(w, c);
+	  w->move((GUI_WIDTH - w->getTextWidth()) / 2, 640);
   });
+  
+  // Button confirm
+  _loginWidgets->confirm = _win->addWidget(0, 820, 250, 50);
+  _loginWidgets->confirm->setStyle(s);
+  _loginWidgets->confirm->setOnClick([](IWidget *w, CLICK)
+  {
+	  auto eq = w->getEventQueue();
+	  eq->push(EventPart::Event(EventPart::Event::BUTTON_LOGIN));
+	  std::cout << "Let's connect !" << std::endl;
+  });
+  _loginWidgets->confirm->setOnHover(TextColorFocus);
+  _loginWidgets->confirm->setOnLeaveHover(TextColorNoFocus);
+  _loginWidgets->confirm->setText("Confirm");
+  _loginWidgets->confirm->move((GUI_WIDTH - _loginWidgets->confirm->getTextWidth()) / 2, 820);
 
-  // ergonomie focus
+  // Title : Login
+  _loginWidgets->text1 = _win->addWidget(0, 180, 0, 0);
+  _loginWidgets->text1->setText("LOGIN");
+  _loginWidgets->text1->setStyle(title);
+  _loginWidgets->text1->move((GUI_WIDTH - _loginWidgets->text1->getTextWidth()) / 2, 180);
+
+  // Title : Password
+  _loginWidgets->text2 = _win->addWidget(0, 540, 0, 0);
+  _loginWidgets->text2->setText("PASSWORD");
+  _loginWidgets->text2->setStyle(title);
+  _loginWidgets->text2->move((GUI_WIDTH - _loginWidgets->text2->getTextWidth()) / 2, 540);
+
+  // Default focus
   _focusWidget = _loginWidgets->login;
   _focusWidget->onFocus();
 }

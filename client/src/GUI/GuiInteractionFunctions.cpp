@@ -1,21 +1,34 @@
 #include "GUI.hh"
+#include "Assets.hh"
 
 using namespace Gui;
 
 void	TextColorFocus(IWidget *w)
 {
-  Style	s1 = w->getStyle();
-  s1.textColor.blue += 100;
-  s1.textColor.green += 100;
-  w->setStyle(s1);
+	Style	s = w->getStyle();
+	s.textColor = Color(TEXT_HOVER_COLOR_R, TEXT_HOVER_COLOR_G, TEXT_HOVER_COLOR_B);
+	w->setStyle(s);
 }
 
 void	TextColorNoFocus(IWidget *w)
 {
-  Style	s1 = w->getStyle();
-  s1.textColor.blue -= 100;
-  s1.textColor.green -= 100;
-  w->setStyle(s1);
+	Style	s = w->getStyle();
+	s.textColor = Color(TEXT_COLOR_R, TEXT_COLOR_G, TEXT_COLOR_B);
+	w->setStyle(s);
+}
+
+void	TextColorHover(IWidget *w)
+{
+	Style	s = w->getStyle();
+	s.textColor = Color(TEXT_HOVER_COLOR_R, TEXT_HOVER_COLOR_G, TEXT_HOVER_COLOR_B);
+	w->setStyle(s);
+}
+
+void	TextColorNoHover(IWidget *w)
+{
+	Style	s = w->getStyle();
+	s.textColor = Color(TEXT_COLOR_R, TEXT_COLOR_G, TEXT_COLOR_B);
+	w->setStyle(s);
 }
 
 void	textEntered(IWidget *w, const std::string &c)
