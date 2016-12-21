@@ -400,9 +400,9 @@ IPacket		*PacketFactory::tryRegister(const std::string &m, const std::string &t)
   return (ret);  
 }
 
-IPacket		*PacketFactory::move(const uint16_t &m, const uint16_t &t)
+IPacket		*PacketFactory::positionPlayer(const uint16_t &m, const uint16_t &t)
 {
-  IPacket	*ret= new PacketMove(m, t);
+  IPacket	*ret= new PacketPositionPlayer(m, t);
 
   return (ret);  
 }
@@ -565,9 +565,9 @@ IPacket		*PacketFactory::revShoot(const uint8_t *p)
   return (pa);  
 }
 
-IPacket		*PacketFactory::revMove(const uint8_t *p)
+IPacket		*PacketFactory::revPositionPlayer(const uint8_t *p)
 {
-  IPacket *pa = new PacketMove(p);
+  IPacket *pa = new PacketPositionPlayer(p);
   return (pa);
 }
 

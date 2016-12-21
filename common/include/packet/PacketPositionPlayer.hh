@@ -2,20 +2,20 @@
 // This file was auto-generated, please do not edit it !
 //
 
-#ifndef __PACKETMOVE_HH__
-#define __PACKETMOVE_HH__
+#ifndef __PACKETPOSITIONPLAYER_HH__
+#define __PACKETPOSITIONPLAYER_HH__
 
 #include <stdint.h>
 #include "APacket.hh"
 
 namespace Packet {
 
-	class PacketMove : public APacket {
+	class PacketPositionPlayer : public APacket {
 
 	public:
-		PacketMove(const uint16_t & x, const uint16_t & y);
-		PacketMove(const uint8_t *data);
-		~PacketMove();
+		PacketPositionPlayer(const uint16_t & x, const uint16_t & y);
+		PacketPositionPlayer(const uint8_t *data);
+		~PacketPositionPlayer();
 
 		uint16_t getX() const;
 		uint16_t getY() const;

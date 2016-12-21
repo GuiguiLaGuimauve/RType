@@ -10,7 +10,7 @@ PacketChatMessage::PacketChatMessage(const std::string & login, const std::strin
 	PacketSerializer ps;
 	uint32_t dataPacketSize = 0;
 
-	_type = IPacket::PacketType::LOGIN;
+	_type = IPacket::PacketType::CHAT_MESSAGE;
 	_tickId = 0;
 	_login = login;
 	_message = message;
@@ -32,7 +32,7 @@ PacketChatMessage::PacketChatMessage(const uint8_t *data)
 	PacketDeserializer pd(data);
 	uint32_t posInPacket = 0;
 
-	_type = IPacket::PacketType::LOGIN;
+	_type = IPacket::PacketType::CHAT_MESSAGE;
 	_size = pd.getPacketSize();
 	_tickId = pd.getPacketTickId();
 

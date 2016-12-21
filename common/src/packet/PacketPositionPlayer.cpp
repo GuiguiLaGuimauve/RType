@@ -3,14 +3,14 @@
 //
 
 #include <iostream>
-#include "PacketMove.hh"
+#include "PacketPositionPlayer.hh"
 
-PacketMove::PacketMove(const uint16_t & x, const uint16_t & y)
+PacketPositionPlayer::PacketPositionPlayer(const uint16_t & x, const uint16_t & y)
 {
 	PacketSerializer ps;
 	uint32_t dataPacketSize = 0;
 
-	_type = IPacket::PacketType::MOVE;
+	_type = IPacket::PacketType::POSITION_PLAYER;
 	_tickId = 0;
 	_x = x;
 	_y = y;
@@ -25,12 +25,12 @@ PacketMove::PacketMove(const uint16_t & x, const uint16_t & y)
 	_size = dataPacketSize;
 }
 
-PacketMove::PacketMove(const uint8_t *data)
+PacketPositionPlayer::PacketPositionPlayer(const uint8_t *data)
 {
 	PacketDeserializer pd(data);
 	uint32_t posInPacket = 0;
 
-	_type = IPacket::PacketType::MOVE;
+	_type = IPacket::PacketType::POSITION_PLAYER;
 	_size = pd.getPacketSize();
 	_tickId = pd.getPacketTickId();
 
@@ -45,26 +45,26 @@ PacketMove::PacketMove(const uint8_t *data)
 	posInPacket += 2;
 }
 
-PacketMove::~PacketMove()
+PacketPositionPlayer::~PacketPositionPlayer()
 {
 }
 
-uint16_t PacketMove::getX() const
+uint16_t PacketPositionPlayer::getX() const
 {
 	return (_x);
 }
 
-uint16_t PacketMove::getY() const
+uint16_t PacketPositionPlayer::getY() const
 {
 	return (_y);
 }
 
-bool PacketMove::isTcp() const
+bool PacketPositionPlayer::isTcp() const
 {
 	return (false);
 }
 
-bool PacketMove::isUdp() const
+bool PacketPositionPlayer::isUdp() const
 {
 	return (true);
 }
