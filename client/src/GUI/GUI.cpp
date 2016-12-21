@@ -451,11 +451,11 @@ void		GUI::displayMenu()
 	_menuWidgets->profile->setStyle(s);
 
 	// init profile into
-	_menuWidgets->profileInfo = _win->addWidget(3 * (_win->getWidth() / 4), 3 * (_win->getHeight() / 4) + 100, _win->getHeight() / 4, 300);
+	_menuWidgets->profileInfo = _win->addWidget(3 * (_win->getWidth() / 4), 3 * (_win->getHeight() / 4) + 60, _win->getHeight() / 4, 300);
 	if (_profile != NULL)
 	{
 	  _menuWidgets->profileInfo->setText("Name :\t" + _profile->getName()
-					     + "\nPlay/Succes :\t" + std::to_string(_profile->getGamePlayed())
+					     + "\n\nSuccess :\t" + std::to_string(_profile->getGamePlayed())
 					     + "/" + std::to_string(_profile->getStageSucceed()));
 	}
 	s = _menuWidgets->profileInfo->getStyle();
@@ -740,7 +740,7 @@ void		GUI::updateCurrentGame()
 		std::stringstream ss;
 		ss << "Name : " << _currentGame->getName();
 		if (_currentGame->getWatchers().size() != 0)
-		  ss << "\n\nWatchers : " << _currentGame->getWatchers().size();
+		  ss << "\n\nViewers : " << _currentGame->getWatchers().size();
 		ss << "\n\nPlayers :\n";
 		for (unsigned int i = 0; i < _currentGame->getPlayers().size(); i++)
 		  {
