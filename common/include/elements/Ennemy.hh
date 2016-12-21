@@ -21,7 +21,7 @@ namespace Element {
 		/*! Ennemy destructor */
 		~Ennemy();
 
-	protected:
+	private:
 	};
 };
 

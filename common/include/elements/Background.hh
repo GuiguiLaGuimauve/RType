@@ -21,7 +21,7 @@ namespace Element {
 		/*! Background destructor */
 		~Background();
 
-	protected:
+	private:
 	};
 };
 

@@ -22,7 +22,7 @@ namespace Packet {
 		bool isTcp() const;
 		bool isUdp() const;
 
-	protected:
+	private:
 		uint8_t _ip[4];
 		uint16_t _port;
 	};

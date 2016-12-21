@@ -22,7 +22,7 @@ namespace Packet {
 		bool isTcp() const;
 		bool isUdp() const;
 
-	protected:
+	private:
 		uint16_t _x;
 		uint16_t _y;
 	};

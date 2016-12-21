@@ -22,7 +22,7 @@ namespace Packet {
 		bool isTcp() const;
 		bool isUdp() const;
 
-	protected:
+	private:
 		std::string _sound;
 	};
 };

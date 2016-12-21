@@ -21,7 +21,7 @@ namespace Element {
 		/*! Decor destructor */
 		~Decor();
 
-	protected:
+	private:
 	};
 };
 
