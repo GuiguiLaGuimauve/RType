@@ -1,3 +1,13 @@
+//
+// AManageNetwork.cpp for AManageNetwork.cpp in /home/dufren_b/teck3/rendu/CPP/RType/common/src/network
+// 
+// Made by julien dufrene
+// Login   <dufren_b@epitech.net>
+// 
+// Started on  Wed Dec 21 01:24:37 2016 julien dufrene
+// Last update Wed Dec 21 02:28:41 2016 julien dufrene
+//
+
 #include	"AManageNetwork.hh"
 
 using namespace Network;
@@ -5,9 +15,6 @@ using namespace Network;
 AManageNetwork::AManageNetwork() {
   _port = 4242;
   _init = false;
-  _sec = 2;
-  _usec = 0;
-  _initServ = false;
 }
 
 uint32_t			AManageNetwork::getMaxFd() const
@@ -33,51 +40,12 @@ uint32_t			AManageNetwork::getMaxFd() const
   return (0);
 }
 
-bool		AManageNetwork::hasServerRunning() const
-{
-  return (_initServ);
-}
-
 ISocket		*AManageNetwork::getSocket() const
 {
   return (_net);
 }
 
-std::vector<std::string>	AManageNetwork::updateUsers(const std::vector<IUserNetwork *> &user)
-{
-  uint32_t			i = 0;
-  std::vector<std::string>	del;
-
-  while (i < _user.size())
-    {
-      if (_user[i]->getStatus() == false)
-	{
-	  if (_user[i] == _serv)
-	    _initServ = false;
-	  if (_user[i]->getPseudo().empty() != true)
-	    del.push_back(_user[i]->getPseudo());
-	  std::cout << "Erase client from list: " << _user[i]->getFd() << std::endl;
-	  delete (_user[i]);
-	  _user.erase(_user.begin() + i);
-	}
-      else
-	i++;
-    }
-  i = 0;
-  while (i < user.size())
-    {
-      if (user[i]->getStatus() == true)
-	{
-	  std::cout << "New user in list: " << user[i]->getFd() << std::endl;
-	  _user.push_back(user[i]);
-	}
-      i++;
-    }
-  return (del);
-}
-
-
-bool			AManageNetwork::inList(const std::string &n, const std::vector<std::string> &li)
+bool		AManageNetwork::inList(const std::string &n, const std::vector<std::string> &li)
 {
   uint64_t		i;
   StringCk		st;
@@ -94,17 +62,3 @@ bool			AManageNetwork::inList(const std::string &n, const std::vector<std::strin
 
   return (false);
 }
-
-void			AManageNetwork::pushToClients(const std::vector<std::string> &list, const PacketUnknown &p)
-{
-  uint64_t		i;
-
-  i = 0;
-  while (i < _user.size())
-    {
-      if (inList(_user[i]->getPseudo(), list) == true)
-	_user[i]->pushBufferWrite(p);
-      i++;
-    }
-}
-

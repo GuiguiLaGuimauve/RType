@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Wed Dec 21 01:30:34 2016 lecoq
+// Last update Wed Dec 21 02:42:33 2016 julien dufrene
 //
 
 #include	"CoreServer.hh"
@@ -37,8 +37,8 @@ void CoreServer::run()
 	loop = false;
       else
 	{
-	  _data->logout(_tcp->updateUsers(_tcp->execServer()));
-	  _udp->updateUsers(_udp->execServer());
+	  _data->logout(_tcp->updateUsers(_tcp->exec()));
+	  _udp->updateUsers(_udp->exec());
 	}
       if (managePackets() == false)
 	loop = false;
@@ -58,14 +58,14 @@ bool	CoreServer::managePackets()
   if (_data->roomAreUpdate() == true)
     {
       IPacket *pa = _factory->getPacket("rooms", _data->getRooms());
-      _tcp->pushToClients(_data->getOnlineClients(), pa->getPacketUnknown());
+      _tcp->pushTo(_data->getOnlineClients(), pa->getPacketUnknown());
     }
   return (true);
 }
 
 bool	CoreServer::initManager()
 {
-   try
+     try
      {
        if (_isInit == false)
 	 _manager->setManager();

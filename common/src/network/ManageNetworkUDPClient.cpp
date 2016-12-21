@@ -5,20 +5,20 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Fri Dec 16 11:37:09 2016 julien dufrene
-// Last update Tue Dec 20 09:46:56 2016 julien dufrene
+// Last update Wed Dec 21 01:48:20 2016 julien dufrene
 //
 
-#include	"ManageNetworkUDP.hh"
+#include	"ManageNetworkUDPClient.hh"
 
 using namespace Network;
 
-ManageNetworkUDP::ManageNetworkUDP()
+ManageNetworkUDPClient::ManageNetworkUDPClient()
 {
   _initServ = false;
   _serv = NULL;
 }
 
-ManageNetworkUDP::~ManageNetworkUDP()
+ManageNetworkUDPClient::~ManageNetworkUDPClient()
 {
   if (_init == true)
     {
@@ -33,17 +33,17 @@ ManageNetworkUDP::~ManageNetworkUDP()
     }
 }
 
-bool			ManageNetworkUDP::init()
+bool			ManageNetworkUDPClient::init()
 {
   return (true);
 }
 
-bool			ManageNetworkUDP::selectIt()
+bool			ManageNetworkUDPClient::selectIt()
 {
   return (true);
 }
 
-std::vector<IUserNetwork *>	ManageNetworkUDP::execClient()
+std::vector<IUserNetwork *>	ManageNetworkUDPClient::exec()
 {
   std::vector<IUserNetwork *>	newuser;
   IUserNetwork			*u;
@@ -66,46 +66,7 @@ std::vector<IUserNetwork *>	ManageNetworkUDP::execClient()
   return (newuser);
 }
 
-std::vector<IUserNetwork *>	ManageNetworkUDP::execServer()
-{
-  std::vector<IUserNetwork *>	newuser;
-  IUserNetwork			*u;
-  int				i;
-
-  i = 0;
-  while (i < (int32_t)_user.size())
-    {
-      u = _user[i]->readSocket(_net);
-      if (_user[i]->getIp() != u->getIp() || _user[i]->getPort() != u->getPort())
-	{
-	  std::cout << "new client udp" << std::endl;
-	  if (u->haveSomethingToRead() == true)
-	    {
-	      PacketUnknown pk = u->popBufferRead();
-	      _read->push(PacketC(pk, u));
-	      std::cout << "un packet est lu" << std::endl;
-	    }
-	  newuser.push_back(u);
-	}
-      else
-	if (_user[i]->haveSomethingToRead() == true)
-	  {
-	    PacketUnknown pk = _user[i]->popBufferRead();
-	    _read->push(PacketC(pk, _user[i]));
-	    std::cout << "un packet est lu" << std::endl;
-	  }
-      if (_user[i]->haveSomethingToWrite() == true)
-	_user[i]->writeSocket(_net);
-    }
-  return (newuser);
-}
-
-bool		ManageNetworkUDP::run()
-{
-  return (false);
-}
-
-bool		ManageNetworkUDP::run(const uint32_t &port, const uint32_t &maxCl)
+bool		ManageNetworkUDPClient::run(const uint32_t &port, const uint32_t &maxCl)
 {
 #ifdef _WIN32
   try {
@@ -142,7 +103,7 @@ bool		ManageNetworkUDP::run(const uint32_t &port, const uint32_t &maxCl)
   return (true);
 }
 
-bool			ManageNetworkUDP::tryConnectClient(const uint32_t &port, const std::string &ip)
+bool			ManageNetworkUDPClient::tryConnectClient(const uint32_t &port, const std::string &ip)
 {
 #ifdef _WIN32
   IUserNetwork *u = new UserNetworkUDPWindows();
@@ -160,10 +121,11 @@ bool			ManageNetworkUDP::tryConnectClient(const uint32_t &port, const std::strin
   return (true);
 }
 
-void		ManageNetworkUDP::pushToServ(const PacketUnknown &m)
+void		ManageNetworkUDPClient::pushTo(const std::vector<std::string> &s, const PacketUnknown &m)
 {
   if (_initServ == true)
     {
+      (void)s;
       uint32_t		i = 0;
       while (i < _user.size())
 	{

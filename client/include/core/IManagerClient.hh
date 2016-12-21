@@ -5,14 +5,14 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 15:44:58 2016 Maxime Lecoq
-// Last update Fri Dec 16 14:57:42 2016 lecoq
+// Last update Wed Dec 21 02:01:39 2016 julien dufrene
 //
 
-#ifndef IMANAGERSERVER_HH_
-# define IMANAGERSERVER_HH_
+#ifndef IMANAGERCLIENT_HH_
+# define IMANAGERCLIENT_HH_
 
-# include "Manager.hh"
 # include "GUI.hh"
+# include "IManager.hh"
 # include "SoundManager.hh"
 # include "ManagerPacketClient.hh"
 # include "EventQueue.hh"

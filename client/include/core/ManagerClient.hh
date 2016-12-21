@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 15:50:05 2016 Maxime Lecoq
-// Last update Fri Dec 16 14:55:48 2016 lecoq
+// Last update Wed Dec 21 02:00:04 2016 julien dufrene
 //
 
 #ifndef MANAGERPCLIENT_HH_
@@ -13,8 +13,8 @@
 
 # include	"IManagerClient.hh"
 # include	"IPacketManager.hh"
-# include	"ManageNetworkTCP.hh"
-# include	"ManageNetworkUDP.hh"
+# include	"ManageNetworkTCPClient.hh"
+# include	"ManageNetworkUDPClient.hh"
 # include	"ErrorClient.hpp"
 
 using namespace Network;
@@ -34,7 +34,6 @@ public:
   ISoundManager		*getSoundManager() const;
   IEventQueue		*getEventQueue() const;
 private:
-  IManager		*_man;
   IGUI			*_gui;
   ISoundManager		*_sound;
   IPacketManager	*_pkt;

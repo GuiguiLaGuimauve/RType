@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Wed Dec 21 01:21:07 2016 lecoq
+// Last update Wed Dec 21 02:57:22 2016 julien dufrene
 //
 
 #include	"CoreClient.hh"
@@ -67,8 +67,8 @@ bool	CoreClient::manageNetwork()
     return(false);
   else
     {
-      _tcp->updateUsers(_tcp->execClient());
-      _udp->updateUsers(_udp->execClient());
+      _tcp->updateUsers(_tcp->exec());
+      _udp->updateUsers(_udp->exec());
     }
   if (_status != "connect" && _tcp->hasServerRunning() == false)
     {
@@ -173,7 +173,7 @@ bool	CoreClient::tryConnect(EventPart::Event e)
 	  return (true);
 	}
       i++;
-    }
+      }
   if (_tcp->tryConnectClient(conv.toNumber(e.dataString["PORT"]), e.dataString["IP"]) == false)
     _gui->showPopup("Connection failed", 2000);
   return (true);
@@ -183,12 +183,13 @@ std::string rmname;
 
 bool	CoreClient::tryLogin(EventPart::Event e)
 {
+  std::vector<std::string> p;
   if (e.dataString["LOGIN"].empty() == true || e.dataString["PWD"].empty() == true)
     _gui->showPopup(LOGIN_ERROR);
   else
     {
       IPacket *pa = _factory->getPacket("login", e.dataString["LOGIN"], e.dataString["PWD"]);
-      _tcp->pushToServ(pa->getPacketUnknown());
+      _tcp->pushTo(p, pa->getPacketUnknown());
       rmname = e.dataString["LOGIN"] + " room's";
     }
   return (true);
@@ -198,7 +199,8 @@ bool	CoreClient::tryLogin(EventPart::Event e)
 bool	CoreClient::createGame(EventPart::Event e)
 {
   IPacket *pa = _factory->getPacket("createroom", rmname, 4);
-  _tcp->pushToServ(pa->getPacketUnknown());
+  std::vector<std::string> p;
+  _tcp->pushTo(p, pa->getPacketUnknown());
   (void)e;
   return (true);
 }
@@ -206,21 +208,24 @@ bool	CoreClient::createGame(EventPart::Event e)
 bool	CoreClient::leaveRoom(EventPart::Event e)
 {
   IPacket *pa = _factory->getPacket("leaveroom", e.dataString["GAME_NAME"]);
-  _tcp->pushToServ(pa->getPacketUnknown());
+  std::vector<std::string> p;
+  _tcp->pushTo(p, pa->getPacketUnknown());
   return (true);
 }
 
 bool	CoreClient::joinRoom(EventPart::Event e)
 {
   IPacket *pa = _factory->getPacket("joinroom", e.dataString["GAME_NAME"]);
-  _tcp->pushToServ(pa->getPacketUnknown());
+  std::vector<std::string> p;
+  _tcp->pushTo(p, pa->getPacketUnknown());
   return (true);
 }
 
 bool	CoreClient::watchRoom(EventPart::Event e)
 {
   IPacket *pa = _factory->getPacket("watchgame", e.dataString["GAME_NAME"]);
-  _tcp->pushToServ(pa->getPacketUnknown());
+  std::vector<std::string> p;
+  _tcp->pushTo(p, pa->getPacketUnknown());
   return (true);
 }
 

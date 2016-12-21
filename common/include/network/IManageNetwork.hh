@@ -5,7 +5,7 @@
 ** Login   <lecoq_m@epitech.net>
 **
 ** Started on  Mon Oct 17 13:11:20 2016 Maxime Lecoq
-// Last update Tue Dec 20 13:21:01 2016 lecoq
+// Last update Wed Dec 21 01:55:18 2016 julien dufrene
 */
 
 #ifndef		__IMANAGENETWORK_HH__
@@ -39,21 +39,13 @@ namespace Network
     fr :La méthode selectIt() permet de surveiller l'activité sur les descripteurs de fichiers.*/
     virtual bool				selectIt() = 0;
     /*!
-    en :execClient() execut an action on the client active file descriptor
-    fr :La méthode execClient() permet d'executer une action sur le descripteur de fichier actif client.*/
-    virtual std::vector<IUserNetwork *>		execClient() = 0;
+    en :exec() execute an action on the active(s) file descriptor(s)
+    fr :La méthode exec() permet d'executer une action sur le(s) descripteur(s) de fichier actif.*/
+    virtual std::vector<IUserNetwork *>		exec() = 0;
     /*!
-    en :execServer() execute an action on the server active file descriptor
-    fr :La méthode execServer() permet d'executer une action sur le descripteur de fichier actif serveur.*/
-    virtual std::vector<IUserNetwork *>		execServer() = 0;
-    /*!
-    en :runAsClient()  run network as a client
-    fr :La méthode runAsClient() permet de lancer le réseau en tant que client. */
-    virtual bool				run() = 0;
-    /*!
-    en :run(port, nbClient) run network as a server
-    fr :La méthode run(port, nbClient) permet de lancer le réseau en tant que server. */
-    virtual bool				run(const uint32_t &, const uint32_t & = 0) = 0;
+    en :run(port, nbClient) launch the network.
+    fr :La méthode run(port, nbClient) permet de lancer le réseau. */
+    virtual bool				run(const uint32_t & = 4242, const uint32_t & = 0) = 0;
     /*!
     en :getNetwork() get the network in use
     fr :La méthode getNetwork() permet de récuperer le réseau utilisé. */
@@ -68,12 +60,23 @@ namespace Network
      */
     virtual std::vector<std::string>		updateUsers(const std::vector<IUserNetwork *> &) = 0;
     /*!
-      en :pushToServ(message) is used to send message to the server. (DEBUG)
-      fr :La méthode pushToServ(message) sert à envoyer un message au serveur. (DEBUG) */
-    virtual void				pushToServ(const PacketUnknown &) = 0;
-    virtual void				pushToClients(const std::vector<std::string> &, const PacketUnknown &) = 0;
+      en :pushTo(liste, message) is used to send message to a list of users.
+      fr :La méthode pushTo(liste, message) sert à envoyer un message à une liste d'utilisateurs. */
+    virtual void				pushTo(const std::vector<std::string> &, const PacketUnknown &) = 0;
+    /*
+      en :setPackectQueueRead(queue) is used to set the read packets.
+      fr :setPackectQueueRead(queue) est utilisé pour initialisé la queue des packets lu.
+     */
     virtual void				setPacketQueueRead(const IPacketQueue *) = 0;
+    /*
+      en :setPackectQueueWrite(queue) is used to set the writes packets.
+      fr :setPackectQueueWrite(queue) est utilisé pour initialisé la queue des pacquets à écrire.
+     */
     virtual void				setPacketQueueWrite(const IPacketQueue *) = 0;
+    /*
+      en :setPacketFactory(factory) is used to set a packet maker.
+      fr :setPacketFactory(factory) est utiisé pour initialiser un fabriquant de pacquet.
+     */
     virtual void				setPacketFactory(const PacketFactory *) = 0;
     /*
       en :hasServerRunning() is used only on client side to check if it is connected to a server.

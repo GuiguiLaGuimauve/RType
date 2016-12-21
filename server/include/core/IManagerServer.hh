@@ -5,15 +5,15 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 15:44:58 2016 Maxime Lecoq
-// Last update Tue Dec 20 01:30:38 2016 lecoq
+// Last update Wed Dec 21 02:01:15 2016 julien dufrene
 //
 
 #ifndef IMANAGERSERVER_HH_
 # define IMANAGERSERVER_HH_
 
-# include "Manager.hh"
 # include "GameManager.hh"
 # include "ManagePacketServer.hh"
+# include "IManager.hh"
 # include "ServerData.hh"
 
 class IManagerServer : public IManager

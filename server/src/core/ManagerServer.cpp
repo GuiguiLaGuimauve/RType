@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 15:53:17 2016 Maxime Lecoq
-// Last update Tue Dec 20 01:31:53 2016 lecoq
+// Last update Wed Dec 21 02:06:55 2016 julien dufrene
 //
 
 # include	"ManagerServer.hh"
@@ -19,12 +19,10 @@ void	ManagerServer::setManager()
   if (_isSet == false)
     {
       _isSet = true;
-      _man = new Manager;
-      _man->setManager();
-      _tcp = _man->getNetworkTCPManager();
+      _tcp = new ManageNetworkTCPServer();
       if (_tcp->run(4242, 100) == false)
 	throw ErrorServer("Adresse already in use");
-      _udp = _man->getNetworkUDPManager();
+      _udp = new ManageNetworkUDPServer();
       if (_udp->run(4242, 100) == false)
 	throw ErrorServer("Error to run sever udp network's");
       _game = new GameManager;
@@ -48,8 +46,8 @@ void			ManagerServer::deleteManager()
   if (_isSet == true)
     {
       _isSet = false;
-      _man->deleteManager();
-      delete _man;
+      delete _tcp;
+      delete _udp;
       delete _pkt;
       delete _game;
     }
