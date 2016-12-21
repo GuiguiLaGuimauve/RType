@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Wed Dec 21 00:24:08 2016 lecoq
+// Last update Wed Dec 21 01:17:13 2016 lecoq
 //
 
 #include	"CoreServer.hh"
@@ -182,6 +182,7 @@ bool		CoreServer::watchGame(const IPacket *pa, IUserNetwork *u)
 {
   PacketWatchGame *p = (PacketWatchGame *)pa;
 
+  std::cout << "plop" << std::endl;
   _data->watchGame(p->getGameName(), u->getPseudo());
   return (true);
 }

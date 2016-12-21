@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Tue Dec 20 23:54:26 2016 lecoq
+// Last update Wed Dec 21 01:21:07 2016 lecoq
 //
 
 #include	"CoreClient.hh"
@@ -219,7 +219,7 @@ bool	CoreClient::joinRoom(EventPart::Event e)
 
 bool	CoreClient::watchRoom(EventPart::Event e)
 {
-  IPacket *pa = _factory->getPacket("watchroom", e.dataString["GAME_NAME"]);
+  IPacket *pa = _factory->getPacket("watchgame", e.dataString["GAME_NAME"]);
   _tcp->pushToServ(pa->getPacketUnknown());
   return (true);
 }
