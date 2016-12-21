@@ -5,7 +5,7 @@
 // Login   <rembur_g@epitech.eu>
 //
 // Started on  Wed Dec  7 13:53:17 2016 La Guimauve
-// Last update Tue Dec 20 22:15:54 2016 julien dufrene
+// Last update Wed Dec 21 17:39:00 2016 La Guimauve
 //
 
 #ifndef THREADPOOL_HH_
@@ -22,7 +22,7 @@ class Workers;
 
 class ThreadPool
 {
-private:
+public:
   friend class Workers;
 
   std::vector<std::thread> workers;
@@ -33,10 +33,17 @@ private:
   bool stop;
 
 public:
-    ThreadPool(size_t);
+    ThreadPool();
     ~ThreadPool();
     template<class F>
-    void addToQueue(F f);
+    void addToQueue(F f)
+    {
+      {
+        std::unique_lock<std::mutex> lock(this->mtx.mtx);
+        this->tasks.push_back(std::function<void()>(f));
+      }
+      condition.notify_one();
+    };
   };
 
 #endif //THREADPOOL_HH_
