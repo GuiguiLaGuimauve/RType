@@ -78,6 +78,8 @@ std::vector<IUserNetwork *>	ManageNetworkTCPClient::exec()
   
   i = 0;
   add = 0;
+  if (_initServ == false)
+    return (newuser);
   while (i < (int32_t)_user.size() - add)
     {
       if (_user[i]->getStatus() == true)
@@ -96,6 +98,8 @@ std::vector<IUserNetwork *>	ManageNetworkTCPClient::exec()
 	  _user[i]->writeSocket(_net);
       i++;
     }
+  if (_serv->getStatus() == false)
+    _initServ = false;
   return (newuser);
 }
 

@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Wed Dec 21 01:24:37 2016 julien dufrene
-// Last update Wed Dec 21 03:41:38 2016 julien dufrene
+// Last update Wed Dec 21 03:46:52 2016 julien dufrene
 //
 
 #include	"AManageNetwork.hh"
@@ -27,8 +27,10 @@ uint32_t			AManageNetwork::getMaxFd() const
       i = 0;
       while (i < _user.size() && _user[i]->getStatus() == false)
 	i++;
-      if (_user[i]->getStatus() != false)
+      if (i < _user.size() && _user[i]->getStatus() != false)
 	res = _user[i]->getFd();
+      else
+	return (0);
       while (i < _user.size())
 	{
 	  if (_user[i]->getStatus() == true)
