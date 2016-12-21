@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Wed Dec 21 13:34:19 2016 julien dufrene
+// Last update Wed Dec 21 14:01:04 2016 julien dufrene
 //
 
 #include	"CoreServer.hh"
@@ -191,9 +191,11 @@ bool		CoreServer::watchGame(const IPacket *pa, IUserNetwork *u)
 bool				CoreServer::startGame(const IPacket *pa, IUserNetwork *u)
 {
   std::vector<std::string>	playersName;
+  IUserNetwork			*runU;
   PacketStartGame		*p = (PacketStartGame *)pa;
   IPacket			*pb;
   DataRoom			*room = _data->getRoom(p->getGameName());
+  uint8_t			*ip;
 
   if (room == NULL)
     {
@@ -203,11 +205,18 @@ bool				CoreServer::startGame(const IPacket *pa, IUserNetwork *u)
     }
   else
     {
-      std::cout << "tcpIP: " << u->getIp() << std::endl;
-      // if ((ip = calculIp(u->getIp())) == NULL)
-      // 	return (false);
-      // std::cout << "send udp data ip: " << ip << " port: " << u->getPort() << std::endl;
-      pb = _factory->getPacket("udpdata", u->getIp(), (uint16_t)u->getPort());
+      if ((runU = _tcp->getRunning()) == NULL)
+	{
+	  std::cout << "error" << std::endl;
+	  return (true);
+	}
+      std::cout << "tcpIP: " << runU->getIp() << std::endl;
+      std::cout << "tcpPort: " << runU->getPort() << std::endl;
+      if ((ip = calculIp(u->getIp())) == NULL)
+      	return (false);
+      std::cout << "send udp data ip: " << runU->getIp() << " port: " << runU->getPort() << std::endl;
+      if ((pb = _factory->getPacket("udpdata", ip, (uint16_t)runU->getPort())) == NULL)
+	std::cout << "error factory" << std::endl;
       uint64_t		i = 0;
       while (i < room->getPlayers().size())
 	{
