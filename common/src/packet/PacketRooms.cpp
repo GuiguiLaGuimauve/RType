@@ -51,6 +51,9 @@ PacketRooms::PacketRooms(const std::vector<DataRoom *> & rooms)
 
 		ps.add(_rooms[i]->getLevel());
 		dataPacketSize += 1;
+
+		ps.add((uint8_t)_rooms[i]->getStarted());
+		dataPacketSize += 1;
 	}
 
 	_data = ps.getPacket();
@@ -115,6 +118,10 @@ PacketRooms::PacketRooms(const uint8_t *data)
 
 		roomsTemp->setLevel(pd.get8(posInPacket));
 		posInPacket += 1;
+
+		roomsTemp->setStarted(((pd.get8(posInPacket)) ? true : false));
+		posInPacket += 1;
+
 		_rooms.push_back(roomsTemp);
 	}
 }
