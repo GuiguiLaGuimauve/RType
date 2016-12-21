@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Mon Dec 19 23:24:16 2016 Maxime Lecoq
-// Last update Wed Dec 21 00:27:01 2016 lecoq
+// Last update Wed Dec 21 01:00:43 2016 lecoq
 //
 
 #include	"ServerData.hh"
@@ -219,10 +219,36 @@ bool	ServerData::leaveRoom(const std::string &roomName, const std::string &playe
   StringCk	st;
   if (roomExist(st.lower(roomName)) == false || playerExist(st.lower(playerName)) == false || playerInRoom(st.lower(playerName), getRoom(st.lower(roomName))) == false)
     return (false);
-  deletePlayerInRoom(st.lower(playerName), getRoom(st.lower(roomName)));
   std::cout << playerName << " a quitter la room : " << roomName << std::endl;
+  if (deletePlayerInRoom(st.lower(playerName), getRoom(st.lower(roomName))) == true)
+    {
+      if (getRoom(st.lower(roomName))->getPlayers().size() == 0)
+	{
+	  std::cout << getRoom(st.lower(roomName))->getName() << " room's just delete" << std::endl;
+	  _isUpdate = true;
+	  deleteRoom(st.lower(roomName));
+	}
+    }
   _isUpdate = true;
   return (true);
+}
+
+void		ServerData::deleteRoom(const std::string &name)
+{
+  uint64_t	i;
+  StringCk	st;
+  
+  i = 0;
+  while (i < _room.size())
+    {
+      if (st.lower(_room[i]->getName()) == st.lower(name))
+	{
+	  _isUpdate = true;
+	  _room.erase(_room.begin() + i);
+	  return;
+	}
+      i++;
+    }
 }
 
 DataRoom	*ServerData::getRoom(const std::string &name) const
@@ -313,6 +339,7 @@ bool			ServerData::deletePlayerInRoom(const std::string &player, DataRoom *room)
     {
       if (st.lower(pl[i]->getName()) == st.lower(player))
 	{
+	  _isUpdate = true;
 	  pl.erase(pl.begin() + i);
 	  room->setPlayers(pl);
 	  return (true);
@@ -325,6 +352,7 @@ bool			ServerData::deletePlayerInRoom(const std::string &player, DataRoom *room)
     {
       if (st.lower(pl[i]->getName()) == st.lower(player))
 	{
+	  _isUpdate = true;
 	  pl.erase(pl.begin() + i);
 	  room->setWatchers(pl);
 	  return (true);
@@ -347,6 +375,7 @@ void			ServerData::deletePlayerOfRoom(const std::string &player)
 	  if (_room[i]->getPlayers().size() == 0)
 	    {
 	      std::cout << _room[i]->getName() << " room's just delete" << std::endl;
+	      _isUpdate = true;
 	      _room.erase(_room.begin() + i);
 	    }
 	  return;

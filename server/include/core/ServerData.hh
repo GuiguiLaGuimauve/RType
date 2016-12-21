@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Mon Dec 19 23:14:36 2016 Maxime Lecoq
-// Last update Wed Dec 21 00:25:23 2016 lecoq
+// Last update Wed Dec 21 01:00:34 2016 lecoq
 //
 
 #ifndef SERVERDATA_HH_
@@ -47,6 +47,7 @@ private:
   bool		deletePlayerInRoom(const std::string &, DataRoom *);
   void		deletePlayerOfRoom(const std::string &);
   void		save();
+  void		deleteRoom(const std::string &);
 private:
   std::vector<DataRoom *>	_room;
   std::vector<DataPlayer *>	_player;
