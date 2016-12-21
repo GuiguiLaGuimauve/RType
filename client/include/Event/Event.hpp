@@ -5,7 +5,7 @@
 // Login   <bertho_i@epitech.net>
 // 
 // Started on  Wed Oct 19 11:16:12 2016 Simon BERTHO
-// Last update Sat Nov 26 01:36:13 2016 Simon BERTHO
+// Last update Tue Dec 20 23:39:25 2016 root
 //
 
 #ifndef EVENT_HH
@@ -35,6 +35,7 @@ namespace EventPart
 	BUTTON_JOIN_GAME,
 	BUTTON_CREATE_GAME,
 	BUTTON_WATCH_GAME,
+	BUTTON_START_GAME,
 	BUTTON_LEAVE_GAME,
 	KEY_ATTACK,
 	KEY_UP,
@@ -54,7 +55,9 @@ namespace EventPart
 	TRY_LOGIN, // string["LOGIN"] string["PWD"]
 	CREATE_GAME, // string["GAME_NAME"]
 	JOIN_GAME, // string["GAME_NAME"]
-	WATCH_GAME // string["GAME_NAME"]
+	LEAVE_GAME, // string["GAME_NAME"]
+	WATCH_GAME, // string["GAME_NAME"]
+	START_GAME // string["GAME_NAME"]
       };
     
     // constructeur classique

@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Tue Dec 20 13:30:44 2016 lecoq
+// Last update Wed Dec 21 01:30:34 2016 lecoq
 //
 
 #include	"CoreServer.hh"
@@ -17,6 +17,9 @@ CoreServer::CoreServer()
   _packetPtr[IPacket::PacketType::CONNECT] = &CoreServer::connect;
   _packetPtr[IPacket::PacketType::LOGIN] = &CoreServer::login;
   _packetPtr[IPacket::PacketType::CREATE_ROOM] = &CoreServer::createRoom;
+  _packetPtr[IPacket::PacketType::LEAVE_ROOM] = &CoreServer::leaveRoom;
+  _packetPtr[IPacket::PacketType::JOIN_ROOM] = &CoreServer::joinRoom;
+  _packetPtr[IPacket::PacketType::WATCH_GAME] = &CoreServer::watchGame;
 }
 
 CoreServer::~CoreServer() {}
@@ -138,8 +141,6 @@ bool		CoreServer::login(const IPacket *pa, IUserNetwork *u)
       DataPlayer *data = _data->getPlayer(p->getLogin());
       PacketC	c2(_factory->getPacket("profile", data)->getPacketUnknown(), u);
 
-      if (data == NULL)
-	std::cout << "PUUUUUUUUTE" << std::endl;
       _write->push(c2);
       c.setPacket(_factory->getPacket("rooms", _data->getRooms())->getPacketUnknown());
       u->setPseudo(p->getLogin());
@@ -158,5 +159,29 @@ bool		CoreServer::createRoom(const IPacket *pa, IUserNetwork *u)
       PacketC c(pac->getPacketUnknown(), u);
       _write->push(c);
     }
+  return (true);
+}
+
+bool		CoreServer::leaveRoom(const IPacket *pa, IUserNetwork *u)
+{
+  PacketLeaveRoom *p = (PacketLeaveRoom *)pa;
+  
+  _data->leaveRoom(p->getGameName(), u->getPseudo());
+  return (true);
+}
+
+bool		CoreServer::joinRoom(const IPacket *pa, IUserNetwork *u)
+{
+  PacketJoinRoom *p = (PacketJoinRoom *)pa;
+
+  _data->joinRoom(p->getGameName(), u->getPseudo());
+  return (true);
+}
+
+bool		CoreServer::watchGame(const IPacket *pa, IUserNetwork *u)
+{
+  PacketWatchGame *p = (PacketWatchGame *)pa;
+
+  _data->watchGame(p->getGameName(), u->getPseudo());
   return (true);
 }

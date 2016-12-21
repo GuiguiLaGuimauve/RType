@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Tue Dec 20 02:35:23 2016 Maxime Lecoq
-// Last update Tue Dec 20 22:37:52 2016 julien dufrene
+// Last update Tue Dec 20 23:02:57 2016 lecoq
 //
 
 #include	"ServerConf.hh"
@@ -111,7 +111,7 @@ bool				ServerConf::query() const
 void				ServerConf::write(const std::vector<DataPlayer *> &pl)
 {
   std::string		header;
-  std::string		msg;
+  std::string		msg = "";
   File			fi(".conf");
   uint64_t		i;
   Convert<uint16_t>	conv;
@@ -125,8 +125,10 @@ void				ServerConf::write(const std::vector<DataPlayer *> &pl)
     }
   try
     {
+      Crypt	cr;
+      
       if (msg.empty() == false)
-	fi.writeTronc(header + msg);
+	fi.writeTronc(header + cr._xor(msg));
     }
   catch (AError const &e)
     {

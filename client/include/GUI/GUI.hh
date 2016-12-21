@@ -76,7 +76,9 @@ namespace Gui
       IWidget	*profileInfo = NULL; // affiches les informations liées au user
       IWidget	*createGame = NULL; // bouton pour créer une gaùe
       IWidget	*confirm = NULL; // bouton pour confirmier
-	  IWidget	*watchButton = NULL; // bouton pour regarder
+      IWidget	*leaveButton = NULL; // bouton pour regarder
+      IWidget	*watchButton = NULL; // bouton pour regarder
+      IWidget	*startButton = NULL; // bouton pour regarder
       /* Vecteur de joueurs connectés */
       /* Container des joueurs connectés */
     };
@@ -101,6 +103,8 @@ namespace Gui
     void		loadSoundAssets();
     void		setRooms(const std::vector<DataRoom *> &);
     void		setProfile(DataPlayer *p);
+    bool		isInGame(std::vector<DataPlayer*>);
+    void		cleanGames();
   protected:
     void	deleteWidgets();
 	void	updateCurrentGame();
