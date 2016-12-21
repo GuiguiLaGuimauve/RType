@@ -61,7 +61,7 @@ void		GuiEventManager::callback()
 	  }
 	case sf::Event::TextEntered:
 	  {
-	    if (_textTracking && event.text.unicode >= 0 && event.text.unicode <= 127)
+	    if (_textTracking && event.text.unicode <= 127)
 	      {
 		std::string s;
 		s += (static_cast<char> (event.text.unicode));
