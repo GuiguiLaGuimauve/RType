@@ -19,6 +19,21 @@ SocketTCPWindows::SocketTCPWindows()
 	}
 }
 
+const std::string		SocketTCPWindows::getIpInfo() const
+{
+  struct sockaddr_in        s_in;
+  socklen_t                 len;
+
+  len = sizeof(struct sockaddr_in);
+  if (getsockname(_sock, (struct sockaddr*)&s_in, &len) < 0)
+    {
+      std::cerr << "Error on getsockname()" << std::endl;
+      return ("");
+    }
+  return (inet_ntoa(s_in.sin_addr));
+}
+
+
 bool				SocketTCPWindows::bindIt(const uint32_t &port)
 {
 	sockaddr_in			s_in;

@@ -25,6 +25,11 @@ ManageNetworkTCPClient::~ManageNetworkTCPClient()
     }
 }
 
+IUserNetwork		*ManageNetworkTCPClient::getServerRunning() const
+{
+  return (_serv);
+}
+
 bool			ManageNetworkTCPClient::init()
 {
   uint32_t		i;

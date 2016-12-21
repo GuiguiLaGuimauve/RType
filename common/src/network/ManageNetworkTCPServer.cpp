@@ -25,6 +25,20 @@ ManageNetworkTCPServer::~ManageNetworkTCPServer()
     }
 }
 
+IUserNetwork			*ManageNetworkTCPServer::getServerRunning() const
+{
+  unsigned int			i;
+
+  i = 0;
+  while (i < _user.size())
+    {
+      if (_user[i]->getFd() == _net->getFdSocket())
+	return (_user[i]);
+      i++;
+    }
+  return (NULL);
+}
+
 std::vector<std::string>        ManageNetworkTCPServer::updateUsers(const std::vector<IUserNetwork *> &user)
 {
   uint32_t                      i = 0;
@@ -135,7 +149,6 @@ std::vector<IUserNetwork *>	ManageNetworkTCPServer::exec()
 	  _user[i]->writeSocket(_net);
       i++;
     }
-  std::cout << "returning size: " << newuser.size() << std::endl;
   return (newuser);
 }
 
@@ -165,6 +178,8 @@ bool		ManageNetworkTCPServer::run(const uint32_t &port, const uint32_t &maxCl)
 
   u->setFd(_net->getFdSocket());
   u->setPort(port);
+  u->setIp(_net->getIpInfo());
+  std::cout << "ip: " << u->getIp() << std::endl;
   u->setStatus(true);
   _user.push_back(u);
   std::cout << "User Network Server TCP prepared: " << _user[0]->getFd() << std::endl;
