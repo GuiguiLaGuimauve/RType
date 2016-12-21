@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Wed Dec 21 18:38:51 2016 lecoq
+// Last update Wed Dec 21 18:55:10 2016 julien dufrene
 //
 
 #include	"CoreServer.hh"
@@ -252,8 +252,7 @@ bool		CoreServer::udpData(const IPacket *pa, IUserNetwork *u)
   udpUser->setPort(p->getPort());
   udpUser->setPseudo(u->getPseudo());
   udpUser->setStatus(true);
-  
-  udpUser->pushBufferWrite(_factory->getPacket("positionpacket", 5, 5)->getPacketUnknown());
+  udpUser->pushBufferWrite(_factory->getPacket("ping")->getPacketUnknown());
   _udp->pushNewUser(udpUser);
   return (true);
 }
