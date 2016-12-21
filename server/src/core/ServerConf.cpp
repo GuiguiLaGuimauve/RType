@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Tue Dec 20 02:35:23 2016 Maxime Lecoq
-// Last update Tue Dec 20 23:02:57 2016 lecoq
+// Last update Wed Dec 21 05:28:55 2016 lecoq
 //
 
 #include	"ServerConf.hh"
@@ -19,8 +19,9 @@ ServerConf::ServerConf()
       std::vector<std::string>	tab;
       Vector			vec;
       Convert<uint16_t>		conv;
+      Crypt			ct;
       
-      tab = vec.getVector(content, "\n");
+      tab = vec.getVector(ct._xor(content), '\n');
       uint64_t			i = 0;
       while (i < tab.size())
 	{
@@ -63,10 +64,10 @@ bool		ServerConf::notInList(const std::string &name)
   while (i < _player.size())
     {
       if (_player[i]->getName() == name)
-	return (true);
+	return (false);
       i++;
     }
-  return (false);
+  return (true);
 }
 
 bool		ServerConf::findSomething() const
@@ -110,13 +111,12 @@ bool				ServerConf::query() const
 
 void				ServerConf::write(const std::vector<DataPlayer *> &pl)
 {
-  std::string		header;
-  std::string		msg = "";
+  std::string		msg;
   File			fi(".conf");
   uint64_t		i;
   Convert<uint16_t>	conv;
   
-  header = "Configuration file of rembur_g group's\n";
+  msg = "Configuration file of rembur_g group's\n";
   i = 0;
   while (i < pl.size())
     {
@@ -127,8 +127,8 @@ void				ServerConf::write(const std::vector<DataPlayer *> &pl)
     {
       Crypt	cr;
       
-      if (msg.empty() == false)
-	fi.writeTronc(header + cr._xor(msg));
+      if (msg != "Configuration file of rembur_g group's\n")
+	fi.writeTronc(cr._xor(msg));
     }
   catch (AError const &e)
     {
