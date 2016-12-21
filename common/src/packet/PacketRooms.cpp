@@ -30,10 +30,10 @@ PacketRooms::PacketRooms(const std::vector<DataRoom *> & rooms)
 			ps.add(_rooms[i]->getPlayers()[j]->getName());
 			dataPacketSize += 2 + (uint32_t)_rooms[i]->getPlayers()[j]->getName().size();
 
-			ps.add(_rooms[i]->getPlayers()[i]->getStageSucceed());
+			ps.add(_rooms[i]->getPlayers()[j]->getStageSucceed());
 			dataPacketSize += 2;
 
-			ps.add(_rooms[i]->getPlayers()[i]->getGamePlayed());
+			ps.add(_rooms[i]->getPlayers()[j]->getGamePlayed());
 			dataPacketSize += 2;
 		}
 
