@@ -32,6 +32,8 @@ namespace Network
 			(void)ip; (void)port;
 			return (false);
 		}
+		/* La méthode getIpInfo() permet de récupérer l'ip de la socket */
+		const std::string   getIpInfo() const;
 		/* La méthode getFdSocket() permet de récupérer le descripteur de la socket. */
 		int32_t		getFdSocket() const;
 		/* La méthode closeIt() permet de fermer la socket */
