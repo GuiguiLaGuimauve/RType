@@ -91,6 +91,7 @@ bool			SocketTCPWindows::acceptClient(DataClient &data)
 	ip = ctmp_ip;
 	delete[] ctmp_ip;*/
 	std::string ip = inet_ntoa(saClient.sin_addr);
+	std::cout << "Accepeted :" << ip << std::endl;
 	data.setIp(ip);
 	return (true);
 }
