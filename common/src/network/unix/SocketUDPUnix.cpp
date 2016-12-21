@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 //
 // Started on  Fri Oct 14 11:10:10 2016 julien dufrene
-// Last update Fri Dec 16 16:23:42 2016 julien dufrene
+// Last update Wed Dec 21 06:00:32 2016 julien dufrene
 //
 
 #include "SocketUDPUnix.hh"
@@ -22,6 +22,8 @@ SocketUDPUnix::SocketUDPUnix()
     throw ErrorSocket("Error on Getprotobyname()");
   if ((_sock = socket(AF_INET, SOCK_DGRAM, proto->p_proto)) == -1)
     throw ErrorSocket("Error on Socket()");
+  if (fcntl(_sock, F_SETFL, O_NONBLOCK) == -1)
+    throw ErrorSocket("Error on fcntl(O_NONBLOCK)");
 }
 
 int32_t			SocketUDPUnix::getFdSocket() const
