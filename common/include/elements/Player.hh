@@ -21,7 +21,7 @@ namespace Element {
 		/*! Player destructor */
 		~Player();
 
-	protected:
+	private:
 		/*! ID of the user */
 		uint8_t _id;
 	};

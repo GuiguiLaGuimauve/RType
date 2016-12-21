@@ -29,6 +29,21 @@ PacketRooms::PacketRooms(const std::vector<DataRoom *> & rooms)
 			ps.add((uint16_t)_rooms[i]->getPlayers()[j]->getName().size());
 			ps.add(_rooms[i]->getPlayers()[j]->getName());
 			dataPacketSize += 2 + (uint32_t)_rooms[i]->getPlayers()[j]->getName().size();
+
+			ps.add(_rooms[i]->getPlayers()[i]->getStageSucceed());
+			dataPacketSize += 2;
+
+			ps.add(_rooms[i]->getPlayers()[i]->getGamePlayed());
+			dataPacketSize += 2;
+		}
+
+		ps.add((uint16_t)_rooms[i]->getWatchers().size());
+		dataPacketSize += 2;
+		for (uint64_t j = 0; j < _rooms[i]->getWatchers().size(); j++)
+		{
+			ps.add((uint16_t)_rooms[i]->getWatchers()[j]->getName().size());
+			ps.add(_rooms[i]->getWatchers()[j]->getName());
+			dataPacketSize += 2 + (uint32_t)_rooms[i]->getWatchers()[j]->getName().size();
 		}
 
 		ps.add(_rooms[i]->getMaxPlayers());
@@ -73,9 +88,28 @@ PacketRooms::PacketRooms(const uint8_t *data)
 
 			playersTemp->setName(pd.getString(posInPacket + 2, pd.get16(posInPacket)));
 			posInPacket += 2 + (uint32_t)pd.get16(posInPacket);
+
+			playersTemp->setStageSucceed(pd.get16(posInPacket));
+			posInPacket += 2;
+
+			playersTemp->setGamePlayed(pd.get16(posInPacket));
+			posInPacket += 2;
+			
 			tmpData.push_back(playersTemp);
 		}
 		roomsTemp->setPlayers(tmpData);
+		uint64_t viewersLength = pd.get16(posInPacket);
+		posInPacket += 2;
+		std::vector<DataPlayer *> tmpDataV;
+		for (uint64_t j = 0; j < viewersLength; j++)
+		{
+			DataPlayer *temp = new DataPlayer();
+
+			temp->setName(pd.getString(posInPacket + 2, pd.get16(posInPacket)));
+			posInPacket += 2 + (uint32_t)pd.get16(posInPacket);
+			tmpDataV.push_back(temp);
+		}
+		roomsTemp->setWatchers(tmpDataV);
 		roomsTemp->setMaxPlayers(pd.get8(posInPacket));
 		posInPacket += 1;
 

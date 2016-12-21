@@ -26,7 +26,7 @@ namespace Packet {
 		void setY(const uint16_t & y) { _y = y; };
 		void setDamage(const uint8_t & damage) { _damage = damage; };
 
-	protected:
+	private:
 		std::string _name;
 		uint16_t _x;
 		uint16_t _y;

@@ -23,7 +23,7 @@ namespace Packet {
 		bool isTcp() const;
 		bool isUdp() const;
 
-	protected:
+	private:
 		DataPlayer *_player;
 	};
 };

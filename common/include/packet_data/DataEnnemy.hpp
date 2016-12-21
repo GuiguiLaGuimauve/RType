@@ -23,7 +23,7 @@ namespace Packet {
 		void setX(const uint16_t & x) { _x = x; };
 		void setY(const uint16_t & y) { _y = y; };
 
-	protected:
+	private:
 		uint8_t _type;
 		uint16_t _x;
 		uint16_t _y;

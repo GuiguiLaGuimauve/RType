@@ -21,7 +21,7 @@ namespace Element {
 		/*! Shoot destructor */
 		~Shoot();
 
-	protected:
+	private:
 	};
 };
 

@@ -36,7 +36,7 @@ public:
   void setHealth(const uint8_t & health) { _health = health; };
   void setOnline(const bool & status) { _online = status; }
   
-protected:
+private:
   std::string _name;
   std::string _pw;
   uint16_t _stageSucceed;
