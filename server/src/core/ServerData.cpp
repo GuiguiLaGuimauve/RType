@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Mon Dec 19 23:24:16 2016 Maxime Lecoq
-// Last update Wed Dec 21 01:28:39 2016 lecoq
+// Last update Wed Dec 21 01:30:32 2016 lecoq
 //
 
 #include	"ServerData.hh"
@@ -208,7 +208,6 @@ bool	ServerData::watchGame(const std::string &roomName, const std::string &playe
   DataPlayer	*player = getPlayer(st.lower(playerName));
   std::vector<DataPlayer *> pl = room->getWatchers();
 
-  std::cout << "new watcher" << std::endl;
   pl.push_back(player);
   room->setWatchers(pl);
   _isUpdate = true;
