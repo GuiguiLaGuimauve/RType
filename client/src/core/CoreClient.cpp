@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Wed Dec 21 07:49:09 2016 lecoq
+// Last update Wed Dec 21 08:00:24 2016 lecoq
 //
 
 #include	"CoreClient.hh"
@@ -29,6 +29,10 @@ CoreClient::CoreClient()
   _packetPtr[IPacket::PacketType::PROFILE] = &CoreClient::profile;
   _packetPtr[IPacket::PacketType::UDP_DATA] = &CoreClient::udpData;
   _status = "connect";
+  _backPtr["connect"] = &CoreClient::exitClient;
+  _backPtr["login"] = &CoreClient::goConnect;
+  _backPtr["rooms"] = &CoreClient::goLogin;
+  _backPtr["game"] = &CoreClient::goRooms;
 }
 
 CoreClient::~CoreClient()
@@ -134,6 +138,19 @@ void CoreClient::deleteManager()
    _manager->deleteManager();
    delete _manager;
    _isInit = false;
+}
+
+bool	CoreClient::exitClient()
+{
+  return (false);
+}
+
+bool	CoreClient::goConnect()
+{
+  _gui->displayStart();
+  _tcp->run();
+  _status = "connect";  
+  return (true);
 }
 
 bool	CoreClient::quit(EventPart::Event e)

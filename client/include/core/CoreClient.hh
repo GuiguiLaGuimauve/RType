@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:19:16 2016 Maxime Lecoq
-// Last update Wed Dec 21 07:46:49 2016 lecoq
+// Last update Wed Dec 21 07:59:30 2016 lecoq
 //
 
 #ifndef CORECLIENT_HH_
@@ -39,6 +39,7 @@ public:
 private:
   typedef bool (CoreClient::*fEvent)(EventPart::Event);
   typedef bool (CoreClient::*fPkt)(const IPacket *, IUserNetwork *);
+  typedef bool (CoreClient::*fBack)();
   bool		manageGui();
   bool		manageNetwork();
   bool		managePackets();
@@ -58,6 +59,11 @@ private:
   bool				rooms(const IPacket *, IUserNetwork *);
   bool				profile(const IPacket *, IUserNetwork *);
   bool				udpData(const IPacket *, IUserNetwork *);
+
+  bool				exitClient();
+  bool				goConnect();
+  bool				goLogin();
+  bool				goRooms();
 private:
   IManagerClient	*_manager;
   IGUI			*_gui;
@@ -65,6 +71,7 @@ private:
   IEventQueue		*_eventQueue;
   std::map<EventPart::Event::TYPE, fEvent>      _eventPtr;
   std::map<IPacket::PacketType, fPkt>      _packetPtr;
+  std::map<std::string, fBack>      _backPtr;
   std::string		_status;
 };
 
