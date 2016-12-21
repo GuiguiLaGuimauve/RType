@@ -195,6 +195,10 @@ Category: Limited
 	| 0x16* | LOGOUT	| The client ask to  	   | C-S    |
 	|	|		| logout from the          |        |
 	|	|		| server		   |	    |	
+	|-------|---------------|--------------------------|--------|
+	| 0x23* | CHAT_MESSAGE	| Chat message for the	   | C-S    |
+	|	|		| menu		           | S-C    |
+	|	|		| 			   |	    |	
 	\-----------------------------------------------------------/
 
 \-----------------------------------------------------------------------------/
@@ -242,8 +246,8 @@ Category: Limited
 	| 0x21  | SHOOT		| Packet send when the     | C-S    |
 	|	|		| shoot key is pressed     |        |
 	|-------|---------------|--------------------------|--------|
-	| 0x22  | MOVE		| Client ask the server to | C-S    |
-	|	|		| update his position      |        |
+	| 0x22  | POSITION	| Client ask the server to | C-S    |
+	|	|       _PLAYER	| update his position      |        |
 	|	|		|         		   |	    |
 	\-----------------------------------------------------------/
 	| 0x81  | PLAYERS	| Packet which contains    | S-C    |
