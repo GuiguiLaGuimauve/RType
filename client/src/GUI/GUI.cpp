@@ -45,168 +45,184 @@ void		GUI::callback()
   _userEvents->callback();
   _win->drawAll();
   while (!_guiQueue->empty())
-    {
-      EventPart::Event e = _guiQueue->pop();
-      EventPart::Event ep = EventPart::Event(EventPart::Event::DEFAULT);
-      switch (e.type)
-	{
-	case EventPart::Event::CLOSE_WINDOW :
-	  ep = EventPart::Event(EventPart::Event::QUIT);
-	  break;
-	case EventPart::Event::CLICK :
+  {
+	  EventPart::Event e = _guiQueue->pop();
+	  EventPart::Event ep = EventPart::Event(EventPart::Event::DEFAULT);
+	  switch (e.type)
 	  {
-	    IWidget *w = _win->isThereWidget(e.dataInt["X"], e.dataInt["Y"]);
-	    if (w)
-	      w->onClick(static_cast<CLICK> (e.dataInt["CLICK"]));
-	    if (w != _focusWidget)
-	      {
-		if (_focusWidget)
-		  _focusWidget->onLeaveFocus();
-		if (w)
-		  w->onFocus();
-		_focusWidget = w;
-	      }
-	    break;
-	  }
-	case EventPart::Event::MOUSE__MOVED :
+	  case EventPart::Event::CLOSE_WINDOW:
+		  ep = EventPart::Event(EventPart::Event::QUIT);
+		  break;
+	  case EventPart::Event::CLICK:
 	  {
-	    IWidget *w = _win->isThereWidget(e.dataInt["X"], e.dataInt["Y"]);
-	    if (w != _hoverWidget)
-	      {
-		if (_hoverWidget)
-		  _hoverWidget->onLeaveHover();
-		if (w)
-		  w->onHover();
-		_hoverWidget = w;
-	      }
-	    break;
+		  IWidget *w = _win->isThereWidget(e.dataInt["X"], e.dataInt["Y"]);
+		  if (w)
+			  w->onClick(static_cast<CLICK> (e.dataInt["CLICK"]));
+		  if (w != _focusWidget)
+		  {
+			  if (_focusWidget)
+				  _focusWidget->onLeaveFocus();
+			  if (w)
+				  w->onFocus();
+			  _focusWidget = w;
+		  }
+		  break;
 	  }
-	case EventPart::Event::TEXT :
-	  { 
-	    if (_focusWidget)
-	      _focusWidget->onTextEntered(e.dataString["CHAR"]);
-	    break ;
-	  }
-	  case EventPart::Event::BUTTON_CONNECT :
-          {
-	    std::string stringIp, stringPort;
-            auto tmpIp = _startWidgets->input->getText();
-            bool founded = false;
-            for(unsigned int i = 0; i < tmpIp.size(); i++)
-	      {
-		if (tmpIp[i] == ':')
-                  founded = true;
-                else
-                  if (founded == false)
-                    stringIp += tmpIp[i];
-		  else
-                    stringPort +=tmpIp[i];
-              }
-            ep = EventPart::Event(EventPart::Event::TRY_CONNECT,
-                                  "IP", stringIp,
-                                  "PORT", stringPort);
-	    break ;
-          }
-	case EventPart::Event::BUTTON_LOGIN :
+	  case EventPart::Event::MOUSE__MOVED:
 	  {
-	    ep = EventPart::Event(EventPart::Event::TRY_LOGIN,
-                                  "LOGIN", _loginWidgets->login->getText(),
-                                  "PWD", _loginWidgets->password->getText());
-	    break ;
+		  IWidget *w = _win->isThereWidget(e.dataInt["X"], e.dataInt["Y"]);
+		  if (w != _hoverWidget)
+		  {
+			  if (_hoverWidget)
+				  _hoverWidget->onLeaveHover();
+			  if (w)
+				  w->onHover();
+			  _hoverWidget = w;
+		  }
+		  break;
 	  }
-	case EventPart::Event::BUTTON_CREATE_GAME :
-	{
-		ep = EventPart::Event(EventPart::Event::CREATE_GAME);
-		break;
-	}
-	case EventPart::Event::BUTTON_JOIN_GAME:
-	{
-		ep = EventPart::Event(EventPart::Event::JOIN_GAME, "GAME_NAME", _currentGame->getName());
-		break ;
-	}
-	case EventPart::Event::BUTTON_LEAVE_GAME:
-	{
-		ep = EventPart::Event(EventPart::Event::LEAVE_GAME, "GAME_NAME", _currentGame->getName());
-		break ;
-	}
-	case EventPart::Event::BUTTON_WATCH_GAME:
-	{
-		ep = EventPart::Event(EventPart::Event::WATCH_GAME, "GAME_NAME", _currentGame->getName());
-		break;
-	}
-	case EventPart::Event::BUTTON_START_GAME:
-	{
-		ep = EventPart::Event(EventPart::Event::START_GAME, "GAME_NAME", _currentGame->getName());
-		break;
-	}
-	case EventPart::Event::KEY_ATTACK :
-	{
-		if (_gameWidgets)
-			ep = EventPart::Event(EventPart::Event::ATTACK);
-		break;
-	}
-	case EventPart::Event::KEY_UP:
-	{
-		if (_gameWidgets)
-			ep = EventPart::Event(EventPart::Event::MOVE_UP);
-		break;
-	}
-	case EventPart::Event::KEY_DOWN:
-	{
-		if (_gameWidgets)
-			ep = EventPart::Event(EventPart::Event::MOVE_DOWN);
-		break;
-	}
-	case EventPart::Event::KEY_LEFT:
-	{
-		if (_gameWidgets)
-			ep = EventPart::Event(EventPart::Event::MOVE_LEFT);
-		break;
-	}
-	case EventPart::Event::KEY_RIGHT:
-	{
-		if (_gameWidgets)
-			ep = EventPart::Event(EventPart::Event::MOVE_RIGHT);
-		break;
-	}
-	case EventPart::Event::LOGIN_SWITCH_IMPUT :
-	{
-		if (_loginWidgets)
-		{
-			if (_focusWidget == _loginWidgets->login)
-			{
-				_loginWidgets->login->onLeaveFocus();
-				_focusWidget = _loginWidgets->password;
-				_loginWidgets->password->onFocus();
-			}
-			else if (_focusWidget == _loginWidgets->password)
-			{
-				_loginWidgets->password->onLeaveFocus();
-				_focusWidget = _loginWidgets->login;
-				_loginWidgets->login->onFocus();
-			}
-		}
-	break;
-	}
-	case EventPart::Event::CLICK_SELECT_GAME:
-	{
-		int nb = 0;
-		for (auto room : _menuWidgets->games)
-		{
-		  if (room->getX() == e.dataInt["X"] && room->getY() == e.dataInt["Y"])
-		    break;
-		  nb++;
-		}
-		_currentGame = _menuInfos[nb];
-		updateCurrentGame();
-		break;
-	}
-	default :
-	  ep.type = EventPart::Event::DEFAULT;
-	}
-      if (ep.type != EventPart::Event::DEFAULT && _coreQueue)
-	_coreQueue->push(ep);
-    }
+	  case EventPart::Event::TEXT:
+	  {
+		  if (_focusWidget)
+			  _focusWidget->onTextEntered(e.dataString["CHAR"]);
+		  break;
+	  }
+	  case EventPart::Event::BUTTON_CONNECT:
+	  {
+		  std::string stringIp, stringPort;
+		  auto tmpIp = _startWidgets->input->getText();
+		  bool founded = false;
+		  for (unsigned int i = 0; i < tmpIp.size(); i++)
+		  {
+			  if (tmpIp[i] == ':')
+				  founded = true;
+			  else
+				  if (founded == false)
+					  stringIp += tmpIp[i];
+				  else
+					  stringPort += tmpIp[i];
+		  }
+		  if (stringPort == "")
+			  stringPort = "4242";
+		  ep = EventPart::Event(EventPart::Event::TRY_CONNECT,
+			  "IP", stringIp,
+			  "PORT", stringPort);
+		  break;
+	  }
+	  case EventPart::Event::BUTTON_LOGIN:
+	  {
+		  ep = EventPart::Event(EventPart::Event::TRY_LOGIN,
+			  "LOGIN", _loginWidgets->login->getText(),
+			  "PWD", _loginWidgets->password->getText());
+		  break;
+	  }
+	  case EventPart::Event::BUTTON_CREATE_GAME:
+	  {
+		  ep = EventPart::Event(EventPart::Event::CREATE_GAME);
+		  break;
+	  }
+	  case EventPart::Event::BUTTON_JOIN_GAME:
+	  {
+		  ep = EventPart::Event(EventPart::Event::JOIN_GAME, "GAME_NAME", _currentGame->getName());
+		  break;
+	  }
+	  case EventPart::Event::BUTTON_LEAVE_GAME:
+	  {
+		  ep = EventPart::Event(EventPart::Event::LEAVE_GAME, "GAME_NAME", _currentGame->getName());
+		  break;
+	  }
+	  case EventPart::Event::BUTTON_WATCH_GAME:
+	  {
+		  ep = EventPart::Event(EventPart::Event::WATCH_GAME, "GAME_NAME", _currentGame->getName());
+		  break;
+	  }
+	  case EventPart::Event::BUTTON_START_GAME:
+	  {
+		  ep = EventPart::Event(EventPart::Event::START_GAME, "GAME_NAME", _currentGame->getName());
+		  break;
+	  }
+	  case EventPart::Event::BUTTON_SCROLL_UP:
+	  {
+		  if (_menuWidgets->itScroll < NB_GAME_SCROLL)
+			  _menuWidgets->itScroll++;
+		  updateGameInfo();
+		  break;
+	  }
+	  case EventPart::Event::BUTTON_SCROLL_DOWN:
+	  {
+		  if (_menuWidgets->itScroll > 0)
+			  _menuWidgets->itScroll--;
+		  updateGameInfo();
+		  break;
+	  }
+	  case EventPart::Event::KEY_ATTACK:
+	  {
+		  if (_gameWidgets)
+			  ep = EventPart::Event(EventPart::Event::ATTACK);
+		  break;
+	  }
+	  case EventPart::Event::KEY_UP:
+	  {
+		  if (_gameWidgets)
+			  ep = EventPart::Event(EventPart::Event::MOVE_UP);
+		  break;
+	  }
+	  case EventPart::Event::KEY_DOWN:
+	  {
+		  if (_gameWidgets)
+			  ep = EventPart::Event(EventPart::Event::MOVE_DOWN);
+		  break;
+	  }
+	  case EventPart::Event::KEY_LEFT:
+	  {
+		  if (_gameWidgets)
+			  ep = EventPart::Event(EventPart::Event::MOVE_LEFT);
+		  break;
+	  }
+	  case EventPart::Event::KEY_RIGHT:
+	  {
+		  if (_gameWidgets)
+			  ep = EventPart::Event(EventPart::Event::MOVE_RIGHT);
+		  break;
+	  }
+	  case EventPart::Event::LOGIN_SWITCH_IMPUT:
+	  {
+		  if (_loginWidgets)
+		  {
+			  if (_focusWidget == _loginWidgets->login)
+			  {
+				  _loginWidgets->login->onLeaveFocus();
+				  _focusWidget = _loginWidgets->password;
+				  _loginWidgets->password->onFocus();
+			  }
+			  else if (_focusWidget == _loginWidgets->password)
+			  {
+				  _loginWidgets->password->onLeaveFocus();
+				  _focusWidget = _loginWidgets->login;
+				  _loginWidgets->login->onFocus();
+			  }
+		  }
+		  break;
+	  }
+	  case EventPart::Event::CLICK_SELECT_GAME:
+	  {
+		  int nb = 0;
+		  for (auto room : _menuWidgets->games)
+		  {
+			  if (room->getX() == e.dataInt["X"] && room->getY() == e.dataInt["Y"])
+				  break;
+			  nb++;
+		  }
+		  _currentGame = _menuInfos[nb + _menuWidgets->itScroll];
+		  updateCurrentGame();
+		  break;
+	  }
+	  default:
+		  ep.type = EventPart::Event::DEFAULT;
+	  }
+	  if (ep.type != EventPart::Event::DEFAULT && _coreQueue)
+		  _coreQueue->push(ep);
+  }
 }
 
 void		GUI::displayGame()
@@ -528,6 +544,32 @@ void		GUI::displayMenu()
 	});
 	_menuWidgets->startButton->setOnHover(TextColorFocus);
 	_menuWidgets->startButton->setOnLeaveHover(TextColorNoFocus);
+	// bouton pour monter dans la "scrollbar"
+	_menuWidgets->upScrollButton = _win->addWidget(1100, 400, 40, 40);
+	_menuWidgets->upScrollButton->setText("UP");
+	s = _menuWidgets->upScrollButton->getStyle();
+	s.policeSize = 20;
+	s.textColor = Color(255, 215, 0);
+	_menuWidgets->upScrollButton->setStyle(s);
+	_menuWidgets->upScrollButton->setOnClick([](IWidget *widget, CLICK)
+	{
+		widget->getEventQueue()->push(EventPart::Event(EventPart::Event::BUTTON_SCROLL_UP));
+	});
+	_menuWidgets->upScrollButton->setOnHover(TextColorFocus);
+	_menuWidgets->upScrollButton->setOnLeaveHover(TextColorNoFocus);
+	// bouton pour descendre dans la "scrollbar"
+	_menuWidgets->downScrollButton = _win->addWidget(1100, 300, 40, 40);
+	_menuWidgets->downScrollButton->setText("UP");
+	s = _menuWidgets->downScrollButton->getStyle();
+	s.policeSize = 20;
+	s.textColor = Color(255, 215, 0);
+	_menuWidgets->downScrollButton->setStyle(s);
+	_menuWidgets->downScrollButton->setOnClick([](IWidget *widget, CLICK)
+	{
+		widget->getEventQueue()->push(EventPart::Event(EventPart::Event::BUTTON_SCROLL_DOWN));
+	});
+	_menuWidgets->downScrollButton->setOnHover(TextColorFocus);
+	_menuWidgets->downScrollButton->setOnLeaveHover(TextColorNoFocus);
 
 	// affichage de toutes les rooms dans updateGameInfo()
 	// affichage des infos de la game selectionnée
@@ -646,11 +688,21 @@ void		GUI::updateGameInfo(/*const GameInfo &*/)
 {
   // Todo : Update game info
   int i = 0;
+  int nb = 0;
 
   if (_menuWidgets)
     cleanGames();
+  std::cout << "scroll iterator = " << _menuWidgets->itScroll << std::endl;
+  if (_menuWidgets->itScroll >= _menuInfos.size())
+	  _menuWidgets->itScroll = (unsigned int) _menuInfos.size() - 1;
+  _menuWidgets->itScroll = (_menuWidgets->itScroll < 0) ? 0 : _menuWidgets->itScroll;
   for (auto elem : _menuInfos)
     {
+	  if (nb >= NB_GAME_SCROLL + (int)_menuWidgets->itScroll || (int)_menuWidgets->itScroll > nb)
+	  {
+		  nb++;
+		  continue;
+	  }
       // crée un widget pour chaque room
       IWidget *temp = _win->addWidget(_win->getWidth() / 6, 100 + ((i + 1) * 100), _win->getWidth() / 2, 100);
       Style sgame = temp->getStyle();
@@ -662,10 +714,11 @@ void		GUI::updateGameInfo(/*const GameInfo &*/)
 		    + "\tStage " + std::to_string(elem->getLevel() + 1));
       temp->setOnClick([](IWidget *w, CLICK)
 		       {
-			 w->getEventQueue()->push(EventPart::Event(EventPart::Event::CLICK_SELECT_GAME, "X", w->getX(), "Y", w->getY()));
+					w->getEventQueue()->push(EventPart::Event(EventPart::Event::CLICK_SELECT_GAME, "X", w->getX(), "Y", w->getY()));
 		       });
       _menuWidgets->games.push_back(temp);
       i++;
+	  nb++;
     }
 }
 
@@ -839,7 +892,7 @@ void		GUI::updateCurrentGame()
 		_menuWidgets->watchButton->resize(0, 0);
 	}
 	// bouton start
-	// affichage du bouton watch
+	// affichage du bouton start
 	if (_currentGame && _profile && _currentGame->getPlayers()[0]->getName() == _profile->getName())
 	{
 	  _menuWidgets->startButton->setText("START");
@@ -849,6 +902,21 @@ void		GUI::updateCurrentGame()
 	{
 	  _menuWidgets->startButton->setText("");
 	  _menuWidgets->startButton->resize(0, 0);
+	}
+	// bouton scroll down et scroll up
+	if (_currentGame && _menuInfos.size() > NB_GAME_SCROLL)
+	{
+		_menuWidgets->downScrollButton->setText("UP");
+		_menuWidgets->downScrollButton->resize(40, 40);
+		_menuWidgets->upScrollButton->setText("DOWN");
+		_menuWidgets->upScrollButton->resize(40, 40);
+	}
+	else
+	{
+		_menuWidgets->downScrollButton->setText("");
+		_menuWidgets->downScrollButton->resize(0, 0);
+		_menuWidgets->upScrollButton->setText("");
+		_menuWidgets->upScrollButton->resize(0, 0);
 	}
 }
 

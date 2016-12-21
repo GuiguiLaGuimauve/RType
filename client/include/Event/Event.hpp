@@ -44,6 +44,8 @@ namespace EventPart
 	KEY_LEFT,
 	LOGIN_SWITCH_IMPUT,
 	CLICK_SELECT_GAME,
+	BUTTON_SCROLL_UP,
+	BUTTON_SCROLL_DOWN,
 	// events of the gui to the core
 	QUIT,
 	ATTACK,

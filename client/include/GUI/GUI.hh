@@ -23,6 +23,8 @@
 #define GUI_WIDTH 1920
 #define GUI_HEIGHT 1080
 
+#define NB_GAME_SCROLL 4
+
 void	TextColorNoFocus(Gui::IWidget *w);
 void	TextColorFocus(Gui::IWidget *w);
 void	textEntered(Gui::IWidget *w, const std::string &c);
@@ -79,6 +81,9 @@ namespace Gui
       IWidget	*leaveButton = NULL; // bouton pour regarder
       IWidget	*watchButton = NULL; // bouton pour regarder
       IWidget	*startButton = NULL; // bouton pour regarder
+	  IWidget	*downScrollButton = NULL; // pour scroller les parties vers le bas
+	  IWidget	*upScrollButton = NULL; // pour scroller les parties vers le haut
+	  unsigned int		itScroll = 0;
       /* Vecteur de joueurs connectés */
       /* Container des joueurs connectés */
     };
