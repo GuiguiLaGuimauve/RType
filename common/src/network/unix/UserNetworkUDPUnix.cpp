@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Thu Dec 15 15:33:48 2016 julien dufrene
-// Last update Wed Dec 21 19:03:55 2016 julien dufrene
+// Last update Wed Dec 21 19:15:03 2016 julien dufrene
 //
 
 #include "UserNetworkUDPUnix.hh"
@@ -44,7 +44,7 @@ IUserNetwork		*UserNetworkUDPUnix::readSocket(ISocket *net)
       // 	    return (u);
       // 	  }
     }
-  if (nb == -1)
+  if (nb == -1 && errno != 11)
     {
       perror("recvfrom");
       std::cerr << "Error from recvfrom(): " << errno << std::endl;
@@ -63,8 +63,12 @@ void                    UserNetworkUDPUnix::writeSocket(ISocket *net)
   s_out.sin_family = AF_INET;
   s_out.sin_port = htons(_port);
   to_write = buff_w.pop();
+  std::cout << "Trying to send to: " << _ip << ":" << _port << std::endl;
   if (sendto(_fd, to_write.getPacketData(), to_write.getPacketSize(), 0, (sockaddr *)&s_out, sizeof (s_out)) != -1)
-    std::cerr << "Error on write" << std::endl;
+    {
+      perror("write");
+      std::cerr << "Error on write(): " << errno << std::endl;
+    }
 }
 
 void			UserNetworkUDPUnix::closeFd()
