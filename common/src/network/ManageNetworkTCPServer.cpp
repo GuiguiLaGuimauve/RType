@@ -25,9 +25,9 @@ ManageNetworkTCPServer::~ManageNetworkTCPServer()
     }
 }
 
-IUserNetwork			*ManageNetworkTCPServer::getServerRunning() const
+IUserNetwork                    *ManageNetworkTCPServer::getRunning() const
 {
-  unsigned int			i;
+  unsigned int                  i;
 
   i = 0;
   while (i < _user.size())

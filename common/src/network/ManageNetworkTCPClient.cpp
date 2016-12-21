@@ -25,7 +25,7 @@ ManageNetworkTCPClient::~ManageNetworkTCPClient()
     }
 }
 
-IUserNetwork		*ManageNetworkTCPClient::getServerRunning() const
+IUserNetwork		*ManageNetworkTCPClient::getRunning() const
 {
   return (_serv);
 }

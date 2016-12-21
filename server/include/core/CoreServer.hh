@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:19:16 2016 Maxime Lecoq
-// Last update Wed Dec 21 07:48:24 2016 julien dufrene
+// Last update Wed Dec 21 08:19:46 2016 julien dufrene
 //
 
 #ifndef CORESERVER_HH_
@@ -34,7 +34,6 @@ public:
   void		deleteManager();
 private:
   bool		managePackets();
-  uint8_t	*getIp(const std::string &_ip) const;
 private:
   typedef bool	(CoreServer::*fPkt)(const IPacket *, IUserNetwork *);
   bool		connect(const IPacket *, IUserNetwork *);

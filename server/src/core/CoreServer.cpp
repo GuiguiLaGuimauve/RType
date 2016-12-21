@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Wed Dec 21 07:54:47 2016 julien dufrene
+// Last update Wed Dec 21 09:13:30 2016 julien dufrene
 //
 
 #include	"CoreServer.hh"
@@ -187,36 +187,6 @@ bool		CoreServer::watchGame(const IPacket *pa, IUserNetwork *u)
   return (true);
 }
 
-uint8_t		*CoreServer::getIp(const std::string &_ip) const
-{
-  Convert<uint8_t>		c;
-  Convert<int32_t>		conv;
-  StringCk			strCk;
-  uint64_t			i;
-  uint8_t			*ret = new uint8_t[4];
-  std::vector<std::string>	ip;
-  Vector			vec;
-
-  ip = vec.getVector(_ip, '.');
-  if (ip.size() != 4)
-    return (NULL);
-  i = 0;
-  while (i < ip.size())
-    {
-      if (strCk.isNumber(ip[i]) == false || conv.toNumber(ip[i]) < 0 \
-	  || conv.toNumber(ip[i]) > 255)
-	{
-	  return (NULL);
-	}
-      i++;
-    }
-  ret[0] = conv.toNumber(ip[0]);
-  ret[1] = conv.toNumber(ip[1]);
-  ret[2] = conv.toNumber(ip[2]);
-  ret[3] = conv.toNumber(ip[3]);
-  return (ret);
-}
-
 bool				CoreServer::startGame(const IPacket *pa, IUserNetwork *u)
 {
   std::vector<std::string>	playersName;
@@ -234,9 +204,10 @@ bool				CoreServer::startGame(const IPacket *pa, IUserNetwork *u)
     }
   else
     {
-      serv = _tcp->getServerRunning();
-      if ((ip = getIp(serv->getIp())) == NULL)
+      serv = _tcp->getRunning();
+      if ((ip = calculIp(serv->getIp())) == NULL)
 	return (false);
+      std::cout << "send udp data ip: " << ip << " port: " << serv->getPort() << std::endl;
       pb = _factory->getPacket("udpdata", ip, (uint16_t)serv->getPort());
       uint64_t		i = 0;
       while (i < room->getPlayers().size())
@@ -251,7 +222,6 @@ bool				CoreServer::startGame(const IPacket *pa, IUserNetwork *u)
 	  i++;
 	}
       _tcp->pushTo(playersName, pb->getPacketUnknown());
-      std::cout << "send udp data" << std::endl;
     }
   return (true);
 }

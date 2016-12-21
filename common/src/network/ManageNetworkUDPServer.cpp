@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Fri Dec 16 11:37:09 2016 julien dufrene
-// Last update Wed Dec 21 01:47:40 2016 julien dufrene
+// Last update Wed Dec 21 09:07:58 2016 julien dufrene
 //
 
 #include	"ManageNetworkUDPServer.hh"
@@ -31,6 +31,20 @@ ManageNetworkUDPServer::~ManageNetworkUDPServer()
 	  std::cout << e.what() << std::endl;
 	}
     }
+}
+
+IUserNetwork		*ManageNetworkUDPServer::getRunning() const
+{
+  unsigned int                  i;
+
+  i = 0;
+  while (i < _user.size())
+    {
+      if (_user[i]->getFd() == _net->getFdSocket())
+	return (_user[i]);
+      i++;
+    }
+  return (NULL);
 }
 
 bool			ManageNetworkUDPServer::init()

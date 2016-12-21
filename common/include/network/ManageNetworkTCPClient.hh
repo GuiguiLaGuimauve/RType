@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Wed Dec 21 00:15:36 2016 julien dufrene
-// Last update Wed Dec 21 06:46:32 2016 julien dufrene
+// Last update Wed Dec 21 09:03:44 2016 julien dufrene
 //
 
 #ifndef		__MANAGENETWORKTCPCLIENT_HH__
@@ -27,7 +27,7 @@ namespace Network
     bool			tryConnectClient(const uint32_t &, const std::string &);
     void			pushTo(const std::vector<std::string> &, const PacketUnknown &);
     bool			hasServerRunning() const;
-    IUserNetwork                *getServerRunning() const;
+    IUserNetwork                *getRunning() const;
   };
 };
 

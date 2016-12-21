@@ -5,7 +5,7 @@
 ** Login   <lecoq_m@epitech.net>
 **
 ** Started on  Mon Oct 17 13:11:20 2016 Maxime Lecoq
-// Last update Wed Dec 21 06:44:51 2016 julien dufrene
+// Last update Wed Dec 21 09:00:02 2016 julien dufrene
 */
 
 #ifndef		__IMANAGENETWORK_HH__
@@ -87,7 +87,7 @@ namespace Network
       en :getServerRunning() is used to get the UserNetwork wich represent the server.
       fr :La méthode getServerRunning() permet de récupéré l'utilisateur correspondant au serveur.
      */
-    virtual IUserNetwork	                *getServerRunning() const = 0;
+    virtual IUserNetwork	                *getRunning() const = 0;
   };
 };
 
