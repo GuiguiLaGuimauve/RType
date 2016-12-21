@@ -5,13 +5,14 @@
 // Login   <dufren_b@epitech.net>
 //
 // Started on  Fri Oct 14 11:25:14 2016 julien dufrene
-// Last update Thu Dec 15 16:06:40 2016 julien dufrene
+// Last update Wed Dec 21 05:59:12 2016 julien dufrene
 //
 
 #ifndef _SocketUDPUnix_HH_
 #define _SocketUDPUnix_HH_
 
 #include "ASocketUDP.hh"
+#include <fcntl.h>
 
 namespace Network
 {
