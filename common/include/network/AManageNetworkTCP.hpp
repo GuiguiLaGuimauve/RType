@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Wed Dec 21 00:16:17 2016 julien dufrene
-// Last update Wed Dec 21 02:27:34 2016 julien dufrene
+// Last update Wed Dec 21 06:45:18 2016 julien dufrene
 //
 
 #ifndef		__MANAGENETWORKTCP_HH__
@@ -36,6 +36,7 @@ namespace Network
     virtual bool			selectIt() = 0;
     virtual std::vector<IUserNetwork *>	exec() = 0;
     virtual bool			run(const uint32_t & = 4242, const uint32_t & = 0) = 0;
+    virtual IUserNetwork                *getServerRunning() const = 0;
     virtual void			pushTo(const std::vector<std::string> &, const PacketUnknown &) = 0;
     bool				hasServerRunning() const
     {
