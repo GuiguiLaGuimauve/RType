@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 15:53:17 2016 Maxime Lecoq
-// Last update Wed Dec 21 02:06:55 2016 julien dufrene
+// Last update Wed Dec 21 17:34:11 2016 julien dufrene
 //
 
 # include	"ManagerServer.hh"

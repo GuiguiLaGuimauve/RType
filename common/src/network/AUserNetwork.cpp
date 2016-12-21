@@ -7,7 +7,7 @@ AUserNetwork::AUserNetwork()
 	_fd = -1;
 	_ip = "";
 	_pseudo = "";
-	_port = 4243;
+	_port = 4242;
 	_status = false;
 }
 
@@ -89,7 +89,7 @@ void			AUserNetwork::cutRead(uint8_t *buff, const int32_t &nb)
 
   while (ds.getPacketSize() + 9 < (uint32_t)size && size > 0)
     {
-      std::cout << "Pkt type net :" << (int)buff[0] << std::endl;
+      //      std::cout << "Pkt type net :" << (int)buff[0] << std::endl;
       int32_t	tmp = ds.getPacketSize() + 9;
       PacketUnknown pk(buff, tmp);
       buff_r.push(pk);
@@ -99,7 +99,7 @@ void			AUserNetwork::cutRead(uint8_t *buff, const int32_t &nb)
     }
   if (size > 0)
     {
-      std::cout << "Pkt type net :" << (int)buff[0] << std::endl;
+      //      std::cout << "Pkt type net :" << (int)buff[0] << std::endl;
       PacketUnknown pkt((uint8_t *)buff, size);
       buff_r.push(pkt);
     }

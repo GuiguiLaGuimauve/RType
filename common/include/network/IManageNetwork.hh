@@ -5,7 +5,7 @@
 ** Login   <lecoq_m@epitech.net>
 **
 ** Started on  Mon Oct 17 13:11:20 2016 Maxime Lecoq
-// Last update Wed Dec 21 01:55:18 2016 julien dufrene
+// Last update Wed Dec 21 12:16:48 2016 julien dufrene
 */
 
 #ifndef		__IMANAGENETWORK_HH__
@@ -60,6 +60,10 @@ namespace Network
      */
     virtual std::vector<std::string>		updateUsers(const std::vector<IUserNetwork *> &) = 0;
     /*!
+      en :pushNewUser() is used to add a new user in the manager.
+      fr :La méthode pushNewUser() est utilisée pour ajouté un nouvel utilisateur dans le manageur. */
+    virtual void				pushNewUser(IUserNetwork *) = 0;
+    /*!
       en :pushTo(liste, message) is used to send message to a list of users.
       fr :La méthode pushTo(liste, message) sert à envoyer un message à une liste d'utilisateurs. */
     virtual void				pushTo(const std::vector<std::string> &, const PacketUnknown &) = 0;
@@ -83,6 +87,11 @@ namespace Network
       fr :La méthode hasServerRunning() permet de savoir si le client est connecté à un serveur.
      */
     virtual bool				hasServerRunning() const = 0;
+    /*
+      en :getServerRunning() is used to get the UserNetwork wich represent the server.
+      fr :La méthode getServerRunning() permet de récupéré l'utilisateur correspondant au serveur.
+     */
+    virtual IUserNetwork	                *getRunning() const = 0;
   };
 };
 

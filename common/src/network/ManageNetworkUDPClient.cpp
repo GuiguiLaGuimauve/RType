@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Fri Dec 16 11:37:09 2016 julien dufrene
-// Last update Wed Dec 21 01:48:20 2016 julien dufrene
+// Last update Wed Dec 21 17:32:39 2016 julien dufrene
 //
 
 #include	"ManageNetworkUDPClient.hh"
@@ -33,6 +33,11 @@ ManageNetworkUDPClient::~ManageNetworkUDPClient()
     }
 }
 
+IUserNetwork            *ManageNetworkUDPClient::getRunning() const
+{
+  return (_serv);
+}
+
 bool			ManageNetworkUDPClient::init()
 {
   return (true);
@@ -46,21 +51,14 @@ bool			ManageNetworkUDPClient::selectIt()
 std::vector<IUserNetwork *>	ManageNetworkUDPClient::exec()
 {
   std::vector<IUserNetwork *>	newuser;
-  IUserNetwork			*u;
 
   if (_initServ == false || _serv->getStatus() == false)
     return (newuser);
-  u = _serv->readSocket(_net);
-  if (u != NULL && u != _serv && u->getStatus() == true)
+  _serv->readSocket(_net);
+  if (_serv->getStatus() == true && _serv->haveSomethingToRead())
     {
-      //      u->pushBufferWrite("WELCOME ON UDP SERVER");
-      newuser.push_back(u);
+      //std::cout << "READ: " << std::endl;
     }
-  else
-    if (_serv->getStatus() == true && _serv->haveSomethingToRead())
-      {
-	std::cout << "READ: " << std::endl;
-      }
   if (_serv->getStatus() == true && _serv->haveSomethingToWrite() == true)
     _serv->writeSocket(_net);
   return (newuser);
@@ -88,7 +86,6 @@ bool		ManageNetworkUDPClient::run(const uint32_t &port, const uint32_t &maxCl)
   _init = true;
   if (maxCl != 0 && _net->bindIt(port) == false)
     return (false);
-  /*
 #ifdef _WIN32
     IUserNetwork *u = new UserNetworkUDPWindows();
 #else
@@ -97,9 +94,10 @@ bool		ManageNetworkUDPClient::run(const uint32_t &port, const uint32_t &maxCl)
   (void)maxCl;
   u->setFd(_net->getFdSocket());
   u->setPort(port);
+  u->setIp(_net->getIpInfo());
   u->setStatus(true);
-  _user.push_back(u);*/
-  std::cout << "User Network UDP prepared: " << _net->getFdSocket() << std::endl;
+  _user.push_back(u);
+  std::cout << "Client UDP prepared, IP Client: " << u->getIp() << std::endl;
   return (true);
 }
 
@@ -117,7 +115,7 @@ bool			ManageNetworkUDPClient::tryConnectClient(const uint32_t &port, const std:
   _serv = u;
   _user.push_back(u);
   _initServ = true;
-  std::cout << "User Network Client UDP connected: " << _serv->getFd() << std::endl;
+  //std::cout << "User Network Client UDP connected: " << _serv->getFd() << std::endl;
   return (true);
 }
 

@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Wed Dec 21 05:41:47 2016 lecoq
+// Last update Wed Dec 21 17:28:24 2016 julien dufrene
 //
 
 #include	"CoreServer.hh"
@@ -21,6 +21,7 @@ CoreServer::CoreServer()
   _packetPtr[IPacket::PacketType::JOIN_ROOM] = &CoreServer::joinRoom;
   _packetPtr[IPacket::PacketType::WATCH_GAME] = &CoreServer::watchGame;
   _packetPtr[IPacket::PacketType::START_GAME] = &CoreServer::startGame;
+  _packetPtr[IPacket::PacketType::UDP_DATA] = &CoreServer::udpData;
 }
 
 CoreServer::~CoreServer() {}
@@ -52,7 +53,6 @@ bool	CoreServer::managePackets()
     {
       PacketC tmp = _read->pop();
       IPacket *packet = _factory->getPacket(tmp.getPacket().getPacketData());
-      std::cout << "PacketType : " << (int)packet->getType() << std::endl;
       if (packet != NULL && _packetPtr.find(packet->getType()) != _packetPtr.end())
 	(this->*_packetPtr[packet->getType()])(packet, tmp.getNetwork());
     }
@@ -107,7 +107,7 @@ bool		CoreServer::connect(const IPacket *pa, IUserNetwork *u)
   PacketConnect	*p = (PacketConnect *)pa;
   PacketConnect	ck;
 
-  std::cout << _factory->isEnableSerialise("error") << " " << _factory->isEnableSerialise("accept") << std::endl;
+  //std::cout << _factory->isEnableSerialise("error") << " " << _factory->isEnableSerialise("accept") << std::endl;
   if (p->getCode() != ck.getCode())
     {
       IPacket       *co = _factory->getPacket("error", ERROR_CONNECT, IPacket::PacketType::CONNECT);
@@ -187,10 +187,14 @@ bool		CoreServer::watchGame(const IPacket *pa, IUserNetwork *u)
   return (true);
 }
 
-bool		CoreServer::startGame(const IPacket *pa, IUserNetwork *u)
+bool				CoreServer::startGame(const IPacket *pa, IUserNetwork *u)
 {
-  PacketStartGame *p = (PacketStartGame *)pa;
-  DataRoom	*room = _data->getRoom(p->getGameName());
+  std::vector<std::string>	playersName;
+  IUserNetwork			*runU;
+  PacketStartGame		*p = (PacketStartGame *)pa;
+  IPacket			*pb;
+  DataRoom			*room = _data->getRoom(p->getGameName());
+  uint8_t			*ip;
 
   if (room == NULL)
     {
@@ -200,6 +204,55 @@ bool		CoreServer::startGame(const IPacket *pa, IUserNetwork *u)
     }
   else
     {
+      if ((runU = _tcp->getRunning()) == NULL)
+	{
+	  std::cout << "error" << std::endl;
+	  return (true);
+	}
+      if ((ip = calculIp(u->getIp())) == NULL)
+      	return (false);
+      if ((pb = _factory->getPacket("udpdata", ip, (uint16_t)runU->getPort())) == NULL)
+	std::cout << "error factory" << std::endl;
+      uint64_t		i = 0;
+      while (i < room->getPlayers().size())
+	{
+	  playersName.push_back(room->getPlayers()[i]->getName());
+	  i++;
+	}
+      i = 0;
+      while (i < room->getWatchers().size())
+	{
+	  playersName.push_back(room->getWatchers()[i]->getName());
+	  i++;
+	}
+      _tcp->pushTo(playersName, pb->getPacketUnknown());
     }
+  return (true);
+}
+
+bool		CoreServer::udpData(const IPacket *pa, IUserNetwork *u)
+{
+  PacketUdpData                         *p = (PacketUdpData *)pa;
+  Convert<uint8_t>                      conv;
+  std::vector<std::string>              empty;
+  std::string                           ip;
+#ifdef _WIN32
+  IUserNetwork				*udpUser = new UserNetworkUDPWindows();
+#else
+  IUserNetwork				*udpUser = new UserNetworkUDPUnix();
+#endif
+
+  ip = conv.toString(p->getIp()[0]) + ".";
+  ip += conv.toString(p->getIp()[1]) + ".";
+  ip += conv.toString(p->getIp()[2]) + ".";
+  ip += conv.toString(p->getIp()[3]);
+  //std::cout << "udpData recu ip : " << ip << " port : " << p->getPort() << std::endl;
+  //std::cout << "tcpIP: " << u->getIp() << std::endl;
+  udpUser->setFd(_udp->getSocket()->getFdSocket());
+  udpUser->setIp(u->getIp());
+  udpUser->setPort(p->getPort());
+  udpUser->setPseudo(u->getPseudo());
+  udpUser->setStatus(true);
+  _udp->pushNewUser(udpUser);
   return (true);
 }

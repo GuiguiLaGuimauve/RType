@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Fri Dec 16 11:37:09 2016 julien dufrene
-// Last update Wed Dec 21 01:47:40 2016 julien dufrene
+// Last update Wed Dec 21 17:03:54 2016 julien dufrene
 //
 
 #include	"ManageNetworkUDPServer.hh"
@@ -33,6 +33,44 @@ ManageNetworkUDPServer::~ManageNetworkUDPServer()
     }
 }
 
+IUserNetwork		*ManageNetworkUDPServer::getRunning() const
+{
+  unsigned int                  i;
+
+  i = 0;
+  while (i < _user.size())
+    {
+      if (_user[i]->getFd() == _net->getFdSocket())
+	return (_user[i]);
+      i++;
+    }
+  return (NULL);
+}
+
+std::vector<std::string>        ManageNetworkUDPServer::updateUsers(const std::vector<IUserNetwork *> &user)
+{
+  uint32_t                      i = 0;
+  std::vector<std::string>      del;
+
+  (void)user;
+  while (i < _user.size())
+    {
+      if (_user[i]->getStatus() == false)
+	{
+	  if (_user[i] == _serv)
+	    _initServ = false;
+	  if (_user[i]->getPseudo().empty() != true)
+	    del.push_back(_user[i]->getPseudo());
+	  //std::cout << "Erase client from UDP list: " << _user[i]->getFd() << std::endl;
+	  delete (_user[i]);
+	  _user.erase(_user.begin() + i);
+	}
+      else
+	i++;
+    }
+  return (del);
+}
+
 bool			ManageNetworkUDPServer::init()
 {
   return (true);
@@ -46,31 +84,18 @@ bool			ManageNetworkUDPServer::selectIt()
 std::vector<IUserNetwork *>	ManageNetworkUDPServer::exec()
 {
   std::vector<IUserNetwork *>	newuser;
-  IUserNetwork			*u;
   int				i;
 
   i = 0;
   while (i < (int32_t)_user.size())
     {
-      u = _user[i]->readSocket(_net);
-      if (_user[i]->getIp() != u->getIp() || _user[i]->getPort() != u->getPort())
+      _user[i]->readSocket(_net);
+      if (_user[i]->getStatus() == true && _user[i]->haveSomethingToRead() == true)
 	{
-	  std::cout << "new client udp" << std::endl;
-	  if (u->haveSomethingToRead() == true)
-	    {
-	      PacketUnknown pk = u->popBufferRead();
-	      _read->push(PacketC(pk, u));
-	      std::cout << "un packet est lu" << std::endl;
-	    }
-	  newuser.push_back(u);
+	  PacketUnknown pk = _user[i]->popBufferRead();
+	  _read->push(PacketC(pk, _user[i]));
+	  //std::cout << "un packet est lu" << std::endl;
 	}
-      else
-	if (_user[i]->haveSomethingToRead() == true)
-	  {
-	    PacketUnknown pk = _user[i]->popBufferRead();
-	    _read->push(PacketC(pk, _user[i]));
-	    std::cout << "un packet est lu" << std::endl;
-	  }
       if (_user[i]->haveSomethingToWrite() == true)
 	_user[i]->writeSocket(_net);
     }
@@ -110,7 +135,7 @@ bool		ManageNetworkUDPServer::run(const uint32_t &port, const uint32_t &maxCl)
   u->setPort(port);
   u->setStatus(true);
   _user.push_back(u);*/
-  std::cout << "User Network UDP prepared: " << _net->getFdSocket() << std::endl;
+  //std::cout << "User Network UDP prepared: " << _net->getFdSocket() << std::endl;
   return (true);
 }
 
@@ -128,7 +153,7 @@ bool			ManageNetworkUDPServer::tryConnectClient(const uint32_t &port, const std:
   _serv = u;
   _user.push_back(u);
   _initServ = true;
-  std::cout << "User Network Client UDP connected: " << _serv->getFd() << std::endl;
+  //std::cout << "User Network Client UDP connected: " << _serv->getFd() << std::endl;
   return (true);
 }
 

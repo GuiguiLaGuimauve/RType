@@ -16,7 +16,7 @@ public:
   DataRoom() {
     _maxPlayers = 4;
     _level = 0;
-	_started = false;
+    _started = false;
   };
   ~DataRoom() {};
   

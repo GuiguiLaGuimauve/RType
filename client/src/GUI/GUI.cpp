@@ -748,7 +748,22 @@ void			GUI::setRooms(const std::vector<DataRoom *> &d)
 {
   std::cout << "Je recois un setRoom " << std::endl;
   _menuInfos = d;
+  if (_currentGame)
+    {
+      bool	update = false;
+      for (auto elem : d)
+	{
+	  if (elem->getName() == _currentGame->getName())
+	    {
+	      _currentGame = elem;
+	      update = true;
+	    }
+	}
+      if (update == false)
+	_currentGame = NULL;
+    }
   updateGameInfo();
+  updateCurrentGame();
 }
 
 void			GUI::setProfile(DataPlayer *p)
@@ -853,7 +868,13 @@ void	GUI::cleanGames()
   if (_menuWidgets->games.size() != 0)
     {
       for (auto elem : _menuWidgets->games)
-	_win->deleteWidget(elem);
+	{
+	  if (elem == _focusWidget)
+	    _focusWidget = NULL;
+	  if (elem == _hoverWidget)
+	    _hoverWidget = NULL;
+	  _win->deleteWidget(elem);
+	}
       _menuWidgets->games.clear();
     }
 }

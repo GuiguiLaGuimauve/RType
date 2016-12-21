@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Thu Dec 15 15:33:48 2016 julien dufrene
-// Last update Tue Dec 20 00:49:31 2016 julien dufrene
+// Last update Wed Dec 21 12:30:04 2016 julien dufrene
 //
 
 #include "UserNetworkUDPUnix.hh"
@@ -23,6 +23,7 @@ IUserNetwork		*UserNetworkUDPUnix::readSocket(ISocket *net)
   sockaddr_in		s_in;
   socklen_t		s_inLen = sizeof (s_in);
 
+  (void)net;
   s_in.sin_addr.s_addr = inet_addr(_ip.c_str());
   s_in.sin_family = AF_INET;
   s_in.sin_port = htons(_port);
@@ -31,24 +32,23 @@ IUserNetwork		*UserNetworkUDPUnix::readSocket(ISocket *net)
       buff[nb] = 0;
       PacketUnknown pkt((uint8_t *)buff, nb);
       buff_r.push(pkt);
-      if (s_in.sin_addr.s_addr != inet_addr(_ip.c_str())
-	  && s_in.sin_port != htons(_port))
-	  {
-	    IUserNetwork	*u = new UserNetworkUDPUnix(*this);
-	    u->setIp(inet_ntoa(s_in.sin_addr));
-	    u->setFd(_fd);
-	    u->setPort(s_in.sin_port);
-	    u->setFd(net->getFdSocket());
-	    return (u);
-	  }
+      // if (s_in.sin_addr.s_addr != inet_addr(_ip.c_str())
+      // 	  && s_in.sin_port != htons(_port))
+      // 	  {
+      // 	    IUserNetwork	*u = new UserNetworkUDPUnix(*this);
+      // 	    u->setIp(inet_ntoa(s_in.sin_addr));
+      // 	    u->setFd(_fd);
+      // 	    u->setPort(s_in.sin_port);
+      // 	    u->setFd(net->getFdSocket());
+      // 	    return (u);
+      // 	  }
     }
-  if (nb == 0 || nb == -1)
+  if (nb == -1)
     {
       std::cerr << "Error from recv()" << std::endl;
       closeFd();
     }
-  IUserNetwork	*u = new UserNetworkUDPUnix(*this);
-  return (u);
+  return (this);
 }
 
 void                    UserNetworkUDPUnix::writeSocket(ISocket *net)

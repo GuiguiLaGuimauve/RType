@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Fri Oct 14 11:25:14 2016 julien dufrene
-// Last update Thu Dec 15 16:06:01 2016 julien dufrene
+// Last update Wed Dec 21 06:39:26 2016 julien dufrene
 //
 
 #ifndef _SocketTCPUnix_HH_
@@ -34,6 +34,8 @@ namespace Network
       (void)ip; (void)port;
       return (false);
     }
+    /* La méthode getIpInfo() permet de récupérer l'ip de la socket */
+    const std::string   getIpInfo() const;
     /* La méthode getFdSocket() permet de récupérer le descripteur de la socket. */
     int32_t		getFdSocket() const;
     /* La méthode closeIt() permet de fermer la socket */

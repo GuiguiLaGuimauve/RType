@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 //
 // Started on  Fri Oct 14 11:25:14 2016 julien dufrene
-// Last update Wed Dec 21 05:59:12 2016 julien dufrene
+// Last update Wed Dec 21 08:43:41 2016 julien dufrene
 //
 
 #ifndef _SocketUDPUnix_HH_
@@ -27,6 +27,8 @@ namespace Network
     int32_t		getFdSocket() const;
     /* La méthode closeIt() permet de fermer la socket */
     bool		closeIt();
+    /* La méthode getIpInfo() permet de récupérer l'ip de la socket */
+    const std::string   getIpInfo() const;
   private:
     int32_t		_sock;
   };

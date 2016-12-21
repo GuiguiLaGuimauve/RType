@@ -11,7 +11,7 @@ Window::Window(int w, int h, const std::string &s):
   _width = vm.width;
   _height = vm.height;
   _win = new sf::RenderWindow(sf::VideoMode(_width, _height), _title,
-			      sf::Style::Fullscreen);
+			      sf::Style::None);
   _win->setTitle("RType");
 }
 
@@ -74,9 +74,10 @@ void        Window::hide(bool b)
 
 void        Window::resize(int w, int h)
 {
+
   _width = w;
   _height = h;
-  _win->setSize(sf::Vector2u(_height, _width));
+  _win->setSize(sf::Vector2u(_width, _height));
 }
 
 

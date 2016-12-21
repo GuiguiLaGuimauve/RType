@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Fri Oct 14 11:25:14 2016 julien dufrene
-// Last update Thu Dec 15 16:05:37 2016 julien dufrene
+// Last update Wed Dec 21 06:25:29 2016 julien dufrene
 //
 
 #ifndef _ISOCKET_HH_
@@ -35,15 +35,17 @@
 
 namespace Network
 {
-  /* L'interface ISocket définit les méthodes des classes Socket. */
+/* L'interface ISocket définit les méthodes des classes Socket. */
   class		ISocket {
   public:
     virtual ~ISocket() {};
     /* La méthode bindIt(const uint32_t &) permet de bind le port du socket. */
     virtual bool		bindIt(const uint32_t &) = 0;
-	/* La méthode listenIt(const uint32_t &) permet d'écouter sur le socket. */
+    /* La méthode listenIt(const uint32_t &) permet d'écouter sur le socket. */
     virtual bool		listenIt(const uint32_t &) = 0;
-    /* La méthode acceptClient(DataClient &) permet d'accepter un client.. */
+    /* La méthode getIpInfo() permet de récupérer l'ip de la socket */
+    virtual const std::string	getIpInfo() const = 0;	
+      /* La méthode acceptClient(DataClient &) permet d'accepter un client.. */
     virtual bool		acceptClient(DataClient &) = 0;
     /* La méthode connectIt(const std::string &, const uint32_t &) permet connecter un socket à un autre socket. */
     virtual bool		connectIt(const std::string &, const uint32_t &) = 0;
