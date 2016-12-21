@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Fri Dec 16 11:37:09 2016 julien dufrene
-// Last update Wed Dec 21 17:03:54 2016 julien dufrene
+// Last update Wed Dec 21 19:03:29 2016 julien dufrene
 //
 
 #include	"ManageNetworkUDPServer.hh"
@@ -61,7 +61,7 @@ std::vector<std::string>        ManageNetworkUDPServer::updateUsers(const std::v
 	    _initServ = false;
 	  if (_user[i]->getPseudo().empty() != true)
 	    del.push_back(_user[i]->getPseudo());
-	  //std::cout << "Erase client from UDP list: " << _user[i]->getFd() << std::endl;
+	  std::cout << "Erase client from UDP list: " << _user[i]->getFd() << std::endl;
 	  delete (_user[i]);
 	  _user.erase(_user.begin() + i);
 	}
