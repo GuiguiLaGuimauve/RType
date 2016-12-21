@@ -812,7 +812,8 @@ void		GUI::updateCurrentGame()
 	}
 	// bouton watch
 	// affichage du bouton watch
-	if (_currentGame && isInGame(_currentGame->getPlayers()) == false)
+	if (_currentGame && isInGame(_currentGame->getPlayers()) == false
+	    && isInGame(_currentGame->getWatchers()) == false)
 	{
 		_menuWidgets->watchButton->setText("WATCH");
 		_menuWidgets->watchButton->resize(100, 35);
