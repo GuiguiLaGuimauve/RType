@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Wed Dec 21 14:04:51 2016 julien dufrene
+// Last update Wed Dec 21 17:36:53 2016 julien dufrene
 //
 
 #include	"CoreClient.hh"
@@ -58,7 +58,7 @@ bool	CoreClient::manageGui()
   while (_eventQueue->empty() == false)
     {
       EventPart::Event e = _eventQueue->pop();
-      std::cout << "Event Gui recy -> type : " << (int)e.type << std::endl;
+      //std::cout << "Event Gui recy -> type : " << (int)e.type << std::endl;
       if (_eventPtr.find(e.type) != _eventPtr.end() && ((this->*_eventPtr[e.type])(e)) == false)
 	return (false);
     }
@@ -90,7 +90,7 @@ bool	CoreClient::managePackets()
   while (_read->isEmpty() == false)
     {
       PacketC tmp = _read->pop();
-      std::cout << (int)tmp.getPacket().getPacketData()[0] << std::endl;
+      //std::cout << (int)tmp.getPacket().getPacketData()[0] << std::endl;
       IPacket *packet = _factory->getPacket(tmp.getPacket().getPacketData());
       if (packet != NULL && _packetPtr.find(packet->getType()) != _packetPtr.end())
 	(this->*_packetPtr[packet->getType()])(packet, tmp.getNetwork());
@@ -281,7 +281,7 @@ bool		CoreClient::welcome(const IPacket *pa, IUserNetwork *u)
   IPacket	*co = _factory->getPacket("connect");
   PacketC	ret(co->getPacketUnknown(), u);
 
-  std::cout << p->getMessage() << std::endl;
+  //std::cout << p->getMessage() << std::endl;
   _write->push(ret);
   return (true);
 }
@@ -290,7 +290,7 @@ bool		CoreClient::accept(const IPacket *pa, IUserNetwork *u)
 {
   PacketAccept	*p = (PacketAccept *)pa;
 
-  std::cout << p->getMessage() << std::endl;
+  //std::cout << p->getMessage() << std::endl;
   _gui->displayLogin();
   _status = "login";
   (void)u;
@@ -330,10 +330,8 @@ bool		CoreClient::udpData(const IPacket *pa, IUserNetwork *u)
   ip += conv.toString(p->getIp()[1]) + ".";
   ip += conv.toString(p->getIp()[2]) + ".";
   ip += conv.toString(p->getIp()[3]);
-  std::cout << "udpData recu ip : " << ip << " port : " << p->getPort() << std::endl;
   _udp->tryConnectClient(p->getPort(), ip);
   pb = _factory->getPacket("udpdata", calculIp(_tcp->getRunning()->getIp()), (uint16_t)p->getPort());
-  std::cout << "send ip: " << _tcp->getRunning()->getIp() << std::endl;
   _tcp->pushTo(empty, pb->getPacketUnknown());
   (void)u;
   return (true);

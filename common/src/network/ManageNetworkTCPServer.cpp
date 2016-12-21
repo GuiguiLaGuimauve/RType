@@ -33,7 +33,7 @@ IUserNetwork                    *ManageNetworkTCPServer::getRunning() const
   while (i < _user.size())
     {
       if (_user[i]->getFd() == _net->getFdSocket())
-	return (_user[i]);
+  	return (_user[i]);
       i++;
     }
   return (NULL);
@@ -52,7 +52,6 @@ std::vector<std::string>        ManageNetworkTCPServer::updateUsers(const std::v
 	    _initServ = false;
 	  if (_user[i]->getPseudo().empty() != true)
 	    del.push_back(_user[i]->getPseudo());
-	  std::cout << "Erase client from list: " << _user[i]->getFd() << std::endl;
 	  delete (_user[i]);
 	  _user.erase(_user.begin() + i);
 	}
@@ -63,10 +62,7 @@ std::vector<std::string>        ManageNetworkTCPServer::updateUsers(const std::v
   while (i < user.size())
     {
       if (user[i]->getStatus() == true)
-        {
-	  std::cout << "New user in list: " << user[i]->getFd() << std::endl;
-	  _user.push_back(user[i]);
-	}
+	_user.push_back(user[i]);
       i++;
     }
   return (del);
@@ -89,10 +85,7 @@ bool			ManageNetworkTCPServer::init()
     {
       FD_SET(_user[i]->getFd(), &fd_read);
       if (_user[i]->haveSomethingToWrite() == true)
-	{
-	  std::cout << "init write: " << _user[i]->getFd() << std::endl;
-	  FD_SET(_user[i]->getFd(), &fd_write);
-	}
+	FD_SET(_user[i]->getFd(), &fd_write);
       i++;
     }
   return (true);
@@ -133,7 +126,6 @@ std::vector<IUserNetwork *>	ManageNetworkTCPServer::exec()
 	    if (u != NULL && u->getFd() != _user[i]->getFd() && u->getStatus() == true)
 	      {
 		u->pushBufferWrite(_factory->getPacket("welcome", WELCOME_SERVERM)->getPacketUnknown());
-		std::cout << "new client tcp" << std::endl;
 		newuser.push_back(u);
 	      }
 	    else
@@ -141,7 +133,6 @@ std::vector<IUserNetwork *>	ManageNetworkTCPServer::exec()
 		{
 		  PacketUnknown pk = _user[i]->popBufferRead();
 		  _read->push(PacketC(pk, _user[i]));
-		  std::cout << "un packet est lu" << std::endl;
 		}
 	  }
       if (_user[i]->getStatus() == true)
@@ -179,10 +170,9 @@ bool		ManageNetworkTCPServer::run(const uint32_t &port, const uint32_t &maxCl)
   u->setFd(_net->getFdSocket());
   u->setPort(port);
   u->setIp(_net->getIpInfo());
-  std::cout << "ip: " << u->getIp() << std::endl;
   u->setStatus(true);
+  std::cout << "Server TCP prepared, IP serveur: " << u->getIp() << std::endl;
   _user.push_back(u);
-  std::cout << "User Network Server TCP prepared: " << _user[0]->getFd() << std::endl;
   return (true);
 }
 

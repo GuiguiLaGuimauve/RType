@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Fri Dec 16 11:37:09 2016 julien dufrene
-// Last update Wed Dec 21 12:28:58 2016 julien dufrene
+// Last update Wed Dec 21 17:32:39 2016 julien dufrene
 //
 
 #include	"ManageNetworkUDPClient.hh"
@@ -57,7 +57,7 @@ std::vector<IUserNetwork *>	ManageNetworkUDPClient::exec()
   _serv->readSocket(_net);
   if (_serv->getStatus() == true && _serv->haveSomethingToRead())
     {
-      std::cout << "READ: " << std::endl;
+      //std::cout << "READ: " << std::endl;
     }
   if (_serv->getStatus() == true && _serv->haveSomethingToWrite() == true)
     _serv->writeSocket(_net);
@@ -97,7 +97,7 @@ bool		ManageNetworkUDPClient::run(const uint32_t &port, const uint32_t &maxCl)
   u->setIp(_net->getIpInfo());
   u->setStatus(true);
   _user.push_back(u);
-  std::cout << "User Network UDP prepared: " << _net->getFdSocket() << std::endl;
+  std::cout << "Client UDP prepared, IP Client: " << u->getIp() << std::endl;
   return (true);
 }
 
@@ -115,7 +115,7 @@ bool			ManageNetworkUDPClient::tryConnectClient(const uint32_t &port, const std:
   _serv = u;
   _user.push_back(u);
   _initServ = true;
-  std::cout << "User Network Client UDP connected: " << _serv->getFd() << std::endl;
+  //std::cout << "User Network Client UDP connected: " << _serv->getFd() << std::endl;
   return (true);
 }
 

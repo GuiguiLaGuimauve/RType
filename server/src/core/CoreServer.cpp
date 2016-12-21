@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Wed Dec 21 14:01:04 2016 julien dufrene
+// Last update Wed Dec 21 17:28:24 2016 julien dufrene
 //
 
 #include	"CoreServer.hh"
@@ -53,7 +53,6 @@ bool	CoreServer::managePackets()
     {
       PacketC tmp = _read->pop();
       IPacket *packet = _factory->getPacket(tmp.getPacket().getPacketData());
-      std::cout << "PacketType : " << (int)packet->getType() << std::endl;
       if (packet != NULL && _packetPtr.find(packet->getType()) != _packetPtr.end())
 	(this->*_packetPtr[packet->getType()])(packet, tmp.getNetwork());
     }
@@ -108,7 +107,7 @@ bool		CoreServer::connect(const IPacket *pa, IUserNetwork *u)
   PacketConnect	*p = (PacketConnect *)pa;
   PacketConnect	ck;
 
-  std::cout << _factory->isEnableSerialise("error") << " " << _factory->isEnableSerialise("accept") << std::endl;
+  //std::cout << _factory->isEnableSerialise("error") << " " << _factory->isEnableSerialise("accept") << std::endl;
   if (p->getCode() != ck.getCode())
     {
       IPacket       *co = _factory->getPacket("error", ERROR_CONNECT, IPacket::PacketType::CONNECT);
@@ -210,11 +209,8 @@ bool				CoreServer::startGame(const IPacket *pa, IUserNetwork *u)
 	  std::cout << "error" << std::endl;
 	  return (true);
 	}
-      std::cout << "tcpIP: " << runU->getIp() << std::endl;
-      std::cout << "tcpPort: " << runU->getPort() << std::endl;
       if ((ip = calculIp(u->getIp())) == NULL)
       	return (false);
-      std::cout << "send udp data ip: " << runU->getIp() << " port: " << runU->getPort() << std::endl;
       if ((pb = _factory->getPacket("udpdata", ip, (uint16_t)runU->getPort())) == NULL)
 	std::cout << "error factory" << std::endl;
       uint64_t		i = 0;
@@ -250,8 +246,8 @@ bool		CoreServer::udpData(const IPacket *pa, IUserNetwork *u)
   ip += conv.toString(p->getIp()[1]) + ".";
   ip += conv.toString(p->getIp()[2]) + ".";
   ip += conv.toString(p->getIp()[3]);
-  std::cout << "udpData recu ip : " << ip << " port : " << p->getPort() << std::endl;
-  std::cout << "tcpIP: " << u->getIp() << std::endl;
+  //std::cout << "udpData recu ip : " << ip << " port : " << p->getPort() << std::endl;
+  //std::cout << "tcpIP: " << u->getIp() << std::endl;
   udpUser->setFd(_udp->getSocket()->getFdSocket());
   udpUser->setIp(u->getIp());
   udpUser->setPort(p->getPort());

@@ -47,10 +47,7 @@ bool			ManageNetworkTCPClient::init()
     {
       FD_SET(_user[i]->getFd(), &fd_read);
       if (_user[i]->haveSomethingToWrite() == true)
-	{
-	  std::cout << "init write: " << _user[i]->getFd() << std::endl;
-	  FD_SET(_user[i]->getFd(), &fd_write);
-	}
+	FD_SET(_user[i]->getFd(), &fd_write);
       i++;
     }
   return (true);
@@ -95,7 +92,6 @@ std::vector<IUserNetwork *>	ManageNetworkTCPClient::exec()
 	      {
 		PacketUnknown pk = _user[i]->popBufferRead();
 		_read->push(PacketC(pk, _user[i]));
-		std::cout << "un packet est lu" << std::endl;
 	      }
 	  }
       if (_user[i]->getStatus() == true)
@@ -104,7 +100,10 @@ std::vector<IUserNetwork *>	ManageNetworkTCPClient::exec()
       i++;
     }
   if (_serv->getStatus() == false)
-    _initServ = false;
+    {
+      std::cout << "[Error] Server Down" << std::endl;
+      _initServ = false;
+    }
   return (newuser);
 }
 
@@ -142,7 +141,7 @@ bool			ManageNetworkTCPClient::tryConnectClient(const uint32_t &port, const std:
   _serv = u;
   _user.push_back(u);
   _initServ = true;
-  std::cout << "User Network Client TCP connected: " << _serv->getFd() << std::endl;
+  std::cout << "Client TCP connected, IP connect: " << _serv->getIp() << std::endl;
   return (true);
 }
 
