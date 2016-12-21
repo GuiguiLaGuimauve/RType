@@ -788,7 +788,7 @@ void		GUI::updateCurrentGame()
 	}
 	// affichage du bouton join
 	if (_currentGame && _currentGame->getNbPlayers() < _currentGame->getMaxPlayers()
-	    && isInGame(_currentGame->getPlayers()) == false)
+	    && (isInGame(_currentGame->getPlayers()) == false && isInGame(_currentGame->getWatchers()) == false))
 	{
 	  _menuWidgets->confirm->setText("JOIN");
 	  _menuWidgets->confirm->resize(100, 35);
@@ -799,7 +799,8 @@ void		GUI::updateCurrentGame()
 	  _menuWidgets->confirm->resize(0, 0);
 	}
 	// affichage du bouton leave
-	if (_currentGame && _profile && isInGame(_currentGame->getPlayers()) == true)
+	if (_currentGame && _profile && (isInGame(_currentGame->getPlayers()) == true
+					 || isInGame(_currentGame->getWatchers()) == true))
 	{
 	  _menuWidgets->leaveButton->setText("LEAVE");
 	  _menuWidgets->leaveButton->resize(100, 35);
