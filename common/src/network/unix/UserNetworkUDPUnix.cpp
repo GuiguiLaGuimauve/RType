@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Thu Dec 15 15:33:48 2016 julien dufrene
-// Last update Thu Dec 22 18:04:05 2016 julien dufrene
+// Last update Thu Dec 22 19:06:04 2016 julien dufrene
 //
 
 #include "UserNetworkUDPUnix.hh"
@@ -37,13 +37,15 @@ IUserNetwork		*UserNetworkUDPUnix::readSocket(ISocket *net)
       // if (s_in.sin_addr.s_addr != inet_addr(_ip.c_str())
       // 	  && s_in.sin_port != htons(_port))
       // 	  {
-      // 	    IUserNetwork	*u = new UserNetworkUDPUnix(*this);
-      // 	    u->setIp(inet_ntoa(s_in.sin_addr));
-      // 	    u->setFd(_fd);
-      // 	    u->setPort(s_in.sin_port);
-      // 	    u->setFd(net->getFdSocket());
-      // 	    return (u);
-      // 	  }
+      	    // IUserNetwork	*u = new UserNetworkUDPUnix(*this);
+      	    // u->setIp(inet_ntoa(s_in.sin_addr));
+      	    // u->setFd(_fd);
+      	    // u->setPort(ntohs(s_in.sin_port));
+      	    // u->setFd(net->getFdSocket());
+	    // std::cout << "Sender: " << u->getIp() << ":" << u->getPort() << std::endl;
+      	    // return (u);
+      	  // }
+      std::cout << "Sender: " << inet_ntoa(s_in.sin_addr) << ":" << (int)s_in.sin_port << std::endl;
     }
   if (nb == -1 && errno != 11)
     {

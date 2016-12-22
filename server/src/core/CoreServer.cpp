@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Thu Dec 22 18:04:39 2016 julien dufrene
+// Last update Thu Dec 22 19:02:19 2016 julien dufrene
 //
 
 #include	"CoreServer.hh"
@@ -22,6 +22,7 @@ CoreServer::CoreServer()
   _packetPtr[IPacket::PacketType::WATCH_GAME] = &CoreServer::watchGame;
   _packetPtr[IPacket::PacketType::START_GAME] = &CoreServer::startGame;
   _packetPtr[IPacket::PacketType::UDP_DATA] = &CoreServer::udpData;
+  _packetPtr[IPacket::PacketType::PING] = &CoreServer::ping;
 }
 
 CoreServer::~CoreServer() {}
@@ -234,6 +235,14 @@ bool				CoreServer::startGame(const IPacket *pa, IUserNetwork *u)
 	}
       _tcp->pushTo(playersName, pb->getPacketUnknown());
     }
+  return (true);
+}
+
+bool		CoreServer::ping(const IPacket *pa, IUserNetwork *u)
+{
+  (void)pa;
+  (void)u;
+  std::cout << "ping" << std::endl;
   return (true);
 }
 

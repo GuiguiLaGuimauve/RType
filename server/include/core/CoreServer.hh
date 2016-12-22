@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:19:16 2016 Maxime Lecoq
-// Last update Thu Dec 22 12:22:10 2016 julien dufrene
+// Last update Thu Dec 22 19:02:39 2016 julien dufrene
 //
 
 #ifndef CORESERVER_HH_
@@ -45,6 +45,7 @@ private:
   bool		watchGame(const IPacket *, IUserNetwork *);
   bool		startGame(const IPacket *, IUserNetwork *);
   bool		udpData(const IPacket *, IUserNetwork *);
+  bool		ping(const IPacket *, IUserNetwork *);
 private:
   IManagerServer			*_manager;
   IGameManager				*_gameManager;
