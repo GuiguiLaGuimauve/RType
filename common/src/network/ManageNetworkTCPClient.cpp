@@ -25,6 +25,35 @@ ManageNetworkTCPClient::~ManageNetworkTCPClient()
     }
 }
 
+std::vector<std::string>        ManageNetworkTCPClient::updateUsers(const std::vector<IUserNetwork *> &user)
+{
+  uint32_t                      i = 0;
+  std::vector<std::string>      del;
+
+  while (i < _user.size())
+    {
+      if (_user[i]->getStatus() == false)
+	{
+	  if (_user[i] == _serv)
+	    _initServ = false;
+	  if (_user[i]->getPseudo().empty() != true)
+	    del.push_back(_user[i]->getPseudo());
+	  delete (_user[i]);
+	  _user.erase(_user.begin() + i);
+	}
+      else
+	i++;
+    }
+  i = 0;
+  while (i < user.size())
+    {
+      if (user[i]->getStatus() == true)
+        _user.push_back(user[i]);
+      i++;
+    }
+  return (del);
+}
+
 IUserNetwork		*ManageNetworkTCPClient::getRunning() const
 {
   return (_serv);
