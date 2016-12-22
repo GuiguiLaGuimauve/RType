@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Fri Dec 16 11:43:03 2016 julien dufrene
-// Last update Thu Dec 22 22:28:18 2016 julien dufrene
+// Last update Fri Dec 23 00:39:40 2016 julien dufrene
 //
 
 #ifndef		__MANAGENETWORKUDP_HH__
@@ -38,7 +38,9 @@ namespace Network
     virtual IUserNetwork                *getRunning() const = 0;
     virtual std::vector<std::string>	updateUsers(const std::vector<IUserNetwork *> &) = 0;
     bool                                hasServerRunning() const { return (false); };
-    void				pushNewUser(IUserNetwork *u) { _user.push_back(u); }
+    void				pushNewUser(IUserNetwork *u) { _user.push_back(u); };
+    void                                setTimeout(const int &s, const int &us) { (void)s; (void)us; };
+
   };
 };
 

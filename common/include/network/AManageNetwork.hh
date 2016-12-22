@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Fri Dec 16 11:41:23 2016 julien dufrene
-// Last update Wed Dec 21 12:16:28 2016 julien dufrene
+// Last update Fri Dec 23 00:40:03 2016 julien dufrene
 //
 
 
@@ -35,6 +35,7 @@ namespace Network
     virtual bool			hasServerRunning() const = 0;
     virtual IUserNetwork		*getRunning() const = 0;
     virtual void			pushNewUser(IUserNetwork *) = 0;
+    virtual void			setTimeout(const int &, const int &) = 0;
     ISocket				*getSocket() const;
     void			        setPacketQueueRead(const IPacketQueue *c){
       _read = (IPacketQueue *)c;

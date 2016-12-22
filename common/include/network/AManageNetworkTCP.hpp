@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Wed Dec 21 00:16:17 2016 julien dufrene
-// Last update Thu Dec 22 23:35:22 2016 julien dufrene
+// Last update Fri Dec 23 00:39:27 2016 julien dufrene
 //
 
 #ifndef		__MANAGENETWORKTCP_HH__
@@ -29,6 +29,15 @@ namespace Network
 {
   /*! L'abstraction de ManageNetworkTCP definit les méthodes utilisée par le manager TCP .*/
   class		AManageNetworkTCP : public AManageNetwork {
+  protected:
+    /* fd_read est un attribut contentant un descripteur de fichier de lecture. */
+    fd_set					fd_read;
+    /* fd_write est un attribut contentant un descripteur de fichier d'écriture. */
+    fd_set					fd_write;
+    /* _sec est l'attribut qui défini le timeout du select en secondes. */
+    int		                                _sec;
+    /* _sec est l'attribut qui défini le timeout du select en micro secondes. */
+    int			                        _usec;
   public:
     AManageNetworkTCP() : AManageNetwork() {};
     virtual ~AManageNetworkTCP() {};
@@ -39,6 +48,11 @@ namespace Network
     virtual IUserNetwork                *getRunning() const = 0;
     virtual void			pushTo(const std::vector<std::string> &, const PacketUnknown &) = 0;
     virtual std::vector<std::string>	updateUsers(const std::vector<IUserNetwork *> &p) = 0;
+    void                                setTimeout(const int &s, const int &us)
+    {
+      _sec = s;
+      _usec = us;
+    }
     bool				hasServerRunning() const
     {
       return (false);
@@ -52,15 +66,6 @@ namespace Network
     {
       (void)u;
     }
-  protected:
-    /* fd_read est un attribut contentant un descripteur de fichier de lecture. */
-    fd_set					fd_read;
-    /* fd_write est un attribut contentant un descripteur de fichier d'écriture. */
-    fd_set					fd_write;
-    /* _sec est l'attribut qui défini le timeout du select en secondes. */
-    int		                                _sec;
-    /* _sec est l'attribut qui défini le timeout du select en micro secondes. */
-    int			                        _usec;
   };
 };
 

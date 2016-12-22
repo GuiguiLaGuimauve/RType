@@ -5,7 +5,7 @@
 ** Login   <lecoq_m@epitech.net>
 **
 ** Started on  Mon Oct 17 13:11:20 2016 Maxime Lecoq
-// Last update Thu Dec 22 11:06:21 2016 julien dufrene
+// Last update Fri Dec 23 00:39:48 2016 julien dufrene
 */
 
 #ifndef		__IMANAGENETWORK_HH__
@@ -92,6 +92,11 @@ namespace Network
       fr :La méthode getServerRunning() permet de récupéré l'utilisateur correspondant au serveur.
      */
     virtual IUserNetwork	                *getRunning() const = 0;
+    /*
+      en :setTimeout() is used to set the timeout for the TCPServer
+      fr :setTimeout() est utilisé pour modifier le timeout du serveur TCP
+     */
+    virtual void				setTimeout(const int &, const int &) = 0;
   };
 };
 
