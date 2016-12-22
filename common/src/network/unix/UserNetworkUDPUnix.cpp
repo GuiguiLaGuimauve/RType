@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Thu Dec 15 15:33:48 2016 julien dufrene
-// Last update Thu Dec 22 16:02:15 2016 julien dufrene
+// Last update Thu Dec 22 17:18:23 2016 julien dufrene
 //
 
 #include "UserNetworkUDPUnix.hh"
@@ -24,9 +24,9 @@ IUserNetwork		*UserNetworkUDPUnix::readSocket(ISocket *net)
   socklen_t		s_inLen = sizeof (s_in);
 
   (void)net;
-  // s_in.sin_addr.s_addr = inet_addr(_ip.c_str());
-  // s_in.sin_family = AF_INET;
-  // s_in.sin_port = htons(_port);
+  s_in.sin_addr.s_addr = inet_addr(_ip.c_str());
+  s_in.sin_family = AF_INET;
+  s_in.sin_port = htons(_port);
   std::cout << "Trying to recv from: " << _ip << ":" << _port << std::endl;
   errno = 0;
   if ((nb = recvfrom(_fd, buff, 16384, 0, (sockaddr *)&s_in, &s_inLen)) > 0)
@@ -66,7 +66,7 @@ void                    UserNetworkUDPUnix::writeSocket(ISocket *net)
   to_write = buff_w.pop();
   std::cout << "Trying to send to: " << _ip << ":" << _port << std::endl;
   errno = 0;
-  if (sendto(_fd, to_write.getPacketData(), to_write.getPacketSize(), 0, (sockaddr *)&s_out, sizeof (s_out)) != -1)
+  if (sendto(_fd, to_write.getPacketData(), to_write.getPacketSize(), 0, (sockaddr *)&s_out, sizeof (s_out)) == -1)
     {
       perror("sendto");
       std::cerr << "Error on sendto(): " << errno << std::endl;
