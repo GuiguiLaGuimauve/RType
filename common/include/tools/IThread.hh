@@ -5,7 +5,7 @@
 // Login   <rembur_g@epitech.eu>
 //
 // Started on  Fri Dec  2 13:32:58 2016 La Guimauve
-// Last update Tue Dec 20 22:07:29 2016 julien dufrene
+// Last update Thu Dec 22 11:34:32 2016 La Guimauve
 //
 
 #ifndef _ITHREAD_HH_
@@ -23,6 +23,7 @@ namespace mythrd
     virtual bool joinable() const = 0;
     virtual void join() = 0;
     virtual void detach() = 0;
+    virtual void	pause(const uint32_t &a) const = 0;
   };
 }
 
