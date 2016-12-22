@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Thu Dec 22 11:58:56 2016 julien dufrene
+// Last update Thu Dec 22 15:01:46 2016 julien dufrene
 //
 
 #include	"CoreClient.hh"
@@ -28,6 +28,7 @@ CoreClient::CoreClient()
   _packetPtr[IPacket::PacketType::ROOMS] = &CoreClient::rooms;
   _packetPtr[IPacket::PacketType::PROFILE] = &CoreClient::profile;
   _packetPtr[IPacket::PacketType::UDP_DATA] = &CoreClient::udpData;
+  _packetPtr[IPacket::PacketType::PING] = &CoreClient::ping;
   _status = "connect";
   _backPtr["connect"] = &CoreClient::exitClient;
   _backPtr["login"] = &CoreClient::goConnect;
@@ -331,8 +332,15 @@ bool		CoreClient::udpData(const IPacket *pa, IUserNetwork *u)
   ip += conv.toString(p->getIp()[2]) + ".";
   ip += conv.toString(p->getIp()[3]);
   _udp->tryConnectClient(p->getPort(), _tcp->getRunning()->getIp());
-  pb = _factory->getPacket("udpdata", calculIp(_tcp->getRunning()->getIp()), (uint16_t)(p->getPort() + 1));
+  pb = _factory->getPacket("udpdata", calculIp(_tcp->getRunning()->getIp()), (uint16_t)(p->getPort()));
   _tcp->pushTo(empty, pb->getPacketUnknown());
   (void)u;
+  return (true);
+}
+
+bool		CoreClient::ping(const IPacket *pa, IUserNetwork *u)
+{
+  (void)pa; (void)u;
+  std::cout << "ping" << std::endl;
   return (true);
 }

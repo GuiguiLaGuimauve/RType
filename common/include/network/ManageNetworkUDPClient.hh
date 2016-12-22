@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Fri Dec 16 11:43:03 2016 julien dufrene
-// Last update Thu Dec 22 11:04:52 2016 julien dufrene
+// Last update Thu Dec 22 15:26:17 2016 julien dufrene
 //
 
 #ifndef		__MANAGENETWORKUDPCLIENT_HH__

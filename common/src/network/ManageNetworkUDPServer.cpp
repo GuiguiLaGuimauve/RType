@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Fri Dec 16 11:37:09 2016 julien dufrene
-// Last update Thu Dec 22 14:39:24 2016 root
+// Last update Thu Dec 22 15:26:13 2016 julien dufrene
 //
 
 #include	"ManageNetworkUDPServer.hh"
@@ -40,8 +40,9 @@ IUserNetwork		*ManageNetworkUDPServer::getRunning() const
   i = 0;
   while (i < _user.size())
     {
-      if (_user[i]->getFd() == _net->getFdSocket())
-	return (_user[i]);
+      if (_user[i]->getStatus() != false)
+	if (_user[i]->getFd() == _net->getFdSocket())
+	  return (_user[i]);
       i++;
     }
   return (NULL);
@@ -94,14 +95,17 @@ std::vector<IUserNetwork *>	ManageNetworkUDPServer::exec()
   i = 0;
   while (i < (int32_t)_user.size())
     {
-      if (_user[i]->haveSomethingToWrite() == true)
-	_user[i]->writeSocket(_net);
-      _user[i]->readSocket(_net);
-      if (_user[i]->getStatus() == true && _user[i]->haveSomethingToRead() == true)
+      if (_user[i]->getStatus() != false)
 	{
-	  PacketUnknown pk = _user[i]->popBufferRead();
-	  _read->push(PacketC(pk, _user[i]));
-	  std::cout << "un packet est lu" << std::endl;
+	  if (_user[i]->haveSomethingToWrite() == true)
+	    _user[i]->writeSocket(_net);
+	  _user[i]->readSocket(_net);
+	  if (_user[i]->getStatus() == true && _user[i]->haveSomethingToRead() == true)
+	    {
+	      PacketUnknown pk = _user[i]->popBufferRead();
+	      _read->push(PacketC(pk, _user[i]));
+	      std::cout << "un packet est lu" << std::endl;
+	    }
 	}
       i++;
     }

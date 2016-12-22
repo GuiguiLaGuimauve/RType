@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:19:16 2016 Maxime Lecoq
-// Last update Wed Dec 21 07:59:30 2016 lecoq
+// Last update Thu Dec 22 15:02:28 2016 julien dufrene
 //
 
 #ifndef CORECLIENT_HH_
@@ -59,6 +59,7 @@ private:
   bool				rooms(const IPacket *, IUserNetwork *);
   bool				profile(const IPacket *, IUserNetwork *);
   bool				udpData(const IPacket *, IUserNetwork *);
+  bool				ping(const IPacket *, IUserNetwork *);
 
   bool				exitClient();
   bool				goConnect();
