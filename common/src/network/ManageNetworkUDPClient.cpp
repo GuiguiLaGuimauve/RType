@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Fri Dec 16 11:37:09 2016 julien dufrene
-// Last update Thu Dec 22 18:49:06 2016 julien dufrene
+// Last update Thu Dec 22 22:46:42 2016 julien dufrene
 //
 
 #include	"ManageNetworkUDPClient.hh"
@@ -33,6 +33,17 @@ ManageNetworkUDPClient::~ManageNetworkUDPClient()
     }
 }
 
+std::vector<std::string>        ManageNetworkUDPClient::updateUsers(const std::vector<IUserNetwork *> &user)
+{
+  std::vector<std::string>	empty;
+
+  _initServ = false;
+  std::cerr << "[UDP ERROR] closing socket server." << std::endl;
+  delete (_serv);
+  _serv = NULL;
+  return (empty);
+}
+
 IUserNetwork            *ManageNetworkUDPClient::getRunning() const
 {
   return (_serv);
@@ -54,12 +65,15 @@ std::vector<IUserNetwork *>	ManageNetworkUDPClient::exec()
 
   if (_initServ == false || _serv->getStatus() == false)
     return (newuser);
-  if (_serv->getStatus() == true && _serv->haveSomethingToWrite() == true)
+  if (_serv->haveSomethingToWrite() == true)
     _serv->writeSocket(_net);
   _serv->readSocket(_net);
   if (_serv->getStatus() == true && _serv->haveSomethingToRead())
     {
+      PacketUnknown pk = _user[i]->popBufferRead();
+      _read->push(PacketC(pk, _user[i]));
       std::cout << "un packet est lu" << std::endl;
+      _serv->pushBufferWrite(pk);
     }
   return (newuser);
 }
@@ -85,7 +99,7 @@ bool		ManageNetworkUDPClient::run(const uint32_t &port, const uint32_t &maxCl)
 #endif
   _init = true;
   if (maxCl != 0 && _net->bindIt(port) == false)
-    return (false);
+    return (false);/*
 #ifdef _WIN32
     IUserNetwork *u = new UserNetworkUDPWindows();
 #else
@@ -98,6 +112,7 @@ bool		ManageNetworkUDPClient::run(const uint32_t &port, const uint32_t &maxCl)
   u->setStatus(true);
   _user.push_back(u);
   std::cout << "Client UDP prepared, IP: " << u->getIp() << " port: " << port << std::endl;
+*/
   return (true);
 }
 
@@ -114,7 +129,7 @@ bool			ManageNetworkUDPClient::tryConnectClient(const uint32_t &port, const std:
   u->setStatus(true);
   u->pushBufferWrite(_factory->getPacket("ping")->getPacketUnknown());
   _serv = u;
-  _user.push_back(u);
+  // _user.push_back(u);
   _initServ = true;
   std::cout << "Client UDP connected, IP: " << _serv->getIp() << " port: " << _serv->getPort() << std::endl;
   return (true);

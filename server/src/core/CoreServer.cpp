@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Thu Dec 22 19:02:19 2016 julien dufrene
+// Last update Thu Dec 22 22:51:32 2016 julien dufrene
 //
 
 #include	"CoreServer.hh"
@@ -201,6 +201,7 @@ bool		CoreServer::watchGame(const IPacket *pa, IUserNetwork *u)
   return (true);
 }
 
+/* j'envoie un [UDP_DATA] [IP du User auquel je parle] [PORT 4243] */
 bool				CoreServer::startGame(const IPacket *pa, IUserNetwork *u)
 {
   std::vector<std::string>	playersName;
@@ -238,14 +239,7 @@ bool				CoreServer::startGame(const IPacket *pa, IUserNetwork *u)
   return (true);
 }
 
-bool		CoreServer::ping(const IPacket *pa, IUserNetwork *u)
-{
-  (void)pa;
-  (void)u;
-  std::cout << "ping" << std::endl;
-  return (true);
-}
-
+/* <-- PushNewUser --> [SOCK socket udp] [IP du user a qui je parle] [PORT du packet] [PSEUDO du user] */
 bool		CoreServer::udpData(const IPacket *pa, IUserNetwork *u)
 {
   PacketUdpData                         *p = (PacketUdpData *)pa;
@@ -256,7 +250,7 @@ bool		CoreServer::udpData(const IPacket *pa, IUserNetwork *u)
 #else
   IUserNetwork				*udpUser = new UserNetworkUDPUnix();
 #endif
-
+  std::cout << "[UDP_DATA]" << std::endl;
   ip = conv.toString(p->getIp()[0]) + ".";
   ip += conv.toString(p->getIp()[1]) + ".";
   ip += conv.toString(p->getIp()[2]) + ".";
@@ -268,6 +262,14 @@ bool		CoreServer::udpData(const IPacket *pa, IUserNetwork *u)
   udpUser->setStatus(true);
   // udpUser->pushBufferWrite(_factory->getPacket("ping")->getPacketUnknown());
   _udp->pushNewUser(udpUser);
-  std::cout << "New User UDP, Ip: " << udpUser->getIp() << " port: " << udpUser->getPort() << std::endl;
+  std::cout << "[UDP User] --> [" << udpUser->getIp() << "] [" << udpUser->getPort() << "]" << std::endl;
+  return (true);
+}
+
+bool		CoreServer::ping(const IPacket *pa, IUserNetwork *u)
+{
+  (void)pa;
+  (void)u;
+  std::cout << "ping" << std::endl;
   return (true);
 }

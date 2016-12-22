@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Thu Dec 22 18:05:38 2016 julien dufrene
+// Last update Thu Dec 22 22:49:49 2016 julien dufrene
 //
 
 #include	"CoreClient.hh"
@@ -59,22 +59,33 @@ bool	CoreClient::manageGui()
   while (_eventQueue->empty() == false)
     {
       EventPart::Event e = _eventQueue->pop();
-      //std::cout << "Event Gui recy -> type : " << (int)e.type << std::endl;
       if (_eventPtr.find(e.type) != _eventPtr.end() && ((this->*_eventPtr[e.type])(e)) == false)
 	return (false);
     }
   return (true);
 }
 
-bool	CoreClient::manageNetwork()
+bool				CoreClient::manageNetwork()
 {
+  std::vector<std::string>	userDelNames;
+  std::vector<IUserNetwork *>	userDel;
+  uint64_t			i;
+
   _tcp->init();
   _udp->init();
   if (_tcp->selectIt() == false || _udp->selectIt() == false)
     return(false);
   else
     {
-      _tcp->updateUsers(_tcp->exec());
+      userDelNames = _tcp->updateUsers(_tcp->exec());
+      i = 0;
+      while (i < delUsersName.size())
+	{
+	  IUserNetwork      *tmp = new UserNetworkUDPUnix();
+	  tmp->setPseudo(delUsersName[i]);
+	  delUsers.push_back(tmp);
+	  i++;
+	}
       _udp->updateUsers(_udp->exec());
     }
   if (_status != "connect" && _tcp->hasServerRunning() == false)
@@ -319,6 +330,9 @@ bool		CoreClient::profile(const IPacket *pa, IUserNetwork *u)
   return (true);
 }
 
+
+/* je reçoit un [UDP_DATA] <-- tryconnect --> [IP du server TCP] [PORT du packet] */
+/* j'envoie un [UDP DATA] [IP du server TCP] [PORT du packet] */
 bool		CoreClient::udpData(const IPacket *pa, IUserNetwork *u)
 {
   IPacket				*pb;
@@ -327,6 +341,7 @@ bool		CoreClient::udpData(const IPacket *pa, IUserNetwork *u)
   std::vector<std::string>		empty;
   std::string				ip;
 
+  std::cout << "[UDP_DATA]" << std::endl;
   ip = conv.toString(p->getIp()[0]) + ".";
   ip += conv.toString(p->getIp()[1]) + ".";
   ip += conv.toString(p->getIp()[2]) + ".";
@@ -334,6 +349,7 @@ bool		CoreClient::udpData(const IPacket *pa, IUserNetwork *u)
   _udp->tryConnectClient(p->getPort(), _tcp->getRunning()->getIp());
   pb = _factory->getPacket("udpdata", calculIp(_tcp->getRunning()->getIp()), (uint16_t)(p->getPort()));
   _tcp->pushTo(empty, pb->getPacketUnknown());
+  std::cout << "[UDP SERVER] ---> [" << _tcp->getRunning()->getIp() << "] [" << p->getPort() << "]" << std::endl;
   (void)u;
   return (true);
 }
