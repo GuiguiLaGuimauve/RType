@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Thu Dec 22 22:49:49 2016 julien dufrene
+// Last update Thu Dec 22 23:09:41 2016 root
 //
 
 #include	"CoreClient.hh"
@@ -67,8 +67,8 @@ bool	CoreClient::manageGui()
 
 bool				CoreClient::manageNetwork()
 {
-  std::vector<std::string>	userDelNames;
-  std::vector<IUserNetwork *>	userDel;
+  std::vector<std::string>	delUsersName;
+  std::vector<IUserNetwork *>	delUsers;
   uint64_t			i;
 
   _tcp->init();
@@ -77,7 +77,7 @@ bool				CoreClient::manageNetwork()
     return(false);
   else
     {
-      userDelNames = _tcp->updateUsers(_tcp->exec());
+      delUsersName = _tcp->updateUsers(_tcp->exec());
       i = 0;
       while (i < delUsersName.size())
 	{

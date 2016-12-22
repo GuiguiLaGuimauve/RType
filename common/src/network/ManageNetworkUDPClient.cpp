@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Fri Dec 16 11:37:09 2016 julien dufrene
-// Last update Thu Dec 22 22:46:42 2016 julien dufrene
+// Last update Thu Dec 22 22:59:48 2016 root
 //
 
 #include	"ManageNetworkUDPClient.hh"
@@ -37,8 +37,10 @@ std::vector<std::string>        ManageNetworkUDPClient::updateUsers(const std::v
 {
   std::vector<std::string>	empty;
 
+  (void)user;
+  if (_initServ != false)
+    std::cerr << "[UDP ERROR] closing socket server." << std::endl;
   _initServ = false;
-  std::cerr << "[UDP ERROR] closing socket server." << std::endl;
   delete (_serv);
   _serv = NULL;
   return (empty);
@@ -70,8 +72,8 @@ std::vector<IUserNetwork *>	ManageNetworkUDPClient::exec()
   _serv->readSocket(_net);
   if (_serv->getStatus() == true && _serv->haveSomethingToRead())
     {
-      PacketUnknown pk = _user[i]->popBufferRead();
-      _read->push(PacketC(pk, _user[i]));
+      PacketUnknown pk = _serv->popBufferRead();
+      _read->push(PacketC(pk, _serv));
       std::cout << "un packet est lu" << std::endl;
       _serv->pushBufferWrite(pk);
     }
