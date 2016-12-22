@@ -558,8 +558,8 @@ void		GUI::displayMenu()
 	_menuWidgets->upScrollButton->setOnHover(TextColorFocus);
 	_menuWidgets->upScrollButton->setOnLeaveHover(TextColorNoFocus);
 	// bouton pour descendre dans la "scrollbar"
-	_menuWidgets->downScrollButton = _win->addWidget(1100, 300, 40, 40);
-	_menuWidgets->downScrollButton->setText("UP");
+	_menuWidgets->downScrollButton = _win->addWidget(1100, 300, 100, 40);
+	_menuWidgets->downScrollButton->setText("DOWN");
 	s = _menuWidgets->downScrollButton->getStyle();
 	s.policeSize = 20;
 	s.textColor = Color(255, 215, 0);
@@ -695,7 +695,7 @@ void		GUI::updateGameInfo(/*const GameInfo &*/)
   std::cout << "scroll iterator = " << _menuWidgets->itScroll << std::endl;
   if (_menuWidgets->itScroll >= _menuInfos.size())
 	  _menuWidgets->itScroll = (unsigned int) _menuInfos.size() - 1;
-  _menuWidgets->itScroll = (_menuWidgets->itScroll < 0) ? 0 : _menuWidgets->itScroll;
+  _menuWidgets->itScroll = ((int)_menuWidgets->itScroll < 0) ? 0 : _menuWidgets->itScroll;
   for (auto elem : _menuInfos)
     {
 	  if (nb >= NB_GAME_SCROLL + (int)_menuWidgets->itScroll || (int)_menuWidgets->itScroll > nb)
@@ -909,7 +909,7 @@ void		GUI::updateCurrentGame()
 		_menuWidgets->downScrollButton->setText("UP");
 		_menuWidgets->downScrollButton->resize(40, 40);
 		_menuWidgets->upScrollButton->setText("DOWN");
-		_menuWidgets->upScrollButton->resize(40, 40);
+		_menuWidgets->upScrollButton->resize(100, 40);
 	}
 	else
 	{
