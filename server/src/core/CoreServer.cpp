@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Thu Dec 22 23:13:02 2016 root
+// Last update Thu Dec 22 23:56:31 2016 julien dufrene
 //
 
 #include	"CoreServer.hh"
@@ -220,7 +220,7 @@ bool				CoreServer::startGame(const IPacket *pa, IUserNetwork *u)
     {
       if ((ip = calculIp(u->getIp())) == NULL)
       	return (false);
-      if ((pb = _factory->getPacket("udpdata", ip, (uint16_t)4244)) == NULL)
+      if ((pb = _factory->getPacket("udpdata", ip, (uint16_t)4243)) == NULL)
 	std::cout << "error factory" << std::endl;
       uint64_t		i = 0;
       while (i < room->getPlayers().size())

@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Fri Dec 16 11:37:09 2016 julien dufrene
-// Last update Thu Dec 22 23:44:50 2016 julien dufrene
+// Last update Fri Dec 23 00:06:22 2016 julien dufrene
 //
 
 #include	"ManageNetworkUDPClient.hh"
@@ -131,7 +131,12 @@ bool			ManageNetworkUDPClient::tryConnectClient(const uint32_t &port, const std:
   u->setIp(ip);
   u->setPort(port);
   u->setStatus(true);
-  u->pushBufferWrite(_factory->getPacket("ping")->getPacketUnknown());
+  int	i = 0;
+  while (i < 40)
+    {
+      u->pushBufferWrite(_factory->getPacket("ping")->getPacketUnknown());
+      i++;
+    }
   _serv = u;
   // _user.push_back(u);
   _initServ = true;
