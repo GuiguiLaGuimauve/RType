@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Fri Dec 16 11:37:09 2016 julien dufrene
-// Last update Thu Dec 22 10:43:27 2016 julien dufrene
+// Last update Thu Dec 22 12:25:06 2016 julien dufrene
 //
 
 #include	"ManageNetworkUDPClient.hh"
@@ -57,7 +57,7 @@ std::vector<IUserNetwork *>	ManageNetworkUDPClient::exec()
   _serv->readSocket(_net);
   if (_serv->getStatus() == true && _serv->haveSomethingToRead())
     {
-      //std::cout << "READ: " << std::endl;
+      std::cout << "READ: " << std::endl;
     }
   if (_serv->getStatus() == true && _serv->haveSomethingToWrite() == true)
     _serv->writeSocket(_net);

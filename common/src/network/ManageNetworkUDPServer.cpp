@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Fri Dec 16 11:37:09 2016 julien dufrene
-// Last update Thu Dec 22 11:22:22 2016 julien dufrene
+// Last update Thu Dec 22 12:25:40 2016 julien dufrene
 //
 
 #include	"ManageNetworkUDPServer.hh"
@@ -50,24 +50,29 @@ IUserNetwork		*ManageNetworkUDPServer::getRunning() const
 std::vector<std::string>        ManageNetworkUDPServer::updateUsers(const std::vector<IUserNetwork *> &user)
 {
   uint32_t                      i = 0;
+  uint32_t                      j = 0;
   std::vector<std::string>      del;
 
-  (void)user;
   std::cout << "UpdateUser UDP" << std::endl;
-  while (i < _user.size())
+  while (j < user.size())
     {
-      if (_user[i]->getStatus() == false)
+      i = 0;
+      while (i < _user.size())
 	{
-	  if (_user[i] == _serv)
-	    _initServ = false;
-	  if (_user[i]->getPseudo().empty() != true)
-	    del.push_back(_user[i]->getPseudo());
-	  std::cout << "Erase client from UDP list: " << _user[i]->getFd() << std::endl;
-	  delete (_user[i]);
-	  _user.erase(_user.begin() + i);
+	  if (_user[i]->getPseudo() == user[j]->getPseudo())
+	    {
+	      if (_user[i] == _serv)
+		_initServ = false;
+	      if (_user[i]->getPseudo().empty() != true)
+		del.push_back(_user[i]->getPseudo());
+	      std::cout << "Erase client from UDP list: " << _user[i]->getFd() << std::endl;
+	      delete (_user[i]);
+	      _user.erase(_user.begin() + i);
+	    }
+	  else
+	    i++;
 	}
-      else
-	i++;
+      j++;
     }
   return (del);
 }
@@ -95,10 +100,11 @@ std::vector<IUserNetwork *>	ManageNetworkUDPServer::exec()
 	{
 	  PacketUnknown pk = _user[i]->popBufferRead();
 	  _read->push(PacketC(pk, _user[i]));
-	  //std::cout << "un packet est lu" << std::endl;
+	  std::cout << "un packet est lu" << std::endl;
 	}
       if (_user[i]->haveSomethingToWrite() == true)
 	_user[i]->writeSocket(_net);
+      i++;
     }
   return (newuser);
 }

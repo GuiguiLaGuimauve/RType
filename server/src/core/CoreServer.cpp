@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Thu Dec 22 11:21:01 2016 julien dufrene
+// Last update Thu Dec 22 12:21:59 2016 julien dufrene
 //
 
 #include	"CoreServer.hh"
@@ -26,9 +26,12 @@ CoreServer::CoreServer()
 
 CoreServer::~CoreServer() {}
 
-void CoreServer::run()
+void				CoreServer::run()
 {
-  bool	loop;
+  bool				loop;
+  std::vector<IUserNetwork *>	delUsers;
+  std::vector<std::string>	delUsersName;
+  uint32_t			i;
 
   loop = true;
   while (loop == true)
@@ -39,8 +42,18 @@ void CoreServer::run()
 	loop = false;
       else
 	{
-	  _data->logout(_tcp->updateUsers(_tcp->exec()));
-	  _udp->updateUsers(_udp->exec());
+	  delUsersName = _tcp->updateUsers(_tcp->exec());
+	  i = 0;
+	  while (i < delUsersName.size())
+	    {
+	      IUserNetwork	*tmp = new UserNetworkUDPUnix();
+	      tmp->setPseudo(delUsersName[i]);
+	      delUsers.push_back(tmp);
+	      i++;
+	    }
+	  _data->logout(delUsersName);
+	  _udp->updateUsers(delUsers);
+	  _udp->exec();
 	}
       if (managePackets() == false)
 	loop = false;
@@ -190,7 +203,6 @@ bool		CoreServer::watchGame(const IPacket *pa, IUserNetwork *u)
 bool				CoreServer::startGame(const IPacket *pa, IUserNetwork *u)
 {
   std::vector<std::string>	playersName;
-  IUserNetwork			*runU;
   PacketStartGame		*p = (PacketStartGame *)pa;
   IPacket			*pb;
   DataRoom			*room = _data->getRoom(p->getGameName());
