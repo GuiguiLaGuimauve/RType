@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Thu Dec 15 15:33:48 2016 julien dufrene
-// Last update Thu Dec 22 17:35:20 2016 julien dufrene
+// Last update Thu Dec 22 17:45:29 2016 julien dufrene
 //
 
 #include "UserNetworkUDPUnix.hh"
@@ -60,11 +60,11 @@ void                    UserNetworkUDPUnix::writeSocket(ISocket *net)
   PacketUnknown         to_write;
   sockaddr_in		s_out;
 
-  //  s_out.sin_addr.s_addr = inet_addr(_ip.c_str());
-  s_out.sin_addr.s_addr = inet_addr("127.0.0.1");
+   s_out.sin_addr.s_addr = inet_addr(_ip.c_str());
+  // s_out.sin_addr.s_addr = inet_addr("127.0.0.1");
   s_out.sin_family = AF_INET;
-  // s_out.sin_port = htons(_port);
-  s_out.sin_port = htons(4243);
+  s_out.sin_port = htons(_port);
+  // s_out.sin_port = htons(4243);
   to_write = buff_w.pop();
   std::cout << "Trying to send to: " << _ip << ":" << _port << std::endl;
   errno = 0;
