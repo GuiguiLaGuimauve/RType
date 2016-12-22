@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Thu Dec 22 23:56:31 2016 julien dufrene
+// Last update Fri Dec 23 00:50:22 2016 julien dufrene
 //
 
 #include	"CoreServer.hh"
@@ -260,7 +260,12 @@ bool		CoreServer::udpData(const IPacket *pa, IUserNetwork *u)
   udpUser->setPort(p->getPort());
   udpUser->setPseudo(u->getPseudo());
   udpUser->setStatus(true);
-  // udpUser->pushBufferWrite(_factory->getPacket("ping")->getPacketUnknown());
+  int	i = 0;
+  while (i < 40)
+    {
+      udpUser->pushBufferWrite(_factory->getPacket("ping")->getPacketUnknown());
+      i++;
+    }
   _udp->pushNewUser(udpUser);
   std::cout << "[UDP User] --> [" << udpUser->getIp() << "] [" << udpUser->getPort() << "]" << std::endl;
   return (true);
