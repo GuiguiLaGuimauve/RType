@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Fri Dec 16 11:37:09 2016 julien dufrene
-// Last update Thu Dec 22 12:25:40 2016 julien dufrene
+// Last update Thu Dec 22 14:29:00 2016 julien dufrene
 //
 
 #include	"ManageNetworkUDPServer.hh"
@@ -53,7 +53,6 @@ std::vector<std::string>        ManageNetworkUDPServer::updateUsers(const std::v
   uint32_t                      j = 0;
   std::vector<std::string>      del;
 
-  std::cout << "UpdateUser UDP" << std::endl;
   while (j < user.size())
     {
       i = 0;
