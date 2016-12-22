@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Fri Dec 16 11:37:09 2016 julien dufrene
-// Last update Wed Dec 21 19:03:29 2016 julien dufrene
+// Last update Thu Dec 22 11:22:22 2016 julien dufrene
 //
 
 #include	"ManageNetworkUDPServer.hh"
@@ -53,6 +53,7 @@ std::vector<std::string>        ManageNetworkUDPServer::updateUsers(const std::v
   std::vector<std::string>      del;
 
   (void)user;
+  std::cout << "UpdateUser UDP" << std::endl;
   while (i < _user.size())
     {
       if (_user[i]->getStatus() == false)
@@ -124,6 +125,7 @@ bool		ManageNetworkUDPServer::run(const uint32_t &port, const uint32_t &maxCl)
   _init = true;
   if (maxCl != 0 && _net->bindIt(port) == false)
     return (false);
+  std::cout << "Server UDP prepared, IP: " << _net->getIpInfo() << " port: " << port << std::endl;
   /*
 #ifdef _WIN32
     IUserNetwork *u = new UserNetworkUDPWindows();
@@ -135,7 +137,6 @@ bool		ManageNetworkUDPServer::run(const uint32_t &port, const uint32_t &maxCl)
   u->setPort(port);
   u->setStatus(true);
   _user.push_back(u);*/
-  //std::cout << "User Network UDP prepared: " << _net->getFdSocket() << std::endl;
   return (true);
 }
 
@@ -153,7 +154,7 @@ bool			ManageNetworkUDPServer::tryConnectClient(const uint32_t &port, const std:
   _serv = u;
   _user.push_back(u);
   _initServ = true;
-  //std::cout << "User Network Client UDP connected: " << _serv->getFd() << std::endl;
+  std::cout << "Server UDP connected, IP: " << _serv->getIp() << "port: " << port << std::endl;
   return (true);
 }
 

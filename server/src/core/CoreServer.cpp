@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Wed Dec 21 18:55:10 2016 julien dufrene
+// Last update Thu Dec 22 11:21:01 2016 julien dufrene
 //
 
 #include	"CoreServer.hh"
@@ -204,14 +204,9 @@ bool				CoreServer::startGame(const IPacket *pa, IUserNetwork *u)
     }
   else
     {
-      if ((runU = _tcp->getRunning()) == NULL)
-	{
-	  std::cout << "error" << std::endl;
-	  return (true);
-	}
       if ((ip = calculIp(u->getIp())) == NULL)
       	return (false);
-      if ((pb = _factory->getPacket("udpdata", ip, (uint16_t)runU->getPort())) == NULL)
+      if ((pb = _factory->getPacket("udpdata", ip, (uint16_t)4243)) == NULL)
 	std::cout << "error factory" << std::endl;
       uint64_t		i = 0;
       while (i < room->getPlayers().size())
@@ -245,8 +240,6 @@ bool		CoreServer::udpData(const IPacket *pa, IUserNetwork *u)
   ip += conv.toString(p->getIp()[1]) + ".";
   ip += conv.toString(p->getIp()[2]) + ".";
   ip += conv.toString(p->getIp()[3]);
-  //std::cout << "udpData recu ip : " << ip << " port : " << p->getPort() << std::endl;
-  //std::cout << "tcpIP: " << u->getIp() << std::endl;
   udpUser->setFd(_udp->getSocket()->getFdSocket());
   udpUser->setIp(u->getIp());
   udpUser->setPort(p->getPort());
@@ -254,5 +247,6 @@ bool		CoreServer::udpData(const IPacket *pa, IUserNetwork *u)
   udpUser->setStatus(true);
   udpUser->pushBufferWrite(_factory->getPacket("ping")->getPacketUnknown());
   _udp->pushNewUser(udpUser);
+  std::cout << "New User UDP, Ip: " << udpUser->getIp() << " port: " << udpUser->getPort() << std::endl;
   return (true);
 }

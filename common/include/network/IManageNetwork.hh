@@ -5,7 +5,7 @@
 ** Login   <lecoq_m@epitech.net>
 **
 ** Started on  Mon Oct 17 13:11:20 2016 Maxime Lecoq
-// Last update Wed Dec 21 12:16:48 2016 julien dufrene
+// Last update Thu Dec 22 11:06:21 2016 julien dufrene
 */
 
 #ifndef		__IMANAGENETWORK_HH__
@@ -45,7 +45,7 @@ namespace Network
     /*!
     en :run(port, nbClient) launch the network.
     fr :La méthode run(port, nbClient) permet de lancer le réseau. */
-    virtual bool				run(const uint32_t & = 4242, const uint32_t & = 0) = 0;
+    virtual bool				run(const uint32_t &, const uint32_t & = 0) = 0;
     /*!
     en :getNetwork() get the network in use
     fr :La méthode getNetwork() permet de récuperer le réseau utilisé. */

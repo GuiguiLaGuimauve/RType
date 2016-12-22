@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Wed Dec 21 18:27:43 2016 lecoq
+// Last update Thu Dec 22 11:11:10 2016 julien dufrene
 //
 
 #include	"CoreClient.hh"
@@ -79,7 +79,7 @@ bool	CoreClient::manageNetwork()
   if (_status != "connect" && _tcp->hasServerRunning() == false)
     {
       _gui->displayStart();
-      _tcp->run();
+      _tcp->run(4242);
       _status = "connect";
     }
   return (true);
@@ -148,7 +148,7 @@ bool	CoreClient::exitClient()
 bool	CoreClient::goConnect()
 {
   _gui->displayStart();
-  _tcp->run();
+  _tcp->run(4242);
   _status = "connect";  
   return (true);
 }
@@ -277,10 +277,10 @@ bool		CoreClient::errorPacket(const IPacket *pa, IUserNetwork *u)
 
 bool		CoreClient::welcome(const IPacket *pa, IUserNetwork *u)
 {
-  PacketWelcome	*p = (PacketWelcome *)pa;
+  // PacketWelcome	*p = (PacketWelcome *)pa;
   IPacket	*co = _factory->getPacket("connect");
   PacketC	ret(co->getPacketUnknown(), u);
-
+  (void)pa;
   //std::cout << p->getMessage() << std::endl;
   _write->push(ret);
   return (true);
@@ -288,12 +288,12 @@ bool		CoreClient::welcome(const IPacket *pa, IUserNetwork *u)
 
 bool		CoreClient::accept(const IPacket *pa, IUserNetwork *u)
 {
-  PacketAccept	*p = (PacketAccept *)pa;
+  // PacketAccept	*p = (PacketAccept *)pa;
 
   //std::cout << p->getMessage() << std::endl;
   _gui->displayLogin();
   _status = "login";
-  (void)u;
+  (void)u;(void)pa;
   return (true);
 }
 

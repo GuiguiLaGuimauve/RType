@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Fri Dec 16 11:37:09 2016 julien dufrene
-// Last update Wed Dec 21 17:32:39 2016 julien dufrene
+// Last update Thu Dec 22 10:43:27 2016 julien dufrene
 //
 
 #include	"ManageNetworkUDPClient.hh"
@@ -97,7 +97,7 @@ bool		ManageNetworkUDPClient::run(const uint32_t &port, const uint32_t &maxCl)
   u->setIp(_net->getIpInfo());
   u->setStatus(true);
   _user.push_back(u);
-  std::cout << "Client UDP prepared, IP Client: " << u->getIp() << std::endl;
+  std::cout << "Client UDP prepared, IP: " << u->getIp() << " port: " << port << std::endl;
   return (true);
 }
 
@@ -115,7 +115,7 @@ bool			ManageNetworkUDPClient::tryConnectClient(const uint32_t &port, const std:
   _serv = u;
   _user.push_back(u);
   _initServ = true;
-  //std::cout << "User Network Client UDP connected: " << _serv->getFd() << std::endl;
+  std::cout << "Client UDP connected, IP: " << _serv->getIp() << " port: " << _serv->getPort() << std::endl;
   return (true);
 }
 
