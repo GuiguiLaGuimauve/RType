@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Thu Dec 22 23:09:41 2016 root
+// Last update Thu Dec 22 23:42:32 2016 julien dufrene
 //
 
 #include	"CoreClient.hh"
@@ -86,7 +86,8 @@ bool				CoreClient::manageNetwork()
 	  delUsers.push_back(tmp);
 	  i++;
 	}
-      _udp->updateUsers(_udp->exec());
+      _udp->exec();
+      _udp->updateUsers(delUsers);
     }
   if (_status != "connect" && _tcp->hasServerRunning() == false)
     {

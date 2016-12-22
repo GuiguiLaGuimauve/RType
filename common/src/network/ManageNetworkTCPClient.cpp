@@ -167,6 +167,7 @@ bool			ManageNetworkTCPClient::tryConnectClient(const uint32_t &port, const std:
   u->setIp(ip);
   u->setPort(port);
   u->setStatus(true);
+  u->setPseudo("serveur");
   _serv = u;
   _user.push_back(u);
   _initServ = true;
