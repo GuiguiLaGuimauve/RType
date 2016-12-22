@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Fri Dec 16 11:37:09 2016 julien dufrene
-// Last update Thu Dec 22 17:26:42 2016 julien dufrene
+// Last update Thu Dec 22 18:24:13 2016 julien dufrene
 //
 
 #include	"ManageNetworkUDPServer.hh"
@@ -99,13 +99,14 @@ std::vector<IUserNetwork *>	ManageNetworkUDPServer::exec()
 	{
 	  if (_user[i]->haveSomethingToWrite() == true)
 	    _user[i]->writeSocket(_net);
-	  // _user[i]->readSocket(_net);
-	  // if (_user[i]->getStatus() == true && _user[i]->haveSomethingToRead() == true)
-	  //   {
-	  //     PacketUnknown pk = _user[i]->popBufferRead();
-	  //     _read->push(PacketC(pk, _user[i]));
-	  //     std::cout << "un packet est lu" << std::endl;
-	  //   }
+	  _user[i]->readSocket(_net);
+	  if (_user[i]->getStatus() == true && _user[i]->haveSomethingToRead() == true)
+	    {
+	      PacketUnknown pk = _user[i]->popBufferRead();
+	      _read->push(PacketC(pk, _user[i]));
+	      std::cout << "un packet est lu" << std::endl;
+	      _user[i]->pushBufferWrite(pk);
+	    }
 	}
       i++;
     }

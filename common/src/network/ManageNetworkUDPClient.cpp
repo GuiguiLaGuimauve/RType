@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Fri Dec 16 11:37:09 2016 julien dufrene
-// Last update Thu Dec 22 12:25:06 2016 julien dufrene
+// Last update Thu Dec 22 18:08:29 2016 julien dufrene
 //
 
 #include	"ManageNetworkUDPClient.hh"
@@ -54,13 +54,13 @@ std::vector<IUserNetwork *>	ManageNetworkUDPClient::exec()
 
   if (_initServ == false || _serv->getStatus() == false)
     return (newuser);
+  if (_serv->getStatus() == true && _serv->haveSomethingToWrite() == true)
+    _serv->writeSocket(_net);
   _serv->readSocket(_net);
   if (_serv->getStatus() == true && _serv->haveSomethingToRead())
     {
       std::cout << "READ: " << std::endl;
     }
-  if (_serv->getStatus() == true && _serv->haveSomethingToWrite() == true)
-    _serv->writeSocket(_net);
   return (newuser);
 }
 
@@ -112,6 +112,7 @@ bool			ManageNetworkUDPClient::tryConnectClient(const uint32_t &port, const std:
   u->setIp(ip);
   u->setPort(port);
   u->setStatus(true);
+  u->pushBufferWrite(_factory->getPacket("ping")->getPacketUnknown());
   _serv = u;
   _user.push_back(u);
   _initServ = true;
