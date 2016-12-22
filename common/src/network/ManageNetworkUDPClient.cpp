@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Fri Dec 16 11:37:09 2016 julien dufrene
-// Last update Thu Dec 22 23:41:34 2016 julien dufrene
+// Last update Thu Dec 22 23:44:50 2016 julien dufrene
 //
 
 #include	"ManageNetworkUDPClient.hh"
@@ -37,12 +37,14 @@ std::vector<std::string>        ManageNetworkUDPClient::updateUsers(const std::v
 {
   std::vector<std::string>	empty;
 
-  (void)user;
-  if (_initServ != false)
-    std::cerr << "[UDP ERROR] closing socket server." << std::endl;
-  _initServ = false;
-  delete (_serv);
-  _serv = NULL;
+  if (user.size() != 0)
+    {
+      if (_initServ != false)
+	std::cerr << "[UDP ERROR] closing socket server." << std::endl;
+      _initServ = false;
+      delete (_serv);
+      _serv = NULL;
+    }
   return (empty);
 }
 
