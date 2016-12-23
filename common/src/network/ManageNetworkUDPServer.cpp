@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Fri Dec 16 11:37:09 2016 julien dufrene
-// Last update Fri Dec 23 04:31:24 2016 root
+// Last update Fri Dec 23 06:47:25 2016 julien dufrene
 //
 
 #include	"ManageNetworkUDPServer.hh"
@@ -107,7 +107,10 @@ std::vector<IUserNetwork *>	ManageNetworkUDPServer::exec()
     }
   if (_user.size() > 0)
     {
-      u = _user[0]->readSocket(_net);
+      u = new UserNetworkUDPUnixServer();
+      u->setIp("0.0.0.0");
+      u->setFd(_net->getFdSocket());
+      u = u->readSocket(_net);
       if (u->haveSomethingToRead() == true)
 	{
 	  PacketUnknown pk = u->popBufferRead();
@@ -119,9 +122,12 @@ std::vector<IUserNetwork *>	ManageNetworkUDPServer::exec()
 	      if (_user[i]->getIp() == u->getIp())
 		{
 		  u->setPseudo(_user[i]->getPseudo());
+		  while (_user[i]->haveSomethingToWrite() == true)
+		    u->pushBufferWrite(_user[i]->popBufferWrite());
 		  //std::cout << "[AVANT] user: " << _user[i]->getIp() << ":" << _user[i]->getPort() << std::endl;
 		  //delete (_user[i]);
 		  _user[i] = u;
+		  // delete (u);
 		  //std::cout << "[APRES] user: " << u->getIp() << ":" << u->getPort() << std::endl;
 		}
 	      i++;

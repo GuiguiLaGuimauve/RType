@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Fri Oct 21 14:44:09 2016 julien dufrene
-// Last update Fri Dec 23 02:35:44 2016 julien dufrene
+// Last update Fri Dec 23 06:45:32 2016 julien dufrene
 //
 
 #ifndef _IUSERNETWORK_HH_
@@ -51,6 +51,8 @@ namespace Network
     virtual void					pushBufferRead(const PacketUnknown &) = 0;
     /*! La méthode popBufferRead() permet de récupérer une chaine dans le buffer de lecture */
     virtual PacketUnknown				popBufferRead() = 0;
+    /*! La méthode popBufferWrite() permet de récupérer une chaine dans le buffer d'écriture */
+    virtual PacketUnknown				popBufferWrite() = 0;
     /*! La méthode haveSomethingToWrite() permet de savoir si il y a quelque chose à écrire. */
     virtual void					closeFd() = 0;
     /* La méthode haveSomethingToWrite() permet de savoir si il y a des pacquets dans le buffer d'écriture */

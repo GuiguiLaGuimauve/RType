@@ -87,6 +87,11 @@ PacketUnknown		AUserNetwork::popBufferRead()
 	return (buff_r.pop());
 }
 
+PacketUnknown		AUserNetwork::popBufferWrite()
+{
+	return (buff_w.pop());
+}
+
 void			AUserNetwork::cutRead(uint8_t *buff, const int32_t &nb)
 {
   PacketDeserializer	ds(buff);
