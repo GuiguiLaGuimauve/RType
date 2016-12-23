@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Mon Dec 19 23:24:16 2016 Maxime Lecoq
-// Last update Fri Dec 23 14:55:39 2016 lecoq
+// Last update Fri Dec 23 16:34:13 2016 lecoq
 //
 
 #include	"ServerData.hh"
@@ -50,7 +50,10 @@ ServerData::~ServerData()
 bool	ServerData::loginPlayer(const std::string &name, const std::string &pwd)
 {
   StringCk	st;
-  if (name.empty() == true || pwd.empty() == true || playerExist(st.lower(name)) == false)
+  Epur		ep;
+  
+  if (name.empty() == true || pwd.empty() == true || playerExist(st.lower(name)) == false
+      || ep.epur(name, ' ').empty() == true || ep.epur(pwd, ' ').empty() == true)
     return (false);
   DataPlayer	*player = getPlayer(st.lower(name));
   Crypt		cr;
@@ -68,14 +71,15 @@ bool	ServerData::loginPlayer(const std::string &name, const std::string &pwd)
 bool	ServerData::registerPlayer(const std::string &name, const std::string &pwd)
 {
   StringCk	st;
+  Epur		ep;
   
-  if (name.empty() == true || pwd.empty() == true || playerExist(st.lower(name)) == true)
+  if (name.empty() == true || pwd.empty() == true || playerExist(st.lower(name)) == true
+      || ep.epur(name, ' ').empty() == true || ep.epur(pwd, ' ').empty() == true)
     return (false);
   DataPlayer	*player = new DataPlayer;
   Crypt		cr;
   
   player->setName(name);
-  std::cout << pwd << " " << cr._sha1(pwd) << " " << cr._sha1(pwd) << std::endl;
   player->setPassword(cr._sha1(pwd));
   player->setOnline(true);
   _player.push_back(player);
@@ -152,9 +156,9 @@ bool	ServerData::createRoom(const std::string &name, const uint8_t &mPlayer, con
 {
   StringCk	st;
   
-  std::cout << "try createRoom" << std::endl;
   if (name.empty() == true || mPlayer == 0 || playerExist(st.lower(player)) == false || roomExist(st.lower(name)) == true)
     return (false);
+  deletePlayerOfRoom(st.lower(player));
   uint8_t nbPlayer;
   
   if (mPlayer > 4)
@@ -170,41 +174,35 @@ bool	ServerData::createRoom(const std::string &name, const uint8_t &mPlayer, con
   room->setPlayers(playerList);
   _room.push_back(room);
   _isUpdate = true;
-  std::cout << "room : " << name << " crée par : " << player << std::endl;
+  std::cout << "room : [" << name << "] crée par : [" << player << "]" <<  std::endl;
   return (true);
 }
 
 bool	ServerData::joinRoom(const std::string &roomName, const std::string &playerName)
 {
   StringCk	st;
-  if (roomExist(st.lower(roomName)) == false || playerExist(st.lower(playerName)) == false /*|| playerAlreadyInRoom(playerName) == true*/)
+  if (roomExist(st.lower(roomName)) == false || playerExist(st.lower(playerName)) == false)
     return (false);
-  if (playerAlreadyInRoom(st.lower(playerName)) == true)
-    {
-      deletePlayerOfRoom(st.lower(playerName));
-      _isUpdate = true;
-    }
   DataRoom	*room = getRoom(st.lower(roomName));
+  if (room->getPlayers().size() == room->getMaxPlayers())
+    return (false);
+  deletePlayerOfRoom(st.lower(playerName));
   DataPlayer	*player = getPlayer(st.lower(playerName));
   std::vector<DataPlayer *> pl = room->getPlayers();
 
   pl.push_back(player);
   room->setPlayers(pl);
   _isUpdate = true;
-  std::cout << "room : " << roomName << " rejointe par : " << playerName << std::endl;
+  std::cout << "room : [" << roomName << "] rejointe par : [" << playerName << "]" << std::endl;
   return (true);
 }
 
 bool	ServerData::watchGame(const std::string &roomName, const std::string &playerName)
 {
   StringCk	st;
-  if (roomExist(st.lower(roomName)) == false || playerExist(st.lower(playerName)) == false /*|| playerAlreadyInRoom(playerName) == true*/)
+  if (roomExist(st.lower(roomName)) == false || playerExist(st.lower(playerName)) == false)
     return (false);
-  if (playerAlreadyInRoom(st.lower(playerName)) == true)
-    {
-      deletePlayerOfRoom(st.lower(playerName));
-      _isUpdate = true;
-    }
+  deletePlayerOfRoom(st.lower(playerName));
   DataRoom	*room = getRoom(st.lower(roomName));
   DataPlayer	*player = getPlayer(st.lower(playerName));
   std::vector<DataPlayer *> pl = room->getWatchers();
@@ -212,6 +210,7 @@ bool	ServerData::watchGame(const std::string &roomName, const std::string &playe
   pl.push_back(player);
   room->setWatchers(pl);
   _isUpdate = true;
+    std::cout << "room : [" << roomName << "] rejointe par : [" << playerName << "] en tant que viewer" << std::endl;
   return (true);
 }
 
@@ -220,7 +219,7 @@ bool	ServerData::leaveRoom(const std::string &roomName, const std::string &playe
   StringCk	st;
   if (roomExist(st.lower(roomName)) == false || playerExist(st.lower(playerName)) == false || playerInRoom(st.lower(playerName), getRoom(st.lower(roomName))) == false)
     return (false);
-  std::cout << playerName << " a quitter la room : " << roomName << std::endl;
+  std::cout << "[" << playerName << "] a quitter la room : [" << roomName << "]" << std::endl;
   if (deletePlayerInRoom(st.lower(playerName), getRoom(st.lower(roomName))) == true)
     {
       if (getRoom(st.lower(roomName))->getPlayers().size() == 0)

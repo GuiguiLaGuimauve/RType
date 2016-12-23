@@ -9,11 +9,12 @@ PacketLogin::PacketLogin(const std::string & login, const std::string & password
 {
 	PacketSerializer ps;
 	uint32_t dataPacketSize = 0;
-
+	Crypt	cr;
+	
 	_type = IPacket::PacketType::LOGIN;
 	_tickId = 0;
 	_login = login;
-	_password = password;
+	_password = cr._sha1(password);
 
 	ps.add((uint16_t)_login.size());
 	ps.add(_login);
