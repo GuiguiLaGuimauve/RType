@@ -15,14 +15,16 @@ using namespace Network;
 SocketUDPWindows::SocketUDPWindows()
 {
 	WSADATA				wsadata;
+	DWORD				tv;
 
+	tv = 1;
 	if (WSAStartup(MAKEWORD(2, 2), &wsadata) != 0)
 		throw ErrorSocket("error on WSAStartup(): " + WSAGetLastError());
 	_sock = WSASocketW(AF_INET, SOCK_DGRAM, IPPROTO_UDP, NULL, 0, WSA_FLAG_OVERLAPPED);
 	if (_sock == INVALID_SOCKET)
 		throw ErrorSocket("Error on WSASocket: " + WSAGetLastError());
-	// if (fcntl(_sock, F_SETFL, O_NONBLOCK) == -1)
-	// 	throw ErrorSocket("Error on fcntl(O_NONBLOCK)");
+	if (setsockopt(_sock, SOL_SOCKET, SO_RCVTIMEO, (char *)&tv, sizeof(tv)) < 0)
+		throw ErrorSocket("Error on setsockopt(SO_RCVTIMEO)");
 }
 
 const std::string   SocketUDPWindows::getIpInfo() const

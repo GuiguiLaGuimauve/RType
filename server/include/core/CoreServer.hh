@@ -13,7 +13,12 @@
 
 # include "ACore.hh"
 # include "ManagerServer.hh"
+#ifdef _WIN32
+# include "UserNetworkUDPWindows.hh"
+#else
 # include "UserNetworkUDPUnix.hh"
+#endif
+
 # include <map>
 # include "IPacket.hh"
 # include "ServerData.hh"
