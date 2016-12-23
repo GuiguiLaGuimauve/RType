@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 //
 // Started on  Fri Oct 21 14:44:09 2016 julien dufrene
-// Last update Fri Dec 23 07:52:06 2016 julien dufrene
+// Last update Fri Dec 23 11:03:49 2016 lecoq
 //
 
 #ifndef _USERNETWORKUDPUNIX_HH_
@@ -21,8 +21,8 @@ namespace Network
   */
   class		UserNetworkUDPUnix : public UserNetworkUDP {
   public:
-    UserNetworkUDPUnix() {};
-    virtual ~UserNetworkUDPUnix() {};
+    UserNetworkUDPUnix();
+    virtual ~UserNetworkUDPUnix();
     /*! La methode readSocket(ISocket *) permet de lire sur une socket et donc de récupérer ce qui à été écris de l'autre côté de la socket. */
     virtual IUserNetwork	*readSocket(ISocket *) = 0;
     /*! La methode writeSocket(ISocket *) permet d'écrire sur une socket. */

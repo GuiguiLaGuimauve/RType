@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Fri Dec 23 02:57:45 2016 julien dufrene
+// Last update Fri Dec 23 10:07:03 2016 lecoq
 //
 
 #include	"CoreClient.hh"
@@ -336,8 +336,6 @@ bool		CoreClient::profile(const IPacket *pa, IUserNetwork *u)
 }
 
 
-/* je reçoit un [UDP_DATA] <-- tryconnect --> [IP du server TCP] [PORT du packet] */
-/* j'envoie un [UDP DATA] [IP du server TCP] [PORT du packet] */
 bool		CoreClient::udpData(const IPacket *pa, IUserNetwork *u)
 {
   IPacket				*pb;
