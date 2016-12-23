@@ -55,7 +55,7 @@ namespace EventPart
 	MOVE_LEFT,
 	TRY_CONNECT, // string["IP"] string["PORT"]
 	TRY_LOGIN, // string["LOGIN"] string["PWD"]
-	CREATE_GAME, // string["GAME_NAME"]
+	CREATE_GAME, // string["GAME_NAME"] int["MAX_PLAYER"]
 	JOIN_GAME, // string["GAME_NAME"]
 	LEAVE_GAME, // string["GAME_NAME"]
 	WATCH_GAME, // string["GAME_NAME"]

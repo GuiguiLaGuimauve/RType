@@ -118,7 +118,8 @@ void		GUI::callback()
 	  }
 	  case EventPart::Event::BUTTON_CREATE_GAME:
 	  {
-		  ep = EventPart::Event(EventPart::Event::CREATE_GAME);
+		  ep = EventPart::Event(EventPart::Event::CREATE_GAME, "GAME_NAME", _menuWidgets->chooseRoomName->getText(),
+								"MAX_PLAYER", _menuWidgets->changeMaxPlayer->getText()[0] - 48);
 		  break;
 	  }
 	  case EventPart::Event::BUTTON_JOIN_GAME:
@@ -459,7 +460,44 @@ void		GUI::displayMenu()
 	});
 	_menuWidgets->createGame->setOnHover(TextColorFocus);
 	_menuWidgets->createGame->setOnLeaveHover(TextColorNoFocus);
-
+	// init chooseRoomName
+	_menuWidgets->chooseRoomName = _win->addWidget(_menuWidgets->createGame->getX() + 150, _menuWidgets->createGame->getY(), 300, 100);
+	s = _menuWidgets->chooseRoomName->getStyle();
+	s.textColor = Color(TEXT_COLOR_R, TEXT_COLOR_G, TEXT_COLOR_B);
+	s.policeSize = 35;
+	s.inputMode = true;
+	_menuWidgets->chooseRoomName->setStyle(s);
+	_menuWidgets->chooseRoomName->setOnTextEntered([](IWidget *w, const std::string &c)
+	{
+		if (c[0] == '\t')
+			w->getEventQueue()->push(EventPart::Event(EventPart::Event::LOGIN_SWITCH_IMPUT));
+		else if (c[0] == '\n' || c[0] == '\r')
+			w->getEventQueue()->push(EventPart::Event(EventPart::Event::BUTTON_LOGIN));
+		else
+			textEntered(w, c);
+	});
+	_menuWidgets->chooseRoomName->setOnFocus(TextColorFocus);
+	_menuWidgets->chooseRoomName->setOnLeaveFocus(TextColorNoFocus);
+	// ############################################################
+	// init changeMaxPlayer
+	_menuWidgets->changeMaxPlayer = _win->addWidget(_menuWidgets->createGame->getX() + 75, _menuWidgets->createGame->getY(), 50, 50);
+	_menuWidgets->changeMaxPlayer->setText("4");
+	s = _menuWidgets->changeMaxPlayer->getStyle();
+	s.textColor = Color(TEXT_COLOR_R, TEXT_COLOR_G, TEXT_COLOR_B);
+	s.policeSize = 35;
+	_menuWidgets->changeMaxPlayer->setStyle(s);
+	_menuWidgets->changeMaxPlayer->setOnHover(TextColorFocus);
+	_menuWidgets->changeMaxPlayer->setOnLeaveHover(TextColorNoFocus);
+	_menuWidgets->changeMaxPlayer->setOnClick(
+		[](IWidget *w, CLICK)
+	{
+		auto tmpString = w->getText();
+		tmpString[0] += 1;
+		if (tmpString[0] > '4')
+			tmpString[0] = '1';
+		w->setText(tmpString);
+	});
+	// ##############################################################
 	// init profile text
 	_menuWidgets->profile = _win->addWidget(3 * (_win->getWidth() / 4), 3 * (_win->getHeight() / 4), _win->getHeight() / 4, 300);
 	_menuWidgets->profile->setText("Profile");
