@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 //
 // Started on  Fri Oct 14 11:10:10 2016 julien dufrene
-// Last update Thu Dec 22 23:18:00 2016 root
+// Last update Fri Dec 23 01:36:13 2016 julien dufrene
 //
 
 #include "SocketUDPUnix.hh"
@@ -15,15 +15,20 @@ using namespace Network;
 SocketUDPUnix::SocketUDPUnix()
 {
   struct protoent	*proto;
+  struct timeval	tv;
 
   _sock = -1;
+  tv.tv_sec = 0;
+  tv.tv_usec = 1;
   proto = getprotobyname("UDP");
   if (!proto)
     throw ErrorSocket("Error on Getprotobyname()");
   if ((_sock = socket(AF_INET, SOCK_DGRAM, proto->p_proto)) == -1)
     throw ErrorSocket("Error on Socket()");
-  if (fcntl(_sock, F_SETFL, O_NONBLOCK) == -1)
-    throw ErrorSocket("Error on fcntl(O_NONBLOCK)");
+  if(setsockopt(_sock, SOL_SOCKET, SO_RCVTIMEO, &tv, sizeof(tv)) < 0)
+    throw ErrorSocket("Error on setsockopt(SO_RCVTIMEO)");
+  // if (fcntl(_sock, F_SETFL, O_NONBLOCK) == -1)
+  //   throw ErrorSocket("Error on fcntl(O_NONBLOCK)");
 }
 
 const std::string   SocketUDPUnix::getIpInfo() const
