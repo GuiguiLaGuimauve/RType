@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Fri Dec 23 03:00:16 2016 julien dufrene
+// Last update Fri Dec 23 12:37:59 2016 lecoq
 //
 
 #include	"CoreServer.hh"
@@ -271,7 +271,7 @@ bool		CoreServer::udpData(const IPacket *pa, IUserNetwork *u)
       i++;
     }
   _udp->pushNewUser(udpUser);
-  _tcp->setTimeout(0,0);
+  _tcp->setTimeout(0, 2);
   std::cout << "[UDP User] --> [" << udpUser->getIp() << "] [" << udpUser->getPort() << "]" << std::endl;
   return (true);
 }
