@@ -4,9 +4,9 @@
 // Login   <dufren_b@epitech.net>
 //
 // Started on  Fri Dec 02 15:02:22 2016 julien dufrene
-// Last update Tue Dec 20 00:50:15 2016 julien dufrene
+// Last update Fri Dec 23 07:49:45 2016 julien dufrene
 //
-
+/*
 #include "UserNetworkUDPWindows.hh"
 
 using namespace Network;
@@ -24,17 +24,17 @@ IUserNetwork		*UserNetworkUDPWindows::readSocket(ISocket *net)
 	sockaddr_in			s_in;
 	int				s_inLen = sizeof(s_in);
 
-	s_in.sin_addr.s_addr = inet_addr(_ip.c_str());
-	s_in.sin_family = AF_INET;
-	if (WSAHtons(_fd, _port, &(s_in.sin_port)) == SOCKET_ERROR)
-	{
-		std::cerr << "Error on WSAHtons: " << WSAGetLastError() << std::endl;
-		IUserNetwork		*u = new UserNetworkUDPWindows(*this);
-		return (u);
-	}
-	DataBuf.len = 16384;
-	DataBuf.buf = buffer;
-	Flags = 0;
+	// s_in.sin_addr.s_addr = inet_addr(_ip.c_str());
+	// s_in.sin_family = AF_INET;
+	// if (WSAHtons(_fd, _port, &(s_in.sin_port)) == SOCKET_ERROR)
+	// {
+	// 	std::cerr << "Error on WSAHtons: " << WSAGetLastError() << std::endl;
+	// 	IUserNetwork		*u = new UserNetworkUDPWindows(*this);
+	// 	return (u);
+	// }
+	// DataBuf.len = 16384;
+	// DataBuf.buf = buffer;
+	// Flags = 0;
 	if (WSARecvFrom(_fd, &DataBuf, 1, &RecvBytes, &Flags, (sockaddr *)&s_in, &s_inLen, NULL, NULL) != SOCKET_ERROR)
 	{
 		char			*res = new char[RecvBytes];
@@ -106,3 +106,4 @@ void			UserNetworkUDPWindows::closeFd()
 		_fd = -1;
 	}
 }
+*/

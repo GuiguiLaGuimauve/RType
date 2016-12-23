@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Fri Oct 14 15:52:42 2016 julien dufrene
-// Last update Sat Nov  5 10:33:21 2016 lecoq
+// Last update Fri Dec 23 07:23:53 2016 julien dufrene
 //
 
 #include "SocketTCPWindowsClient.hh"
@@ -25,7 +25,6 @@ bool			SocketTCPWindowsClient::connectIt(const std::string &ip, const uint32_t &
 		return (false);
 	if (WSAConnect(_sock, (struct sockaddr *)&s_in, sizeof(s_in), NULL, NULL, NULL, NULL) == SOCKET_ERROR)
 		return (false);
-	std::cout << "Connected!" << std::endl;
 	return (true);
 }
 

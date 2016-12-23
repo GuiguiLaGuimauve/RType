@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 //
 // Started on  Fri Oct 21 14:44:09 2016 julien dufrene
-// Last update Tue Nov 15 01:48:30 2016 lecoq
+// Last update Fri Dec 23 07:50:00 2016 julien dufrene
 //
 
 #ifndef _USERNETWORKUDPWINDOWS_HH_
@@ -15,21 +15,52 @@
 
 namespace Network
 {
-	/*!
-	en :UserNetworUDPWindows defines the methods for UserNetworkUDP classes on windows.
-	fr :La classe UserNetworkUDPWindows définit les méthodes des classes UserNetworkUDP utilisant l'api Windows.
-	*/
-	class		UserNetworkUDPWindows : public UserNetworkUDP {
-	public:
-		UserNetworkUDPWindows();
-		virtual ~UserNetworkUDPWindows();
-		/*! La methode readSocket(ISocket *) permet de lire sur une socket et donc de récupérer ce qui à été écris de l'autre côté de la socket. */
-		IUserNetwork	*readSocket(ISocket *);
-		/*! La methode writeSocket(ISocket *) permet d'écrire sur une socket. */
-		void			writeSocket(ISocket *);
-		/*! La methode closeFd permet de fermer la socket du client. */
-		void			closeFd();
-	};
+  /*!
+    en :UserNetworUDPWindows defines the methods for UserNetworkUDP classes on windows.
+    fr :La classe UserNetworkUDPWindows dÃ©finit les mÃ©thodes des classes UserNetworkUDP utilisant l'api Windows.
+  */
+  class		UserNetworkUDPWindows : public UserNetworkUDP {
+  public:
+    UserNetworkUDPWindows() {};
+    virtual ~UserNetworkUDPWindows() {};
+    /*! La methode readSocket(ISocket *) permet de lire sur une socket et donc de rÃ©cupÃ©rer ce qui Ã  Ã©tÃ© Ã©cris de l'autre cÃ´tÃ© de la socket. */
+    virtual IUserNetwork	*readSocket(ISocket *) = 0;
+    /*! La methode writeSocket(ISocket *) permet d'Ã©crire sur une socket. */
+    void			writeSocket(ISocket *)
+    {
+      (void)net;
+      PacketUnknown         to_write;
+      sockaddr_in           s_out;
+
+      if ((nb = inet_pton(AF_INET, _ip.c_str(), &s_out.sin_addr.s_addr)) <= 0)
+	{
+	  std::cerr << "Error on inet_pton: " << WSAGetLastError() << std::endl;
+	  return;
+	}
+      s_out.sin_family = AF_INET;
+      if (WSAHtons(_fd, _port, &(s_out.sin_port)) == SOCKET_ERROR)
+	std::cerr << "Error on WSAHtons: " << WSAGetLastError() << std::endl;
+      write = buff_w.pop();
+      DataBuf.len = write.getPacketSize();
+      DataBuf.buf = (char *)(write.getPacketData());
+      Flags = 0;
+      std::cout << "Trying to send to: " << _ip << ":" << _port << std::endl;
+      if ((nb = WSASendTo(_fd, &DataBuf, 1, &SendBytes, 0, (sockaddr *)&s_out, sizeof (s_out), NULL, NULL)) \
+	  == SOCKET_ERROR || DataBuf.len != SendBytes)
+	std::cerr << "Error on WSASendTo: " << WSAGetLastError() << std::endl;
+    };
+    /*! La methode closeFd permet de fermer la socket du client. */
+    void			closeFd()
+    {
+      if (status == true)
+        {
+	  std::cout << "Closing socket " << _fd << std::endl;
+	  closesocket(_fd);
+	  setStatus(false);
+	  _fd = -1;
+	}
+    };
+  };
 };
 
 #endif

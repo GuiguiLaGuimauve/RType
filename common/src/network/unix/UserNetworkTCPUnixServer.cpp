@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 //
 // Started on  Fri Oct 21 15:02:22 2016 julien dufrene
-// Last update Wed Dec 21 17:15:29 2016 julien dufrene
+// Last update Fri Dec 23 07:27:51 2016 julien dufrene
 //
 
 #include "UserNetworkTCPUnixServer.hh"
@@ -26,7 +26,7 @@ IUserNetwork            *UserNetworkTCPUnixServer::readSocket(ISocket *net)
     return (NULL);
   u->setFd(data.getFd());
   u->setIp(data.getIp());
-  std::cout << "New client with fd: " << u->getFd() << " and ip: " << u->getIp() << std::endl;
+  std::cout << "New client ip: " << u->getIp() << std::endl;
   u->setStatus(true);
   return (u);
 }

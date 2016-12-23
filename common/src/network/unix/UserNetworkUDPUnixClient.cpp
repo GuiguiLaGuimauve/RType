@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Thu Dec 15 15:33:48 2016 julien dufrene
-// Last update Fri Dec 23 03:17:33 2016 julien dufrene
+// Last update Fri Dec 23 07:32:28 2016 julien dufrene
 //
 
 #include "UserNetworkUDPUnixClient.hh"
@@ -31,7 +31,6 @@ IUserNetwork		*UserNetworkUDPUnixClient::readSocket(ISocket *net)
       buff[nb] = 0;
       PacketUnknown pkt((uint8_t *)buff, nb);
       buff_r.push(pkt);
-      // _ip = inet_ntoa(s_in.sin_addr);
       std::cout << "Sender: " << inet_ntoa(s_in.sin_addr) << ":" << ntohs(s_in.sin_port) << std::endl;
     }
   if (nb == -1 && errno != 11)

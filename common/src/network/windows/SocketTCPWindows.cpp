@@ -66,8 +66,6 @@ bool			SocketTCPWindows::acceptClient(DataClient &data)
 	sockaddr_in		saClient;
 	SOCKET			fd;
 	int32_t			iClientSize;
-	//DWORD			len;
-	//LPWSTR			tmp_ip = new (wchar_t);
 	
 	iClientSize = sizeof(saClient);
 	fd = WSAAccept(_sock, (SOCKADDR *)&saClient, &iClientSize, NULL, NULL);
@@ -77,21 +75,8 @@ bool			SocketTCPWindows::acceptClient(DataClient &data)
 		return (false);
 	}
 	data.setFd(static_cast<int32_t>(fd));
-/*	len = 46;
-	if (WSAAddressToStringW((SOCKADDR *)&saClient, iClientSize, NULL, tmp_ip, &len) == SOCKET_ERROR)
-	{
-		std::cerr << "Error on WSAAddressToString: " << WSAGetLastError() << std::endl;
-		return (false);
-	}
-	std::wstring		wtmp_ip(tmp_ip);
-	std::string			ip;
-	char *ctmp_ip = new char[wtmp_ip.length() + 1];
-	ctmp_ip[wtmp_ip.size()] = '\0';
-	WideCharToMultiByte(CP_ACP, 0, wtmp_ip.c_str(), -1, ctmp_ip, (int)wtmp_ip.length(), NULL, NULL);
-	ip = ctmp_ip;
-	delete[] ctmp_ip;*/
 	std::string ip = inet_ntoa(saClient.sin_addr);
-	std::cout << "Accepeted :" << ip << std::endl;
+	std::cout << "Accept client ip:" << ip << std::endl;
 	data.setIp(ip);
 	return (true);
 }

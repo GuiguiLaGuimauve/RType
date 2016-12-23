@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Thu Dec 15 15:33:48 2016 julien dufrene
-// Last update Fri Dec 23 07:33:02 2016 julien dufrene
+// Last update Fri Dec 23 07:45:01 2016 julien dufrene
 //
 
 #include "UserNetworkUDPUnixServer.hh"
@@ -18,17 +18,26 @@ UserNetworkUDPUnixServer::~UserNetworkUDPUnixServer() {}
 
 IUserNetwork		*UserNetworkUDPUnixServer::readSocket(ISocket *net)
 {
-  char                  buff[16384];
-  int32_t               nb;
-  sockaddr_in		s_in;
-  socklen_t		s_inLen = sizeof (s_in);
+  WSABUF                        DataBuf;
+  DWORD                         RecvBytes;
+  DWORD                         Flags;
+  char                          *buffer = new char[16384];
+  sockaddr_in                   s_in;
+  int				s_inLen = sizeof(s_in);
 
   (void)net;
   std::cout << "Trying to recv from" << std::endl;
-  errno = 0;
-  if ((nb = recvfrom(_fd, buff, 16384, 0, (sockaddr *)&s_in, &s_inLen)) > 0)
+  if (WSARecvFrom(_fd, &DataBuf, 1, &RecvBytes, &Flags, (sockaddr *)&s_in, &s_inLen, NULL, NULL) != SOCK\
+      ET_ERROR)
     {
-      buff[nb] = 0;
+      char                    *res = new char[RecvBytes];
+      uint32_t                i = 0;
+      while (i < RecvBytes)
+	{
+	  res[i] = DataBuf.buf[i];
+	  i++;
+	}
+      res[i] = 0;
       PacketUnknown pkt((uint8_t *)buff, nb);
       setIp(inet_ntoa(s_in.sin_addr));
       setPort(ntohs(s_in.sin_port));
@@ -37,10 +46,15 @@ IUserNetwork		*UserNetworkUDPUnixServer::readSocket(ISocket *net)
       setStatus(true);
       std::cout << "Modif Sender: " << getIp() << ":" << getPort() << std::endl;
     }
-  if (nb == -1 && errno != 11)
+  else
+    if (WSAGetLastError() != 10035)
+      {
+	std::cout << "error from WSARecvFrom: " << WSAGetLastError() << std::endl;
+	closeFd();
+      }
+  if (nb == -1)
     {
-      perror("recvfrom");
-      std::cerr << "Error from recvfrom(): " << errno << std::endl;
+      std::cout << "error from WSARecvFrom: " << WSAGetLastError() << std::endl;
       closeFd();
     }
   return (this);
