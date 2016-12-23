@@ -118,6 +118,7 @@ bool			ManageNetworkUDPClient::tryConnectClient(const uint32_t &port, const std:
   u->setIp(ip);
   u->setPort(port);
   u->setStatus(true);
+  u->setPseudo("Accept");
   int	i = 0;
   while (i < 40)
     {

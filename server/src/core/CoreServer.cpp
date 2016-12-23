@@ -243,7 +243,6 @@ bool				CoreServer::startGame(const IPacket *pa, IUserNetwork *u)
   return (true);
 }
 
-/* <-- PushNewUser --> [SOCK socket udp] [IP du user a qui je parle] [PORT du packet] [PSEUDO du user] */
 bool		CoreServer::udpData(const IPacket *pa, IUserNetwork *u)
 {
   PacketUdpData                         *p = (PacketUdpData *)pa;

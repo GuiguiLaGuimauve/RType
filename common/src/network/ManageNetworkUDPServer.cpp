@@ -90,15 +90,15 @@ bool			ManageNetworkUDPServer::selectIt()
 std::vector<IUserNetwork *>	ManageNetworkUDPServer::exec()
 {
   std::vector<IUserNetwork *>	newuser;
-  IUserNetwork			*u;
-  uint64_t			i;
+  IUserNetwork					*u;
+  uint64_t						i;
+  bool							ok;
 
   i = 0;
   while (i < _user.size())
     {
       if (_user[i]->getStatus() != false)
 	{
-	  std::cout << "Have user: " << _user[i]->getIp() << ":" << _user[i]->getPort() << std::endl;
 	  //	  while (_user[i]->haveSomethingToWrite() == true)
 	  if (_user[i]->haveSomethingToWrite() == true)
 	    _user[i]->writeSocket(_net);
@@ -122,21 +122,21 @@ std::vector<IUserNetwork *>	ManageNetworkUDPServer::exec()
 	  _read->push(PacketC(pk, u));
 	  std::cout << "un packet est lu" << std::endl;
 	  i = 0;
-	  while (i < _user.size())
+	  ok = false;
+	  while (i < _user.size() && ok == false)
 	    {
 	      if (_user[i]->getIp() == u->getIp())
 		{
 		  u->setPseudo(_user[i]->getPseudo());
 		  while (_user[i]->haveSomethingToWrite() == true)
 		    u->pushBufferWrite(_user[i]->popBufferWrite());
-		  //std::cout << "[AVANT] user: " << _user[i]->getIp() << ":" << _user[i]->getPort() << std::endl;
-		  //delete (_user[i]);
 		  _user[i] = u;
-		  // delete (u);
-		  //std::cout << "[APRES] user: " << u->getIp() << ":" << u->getPort() << std::endl;
+		  ok = true;
 		}
 	      i++;
 	    }
+	  if (ok == false)
+		  _user.push_back(u);
 	  std::cout << "User: " << u->getPseudo() << " send me something" << std::endl;
 	}
     }
