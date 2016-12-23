@@ -25,11 +25,11 @@ IUserNetwork		*UserNetworkUDPWindowsClient::readSocket(ISocket *net)
   sockaddr_in                   s_in;
   int                           s_inLen = sizeof(s_in);
   u_short			port;
+  uint32_t				  nb;
 
   (void)net;
   std::cout << "Trying to recv from: " << _ip << ":" << _port << std::endl;
-  if (WSARecvFrom(_fd, &DataBuf, 1, &RecvBytes, &Flags, (sockaddr *)&s_in, &s_inLen, NULL, NULL) != SOCK\
-      ET_ERROR)
+  if (WSARecvFrom(_fd, &DataBuf, 1, &RecvBytes, &Flags, (sockaddr *)&s_in, &s_inLen, NULL, NULL) != SOCKET_ERROR)
     {
       char                    *res = new char[RecvBytes];
       uint32_t                i = 0;
@@ -52,6 +52,7 @@ IUserNetwork		*UserNetworkUDPWindowsClient::readSocket(ISocket *net)
 	std::cout << "error from WSARecvFrom: " << WSAGetLastError() << std::endl;
 	closeFd();
       }
+  // TODO : Problème ou init nb ? et à combien ?
   if (nb == -1)
     {
       std::cout << "error from WSARecvFrom: " << WSAGetLastError() << std::endl;

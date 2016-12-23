@@ -32,7 +32,7 @@ IUserNetwork		*UserNetworkTCPWindowsClient::readSocket(ISocket *net)
 	if (WSARecv(_fd, &DataBuf, 1, &RecvBytes, &Flags, NULL, NULL) != SOCKET_ERROR)
 	{
 		char			*res = new char[RecvBytes];
-		int32_t			i = 0;
+		DWORD			i = 0;
 		while (i < RecvBytes)
 		{
 			res[i] = DataBuf.buf[i];

@@ -1,11 +1,11 @@
 //
 // SocketUDPWindows.cpp for SocketUDPWindows.cpp in /home/dufren_b/teck3/rendu/CPP/RType/Network_Rtype/src/network/windows
-// 
+//
 // Made by julien dufrene
 // Login   <dufren_b@epitech.net>
-// 
+//
 // Started on  Thu Dec 15 15:13:57 2016 julien dufrene
-// Last update Thu Dec 15 16:27:56 2016 julien dufrene
+// Last update Thu Dec 22 11:44:06 2016 La Guimauve
 //
 
 #include "SocketUDPWindows.hh"
@@ -21,6 +21,22 @@ SocketUDPWindows::SocketUDPWindows()
 	_sock = WSASocketW(AF_INET, SOCK_DGRAM, IPPROTO_UDP, NULL, 0, WSA_FLAG_OVERLAPPED);
 	if (_sock == INVALID_SOCKET)
 		throw ErrorSocket("Error on WSASocket: " + WSAGetLastError());
+	// if (fcntl(_sock, F_SETFL, O_NONBLOCK) == -1)
+	// 	throw ErrorSocket("Error on fcntl(O_NONBLOCK)");
+}
+
+const std::string   SocketUDPWindows::getIpInfo() const
+{
+  struct sockaddr_in        s_in;
+  socklen_t                 len;
+
+  len = sizeof(struct sockaddr_in);
+  if (getsockname(_sock, (struct sockaddr*)&s_in, &len) < 0)
+    {
+      std::cerr << "Error on getsockname()" << std::endl;
+      return ("");
+    }
+  return (inet_ntoa(s_in.sin_addr));
 }
 
 bool				SocketUDPWindows::bindIt(const uint32_t &port)

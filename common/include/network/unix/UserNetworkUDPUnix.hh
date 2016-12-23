@@ -28,7 +28,8 @@ namespace Network
     /*! La methode writeSocket(ISocket *) permet d'écrire sur une socket. */
     void			writeSocket(ISocket *net)
     {
-      (void)net;
+		(void)net;
+#ifndef _WIN32
       PacketUnknown         to_write;
       sockaddr_in           s_out;
 
@@ -40,13 +41,17 @@ namespace Network
       errno = 0;
       if (sendto(_fd, to_write.getPacketData(), to_write.getPacketSize(), 0, (sockaddr *)&s_out, sizeof (s_out)) == -1)
         {
-	  perror("sendto");
-	  std::cerr << "Error on sendto(): " << errno << std::endl;
-	}
+		perror("sendto");
+		std::cerr << "Error on sendto(): " << errno << std::endl;
+		}
+#else
+	  std::cerr << "Using Windows function" << std::endl;
+#endif
     };
     /*! La methode closeFd permet de fermer la socket du client. */
     void			closeFd()
     {
+	#ifndef _WIN32
       if (getStatus() == true)
 	{
 	  std::cout << "Closing socket " << _fd << std::endl;
@@ -54,6 +59,9 @@ namespace Network
 	  setStatus(false);
 	  _fd = -1;
 	}
+	#else
+	std::cerr << "Using Windows function" << std::endl;
+	#endif
     };
   };
 };

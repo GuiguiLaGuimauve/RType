@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 //
 // Started on  Fri Oct 21 14:44:09 2016 julien dufrene
-// Last update Fri Dec 23 07:50:00 2016 julien dufrene
+// Last update Fri Dec 23 08:52:05 2016 La Guimauve
 //
 
 #ifndef _USERNETWORKUDPWINDOWS_HH_
@@ -26,24 +26,26 @@ namespace Network
     /*! La methode readSocket(ISocket *) permet de lire sur une socket et donc de récupérer ce qui à été écris de l'autre côté de la socket. */
     virtual IUserNetwork	*readSocket(ISocket *) = 0;
     /*! La methode writeSocket(ISocket *) permet d'écrire sur une socket. */
-    void			writeSocket(ISocket *)
+    void			writeSocket(ISocket *net)
     {
       (void)net;
       PacketUnknown         to_write;
       sockaddr_in           s_out;
-
-      if ((nb = inet_pton(AF_INET, _ip.c_str(), &s_out.sin_addr.s_addr)) <= 0)
-	{
-	  std::cerr << "Error on inet_pton: " << WSAGetLastError() << std::endl;
-	  return;
-	}
+	  int32_t				nb;
+	  WSABUF				DataBuf;
+	  DWORD                 SendBytes;
+	  
+	  if ((nb = inet_pton(AF_INET, _ip.c_str(), &s_out.sin_addr.s_addr)) <= 0)
+		{
+			std::cerr << "Error on inet_pton: " << WSAGetLastError() << std::endl;
+			return;
+		}
       s_out.sin_family = AF_INET;
       if (WSAHtons(_fd, _port, &(s_out.sin_port)) == SOCKET_ERROR)
 	std::cerr << "Error on WSAHtons: " << WSAGetLastError() << std::endl;
-      write = buff_w.pop();
-      DataBuf.len = write.getPacketSize();
-      DataBuf.buf = (char *)(write.getPacketData());
-      Flags = 0;
+      to_write = buff_w.pop();
+      DataBuf.len = to_write.getPacketSize();
+      DataBuf.buf = (char *)(to_write.getPacketData());
       std::cout << "Trying to send to: " << _ip << ":" << _port << std::endl;
       if ((nb = WSASendTo(_fd, &DataBuf, 1, &SendBytes, 0, (sockaddr *)&s_out, sizeof (s_out), NULL, NULL)) \
 	  == SOCKET_ERROR || DataBuf.len != SendBytes)
@@ -52,7 +54,7 @@ namespace Network
     /*! La methode closeFd permet de fermer la socket du client. */
     void			closeFd()
     {
-      if (status == true)
+      if (getStatus() == true)
         {
 	  std::cout << "Closing socket " << _fd << std::endl;
 	  closesocket(_fd);

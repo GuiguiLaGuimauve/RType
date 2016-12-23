@@ -103,20 +103,7 @@ bool		ManageNetworkUDPClient::run(const uint32_t &port, const uint32_t &maxCl)
 #endif
   _init = true;
   if (maxCl != 0 && _net->bindIt(port) == false)
-    return (false);/*
-#ifdef _WIN32
-    IUserNetwork *u = new UserNetworkUDPWindows();
-#else
-  IUserNetwork *u = new UserNetworkUDPUnix();
-#endif // _WIN32
-  (void)maxCl;
-  u->setFd(_net->getFdSocket());
-  u->setPort(port);
-  u->setIp(_net->getIpInfo());
-  u->setStatus(true);
-  _user.push_back(u);
-  std::cout << "Client UDP prepared, IP: " << u->getIp() << " port: " << port << std::endl;
-*/
+    return (false);
   return (true);
 }
 

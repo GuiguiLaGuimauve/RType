@@ -107,8 +107,12 @@ std::vector<IUserNetwork *>	ManageNetworkUDPServer::exec()
     }
   if (_user.size() > 0)
     {
-      u = new UserNetworkUDPUnixServer();
-      u->setIp("0.0.0.0");
+	#ifdef _WIN32
+	  u = new UserNetworkUDPWindowsServer();
+	#else
+	  u = new UserNetworkUDPUnixServer();
+	#endif
+	  u->setIp("0.0.0.0");
       u->setFd(_net->getFdSocket());
       u->setPseudo("Accept");
       u = u->readSocket(_net);
@@ -141,38 +145,21 @@ std::vector<IUserNetwork *>	ManageNetworkUDPServer::exec()
 
 bool		ManageNetworkUDPServer::run(const uint32_t &port, const uint32_t &maxCl)
 {
-#ifdef _WIN32
   try {
-    _net = new SocketUDPWindows();
+	#ifdef _WIN32
+	  _net = new SocketUDPWindows();
+	#else
+	  _net = new SocketUDPUnix();
+	#endif
   }
   catch (AError const &e)
     {
       e.quit();
     }
-#else
-  try {
-    _net = new SocketUDPUnix();
-  }
-  catch (AError const &e)
-    {
-      e.quit();
-    }
-#endif
   _init = true;
   if (maxCl != 0 && _net->bindIt(port) == false)
     return (false);
   std::cout << "Server UDP prepared, IP: " << _net->getIpInfo() << " port: " << port << std::endl;
-  /*
-#ifdef _WIN32
-    IUserNetwork *u = new UserNetworkUDPWindows();
-#else
-  IUserNetwork *u = new UserNetworkUDPUnix();
-#endif // _WIN32
-  (void)maxCl;
-  u->setFd(_net->getFdSocket());
-  u->setPort(port);
-  u->setStatus(true);
-  _user.push_back(u);*/
   return (true);
 }
 

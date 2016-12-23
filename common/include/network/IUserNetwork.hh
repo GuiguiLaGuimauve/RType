@@ -14,6 +14,7 @@
 #include "ISocket.hh"
 #include <iostream>
 #ifdef _WIN32
+#define _WINSOCK_DEPRECATED_NO_WARNINGS
 #else
 #include <unistd.h>
 #include <errno.h>

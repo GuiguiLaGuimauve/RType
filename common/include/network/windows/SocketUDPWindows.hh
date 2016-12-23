@@ -1,11 +1,11 @@
 //
 // SocketUDPWindows.hh for SocketUDPWindows.hh in /home/dufren_b/teck3/rendu/CPP/RType
-// 
+//
 // Made by julien dufrene
 // Login   <dufren_b@epitech.net>
-// 
+//
 // Started on  Fri Oct 14 11:25:14 2016 julien dufrene
-// Last update Mon Nov 14 09:47:18 2016 lecoq
+// Last update Thu Dec 22 11:44:49 2016 La Guimauve
 //
 
 #ifndef _SocketUDPWindows_HH_
@@ -15,17 +15,19 @@
 
 namespace Network
 {
-	/* La classe SocketUDPWindows définit les méthodes des classes Socket UDP spécifiques à windows. */
+	/* La classe SocketUDPWindows dï¿½finit les mï¿½thodes des classes Socket UDP spï¿½cifiques ï¿½ windows. */
 	class		SocketUDPWindows : public ASocketUDP {
 	public:
 		SocketUDPWindows();
 		virtual ~SocketUDPWindows();
-		/* La méthode bindIt(const uint32_t &) permet de bind le port du socket. */
+		/* La mï¿½thode bindIt(const uint32_t &) permet de bind le port du socket. */
 		bool		bindIt(const uint32_t &);
-		/* La méthode getFdSocket() permet de récupérer le descripteur de la socket. */
+		/* La mï¿½thode getFdSocket() permet de rï¿½cupï¿½rer le descripteur de la socket. */
 		int32_t		getFdSocket() const;
-		/* La méthode closeIt() permet de fermer la socket */
+		/* La mï¿½thode closeIt() permet de fermer la socket */
 		bool		closeIt();
+		/* La mÃ©thode getIpInfo() permet de rÃ©cupÃ©rer l'ip de la socket */
+    const std::string   getIpInfo() const;
 	private:
 		SOCKET		_sock;
 	};
