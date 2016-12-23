@@ -205,7 +205,6 @@ bool		CoreServer::watchGame(const IPacket *pa, IUserNetwork *u)
   return (true);
 }
 
-/* j'envoie un [UDP_DATA] [IP du User auquel je parle] [PORT 4243] */
 bool				CoreServer::startGame(const IPacket *pa, IUserNetwork *u)
 {
   std::vector<std::string>	playersName;
