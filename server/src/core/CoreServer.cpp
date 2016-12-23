@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Fri Dec 23 12:37:59 2016 lecoq
+// Last update Fri Dec 23 16:48:10 2016 lecoq
 //
 
 #include	"CoreServer.hh"
@@ -124,20 +124,21 @@ bool		CoreServer::connect(const IPacket *pa, IUserNetwork *u)
 {
   PacketConnect	*p = (PacketConnect *)pa;
   PacketConnect	ck;
-
-  //std::cout << _factory->isEnableSerialise("error") << " " << _factory->isEnableSerialise("accept") << std::endl;
+  IPacket	*co;
+  
   if (p->getCode() != ck.getCode())
     {
-      IPacket       *co = _factory->getPacket("error", ERROR_CONNECT, IPacket::PacketType::CONNECT);
+      co = _factory->getPacket("error", ERROR_CONNECT, IPacket::PacketType::CONNECT);
       PacketC       ret(co->getPacketUnknown(), u);
       _write->push(ret);
     }
   else
     {
-      IPacket       *co = _factory->getPacket("accept", ACCEPT_MESSAGE);
+      co = _factory->getPacket("accept", ACCEPT_MESSAGE);
       PacketC       ret(co->getPacketUnknown(), u);
       _write->push(ret);
     }
+  delete co;
   return (true);
 }
 
@@ -145,26 +146,37 @@ bool		CoreServer::login(const IPacket *pa, IUserNetwork *u)
 {
   PacketLogin	*p = (PacketLogin *)pa;
   PacketC	c;
-
+  IPacket	*pkt;
+  
   c.setNetwork(u);
   if (_data->loginPlayer(p->getLogin(), p->getPassword()) == false &&
       _data->registerPlayer(p->getLogin(), p->getPassword()) == false)
     {
       if (p->getLogin().empty() == true || p->getPassword().empty() == true)
-	c.setPacket(_factory->getPacket("error", LOGIN_EMPTY, IPacket::PacketType::LOGIN)->getPacketUnknown());
+	{
+	  pkt = _factory->getPacket("error", LOGIN_EMPTY, IPacket::PacketType::LOGIN);
+	  c.setPacket(pkt->getPacketUnknown());
+	}
       else
-	c.setPacket(_factory->getPacket("error", WRONG_AUTHENTIFICATION, IPacket::PacketType::LOGIN)->getPacketUnknown());
+	{
+	  pkt = _factory->getPacket("error", WRONG_AUTHENTIFICATION, IPacket::PacketType::LOGIN);
+	  c.setPacket(pkt->getPacketUnknown());
+	}
     }
   else
     {
       DataPlayer *data = _data->getPlayer(p->getLogin());
-      PacketC	c2(_factory->getPacket("profile", data)->getPacketUnknown(), u);
+      pkt = _factory->getPacket("profile", data);
+      PacketC	c2(pkt->getPacketUnknown(), u);
 
       _write->push(c2);
-      c.setPacket(_factory->getPacket("rooms", _data->getRooms())->getPacketUnknown());
+      delete pkt;
+      pkt = _factory->getPacket("rooms", _data->getRooms());
+      c.setPacket(pkt->getPacketUnknown());
       u->setPseudo(p->getLogin());
     }
   _write->push(c);
+  delete pkt;
   return (true);
 }
 
@@ -177,6 +189,7 @@ bool		CoreServer::createRoom(const IPacket *pa, IUserNetwork *u)
       IPacket *pac = _factory->getPacket("error", ERROR_CREATE_ROOM, IPacket::PacketType::CREATE_ROOM);
       PacketC c(pac->getPacketUnknown(), u);
       _write->push(c);
+      delete pac;
     }
   return (true);
 }
@@ -218,13 +231,13 @@ bool				CoreServer::startGame(const IPacket *pa, IUserNetwork *u)
       IPacket *pac = _factory->getPacket("error", ERROR_START_GAME, IPacket::PacketType::START_GAME);
       PacketC c(pac->getPacketUnknown(), u);
       _write->push(c);
+      delete pac;
     }
   else
     {
       if ((ip = calculIp(u->getIp())) == NULL)
       	return (false);
-      if ((pb = _factory->getPacket("udpdata", ip, (uint16_t)4243)) == NULL)
-	std::cout << "error factory" << std::endl;
+      pb = _factory->getPacket("udpdata", ip, (uint16_t)4243);
       uint64_t		i = 0;
       while (i < room->getPlayers().size())
 	{
@@ -238,6 +251,7 @@ bool				CoreServer::startGame(const IPacket *pa, IUserNetwork *u)
 	  i++;
 	}
       _tcp->pushTo(playersName, pb->getPacketUnknown());
+      delete pb;
     }
   return (true);
 }
