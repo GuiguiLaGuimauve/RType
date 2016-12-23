@@ -57,7 +57,7 @@ IUserNetwork		*UserNetworkUDPWindowsClient::readSocket(ISocket *net)
 	std::cout << "Sender: " << inet_ntoa(s_in.sin_addr) << ":" << port << std::endl;
     }
   else
-    if (WSAGetLastError() != 10035)
+    if (WSAGetLastError() != 10035 && WSAGetLastError() != 10060)
       {
 	std::cout << "error from WSARecvFrom: " << WSAGetLastError() << std::endl;
 	closeFd();

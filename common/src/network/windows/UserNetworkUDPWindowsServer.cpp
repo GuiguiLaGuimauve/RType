@@ -57,7 +57,7 @@ IUserNetwork		*UserNetworkUDPWindowsServer::readSocket(ISocket *net)
       std::cout << "Modif Sender: " << getIp() << ":" << getPort() << std::endl;
     }
   else
-    if (WSAGetLastError() != 10035)
+    if (WSAGetLastError() != 10035 && WSAGetLastError() != 10060)
       {
 		std::cout << "error from WSARecvFrom: " << WSAGetLastError() << std::endl;
 		closeFd();
