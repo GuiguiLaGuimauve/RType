@@ -24,7 +24,7 @@ SocketUDPWindows::SocketUDPWindows()
 	if (_sock == INVALID_SOCKET)
 		throw ErrorSocket("Error on WSASocket: " + WSAGetLastError());
 	if (setsockopt(_sock, SOL_SOCKET, SO_RCVTIMEO, (char *)&tv, sizeof(tv)) < 0)
-		throw ErrorSocket("Error on setsockopt(SO_RCVTIMEO)");
+		throw ErrorSocket("Error on setsockopt(SO_RCVTIMEO)" + WSAGetLastError());
 }
 
 const std::string   SocketUDPWindows::getIpInfo() const

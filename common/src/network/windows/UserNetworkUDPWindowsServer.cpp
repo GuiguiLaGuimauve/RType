@@ -26,7 +26,18 @@ IUserNetwork		*UserNetworkUDPWindowsServer::readSocket(ISocket *net)
   int							s_inLen = sizeof(s_in);
 
   (void)net;
-  std::cout << "Trying to recv from" << std::endl;
+  std::cout << "Trying to recv from ip: " << _ip << " port: " << _port << std::endl;
+  s_in.sin_addr.s_addr = inet_addr(_ip.c_str());
+  s_in.sin_family = AF_INET;
+  if (WSAHtons(_fd, _port, &(s_in.sin_port)) == SOCKET_ERROR)
+  {
+	  std::cerr << "Error on WSAHtons: " << WSAGetLastError() << std::endl;
+	  IUserNetwork		*u = new UserNetworkUDPWindowsServer(*this);
+	  return (u);
+  }
+  DataBuf.len = 16384;
+  DataBuf.buf = buffer;
+  Flags = 0;
   if (WSARecvFrom(_fd, &DataBuf, 1, &RecvBytes, &Flags, (sockaddr *)&s_in, &s_inLen, NULL, NULL) != SOCKET_ERROR)
     {
       char                    *res = new char[RecvBytes];
