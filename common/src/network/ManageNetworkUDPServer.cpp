@@ -127,7 +127,11 @@ std::vector<IUserNetwork *>	ManageNetworkUDPServer::exec()
 	    {
 	      if (_user[i]->getIp() == u->getIp())
 		{
-		  u->setPseudo(_user[i]->getPseudo());
+			if (_user[i]->getPseudo().compare("Accept") == 0)
+			{
+				u->setPseudo("accepted");
+				u->setPort(u->getPort());
+			}
 		  while (_user[i]->haveSomethingToWrite() == true)
 		    u->pushBufferWrite(_user[i]->popBufferWrite());
 		  _user[i] = u;
