@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Fri Dec 23 16:48:10 2016 lecoq
+// Last update Fri Dec 23 16:51:46 2016 lecoq
 //
 
 #include	"CoreServer.hh"
@@ -72,12 +72,16 @@ bool	CoreServer::managePackets()
       PacketC tmp = _read->pop();
       IPacket *packet = _factory->getPacket(tmp.getPacket().getPacketData());
       if (packet != NULL && _packetPtr.find(packet->getType()) != _packetPtr.end())
-	(this->*_packetPtr[packet->getType()])(packet, tmp.getNetwork());
+	{
+	  (this->*_packetPtr[packet->getType()])(packet, tmp.getNetwork());
+	  delete packet;
+	}
     }
   if (_data->roomAreUpdate() == true)
     {
       IPacket *pa = _factory->getPacket("rooms", _data->getRooms());
       _tcp->pushTo(_data->getOnlineClients(), pa->getPacketUnknown());
+      delete pa;
     }
   return (true);
 }
