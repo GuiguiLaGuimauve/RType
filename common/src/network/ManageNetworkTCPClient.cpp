@@ -7,7 +7,7 @@ ManageNetworkTCPClient::ManageNetworkTCPClient() : AManageNetworkTCP()
   _initServ = false;
   _serv = NULL;
   _sec = 0;
-  _usec = 2;
+  _usec = 1;
 }
 
 ManageNetworkTCPClient::~ManageNetworkTCPClient()

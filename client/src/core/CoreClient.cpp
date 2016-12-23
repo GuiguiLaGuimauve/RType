@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Fri Dec 23 12:38:15 2016 lecoq
+// Last update Fri Dec 23 16:55:31 2016 lecoq
 //
 
 #include	"CoreClient.hh"
@@ -107,10 +107,12 @@ bool	CoreClient::managePackets()
   while (_read->isEmpty() == false)
     {
       PacketC tmp = _read->pop();
-      //std::cout << (int)tmp.getPacket().getPacketData()[0] << std::endl;
       IPacket *packet = _factory->getPacket(tmp.getPacket().getPacketData());
       if (packet != NULL && _packetPtr.find(packet->getType()) != _packetPtr.end())
-	(this->*_packetPtr[packet->getType()])(packet, tmp.getNetwork());
+	{
+	  (this->*_packetPtr[packet->getType()])(packet, tmp.getNetwork());
+	  delete packet;
+	}
     }
   return (true);
 }
@@ -236,6 +238,7 @@ bool	CoreClient::tryLogin(EventPart::Event e)
     {
       IPacket *pa = _factory->getPacket("login", e.dataString["LOGIN"], e.dataString["PWD"]);
       _tcp->pushTo(p, pa->getPacketUnknown());
+      delete pa;
       rmname = e.dataString["LOGIN"] + " room's";
     }
   return (true);
@@ -247,6 +250,7 @@ bool	CoreClient::createGame(EventPart::Event e)
   IPacket *pa = _factory->getPacket("createroom", rmname, 4);
   std::vector<std::string> p;
   _tcp->pushTo(p, pa->getPacketUnknown());
+  delete pa;
   (void)e;
   return (true);
 }
@@ -256,6 +260,7 @@ bool	CoreClient::leaveRoom(EventPart::Event e)
   IPacket *pa = _factory->getPacket("leaveroom", e.dataString["GAME_NAME"]);
   std::vector<std::string> p;
   _tcp->pushTo(p, pa->getPacketUnknown());
+  delete pa;
   return (true);
 }
 
@@ -264,6 +269,7 @@ bool	CoreClient::joinRoom(EventPart::Event e)
   IPacket *pa = _factory->getPacket("joinroom", e.dataString["GAME_NAME"]);
   std::vector<std::string> p;
   _tcp->pushTo(p, pa->getPacketUnknown());
+  delete pa;
   return (true);
 }
 
@@ -272,6 +278,7 @@ bool	CoreClient::watchRoom(EventPart::Event e)
   IPacket *pa = _factory->getPacket("watchgame", e.dataString["GAME_NAME"]);
   std::vector<std::string> p;
   _tcp->pushTo(p, pa->getPacketUnknown());
+  delete pa;
   return (true);
 }
 
@@ -280,6 +287,7 @@ bool	CoreClient::startGame(EventPart::Event e)
   IPacket *pa = _factory->getPacket("startgame", e.dataString["GAME_NAME"]);
   std::vector<std::string> p;
   _tcp->pushTo(p, pa->getPacketUnknown());
+  delete pa;
   return (true);
 }
 
@@ -294,20 +302,21 @@ bool		CoreClient::errorPacket(const IPacket *pa, IUserNetwork *u)
 
 bool		CoreClient::welcome(const IPacket *pa, IUserNetwork *u)
 {
-  // PacketWelcome	*p = (PacketWelcome *)pa;
+  PacketWelcome	*p = (PacketWelcome *)pa;
   IPacket	*co = _factory->getPacket("connect");
   PacketC	ret(co->getPacketUnknown(), u);
   (void)pa;
-  //std::cout << p->getMessage() << std::endl;
+  std::cout << p->getMessage() << std::endl;
   _write->push(ret);
+  delete co;
   return (true);
 }
 
 bool		CoreClient::accept(const IPacket *pa, IUserNetwork *u)
 {
-  // PacketAccept	*p = (PacketAccept *)pa;
+  PacketAccept	*p = (PacketAccept *)pa;
 
-  //std::cout << p->getMessage() << std::endl;
+  std::cout << p->getMessage() << std::endl;
   _gui->displayLogin();
   _status = "login";
   (void)u;(void)pa;
