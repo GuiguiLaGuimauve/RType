@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Fri Dec 23 00:41:11 2016 julien dufrene
+// Last update Fri Dec 23 01:08:16 2016 julien dufrene
 //
 
 #include	"CoreClient.hh"
@@ -348,7 +348,7 @@ bool		CoreClient::udpData(const IPacket *pa, IUserNetwork *u)
   ip += conv.toString(p->getIp()[2]) + ".";
   ip += conv.toString(p->getIp()[3]);
   _udp->tryConnectClient(p->getPort(), _tcp->getRunning()->getIp());
-  pb = _factory->getPacket("udpdata", calculIp(_tcp->getRunning()->getIp()), (uint16_t)4244);
+  pb = _factory->getPacket("udpdata", calculIp(_tcp->getRunning()->getIp()), (uint16_t)p->getPort());
   _tcp->pushTo(empty, pb->getPacketUnknown());
   _tcp->setTimeout(0, 0);
   std::cout << "[UDP SERVER] ---> [" << _tcp->getRunning()->getIp() << "] [" << p->getPort() << "]" << std::endl;
