@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Fri Dec 16 11:37:09 2016 julien dufrene
-// Last update Fri Dec 23 03:24:49 2016 julien dufrene
+// Last update Fri Dec 23 03:32:50 2016 julien dufrene
 //
 
 #include	"ManageNetworkUDPServer.hh"
@@ -120,8 +120,10 @@ std::vector<IUserNetwork *>	ManageNetworkUDPServer::exec()
 	      i++;
 	    }
 	  std::cout << "User: " << u->getPseudo() << " send me something" << std::endl;
+	  std::cout << "[AVANT] user: " << _user[i]->getIp() << ":" << _user[i]->getPort() << std::endl;
 	  delete (_user[i]);
 	  _user[i] = u;
+	  std::cout << "[APRES] user: " << _user[i]->getIp() << ":" << _user[i]->getPort() << std::endl;
 	}
     }
   return (newuser);

@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Thu Dec 15 15:33:48 2016 julien dufrene
-// Last update Fri Dec 23 03:21:16 2016 julien dufrene
+// Last update Fri Dec 23 03:29:26 2016 julien dufrene
 //
 
 #include "UserNetworkUDPUnixServer.hh"
@@ -34,7 +34,7 @@ IUserNetwork		*UserNetworkUDPUnixServer::readSocket(ISocket *net)
       	  || s_in.sin_port != htons(_port))
       	  {
       	    IUserNetwork	*u = new UserNetworkUDPUnixServer(*this);
-      	    u->setIp(inet_ntoa(s_in.sin_addr));
+      	    u->setIp(_ip);
       	    u->setFd(_fd);
       	    u->setPort(ntohs(s_in.sin_port));
       	    u->setFd(net->getFdSocket());
