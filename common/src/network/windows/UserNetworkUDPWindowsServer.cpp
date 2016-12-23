@@ -24,7 +24,6 @@ IUserNetwork		*UserNetworkUDPWindowsServer::readSocket(ISocket *net)
   char                          *buffer = new char[16384];
   sockaddr_in                   s_in;
   int							s_inLen = sizeof(s_in);
-  int							nb;
 
   (void)net;
   std::cout << "Trying to recv from" << std::endl;
@@ -38,7 +37,7 @@ IUserNetwork		*UserNetworkUDPWindowsServer::readSocket(ISocket *net)
 	  i++;
 	}
       res[i] = 0;
-      PacketUnknown pkt((uint8_t *)buffer, nb);
+      PacketUnknown pkt((uint8_t *)buffer, RecvBytes);
       setIp(inet_ntoa(s_in.sin_addr));
       setPort(ntohs(s_in.sin_port));
       setFd(net->getFdSocket());
@@ -49,10 +48,10 @@ IUserNetwork		*UserNetworkUDPWindowsServer::readSocket(ISocket *net)
   else
     if (WSAGetLastError() != 10035)
       {
-	std::cout << "error from WSARecvFrom: " << WSAGetLastError() << std::endl;
-	closeFd();
+		std::cout << "error from WSARecvFrom: " << WSAGetLastError() << std::endl;
+		closeFd();
       }
-  if (nb == -1)
+  if (RecvBytes == -1)
     {
       std::cout << "error from WSARecvFrom: " << WSAGetLastError() << std::endl;
       closeFd();
