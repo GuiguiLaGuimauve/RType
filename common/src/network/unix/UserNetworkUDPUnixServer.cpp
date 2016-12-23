@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Thu Dec 15 15:33:48 2016 julien dufrene
-// Last update Fri Dec 23 02:52:33 2016 julien dufrene
+// Last update Fri Dec 23 03:21:16 2016 julien dufrene
 //
 
 #include "UserNetworkUDPUnixServer.hh"
@@ -40,7 +40,7 @@ IUserNetwork		*UserNetworkUDPUnixServer::readSocket(ISocket *net)
       	    u->setFd(net->getFdSocket());
 	    u->pushBufferRead(pkt);
 	    u->setStatus(true);
-	    std::cout << "Sender: " << u->getIp() << ":" << u->getPort() << std::endl;
+	    std::cout << "Modif Sender: " << u->getIp() << ":" << u->getPort() << std::endl;
       	    return (u);
       	  }
       else
