@@ -5,7 +5,7 @@
 // Login   <rembur_g@epitech.eu>
 //
 // Started on  Fri Dec  2 13:38:28 2016 La Guimauve
-// Last update Tue Dec 20 22:35:17 2016 julien dufrene
+// Last update Fri Dec 23 14:56:19 2016 lecoq
 //
 
 #ifndef _THREAD_HH_
@@ -33,6 +33,16 @@ namespace mythrd
     };
 
     ~Thread(){};
+    template <typename T, typename ... A>
+    void launch(T&& func, A&&... args)
+    {
+      this->thr = std::thread(func, args...);
+    };
+    template <typename C>
+    void launch(C&& f)
+    {
+      this->thr = std::thread(f);
+    };
     void	pause(const uint32_t &a) const
     {
       std::this_thread::sleep_for(std::chrono::seconds(a));

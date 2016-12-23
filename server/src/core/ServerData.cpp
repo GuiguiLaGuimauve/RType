@@ -5,32 +5,32 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Mon Dec 19 23:24:16 2016 Maxime Lecoq
-// Last update Fri Dec 23 12:01:24 2016 lecoq
+// Last update Fri Dec 23 14:55:39 2016 lecoq
 //
 
 #include	"ServerData.hh"
 
 ServerData::ServerData() : _isUpdate(false)
 {
-  /*  if (_conf.findSomething() == true)
+  if (_conf.findSomething() == true)
     {
       if (_conf.query() == true)
 	_player = _conf.getPlayers();
       _conf.reset();
     }
   _isRunning = true;
-  _thread = new mythrd::Thread(&ServerData::save, this);
-  */
+  _thread = new mythrd::Thread();
+  _thread->launch(&ServerData::save, this);
 }
 
 void	        ServerData::save()
 {
-  /*  while (_isRunning == true)
+  while (_isRunning == true)
     {
       _conf.write(_player);
       _thread->pause(2);
     }
-    std::cout << "End of saving thread" << std::endl; */
+  std::cout << "End of saving thread" << std::endl;
 }
 
 ServerData::~ServerData()
