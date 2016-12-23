@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Fri Dec 16 11:37:09 2016 julien dufrene
-// Last update Fri Dec 23 06:47:25 2016 julien dufrene
+// Last update Fri Dec 23 07:02:38 2016 julien dufrene
 //
 
 #include	"ManageNetworkUDPServer.hh"
@@ -110,6 +110,7 @@ std::vector<IUserNetwork *>	ManageNetworkUDPServer::exec()
       u = new UserNetworkUDPUnixServer();
       u->setIp("0.0.0.0");
       u->setFd(_net->getFdSocket());
+      u->setPseudo("Accept");
       u = u->readSocket(_net);
       if (u->haveSomethingToRead() == true)
 	{
