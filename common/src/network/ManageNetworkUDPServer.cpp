@@ -59,7 +59,7 @@ std::vector<std::string>        ManageNetworkUDPServer::updateUsers(const std::v
       i = 0;
       while (i < _user.size())
 	{
-	  if (_user[i]->getPseudo() == user[j]->getPseudo())
+	  if (_user[i]->getPseudo() == user[j]->getPseudo() || _user[i]->getStatus() == false)
 	    {
 	      if (_user[i] == _serv)
 		_initServ = false;
