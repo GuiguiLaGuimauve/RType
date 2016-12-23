@@ -77,6 +77,11 @@ void			AUserNetwork::pushBufferWrite(const PacketUnknown &mes)
 	buff_w.push(mes);
 }
 
+void			AUserNetwork::pushBufferRead(const PacketUnknown &mes)
+{
+	buff_r.push(mes);
+}
+
 PacketUnknown		AUserNetwork::popBufferRead()
 {
 	return (buff_r.pop());

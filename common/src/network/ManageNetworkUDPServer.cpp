@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Fri Dec 16 11:37:09 2016 julien dufrene
-// Last update Fri Dec 23 02:08:40 2016 julien dufrene
+// Last update Fri Dec 23 03:09:26 2016 julien dufrene
 //
 
 #include	"ManageNetworkUDPServer.hh"
@@ -90,26 +90,38 @@ bool			ManageNetworkUDPServer::selectIt()
 std::vector<IUserNetwork *>	ManageNetworkUDPServer::exec()
 {
   std::vector<IUserNetwork *>	newuser;
-  int				i;
+  IUserNetwork			*u;
+  uint64_t			i;
 
   i = 0;
-  while (i < (int32_t)_user.size())
+  while (i < _user.size())
     {
       if (_user[i]->getStatus() != false)
 	{
 	  std::cout << "Have user: " << _user[i]->getIp() << ":" << _user[i]->getPort() << std::endl;
 	  if (_user[i]->haveSomethingToWrite() == true)
 	    _user[i]->writeSocket(_net);
-	  _user[i]->readSocket(_net);
-	  if (_user[i]->getStatus() == true && _user[i]->haveSomethingToRead() == true)
-	    {
-	      PacketUnknown pk = _user[i]->popBufferRead();
-	      _read->push(PacketC(pk, _user[i]));
-	      std::cout << "un packet est lu" << std::endl;
-	      // _user[i]->pushBufferWrite(pk);
-	    }
 	}
       i++;
+    }
+  if (_user.size() > 0)
+    {
+      u = _user[0]->readSocket(_net);
+      if (u->haveSomethingToRead() == true)
+	{
+	  PacketUnknown pk = u->popBufferRead();
+	  _read->push(PacketC(pk, u));
+	  std::cout << "un packet est lu" << std::endl;
+	  i = 0;
+	  while (i < _user.size())
+	    {
+	      if (_user[i]->getIp() == u->getIp())
+		u->setPseudo(_user[i]->getPseudo());
+	      i++;
+	    }
+	  delete (_user[i]);
+	  _user[i] = u;
+	}
     }
   return (newuser);
 }
@@ -154,9 +166,9 @@ bool		ManageNetworkUDPServer::run(const uint32_t &port, const uint32_t &maxCl)
 bool			ManageNetworkUDPServer::tryConnectClient(const uint32_t &port, const std::string &ip)
 {
 #ifdef _WIN32
-  IUserNetwork *u = new UserNetworkUDPWindows();
+  IUserNetwork *u = new UserNetworkUDPWindowsServer();
 #else
-  IUserNetwork *u = new UserNetworkUDPUnix();
+  IUserNetwork *u = new UserNetworkUDPUnixServer();
 #endif
   u->setFd(_net->getFdSocket());
   u->setIp(ip);

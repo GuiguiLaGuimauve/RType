@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Fri Dec 16 11:37:09 2016 julien dufrene
-// Last update Fri Dec 23 00:06:22 2016 julien dufrene
+// Last update Fri Dec 23 02:55:48 2016 julien dufrene
 //
 
 #include	"ManageNetworkUDPClient.hh"
@@ -123,9 +123,9 @@ bool		ManageNetworkUDPClient::run(const uint32_t &port, const uint32_t &maxCl)
 bool			ManageNetworkUDPClient::tryConnectClient(const uint32_t &port, const std::string &ip)
 {
 #ifdef _WIN32
-  IUserNetwork *u = new UserNetworkUDPWindows();
+  IUserNetwork *u = new UserNetworkUDPWindowsClient();
 #else
-  IUserNetwork *u = new UserNetworkUDPUnix();
+  IUserNetwork *u = new UserNetworkUDPUnixClient();
 #endif
   u->setFd(_net->getFdSocket());
   u->setIp(ip);

@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Fri Dec 23 01:08:16 2016 julien dufrene
+// Last update Fri Dec 23 02:57:45 2016 julien dufrene
 //
 
 #include	"CoreClient.hh"
@@ -81,7 +81,11 @@ bool				CoreClient::manageNetwork()
       i = 0;
       while (i < delUsersName.size())
 	{
-	  IUserNetwork      *tmp = new UserNetworkUDPUnix();
+#ifdef _WIN32
+	  IUserNetwork      *tmp = new UserNetworkUDPWindowsClient();
+#else
+	  IUserNetwork      *tmp = new UserNetworkUDPUnixClient();
+#endif
 	  tmp->setPseudo(delUsersName[i]);
 	  delUsers.push_back(tmp);
 	  i++;

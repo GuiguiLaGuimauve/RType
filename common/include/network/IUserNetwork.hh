@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Fri Oct 21 14:44:09 2016 julien dufrene
-// Last update Wed Dec 21 19:04:22 2016 julien dufrene
+// Last update Fri Dec 23 02:35:44 2016 julien dufrene
 //
 
 #ifndef _IUSERNETWORK_HH_
@@ -47,6 +47,8 @@ namespace Network
     virtual const std::string				&getIp() const = 0;
     /*! La méthode pushBufferWrite() permet d'ajouter une chaine dans le buffer d'écriture */
     virtual void					pushBufferWrite(const PacketUnknown &) = 0;
+    /*! La méthode pushBufferRead() permet d'ajouter une chaine lu dans le buffer de lecture */
+    virtual void					pushBufferRead(const PacketUnknown &) = 0;
     /*! La méthode popBufferRead() permet de récupérer une chaine dans le buffer de lecture */
     virtual PacketUnknown				popBufferRead() = 0;
     /*! La méthode haveSomethingToWrite() permet de savoir si il y a quelque chose à écrire. */

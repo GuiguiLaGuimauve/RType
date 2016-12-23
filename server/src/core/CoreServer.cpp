@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Fri Dec 23 01:32:25 2016 julien dufrene
+// Last update Fri Dec 23 03:00:16 2016 julien dufrene
 //
 
 #include	"CoreServer.hh"
@@ -47,7 +47,11 @@ void				CoreServer::run()
 	  i = 0;
 	  while (i < delUsersName.size())
 	    {
-	      IUserNetwork	*tmp = new UserNetworkUDPUnix();
+#ifdef _WIN32
+	      IUserNetwork	*tmp = new UserNetworkUDPWindowsServer();
+#else
+	      IUserNetwork	*tmp = new UserNetworkUDPUnixServer();
+#endif
 	      tmp->setPseudo(delUsersName[i]);
 	      delUsers.push_back(tmp);
 	      i++;
@@ -246,9 +250,9 @@ bool		CoreServer::udpData(const IPacket *pa, IUserNetwork *u)
   Convert<uint8_t>                      conv;
   std::string                           ip;
 #ifdef _WIN32
-  IUserNetwork				*udpUser = new UserNetworkUDPWindows();
+  IUserNetwork				*udpUser = new UserNetworkUDPWindowsServer();
 #else
-  IUserNetwork				*udpUser = new UserNetworkUDPUnix();
+  IUserNetwork				*udpUser = new UserNetworkUDPUnixServer();
 #endif
   std::cout << "[UDP_DATA]" << std::endl;
   ip = conv.toString(p->getIp()[0]) + ".";

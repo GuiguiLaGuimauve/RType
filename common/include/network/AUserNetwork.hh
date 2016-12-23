@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 //
 // Started on  Fri Oct 21 14:44:09 2016 julien dufrene
-// Last update Tue Dec 20 13:41:38 2016 lecoq
+// Last update Fri Dec 23 02:36:27 2016 julien dufrene
 //
 
 #ifndef _AUSERNETWORK_HH_
@@ -44,6 +44,8 @@ namespace Network
     uint32_t					getPort() const;
     /* La méthode pushBufferWrite() permet d'ajouter une chaine dans le buffer d'écriture */
     void					pushBufferWrite(const PacketUnknown &);
+    /* La méthode pushBufferRead() permet d'ajouter une chaine dans le buffer de lecture */
+    void					pushBufferRead(const PacketUnknown &);
     /* La méthode popBufferRead() permet de récupérer une chaine dans le buffer de lecture */
     PacketUnknown				popBufferRead();
     /* La méthode closeFd() permet de fermer la socket du client*/

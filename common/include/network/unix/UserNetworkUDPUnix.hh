@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 //
 // Started on  Fri Oct 21 14:44:09 2016 julien dufrene
-// Last update Thu Dec 15 15:59:43 2016 julien dufrene
+// Last update Fri Dec 23 02:47:26 2016 julien dufrene
 //
 
 #ifndef _USERNETWORKUDPUNIX_HH_
@@ -24,7 +24,7 @@ namespace Network
     UserNetworkUDPUnix();
     virtual ~UserNetworkUDPUnix();
     /*! La methode readSocket(ISocket *) permet de lire sur une socket et donc de récupérer ce qui à été écris de l'autre côté de la socket. */
-    IUserNetwork	*readSocket(ISocket *);
+    virtual IUserNetwork	*readSocket(ISocket *) = 0;
     /*! La methode writeSocket(ISocket *) permet d'écrire sur une socket. */
     void			writeSocket(ISocket *);
     /*! La methode closeFd permet de fermer la socket du client. */

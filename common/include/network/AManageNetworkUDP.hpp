@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Fri Dec 16 11:43:03 2016 julien dufrene
-// Last update Fri Dec 23 00:39:40 2016 julien dufrene
+// Last update Fri Dec 23 02:56:35 2016 julien dufrene
 //
 
 #ifndef		__MANAGENETWORKUDP_HH__
@@ -16,10 +16,12 @@
 
 #ifdef _WIN32
 	#include	"SocketUDPWindows.hh"
-	#include	"UserNetworkUDPWindows.hh"
+	#include	"UserNetworkUDPWindowsServer.hh"
+	#include	"UserNetworkUDPWindowsClient.hh"
 #else
 	#include	"SocketUDPUnix.hh"
-	#include	"UserNetworkUDPUnix.hh"
+	#include	"UserNetworkUDPUnixServer.hh"
+	#include	"UserNetworkUDPUnixClient.hh"
 #endif
 
 namespace Network
