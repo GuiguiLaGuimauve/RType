@@ -47,7 +47,12 @@ bool				SocketUDPWindows::bindIt(const uint32_t &port)
 
 	s_in.sin_addr.s_addr = htonl(INADDR_ANY);
 	s_in.sin_family = AF_INET;
-	WSAHtons(_sock, port, &(s_in.sin_port));
+	if (WSAHtons(_sock, port, &(s_in.sin_port)) == SOCKET_ERROR)
+	{
+		std::cerr << "Error on WSAHtons(): " << WSAGetLastError() << std::endl;
+		closeIt();
+		return (false);
+	}
 	if (bind(_sock, (SOCKADDR *)&s_in, sizeof(s_in)) == SOCKET_ERROR)
 	{
 		std::cerr << "Error on Bind: " << WSAGetLastError() << std::endl;
