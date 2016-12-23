@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Fri Dec 16 11:37:09 2016 julien dufrene
-// Last update Fri Dec 23 00:05:12 2016 julien dufrene
+// Last update Fri Dec 23 01:39:55 2016 julien dufrene
 //
 
 #include	"ManageNetworkUDPServer.hh"
@@ -97,6 +97,7 @@ std::vector<IUserNetwork *>	ManageNetworkUDPServer::exec()
     {
       if (_user[i]->getStatus() != false)
 	{
+	  std::cout << "Have user: " << _user[i]->getIp() << ":" << _user[i]->getPort() << std::endl;
 	  if (_user[i]->haveSomethingToWrite() == true)
 	    _user[i]->writeSocket(_net);
 	  _user[i]->readSocket(_net);
