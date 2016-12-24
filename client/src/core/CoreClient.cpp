@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Fri Dec 23 16:55:31 2016 lecoq
+// Last update Sat Dec 24 17:05:08 2016 lecoq
 //
 
 #include	"CoreClient.hh"
@@ -227,8 +227,6 @@ bool	CoreClient::tryConnect(EventPart::Event e)
   return (true);
 }
 
-std::string rmname;
-
 bool	CoreClient::tryLogin(EventPart::Event e)
 {
   std::vector<std::string> p;
@@ -239,7 +237,6 @@ bool	CoreClient::tryLogin(EventPart::Event e)
       IPacket *pa = _factory->getPacket("login", e.dataString["LOGIN"], e.dataString["PWD"]);
       _tcp->pushTo(p, pa->getPacketUnknown());
       delete pa;
-      rmname = e.dataString["LOGIN"] + " room's";
     }
   return (true);
 }
@@ -247,7 +244,8 @@ bool	CoreClient::tryLogin(EventPart::Event e)
 
 bool	CoreClient::createGame(EventPart::Event e)
 {
-  IPacket *pa = _factory->getPacket("createroom", rmname, 4);
+  Convert<uint8_t>	conv;
+  IPacket		*pa = _factory->getPacket("createroom", e.dataString["GAME_NAME"], conv.toNumber(e.dataString["MAX_PLAYER"]));
   std::vector<std::string> p;
   _tcp->pushTo(p, pa->getPacketUnknown());
   delete pa;
