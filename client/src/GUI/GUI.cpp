@@ -469,10 +469,8 @@ void		GUI::displayMenu()
 	_menuWidgets->chooseRoomName->setStyle(s);
 	_menuWidgets->chooseRoomName->setOnTextEntered([](IWidget *w, const std::string &c)
 	{
-		if (c[0] == '\t')
-			w->getEventQueue()->push(EventPart::Event(EventPart::Event::LOGIN_SWITCH_IMPUT));
-		else if (c[0] == '\n' || c[0] == '\r')
-			w->getEventQueue()->push(EventPart::Event(EventPart::Event::BUTTON_LOGIN));
+		if (c[0] == '\n' || c[0] == '\r')
+			w->getEventQueue()->push(EventPart::Event(EventPart::Event::BUTTON_CREATE_GAME));
 		else
 			textEntered(w, c);
 	});
