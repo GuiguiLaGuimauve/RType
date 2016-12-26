@@ -118,9 +118,9 @@ void		GUI::callback()
 	  }
 	  case EventPart::Event::BUTTON_CREATE_GAME:
 	  {
-		  ep = EventPart::Event(EventPart::Event::CREATE_GAME, "GAME_NAME", _menuWidgets->chooseRoomName->getText(),
-								"MAX_PLAYER", _menuWidgets->changeMaxPlayer->getText()[0] - 48);
-		  break;
+	    ep = EventPart::Event(EventPart::Event::CREATE_GAME, "GAME_NAME", _menuWidgets->chooseRoomName->getText(),
+				  "MAX_PLAYER", _menuWidgets->changeMaxPlayer->getText()[0] - 48);
+	    break;
 	  }
 	  case EventPart::Event::BUTTON_JOIN_GAME:
 	  {
