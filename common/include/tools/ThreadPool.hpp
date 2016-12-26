@@ -5,7 +5,7 @@
 // Login   <rembur_g@epitech.eu>
 //
 // Started on  Wed Dec  7 13:53:17 2016 La Guimauve
-// Last update Mon Dec 26 11:30:50 2016 lecoq
+// Last update Mon Dec 26 16:46:44 2016 lecoq
 //
 
 #ifndef THREADPOOL_HH_
@@ -13,11 +13,13 @@
 
 #include <vector>
 #include "Thread.hpp"
+#include "mutex.hh"
 
 class ThreadPool
 {
 public:
   std::vector<Thread *> _th;
+  mymtx::mutex		_mutex;
 public:
   ThreadPool() {
     uint8_t i = 0;
@@ -40,11 +42,13 @@ public:
     uint64_t i;
 
     i = 0;
+    _mutex.lock();
     while (i < _th.size())
       {
 	if (_th[i]->isRunning() == false)
 	  {
 	    _th[i]->launch(func, args...);
+	    _mutex.unlock();
 	    return;
 	  }
 	i++;
@@ -53,8 +57,9 @@ public:
 
     th->launch(func, args...);
     _th.push_back(th);
+    _mutex.unlock();
   };
-  template <typename C>
+  /*  template <typename C>
   void launchTask(C&& f)
   {
     uint64_t i;
@@ -73,7 +78,7 @@ public:
 
     th->launch(f);
     _th.push_back(th);
-  };
+    };*/
 };
 
 #endif //THREADPOOL_HH_

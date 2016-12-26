@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:19:16 2016 Maxime Lecoq
-// Last update Mon Dec 26 11:54:09 2016 lecoq
+// Last update Mon Dec 26 16:50:00 2016 lecoq
 //
 
 #ifndef CORESERVER_HH_
@@ -52,12 +52,14 @@ private:
   bool		startGame(const IPacket *, IUserNetwork *);
   bool		udpData(const IPacket *, IUserNetwork *);
   bool		ping(const IPacket *, IUserNetwork *);
+
+  void		createGame(DataRoom *, const uint8_t *);
 private:
   IManagerServer			*_manager;
   IGameManager				*_gameManager;
   std::map<IPacket::PacketType, fPkt>	_packetPtr;
   ServerData				*_data;
-  ThreadPool				_threadPool;
+  ThreadPool				*_threadPool;
 };
 
 #endif /* !CORESERVER_HH_ */

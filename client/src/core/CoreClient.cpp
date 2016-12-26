@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Sat Dec 24 17:05:08 2016 lecoq
+// Last update Mon Dec 26 16:30:20 2016 lecoq
 //
 
 #include	"CoreClient.hh"
@@ -245,11 +245,12 @@ bool	CoreClient::tryLogin(EventPart::Event e)
 bool	CoreClient::createGame(EventPart::Event e)
 {
   Convert<uint8_t>	conv;
-  IPacket		*pa = _factory->getPacket("createroom", e.dataString["GAME_NAME"], conv.toNumber(e.dataString["MAX_PLAYER"]));
+  IPacket		*pa = _factory->getPacket("createroom", e.dataString["GAME_NAME"], 4 /*conv.toNumber(e.dataString["MAX_PLAYER"])*/);
   std::vector<std::string> p;
   _tcp->pushTo(p, pa->getPacketUnknown());
   delete pa;
   (void)e;
+  std::cout << "create room : " << e.dataString["GAME_NAME"] << " | " << e.dataString["MAX_PLAYER"] << std::endl;
   return (true);
 }
 
@@ -362,6 +363,8 @@ bool		CoreClient::udpData(const IPacket *pa, IUserNetwork *u)
   _tcp->setTimeout(0, 2);
   std::cout << "[UDP SERVER] ---> [" << _tcp->getRunning()->getIp() << "] [" << p->getPort() << "]" << std::endl;
   (void)u;
+  delete pb;
+  _gui->displayGame();
   return (true);
 }
 

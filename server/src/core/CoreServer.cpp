@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Mon Dec 26 12:38:39 2016 lecoq
+// Last update Mon Dec 26 17:02:56 2016 lecoq
 //
 
 #include	"CoreServer.hh"
@@ -23,9 +23,13 @@ CoreServer::CoreServer()
   _packetPtr[IPacket::PacketType::START_GAME] = &CoreServer::startGame;
   _packetPtr[IPacket::PacketType::UDP_DATA] = &CoreServer::udpData;
   _packetPtr[IPacket::PacketType::PING] = &CoreServer::ping;
+  _threadPool = new ThreadPool;
 }
 
-CoreServer::~CoreServer() {}
+CoreServer::~CoreServer() {
+  delete _threadPool;
+  delete _manager;
+}
 
 void				CoreServer::run()
 {
@@ -108,6 +112,7 @@ bool	CoreServer::initManager()
        _udp->setPacketFactory(_factory);
        _data = _manager->getServerData();
        _gameManager->setFactory(_factory);
+       _gameManager->setThreadPool(_threadPool);
      }
    catch (AError const &e)
      {
@@ -121,8 +126,7 @@ void CoreServer::deleteManager()
 {
  if (_isInit == true)
    _manager->deleteManager();
-   delete _manager;
-   _isInit = false;
+ _isInit = false;
 }
 
 bool		CoreServer::connect(const IPacket *pa, IUserNetwork *u)
@@ -189,6 +193,7 @@ bool		CoreServer::createRoom(const IPacket *pa, IUserNetwork *u)
 {
   PacketCreateRoom *p = (PacketCreateRoom *)pa;
   
+  std::cout << "create room : " << p->getGameName() << " | " << p->getMaxPlayers() << std::endl;
   if (_data->createRoom(p->getGameName(), p->getMaxPlayers(), u->getPseudo()) == false)
     {
       IPacket *pac = _factory->getPacket("error", ERROR_CREATE_ROOM, IPacket::PacketType::CREATE_ROOM);
@@ -223,11 +228,15 @@ bool		CoreServer::watchGame(const IPacket *pa, IUserNetwork *u)
   return (true);
 }
 
+void CoreServer::createGame(DataRoom *r, const uint8_t *ip)
+{
+  _gameManager->createGame(r, ip);
+}
+
 bool				CoreServer::startGame(const IPacket *pa, IUserNetwork *u)
 {
   std::vector<std::string>	playersName;
   PacketStartGame		*p = (PacketStartGame *)pa;
-  IPacket			*pb;
   DataRoom			*room = _data->getRoom(p->getGameName());
   uint8_t			*ip;
 
@@ -240,25 +249,9 @@ bool				CoreServer::startGame(const IPacket *pa, IUserNetwork *u)
     }
   else
     {
-      //      if ((ip = calculIp(u->getIp())) != NULL)
-      //_threadPool.launchTask(&GameManager::createGame, this->_gameManager, room, ip);
-      if ((ip = calculIp(u->getIp())) == NULL)
-	return (false);
-      pb = _factory->getPacket("udpdata", ip, (uint16_t)4243);
-      uint64_t		i = 0;
-      while (i < room->getPlayers().size())
-	{
-	  playersName.push_back(room->getPlayers()[i]->getName());
-	  i++;
-	}
-      i = 0;
-      while (i < room->getWatchers().size())
-	{
-	  playersName.push_back(room->getWatchers()[i]->getName());
-	  i++;
-	}
-      _tcp->pushTo(playersName, pb->getPacketUnknown());
-      delete pb;
+      room->setStarted(true);
+      if ((ip = calculIp(u->getIp())) != NULL)
+	_threadPool->launchTask(&CoreServer::createGame, this, room, ip);
     }
   return (true);
 }

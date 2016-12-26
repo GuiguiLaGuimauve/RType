@@ -5,11 +5,17 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 11:54:14 2016 Maxime Lecoq
-// Last update Thu Dec 15 11:57:41 2016 lecoq
+// Last update Mon Dec 26 16:55:10 2016 lecoq
 //
 
 #ifndef IGAME_HH_
 # define IGAME_HH_
+
+# include	<vector>
+# include	<iostream>
+# include	<string>
+# include       "IManageNetwork.hh"
+# include       "PacketFactory.hh"
 
 class IGame {
 public:
@@ -25,6 +31,13 @@ public:
       BOSS2
     };
   virtual ~IGame() {};
+  virtual std::vector<std::string> getPlayersName() const = 0;
+  virtual std::vector<std::string> getAllName() const = 0;
+  virtual void                          setFactory(PacketFactory *) = 0;
+  virtual void                          setUdp(IManageNetwork *) = 0;
+  virtual void                          run() = 0;
+  virtual void                          end() = 0;
+  virtual void				timeLine() = 0;
 };
 
 #endif /* !IGAME_HH_ */

@@ -5,7 +5,7 @@
 // Login   <rembur_g@epitech.eu>
 //
 // Started on  Fri Dec  2 13:38:28 2016 La Guimauve
-// Last update Mon Dec 26 11:30:24 2016 lecoq
+// Last update Mon Dec 26 16:38:46 2016 lecoq
 //
 
 #ifndef _THREAD_HH_
@@ -29,13 +29,13 @@ namespace mythrd
       this->thr = std::thread(func, args...);
       _isRunning = false;
     };
-    template <typename C>
+    /*    template <typename C>
     explicit Thread(C&& f)
     {
       _isRunning = true;
       this->thr = std::thread(f);
       _isRunning = false;
-    };
+      };*/
 
     ~Thread(){ _isRunning = false; };
     template <typename T, typename ... A>
@@ -45,13 +45,13 @@ namespace mythrd
       this->thr = std::thread(func, args...);
       _isRunning = false;
     };
-    template <typename C>
+    /*    template <typename C>
     void launch(C&& f)
     {
       _isRunning = true;
       this->thr = std::thread(f);
       _isRunning = false;
-    };
+      };*/
     void	pause(const uint32_t &a) const
     {
       std::this_thread::sleep_for(std::chrono::seconds(a));
