@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:19:16 2016 Maxime Lecoq
-// Last update Thu Dec 22 19:02:39 2016 julien dufrene
+// Last update Mon Dec 26 11:54:09 2016 lecoq
 //
 
 #ifndef CORESERVER_HH_
@@ -22,6 +22,7 @@
 # include <map>
 # include "IPacket.hh"
 # include "ServerData.hh"
+# include "ThreadPool.hpp"
 
 using namespace Network;
 using namespace Error;
@@ -56,6 +57,7 @@ private:
   IGameManager				*_gameManager;
   std::map<IPacket::PacketType, fPkt>	_packetPtr;
   ServerData				*_data;
+  ThreadPool				_threadPool;
 };
 
 #endif /* !CORESERVER_HH_ */

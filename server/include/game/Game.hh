@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 11:54:48 2016 Maxime Lecoq
-// Last update Thu Dec 15 15:46:47 2016 lecoq
+// Last update Mon Dec 26 11:42:30 2016 lecoq
 //
 
 #ifndef GAME_HH_
@@ -16,11 +16,12 @@
 # include	<vector>
 # include	"IElement.hh"
 # include	"IGame.hh"
+# include	"DataRoom.hpp"
 
 class Game : public IGame
 {
 public:
-  Game();
+  Game(DataRoom *);
   ~Game();
 private:
   std::string			_name;

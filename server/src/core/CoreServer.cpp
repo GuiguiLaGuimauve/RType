@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Fri Dec 23 16:51:46 2016 lecoq
+// Last update Mon Dec 26 12:38:39 2016 lecoq
 //
 
 #include	"CoreServer.hh"
@@ -107,6 +107,7 @@ bool	CoreServer::initManager()
        _udp->setPacketQueueWrite(_write);
        _udp->setPacketFactory(_factory);
        _data = _manager->getServerData();
+       _gameManager->setFactory(_factory);
      }
    catch (AError const &e)
      {
@@ -239,8 +240,10 @@ bool				CoreServer::startGame(const IPacket *pa, IUserNetwork *u)
     }
   else
     {
+      //      if ((ip = calculIp(u->getIp())) != NULL)
+      //_threadPool.launchTask(&GameManager::createGame, this->_gameManager, room, ip);
       if ((ip = calculIp(u->getIp())) == NULL)
-      	return (false);
+	return (false);
       pb = _factory->getPacket("udpdata", ip, (uint16_t)4243);
       uint64_t		i = 0;
       while (i < room->getPlayers().size())

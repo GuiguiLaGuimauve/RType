@@ -5,10 +5,10 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 15:45:57 2016 Maxime Lecoq
-// Last update Thu Dec 15 15:46:23 2016 lecoq
+// Last update Mon Dec 26 11:43:04 2016 lecoq
 //
 
 #include	"Game.hh"
 
-Game::Game() {}
+Game::Game(DataRoom *p) { (void)p; }
 Game::~Game() {}
