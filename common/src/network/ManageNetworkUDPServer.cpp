@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Fri Dec 16 11:37:09 2016 julien dufrene
-// Last update Fri Dec 23 07:02:38 2016 julien dufrene
+// Last update Tue Dec 27 15:04:38 2016 lecoq
 //
 
 #include	"ManageNetworkUDPServer.hh"

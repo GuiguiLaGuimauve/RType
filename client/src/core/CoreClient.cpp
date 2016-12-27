@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Tue Dec 27 13:26:50 2016 lecoq
+// Last update Tue Dec 27 15:51:34 2016 lecoq
 //
 
 #include	"CoreClient.hh"
@@ -29,6 +29,7 @@ CoreClient::CoreClient()
   _packetPtr[IPacket::PacketType::PROFILE] = &CoreClient::profile;
   _packetPtr[IPacket::PacketType::UDP_DATA] = &CoreClient::udpData;
   _packetPtr[IPacket::PacketType::PING] = &CoreClient::ping;
+  _packetPtr[IPacket::PacketType::PLAYERS] = &CoreClient::players;
   _status = "connect";
   _backPtr["connect"] = &CoreClient::exitClient;
   _backPtr["login"] = &CoreClient::goConnect;
@@ -378,10 +379,19 @@ bool		CoreClient::udpData(const IPacket *pa, IUserNetwork *u)
 void		CoreClient::timeLine()
 {
   Clock		clo;
-
+  std::vector<std::string> empty;
+  
   while (_gameData->gameIsEnded() == false)
     {
-      _gameData->setTick(clo.getTimeMilli() / 600);
+      if (_gameData->getTick() != (uint32_t)(clo.getTimeMilli() / 166))
+	{
+	  _gameData->setTick(clo.getTimeMilli() / 166);
+	  /*	  IPacket *p;
+
+	  p = _factory->getPacket("positionplayer", _gui->getPosX(), _gui->getPosY());
+	  _udp->pushTo(empty, p->getPacketUnknown());*/
+	  delete p;
+	}
     }
 }
 
@@ -389,5 +399,12 @@ bool		CoreClient::ping(const IPacket *pa, IUserNetwork *u)
 {
   (void)pa; (void)u;
   std::cout << "ping" << std::endl;
+  return (true);
+}
+
+bool		CoreClient::players(const IPacket *pa, IUserNetwork *u)
+{
+  (void)pa; (void)u;
+  std::cout << "players liste recu" << std::endl;
   return (true);
 }

@@ -5,12 +5,16 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 15:45:57 2016 Maxime Lecoq
-// Last update Tue Dec 27 13:25:10 2016 lecoq
+// Last update Tue Dec 27 15:43:55 2016 lecoq
 //
 
 #include	"Game.hh"
 
-Game::Game(DataRoom *p) : _room(p), _timeline(0) {}
+Game::Game(DataRoom *p) : _room(p), _timeline(0)
+{
+  _ptr[IPacket::PacketType::POSITION_PLAYER] = &IGame::updatePosPlayer;
+}
+
 Game::~Game() {}
 
 std::vector<std::string> Game::getAllName() const
@@ -62,9 +66,54 @@ void		Game::end()
 void		Game::timeLine()
 {
   Clock         clo;
-
+  std::vector<std::string> list = getAllName();
+  
   while (_room->getPlayers().size() != 0)
     {
-      _timeline = clo.getTimeMilli() / 600;
+      if (_timeline != (uint64_t)clo.getTimeMilli() / 166)
+	{
+	  _timeline = clo.getTimeMilli() / 166;
+	  IPacket	*pa;
+
+	  pa = _factory->getPacket("players", _room->getPlayers());
+	  _udp->pushTo(list, pa->getPacketUnknown());
+	  delete pa;
+	}
+    }
+}
+
+bool		Game::playerPresent(const std::string &pl)
+{
+  uint64_t	i = 0;
+
+  while (i < _room->getPlayers().size())
+    {
+      if (_room->getPlayers()[i]->getName() == pl)
+	return (true);
+      i++;
+    }
+  return (false);
+}
+
+void		Game::execPacket(const IPacket *pa, const std::string &m)
+{
+  if (_ptr.find(pa->getType()) != _ptr.end())
+    (this->*_ptr[pa->getType()])(pa, m);
+}
+
+void		Game::updatePosPlayer(const IPacket *pa, const std::string &m)
+{
+  uint64_t	i;
+  PacketPositionPlayer *p = (PacketPositionPlayer *)pa;
+
+  i = 0;
+  while (i < _room->getPlayers().size())
+    {
+      if (_room->getPlayers()[i]->getName() == m)
+	{
+	  _room->getPlayers()[i]->setX(p->getX());
+	  _room->getPlayers()[i]->setY(p->getY());
+	}
+      i++;
     }
 }

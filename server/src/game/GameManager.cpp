@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 15:44:47 2016 Maxime Lecoq
-// Last update Tue Dec 27 11:59:05 2016 lecoq
+// Last update Tue Dec 27 15:21:44 2016 lecoq
 //
 
 #include "GameManager.hh"
@@ -61,3 +61,18 @@ void	GameManager::setTcp(IManageNetwork *t) { _tcp = t; }
 void	GameManager::setUdp(IManageNetwork *u) { _udp = u; }
 
 void	GameManager::setThreadPool(ThreadPool *t) { _threadPool = t; }
+
+bool	GameManager::execPacket(const IPacket *pa, const std::string &pl)
+{
+  uint64_t	i;
+  
+  i = 0;
+  while (i < _gameList.size())
+    {
+      if (_gameList[i]->playerPresent(pl) == true)
+	_gameList[i]->execPacket(pa, pl);
+      i++;
+    }
+  return (true);
+}
+

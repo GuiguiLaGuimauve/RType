@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:19:16 2016 Maxime Lecoq
-// Last update Tue Dec 27 11:30:58 2016 lecoq
+// Last update Tue Dec 27 15:09:30 2016 lecoq
 //
 
 #ifndef CORESERVER_HH_
@@ -52,6 +52,7 @@ private:
   bool		startGame(const IPacket *, IUserNetwork *);
   bool		udpData(const IPacket *, IUserNetwork *);
   bool		ping(const IPacket *, IUserNetwork *);
+  bool		game(const IPacket *, IUserNetwork *);
 
   void		createGame(DataRoom *, const uint8_t *);
 private:
