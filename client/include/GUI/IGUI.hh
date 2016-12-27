@@ -24,7 +24,9 @@ namespace Gui
     virtual void	showPopup(const std::string &s, int tMilli = 2000) = 0;
     virtual void	setRooms(const std::vector<DataRoom *> &) = 0;
     virtual void	setProfile(DataPlayer*) = 0;
-    virtual void                setPlayersPositions(const std::vector<DataPlayer *> &) = 0;
+    virtual uint64_t	getPosX() = 0;
+    virtual uint64_t	getPosY() = 0;
+    virtual void	setPlayersPositions(const std::vector<DataPlayer *> &) = 0;
   };
 }
 
