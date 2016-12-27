@@ -1,11 +1,11 @@
 //
 // Event.hh for babel in /home/bertho_i/tek3/cpp_babel/d_client
-// 
+//
 // Made by Simon BERTHO
 // Login   <bertho_i@epitech.net>
-// 
+//
 // Started on  Wed Oct 19 11:16:12 2016 Simon BERTHO
-// Last update Tue Dec 20 23:39:25 2016 root
+// Last update Mon Dec 26 16:47:06 2016 La Guimauve
 //
 
 #ifndef EVENT_HH
@@ -61,13 +61,13 @@ namespace EventPart
 	WATCH_GAME, // string["GAME_NAME"]
 	START_GAME // string["GAME_NAME"]
       };
-    
+
     // constructeur classique
     Event(TYPE t = DEFAULT)
     {
       type = t;
     };
-    
+
     // constructeur variadique
     template <typename ... Args>
     Event(TYPE t, const Args ... a)
@@ -90,13 +90,13 @@ namespace EventPart
       dataInt[s] = i;
       setArgs(a ...);
     }
-    
+
     // pour la map d'int à la fin
     void	setArgs(const std::string &s, int32_t i)
     {
       dataInt[s] = i;
     }
-    
+
     // pour quand y a plus de 2 arguments bonus pour string
     template <typename ... Args>
     void	setArgs(const std::string &s, const std::string &data,	\
@@ -105,13 +105,13 @@ namespace EventPart
       dataString[s] = data;
       setArgs(a ...);
     }
-    
+
     // pour la map d'string à la fin
     void	setArgs(const std::string &s, const std::string &data)
     {
       dataString[s] = data;
     }
-    
+
     // attributs
   public:
     TYPE					type;

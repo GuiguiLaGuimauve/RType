@@ -5,7 +5,7 @@
 // Login   <rembur_g@epitech.eu>
 //
 // Started on  Tue Dec 27 13:34:43 2016 La Guimauve
-// Last update Tue Dec 27 13:40:43 2016 La Guimauve
+// Last update Tue Dec 27 17:52:34 2016 La Guimauve
 //
 
 #include <cmath>
@@ -21,12 +21,12 @@ Alien::Alien()
 	_hitboxSizeY = 1;
 }
 
-uint32_t Alien::getSizeX()
+uint16_t Alien::getSizeX()
 {
   return (1);
 }
 
-uint32_t Alien::getSizeY()
+uint16_t Alien::getSizeY()
 {
   return (1);
 }
@@ -51,10 +51,10 @@ uint32_t Alien::getHitboxSizeY()
   return (1);
 }
 
-std::vector<std::pair<uint64_t, uint64_t>> Alien::getPositions()
+std::vector<std::pair<uint16_t, uint16_t>> Alien::getPositions()
 {
-	std::vector<std::pair<uint64_t, uint64_t>> tmp;
-	std::pair<uint64_t, uint64_t> ptmp;
+	std::vector<std::pair<uint16_t, uint16_t>> tmp;
+	std::pair<uint16_t, uint16_t> ptmp;
 
 	for (uint16_t f = 8; f > 0; f--)
 	{
