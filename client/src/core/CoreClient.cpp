@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Tue Dec 27 15:51:34 2016 lecoq
+// Last update Tue Dec 27 17:32:38 2016 root
 //
 
 #include	"CoreClient.hh"
@@ -389,8 +389,8 @@ void		CoreClient::timeLine()
 	  /*	  IPacket *p;
 
 	  p = _factory->getPacket("positionplayer", _gui->getPosX(), _gui->getPosY());
-	  _udp->pushTo(empty, p->getPacketUnknown());*/
-	  delete p;
+	  _udp->pushTo(empty, p->getPacketUnknown());
+	  delete p;*/
 	}
     }
 }
