@@ -60,7 +60,8 @@ namespace Packet
         MUSIC			= 0x85,
         SOUND			= 0x86,
 		PING			= 0x87,
-		PONG			= 0x88
+		PONG			= 0x88,
+		GAMEENDED		= 0x89
     };
 
     /*! Clean all necessary data for packet management */
