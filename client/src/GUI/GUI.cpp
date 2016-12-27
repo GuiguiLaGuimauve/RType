@@ -238,50 +238,6 @@ void		GUI::displayGame()
 
   struct data oui;
 
-  this->players.push_back(oui);
-  oui.x = 150;
-  oui.y = 150;
-  oui.health = 75;
-  this->players.push_back(oui);
-  oui.x = 300;
-  oui.y = 300;
-  oui.health = 50;
-  this->players.push_back(oui);
-  oui.x = 450;
-  oui.y = 450;
-  oui.health = 25;
-  this->players.push_back(oui);
-
-  //PLAYERS
-  for (unsigned int i = 0; i < players.size(); i++)
-    {
-      IWidget *temp;
-      int red[4] = {3, 161, 36, 255};
-      int green[4] = {198, 0, 212, 3};
-      int blue[4] = {252, 252, 43, 5};
-
-      temp = _win->addWidget((_win->getWidth() / 4) * (int) i, 0, _win->getWidth() / (int) players.size(), 100);
-
-      Style sheart = temp->getStyle();
-      sheart.image = "Heart" + std::to_string(i + 1);
-      temp->setStyle(sheart);
-
-      temp = _win->addWidget((_win->getWidth() / 4) * (int) i + 100, 30, _win->getWidth() / (int) players.size(), 100);
-      std::string non = " " + std::to_string(players[i].health) + " %";
-      sheart.image = "";
-      temp->setText(non);
-      sheart.textColor = Color(red[i], green[i], blue[i]);
-      sheart.policeSize = 60;
-      temp->setStyle(sheart);
-      
-      Style s1 = temp->getStyle();
-
-      temp = _win->addWidget(players[i].x, 100 + players[i].y, 34, 20);
-      s1.image = "Ship" + std::to_string(i + 1);
-      s1.policeSize = 50;
-      temp->setStyle(s1);
-    }
-
   oui.x = 500;
   oui.y = 50;
   this->shots.push_back(oui);
@@ -980,5 +936,40 @@ void	GUI::cleanGames()
 	  _win->deleteWidget(elem);
 	}
       _menuWidgets->games.clear();
+    }
+}
+
+void	GUI::setPlayersPositions(const std::vector<DataPlayer *> &dp)
+{
+  int	red[4] = {3, 161, 36, 255};
+  int	green[4] = {198, 0, 212, 3};
+  int	blue[4] = {252, 252, 43, 5};
+
+  if (_gameWidgets == NULL)
+    return;
+  for (auto elem : _playersPos)
+    {
+      _win->deleteWidget(elem);
+    }
+  _playersPos.clear();
+  for (auto elem : dp)
+    {
+      IWidget	*temp;
+      Style	s = temp->getStyle();
+
+      /* Ajout du Widget d'HUD pour le joueur i */
+      temp = _win->addWidget((_win->getWidth() / 4) * (int)elem->getId() + 100, 30, _win->getWidth() / (int) _playersPos.size(), 100);
+      temp->setText(" " + std::to_string(elem->getHealth()) + " %");
+      s.textColor = Color(red[elem->getId()], green[elem->getId()], blue[elem->getId()]);
+      s.policeSize = 60;
+      s.image = "Heart" + std::to_string(elem->getId());
+      temp->setStyle(s);
+      _playersPos.push_back(temp);
+
+      /* Ajout du Sprite pour le joueur i */
+      temp = _win->addWidget(100, 100 + (elem->getId() * 150), 0, 0);
+      s.image = "Ship" + std::to_string(elem->getId());
+      temp->setStyle(s);
+      _playersPos.push_back(temp);
     }
 }

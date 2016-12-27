@@ -110,6 +110,7 @@ namespace Gui
     void		loadSoundAssets();
     void		setRooms(const std::vector<DataRoom *> &);
     void		setProfile(DataPlayer *p);
+    void		setPlayersPositions(const std::vector<DataPlayer *> &);
     bool		isInGame(std::vector<DataPlayer*>);
     void		cleanGames();
   protected:
@@ -137,7 +138,8 @@ namespace Gui
     // popup
     IWidget					*_fadedWidget = NULL;
     /* temp pour test GUI */
-    std::vector<data>		players;
+    std::vector<IWidget *>	_playersPos;
+    //std::vector<data>		players;
     std::vector<data>		shots;
     std::vector<data>		envs;
     std::vector<data>		monsters;
