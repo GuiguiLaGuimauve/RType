@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 11:43:18 2016 Maxime Lecoq
-// Last update Tue Dec 20 13:32:01 2016 lecoq
+// Last update Tue Dec 27 13:33:53 2016 lecoq
 //
 
 #include	"PacketFactory.hh"
@@ -351,6 +351,13 @@ IPacket		*PacketFactory::pong()
   return (ret);
 }
 
+IPacket		*PacketFactory::gameEnded() 
+{
+  IPacket	*ret = new PacketGameEnded;
+
+  return (ret);
+}
+
 IPacket		*PacketFactory::disconnect() 
 {
   IPacket	*ret = new PacketDisconnect;
@@ -636,5 +643,11 @@ IPacket		*PacketFactory::revAccept(const uint8_t *p)
 IPacket		*PacketFactory::revProfile(const uint8_t *p)
 {
   IPacket *pa = new PacketProfile(p);
+  return (pa);
+}
+
+IPacket		*PacketFactory::revGameEnded(const uint8_t *p)
+{
+  IPacket *pa = new PacketGameEnded(p);
   return (pa);
 }
