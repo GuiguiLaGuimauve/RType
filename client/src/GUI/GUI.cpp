@@ -165,25 +165,37 @@ void		GUI::callback()
 	  case EventPart::Event::KEY_UP:
 	  {
 		  if (_gameWidgets)
+		  {
+			  _gameWidgets->_y -= MOVE_SPEED;
 			  ep = EventPart::Event(EventPart::Event::MOVE_UP);
+		  }
 		  break;
 	  }
 	  case EventPart::Event::KEY_DOWN:
 	  {
 		  if (_gameWidgets)
+		  {
+			  _gameWidgets->_y += MOVE_SPEED;
 			  ep = EventPart::Event(EventPart::Event::MOVE_DOWN);
+		  }
 		  break;
 	  }
 	  case EventPart::Event::KEY_LEFT:
 	  {
 		  if (_gameWidgets)
+		  {
+			  _gameWidgets->_x -= MOVE_SPEED;
 			  ep = EventPart::Event(EventPart::Event::MOVE_LEFT);
+		  }
 		  break;
 	  }
 	  case EventPart::Event::KEY_RIGHT:
 	  {
 		  if (_gameWidgets)
+		  {
+			  _gameWidgets->_x += MOVE_SPEED;
 			  ep = EventPart::Event(EventPart::Event::MOVE_RIGHT);
+		  }
 		  break;
 	  }
 	  case EventPart::Event::LOGIN_SWITCH_IMPUT:

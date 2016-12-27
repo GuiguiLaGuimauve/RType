@@ -25,6 +25,8 @@
 
 #define NB_GAME_SCROLL 4
 
+#define MOVE_SPEED 1
+
 void	TextColorNoFocus(Gui::IWidget *w);
 void	TextColorFocus(Gui::IWidget *w);
 void	textEntered(Gui::IWidget *w, const std::string &c);
