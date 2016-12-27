@@ -479,6 +479,9 @@ void		GUI::displayMenu()
 	  _menuWidgets->profileInfo->setText("Name :\t" + _profile->getName()
 					     + "\n\nSuccess :\t" + std::to_string(_profile->getGamePlayed())
 					     + "/" + std::to_string(_profile->getStageSucceed()));
+	  if (_menuWidgets->chooseRoomName)
+	    if (_menuWidgets->chooseRoomName->getText() == "")
+	      _menuWidgets->chooseRoomName->setText(_profile->getName() + "'s room");
 	}
 	s = _menuWidgets->profileInfo->getStyle();
 	s.policeSize = 20;
