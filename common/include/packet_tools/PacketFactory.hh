@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 11:41:19 2016 Maxime Lecoq
-// Last update Tue Dec 27 16:51:41 2016 lecoq
+// Last update Tue Dec 27 17:54:44 2016 lecoq
 //
 
 #ifndef PACKETFACTORY_HH_
@@ -201,7 +201,7 @@ public:
     _map[IPacket::PacketType::ACCEPT] = &PacketFactory::revAccept;
     _map[IPacket::PacketType::PROFILE] = &PacketFactory::revProfile;
     _map[IPacket::PacketType::GAMEENDED] = &PacketFactory::revGameEnded;
-    _map[IPacket::PacketType::ASKROOMS] = &PacketFactory::revAskRooms;
+    _map[IPacket::PacketType::ASK_ROOMS] = &PacketFactory::revAskRooms;
     _converter["error"] = IPacket::PacketType::ERROR_PACKET;
     _converter["welcome"] = IPacket::PacketType::WELCOME;
     _converter["connect"] = IPacket::PacketType::CONNECT;
@@ -234,7 +234,7 @@ public:
     _converter["accept"] = IPacket::PacketType::ACCEPT;
     _converter["profile"] = IPacket::PacketType::PROFILE;
     _converter["gameended"] = IPacket::PacketType::GAMEENDED;
-    _converter["askrooms"] = IPacket::PacketType::ASKROOMS;
+    _converter["askrooms"] = IPacket::PacketType::ASK_ROOMS;
 };
   ~PacketContener() {};
   void	enable(const std::string &s)
@@ -877,7 +877,7 @@ public:
   _converter[IPacket::PacketType::PING] = "ping";
   _converter[IPacket::PacketType::PONG] = "pong";
   _converter[IPacket::PacketType::GAMEENDED] = "gameended";
-  _converter[IPacket::PacketType::ASKROOMS] = "askrooms";
+  _converter[IPacket::PacketType::ASK_ROOMS] = "askrooms";
 };
   ~PacketContener() {};
   void	enable(const std::string &s)
