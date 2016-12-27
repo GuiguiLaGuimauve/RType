@@ -93,6 +93,8 @@ namespace Gui
     struct Game
     {
       uint8_t                   levelId;
+      uint16_t			_x = 0;
+      uint16_t			_y = 0;
     };
   public:
     GUI();
@@ -113,6 +115,8 @@ namespace Gui
     void		setPlayersPositions(const std::vector<DataPlayer *> &);
     bool		isInGame(std::vector<DataPlayer*>);
     void		cleanGames();
+    uint64_t		getPosX();
+    uint64_t		getPosY();
   protected:
     void	deleteWidgets();
 	void	updateCurrentGame();

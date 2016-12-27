@@ -973,3 +973,18 @@ void	GUI::setPlayersPositions(const std::vector<DataPlayer *> &dp)
       _playersPos.push_back(temp);
     }
 }
+
+uint64_t	GUI::getPosX()
+{
+  if (_gameWidgets == NULL)
+    return (0);
+  return (_gameWidgets->_x);
+}
+
+
+uint64_t	GUI::getPosY()
+{
+  if (_gameWidgets == NULL)
+    return (0);
+  return (_gameWidgets->_y);
+}
