@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Tue Dec 27 18:33:22 2016 lecoq
+// Last update Tue Dec 27 18:48:00 2016 lecoq
 //
 
 #include	"CoreClient.hh"
@@ -44,6 +44,9 @@ CoreClient::CoreClient()
 
 CoreClient::~CoreClient()
 {
+  _gameData->endGame();
+  if (_th->joinable())
+    _th->join();
   delete _gameData;
   delete _manager;
   delete _th;
