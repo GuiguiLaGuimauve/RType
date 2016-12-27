@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 15:44:47 2016 Maxime Lecoq
-// Last update Mon Dec 26 17:07:28 2016 lecoq
+// Last update Tue Dec 27 11:59:05 2016 lecoq
 //
 
 #include "GameManager.hh"
@@ -26,6 +26,24 @@ void	GameManager::createGame(DataRoom *room, const uint8_t *ip)
   newGame->run();
   delete pb; 
   _threadPool->launchTask(&GameManager::runTimeline, this, newGame);
+}
+
+bool          GameManager::gamesUpdate()
+{
+  uint64_t	i;
+
+  i = 0;
+  while (i < _gameList.size())
+    {
+      if (_gameList[i]->getPlayersName().size() == 0)
+	{
+	  //envoyer un signal de fin de partie aux viewers (all)
+	  _gameList.erase(_gameList.begin() + i);
+	}
+      else
+	i++;
+    }
+  return (true);
 }
 
 void	GameManager::runTimeline(IGame *g)

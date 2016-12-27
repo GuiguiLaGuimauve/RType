@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 11:46:33 2016 Maxime Lecoq
-// Last update Mon Dec 26 16:54:47 2016 lecoq
+// Last update Tue Dec 27 11:31:26 2016 lecoq
 //
 
 #ifndef IGAMEMANAGER_HH_
@@ -28,6 +28,7 @@ public:
   virtual void          setUdp(IManageNetwork *) = 0;
   virtual void          setThreadPool(ThreadPool *) = 0;
   virtual void		runTimeline(IGame *) = 0;
+  virtual bool		gamesUpdate() = 0;
 };
 
 #endif /* !IGAMEMANAGER_HH_ */

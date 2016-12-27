@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 11:54:14 2016 Maxime Lecoq
-// Last update Mon Dec 26 16:55:10 2016 lecoq
+// Last update Tue Dec 27 11:35:54 2016 lecoq
 //
 
 #ifndef IGAME_HH_
@@ -38,6 +38,7 @@ public:
   virtual void                          run() = 0;
   virtual void                          end() = 0;
   virtual void				timeLine() = 0;
+  virtual const std::string		&getName() const = 0;
 };
 
 #endif /* !IGAME_HH_ */

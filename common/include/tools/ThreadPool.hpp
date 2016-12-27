@@ -5,7 +5,7 @@
 // Login   <rembur_g@epitech.eu>
 //
 // Started on  Wed Dec  7 13:53:17 2016 La Guimauve
-// Last update Mon Dec 26 16:46:44 2016 lecoq
+// Last update Tue Dec 27 12:35:51 2016 lecoq
 //
 
 #ifndef THREADPOOL_HH_
@@ -22,12 +22,12 @@ public:
   mymtx::mutex		_mutex;
 public:
   ThreadPool() {
-    uint8_t i = 0;
+        uint8_t i = 0;
     while (i < 10)
       {
 	_th.push_back(new Thread);
 	i++;
-      }
+	}
   };
   ~ThreadPool() {
     while (_th.empty() == false)
@@ -45,9 +45,17 @@ public:
     _mutex.lock();
     while (i < _th.size())
       {
-	if (_th[i]->isRunning() == false)
+	if (_th[i] && _th[i]->isRunning() == false)
 	  {
 	    _th[i]->launch(func, args...);
+	    i = 0;
+	    while (i < _th.size())
+	      {
+		if (_th[i] == NULL)
+		  _th.erase(_th.begin() + i);
+		else
+		  i++;
+	      }
 	    _mutex.unlock();
 	    return;
 	  }
@@ -55,8 +63,16 @@ public:
       }
     Thread *th = new Thread;
 
-    th->launch(func, args...);
     _th.push_back(th);
+    th->launch(func, args...);
+    i = 0;
+    while (i < _th.size())
+      {
+	if (_th[i] == NULL)
+	  _th.erase(_th.begin() + i);
+	else
+	  i++;
+      }
     _mutex.unlock();
   };
   /*  template <typename C>

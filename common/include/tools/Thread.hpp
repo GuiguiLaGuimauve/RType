@@ -5,7 +5,7 @@
 // Login   <rembur_g@epitech.eu>
 //
 // Started on  Fri Dec  2 13:38:28 2016 La Guimauve
-// Last update Mon Dec 26 16:38:46 2016 lecoq
+// Last update Tue Dec 27 12:34:52 2016 lecoq
 //
 
 #ifndef _THREAD_HH_
@@ -21,7 +21,7 @@ namespace mythrd
     std::thread thr;
     bool	_isRunning;
   public:
-    Thread() {};
+    Thread() { _isRunning = false; };
     template <typename T, typename ... A>
     Thread(T&& func, A&&... args)
     {
@@ -70,7 +70,7 @@ namespace mythrd
     {
       this->thr.detach();
     };
-    bool isRunning() const { return (_isRunning); }
+    bool isRunning() const { return (thr.joinable()); }
   };
 }
 

@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Mon Dec 26 17:02:56 2016 lecoq
+// Last update Tue Dec 27 11:30:52 2016 lecoq
 //
 
 #include	"CoreServer.hh"
@@ -64,7 +64,7 @@ void				CoreServer::run()
 	  _udp->updateUsers(delUsers);
 	  _udp->exec();
 	}
-      if (managePackets() == false)
+      if (managePackets() == false || _gameManager->gamesUpdate() == false)
 	loop = false;
     }
 }

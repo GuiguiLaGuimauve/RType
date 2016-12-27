@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 11:54:48 2016 Maxime Lecoq
-// Last update Mon Dec 26 16:55:40 2016 lecoq
+// Last update Tue Dec 27 11:35:29 2016 lecoq
 //
 
 #ifndef GAME_HH_
@@ -32,6 +32,7 @@ public:
   void				run();
   void				end();
   void				timeLine();
+  const std::string		&getName() const { return (_name); }
 private:
   DataRoom			*_room;
   std::string			_name;
