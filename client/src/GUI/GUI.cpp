@@ -165,25 +165,37 @@ void		GUI::callback()
 	  case EventPart::Event::KEY_UP:
 	  {
 		  if (_gameWidgets)
+		  {
+			  _gameWidgets->_y -= MOVE_SPEED;
 			  ep = EventPart::Event(EventPart::Event::MOVE_UP);
+		  }
 		  break;
 	  }
 	  case EventPart::Event::KEY_DOWN:
 	  {
 		  if (_gameWidgets)
+		  {
+			  _gameWidgets->_y += MOVE_SPEED;
 			  ep = EventPart::Event(EventPart::Event::MOVE_DOWN);
+		  }
 		  break;
 	  }
 	  case EventPart::Event::KEY_LEFT:
 	  {
 		  if (_gameWidgets)
+		  {
+			  _gameWidgets->_x -= MOVE_SPEED;
 			  ep = EventPart::Event(EventPart::Event::MOVE_LEFT);
+		  }
 		  break;
 	  }
 	  case EventPart::Event::KEY_RIGHT:
 	  {
 		  if (_gameWidgets)
+		  {
+			  _gameWidgets->_x += MOVE_SPEED;
 			  ep = EventPart::Event(EventPart::Event::MOVE_RIGHT);
+		  }
 		  break;
 	  }
 	  case EventPart::Event::LOGIN_SWITCH_IMPUT:
@@ -972,4 +984,19 @@ void	GUI::setPlayersPositions(const std::vector<DataPlayer *> &dp)
       temp->setStyle(s);
       _playersPos.push_back(temp);
     }
+}
+
+uint64_t	GUI::getPosX()
+{
+  if (_gameWidgets == NULL)
+    return (0);
+  return (_gameWidgets->_x);
+}
+
+
+uint64_t	GUI::getPosY()
+{
+  if (_gameWidgets == NULL)
+    return (0);
+  return (_gameWidgets->_y);
 }

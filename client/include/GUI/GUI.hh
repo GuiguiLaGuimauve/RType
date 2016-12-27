@@ -25,6 +25,8 @@
 
 #define NB_GAME_SCROLL 4
 
+#define MOVE_SPEED 1
+
 void	TextColorNoFocus(Gui::IWidget *w);
 void	TextColorFocus(Gui::IWidget *w);
 void	textEntered(Gui::IWidget *w, const std::string &c);
@@ -93,6 +95,8 @@ namespace Gui
     struct Game
     {
       uint8_t                   levelId;
+      uint16_t			_x = 0;
+      uint16_t			_y = 0;
     };
   public:
     GUI();
@@ -113,6 +117,8 @@ namespace Gui
     void		setPlayersPositions(const std::vector<DataPlayer *> &);
     bool		isInGame(std::vector<DataPlayer*>);
     void		cleanGames();
+    uint64_t		getPosX();
+    uint64_t		getPosY();
   protected:
     void	deleteWidgets();
 	void	updateCurrentGame();
