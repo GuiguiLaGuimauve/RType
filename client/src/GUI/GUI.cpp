@@ -244,6 +244,8 @@ void		GUI::displayGame()
   /* Load le bon background en fonction du stage séléctionné */
   _gameWidgets = new Game;
 
+  _audio->stopMusic();
+  _audio->playMusic("Stage1");
   //this->_gameWidgets->levelId = ...
   _win->setBackground(PICTURE_BACKGROUND);
   //_win->setBackground(this->backgroundMap[this->_gameWidgets->levelId]);// Ou on pourrait set le levelId ?
