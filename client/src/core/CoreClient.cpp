@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Mon Dec 26 18:11:51 2016 root
+// Last update Tue Dec 27 13:26:50 2016 lecoq
 //
 
 #include	"CoreClient.hh"
@@ -34,10 +34,15 @@ CoreClient::CoreClient()
   _backPtr["login"] = &CoreClient::goConnect;
   _backPtr["rooms"] = &CoreClient::goLogin;
   _backPtr["game"] = &CoreClient::goRooms;
+  _gameData = new GameData;
+  _th = new Thread;
 }
 
 CoreClient::~CoreClient()
 {
+  delete _gameData;
+  delete _manager;
+  delete _th;
 }
 
 void	CoreClient::run()
@@ -154,9 +159,8 @@ void CoreClient::deleteManager()
 {
   _sound->stopMusic();
   if (_isInit == true)
-   _manager->deleteManager();
-   delete _manager;
-   _isInit = false;
+    _manager->deleteManager();
+  _isInit = false;
 }
 
 bool	CoreClient::exitClient()
@@ -351,7 +355,8 @@ bool		CoreClient::udpData(const IPacket *pa, IUserNetwork *u)
   Convert<uint8_t>			conv;
   std::vector<std::string>		empty;
   std::string				ip;
-
+  Thread				th;
+  
   std::cout << "[UDP_DATA]" << std::endl;
   ip = conv.toString(p->getIp()[0]) + ".";
   ip += conv.toString(p->getIp()[1]) + ".";
@@ -365,7 +370,19 @@ bool		CoreClient::udpData(const IPacket *pa, IUserNetwork *u)
   (void)u;
   delete pb;
   _gui->displayGame();
+  _gameData->init();
+  _th->launch(&CoreClient::timeLine, this);
   return (true);
+}
+
+void		CoreClient::timeLine()
+{
+  Clock		clo;
+
+  while (_gameData->gameIsEnded() == false)
+    {
+      _gameData->setTick(clo.getTimeMilli() / 600);
+    }
 }
 
 bool		CoreClient::ping(const IPacket *pa, IUserNetwork *u)

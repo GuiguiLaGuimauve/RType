@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:19:16 2016 Maxime Lecoq
-// Last update Thu Dec 22 15:02:28 2016 julien dufrene
+// Last update Tue Dec 27 13:26:40 2016 lecoq
 //
 
 #ifndef CORECLIENT_HH_
@@ -17,6 +17,9 @@
 # include	"EventQueue.hh"
 # include	"StringCk.hpp"
 # include	"Vector.hh"
+# include	"Thread.hpp"
+# include	"GameData.hpp"
+# include	"Clock.hpp"
 
 using namespace Gui;
 using namespace Gui::Audio;
@@ -65,6 +68,7 @@ private:
   bool				goConnect();
   bool				goLogin();
   bool				goRooms();
+  void				timeLine();
 private:
   IManagerClient	*_manager;
   IGUI			*_gui;
@@ -74,6 +78,8 @@ private:
   std::map<IPacket::PacketType, fPkt>      _packetPtr;
   std::map<std::string, fBack>      _backPtr;
   std::string		_status;
+  GameData		*_gameData;
+  Thread		*_th;
 };
 
 #endif /* !CORECLIENT_HH_ */

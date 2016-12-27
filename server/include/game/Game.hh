@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 11:54:48 2016 Maxime Lecoq
-// Last update Tue Dec 27 11:35:29 2016 lecoq
+// Last update Tue Dec 27 13:24:05 2016 lecoq
 //
 
 #ifndef GAME_HH_
@@ -19,6 +19,7 @@
 # include	"DataRoom.hpp"
 # include	"IManageNetwork.hh"
 # include	"PacketFactory.hh"
+# include	"Clock.hpp"
 
 class Game : public IGame
 {

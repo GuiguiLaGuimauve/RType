@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 15:45:57 2016 Maxime Lecoq
-// Last update Mon Dec 26 17:05:49 2016 lecoq
+// Last update Tue Dec 27 13:25:10 2016 lecoq
 //
 
 #include	"Game.hh"
@@ -61,4 +61,10 @@ void		Game::end()
 
 void		Game::timeLine()
 {
+  Clock         clo;
+
+  while (_room->getPlayers().size() != 0)
+    {
+      _timeline = clo.getTimeMilli() / 600;
+    }
 }
