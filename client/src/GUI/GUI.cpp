@@ -429,7 +429,7 @@ void		GUI::displayMenu()
 	_menuWidgets->createGame->setOnHover(TextColorFocus);
 	_menuWidgets->createGame->setOnLeaveHover(TextColorNoFocus);
 	// init chooseRoomName
-	_menuWidgets->chooseRoomName = _win->addWidget(_menuWidgets->createGame->getX() + 150, _menuWidgets->createGame->getY(), 300, 100);
+	_menuWidgets->chooseRoomName = _win->addWidget(_menuWidgets->createGame->getX() + 150, _menuWidgets->createGame->getY() + 13, 300, 100);
 	s = _menuWidgets->chooseRoomName->getStyle();
 	s.textColor = Color(TEXT_COLOR_R, TEXT_COLOR_G, TEXT_COLOR_B);
 	s.policeSize = 35;
@@ -446,7 +446,7 @@ void		GUI::displayMenu()
 	_menuWidgets->chooseRoomName->setOnLeaveFocus(TextColorNoFocus);
 	// ############################################################
 	// init changeMaxPlayer
-	_menuWidgets->changeMaxPlayer = _win->addWidget(_menuWidgets->createGame->getX() + 75, _menuWidgets->createGame->getY(), 50, 50);
+	_menuWidgets->changeMaxPlayer = _win->addWidget(_menuWidgets->createGame->getX() + 75, _menuWidgets->createGame->getY() + 13, 50, 50);
 	_menuWidgets->changeMaxPlayer->setText("4");
 	s = _menuWidgets->changeMaxPlayer->getStyle();
 	s.textColor = Color(TEXT_COLOR_R, TEXT_COLOR_G, TEXT_COLOR_B);
