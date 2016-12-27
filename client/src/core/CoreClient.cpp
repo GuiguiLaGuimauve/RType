@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Tue Dec 27 20:00:22 2016 lecoq
+// Last update Tue Dec 27 20:38:15 2016 lecoq
 //
 
 #include	"CoreClient.hh"
@@ -426,8 +426,8 @@ bool		CoreClient::positionPlayer(const IPacket *pa, IUserNetwork *u)
 
   (void)u;
   (void)p;
-  _gui->setPosX(p->getX());
-  _gui->setPosY(p->getY());
+  //  _gui->setPosX(p->getX());
+  //_gui->setPosY(p->getY());
   return (true);
 }
 
@@ -435,9 +435,11 @@ bool		CoreClient::players(const IPacket *pa, IUserNetwork *u)
 {
   PacketPlayers	*p = (PacketPlayers *)pa;
   (void)u;
+  (void)p;
   std::cout << "players liste recu" << std::endl;
-  if (pa->getTickId() == _gameData->getTick())
-    _gui->setPlayersPositions(p->getPlayers());
+  //if (pa->getTickId() == _gameData->getTick())
+  //_gui->setPlayersPositions(p->getPlayers());
+  std::cout << "players liste recu ok" << std::endl;
   return (true);
 }
 
