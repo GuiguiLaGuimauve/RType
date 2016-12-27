@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Tue Dec 27 18:48:00 2016 lecoq
+// Last update Tue Dec 27 19:49:58 2016 lecoq
 //
 
 #include	"CoreClient.hh"
@@ -393,12 +393,12 @@ void		CoreClient::timeLine()
       if (_gameData->getTick() != (uint32_t)(clo.getTimeMilli() / 166))
 	{
 	  _gameData->setTick(clo.getTimeMilli() / 166);
-	  /*	  IPacket *p;
+	  IPacket *p;
 
 	  p = _factory->getPacket("positionplayer", _gui->getPosX(), _gui->getPosY());
 	  p->setTickId(_gameData->getTick());
 	  _udp->pushTo(empty, p->getPacketUnknown());
-	  delete p;*/
+	  delete p;
 	}
     }
 }
@@ -426,7 +426,7 @@ bool		CoreClient::positionPlayer(const IPacket *pa, IUserNetwork *u)
 
   (void)u;
   (void)p;
-  //_gui->setInitialPosition(p->getX(), p->getY());
+  _gui->setInitialPosition(p->getX(), p->getY());
   return (true);
 }
 
