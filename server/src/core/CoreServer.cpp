@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Tue Dec 27 17:54:19 2016 lecoq
+// Last update Tue Dec 27 18:25:13 2016 lecoq
 //
 
 #include	"CoreServer.hh"
@@ -311,8 +311,10 @@ bool            CoreServer::pong(const IPacket *pa, IUserNetwork *u)
 
 bool            CoreServer::askRooms(const IPacket *pa, IUserNetwork *u)
 {
+  (void)pa;
   if (_data->playerExist(u->getPseudo()) == true)
     {
+      IPacket	*pkt;
       DataPlayer *data = _data->getPlayer(u->getPseudo());
       pkt = _factory->getPacket("profile", data);
       PacketC	c2(pkt->getPacketUnknown(), u);

@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Tue Dec 27 17:48:25 2016 lecoq
+// Last update Tue Dec 27 18:33:22 2016 lecoq
 //
 
 #include	"CoreClient.hh"
@@ -422,6 +422,7 @@ bool		CoreClient::positionPlayer(const IPacket *pa, IUserNetwork *u)
   PacketPositionPlayer *p = (PacketPositionPlayer *)pa;
 
   (void)u;
+  (void)p;
   //_gui->setInitialPosition(p->getX(), p->getY());
   return (true);
 }
@@ -431,8 +432,8 @@ bool		CoreClient::players(const IPacket *pa, IUserNetwork *u)
   PacketPlayers	*p = (PacketPlayers *)pa;
   (void)u;
   std::cout << "players liste recu" << std::endl;
-  if (pa->getTickId() == _timeline)
-    _gui->setPlayersPosition(p->getPlayers());
+  if (pa->getTickId() == _gameData->getTick())
+    _gui->setPlayersPositions(p->getPlayers());
   return (true);
 }
 
@@ -442,7 +443,7 @@ bool		CoreClient::gameEnded(const IPacket *pa, IUserNetwork *u)
   IPacket *p;
 
   p = _factory->getPacket("askrooms");
-  _write->push(PacketC(p->getPacketUnknown()), u);
+  _write->push(PacketC(p->getPacketUnknown(), u));
   delete p;
   return (true);
 }

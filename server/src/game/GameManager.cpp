@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 15:44:47 2016 Maxime Lecoq
-// Last update Tue Dec 27 17:29:02 2016 lecoq
+// Last update Tue Dec 27 18:27:31 2016 lecoq
 //
 
 #include "GameManager.hh"
@@ -36,9 +36,9 @@ void	GameManager::createGame(DataRoom *room, const uint8_t *ip)
       room->getPlayers()[i]->setX(100);
       room->getPlayers()[i]->setY(200 + (i * 200));
       pb = _factory->getPacket("positionplayer", 200, 200 + (i * 200));
-      tmp.push_back(room->getPlayers()[i]->getLogin());
+      tmp.push_back(room->getPlayers()[i]->getName());
       _tcp->pushTo(tmp, pb->getPacketUnknown());
-      tmp.clear;
+      tmp.clear();
       delete pb;
       i++;
     }
