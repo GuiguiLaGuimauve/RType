@@ -26,6 +26,8 @@ namespace Gui
     virtual void	setProfile(DataPlayer*) = 0;
     virtual uint64_t	getPosX() = 0;
     virtual uint64_t	getPosY() = 0;
+    virtual void	setPosX(uint64_t) = 0;
+    virtual void	setPosY(uint64_t) = 0;
     virtual void	setPlayersPositions(const std::vector<DataPlayer *> &) = 0;
   };
 }

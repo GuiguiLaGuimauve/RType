@@ -1000,3 +1000,15 @@ uint64_t	GUI::getPosY()
     return (0);
   return (_gameWidgets->_y);
 }
+
+void	GUI::setPosX(uint64_t x)
+{
+  if (_gameWidgets != NULL)
+    _gameWidgets->_x = x;
+}
+
+void	GUI::setPosY(uint64_t y)
+{
+  if (_gameWidgets != NULL)
+    _gameWidgets->_y = y;
+}

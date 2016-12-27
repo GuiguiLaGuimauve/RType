@@ -119,6 +119,8 @@ namespace Gui
     void		cleanGames();
     uint64_t		getPosX();
     uint64_t		getPosY();
+    void		setPosX(uint64_t);
+    void		setPosY(uint64_t);
   protected:
     void	deleteWidgets();
 	void	updateCurrentGame();
