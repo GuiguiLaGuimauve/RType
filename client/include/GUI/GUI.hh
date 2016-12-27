@@ -84,6 +84,8 @@ namespace Gui
 	  IWidget	*downScrollButton = NULL; // pour scroller les parties vers le bas
 	  IWidget	*upScrollButton = NULL; // pour scroller les parties vers le haut
 	  unsigned int		itScroll = 0;
+	  IWidget	*chooseRoomName = NULL;
+	  IWidget	*changeMaxPlayer = NULL;
       /* Vecteur de joueurs connectés */
       /* Container des joueurs connectés */
     };
@@ -108,6 +110,7 @@ namespace Gui
     void		loadSoundAssets();
     void		setRooms(const std::vector<DataRoom *> &);
     void		setProfile(DataPlayer *p);
+    void		setPlayersPositions(const std::vector<DataPlayer *> &);
     bool		isInGame(std::vector<DataPlayer*>);
     void		cleanGames();
   protected:
@@ -135,7 +138,8 @@ namespace Gui
     // popup
     IWidget					*_fadedWidget = NULL;
     /* temp pour test GUI */
-    std::vector<data>		players;
+    std::vector<IWidget *>	_playersPos;
+    //std::vector<data>		players;
     std::vector<data>		shots;
     std::vector<data>		envs;
     std::vector<data>		monsters;

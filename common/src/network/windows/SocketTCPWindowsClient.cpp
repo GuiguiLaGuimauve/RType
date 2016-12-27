@@ -20,11 +20,20 @@ bool			SocketTCPWindowsClient::connectIt(const std::string &ip, const uint32_t &
 
 	s_in.sin_family = AF_INET;
 	if (inet_pton(AF_INET, ip.c_str(), &s_in.sin_addr.s_addr) <= 0)
+	{
+		std::cerr << "Error on inet_pton(): " << WSAGetLastError() << std::endl;
 		return (false);
+	}
 	if (WSAHtons(_sock, port, &s_in.sin_port) == SOCKET_ERROR)
+	{
+		std::cerr << "Error on WSAHtons(): " << WSAGetLastError() << std::endl;
 		return (false);
+	}
 	if (WSAConnect(_sock, (struct sockaddr *)&s_in, sizeof(s_in), NULL, NULL, NULL, NULL) == SOCKET_ERROR)
+	{
+		std::cerr << "Error on WSASocket(): " << WSAGetLastError() << std::endl;
 		return (false);
+	}
 	return (true);
 }
 

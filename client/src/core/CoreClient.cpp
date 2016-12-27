@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Fri Dec 23 02:57:45 2016 julien dufrene
+// Last update Tue Dec 27 17:32:38 2016 root
 //
 
 #include	"CoreClient.hh"
@@ -29,15 +29,21 @@ CoreClient::CoreClient()
   _packetPtr[IPacket::PacketType::PROFILE] = &CoreClient::profile;
   _packetPtr[IPacket::PacketType::UDP_DATA] = &CoreClient::udpData;
   _packetPtr[IPacket::PacketType::PING] = &CoreClient::ping;
+  _packetPtr[IPacket::PacketType::PLAYERS] = &CoreClient::players;
   _status = "connect";
   _backPtr["connect"] = &CoreClient::exitClient;
   _backPtr["login"] = &CoreClient::goConnect;
   _backPtr["rooms"] = &CoreClient::goLogin;
   _backPtr["game"] = &CoreClient::goRooms;
+  _gameData = new GameData;
+  _th = new Thread;
 }
 
 CoreClient::~CoreClient()
 {
+  delete _gameData;
+  delete _manager;
+  delete _th;
 }
 
 void	CoreClient::run()
@@ -107,10 +113,12 @@ bool	CoreClient::managePackets()
   while (_read->isEmpty() == false)
     {
       PacketC tmp = _read->pop();
-      //std::cout << (int)tmp.getPacket().getPacketData()[0] << std::endl;
       IPacket *packet = _factory->getPacket(tmp.getPacket().getPacketData());
       if (packet != NULL && _packetPtr.find(packet->getType()) != _packetPtr.end())
-	(this->*_packetPtr[packet->getType()])(packet, tmp.getNetwork());
+	{
+	  (this->*_packetPtr[packet->getType()])(packet, tmp.getNetwork());
+	  delete packet;
+	}
     }
   return (true);
 }
@@ -152,9 +160,8 @@ void CoreClient::deleteManager()
 {
   _sound->stopMusic();
   if (_isInit == true)
-   _manager->deleteManager();
-   delete _manager;
-   _isInit = false;
+    _manager->deleteManager();
+  _isInit = false;
 }
 
 bool	CoreClient::exitClient()
@@ -225,8 +232,6 @@ bool	CoreClient::tryConnect(EventPart::Event e)
   return (true);
 }
 
-std::string rmname;
-
 bool	CoreClient::tryLogin(EventPart::Event e)
 {
   std::vector<std::string> p;
@@ -236,7 +241,7 @@ bool	CoreClient::tryLogin(EventPart::Event e)
     {
       IPacket *pa = _factory->getPacket("login", e.dataString["LOGIN"], e.dataString["PWD"]);
       _tcp->pushTo(p, pa->getPacketUnknown());
-      rmname = e.dataString["LOGIN"] + " room's";
+      delete pa;
     }
   return (true);
 }
@@ -244,10 +249,13 @@ bool	CoreClient::tryLogin(EventPart::Event e)
 
 bool	CoreClient::createGame(EventPart::Event e)
 {
-  IPacket *pa = _factory->getPacket("createroom", rmname, 4);
+  Convert<uint8_t>	conv;
+  IPacket		*pa = _factory->getPacket("createroom", e.dataString["GAME_NAME"], e.dataInt["MAX_PLAYER"]);
   std::vector<std::string> p;
   _tcp->pushTo(p, pa->getPacketUnknown());
+  delete pa;
   (void)e;
+  std::cout << "create room : " << e.dataString["GAME_NAME"] << " | " << e.dataInt["MAX_PLAYER"] << std::endl;
   return (true);
 }
 
@@ -256,6 +264,7 @@ bool	CoreClient::leaveRoom(EventPart::Event e)
   IPacket *pa = _factory->getPacket("leaveroom", e.dataString["GAME_NAME"]);
   std::vector<std::string> p;
   _tcp->pushTo(p, pa->getPacketUnknown());
+  delete pa;
   return (true);
 }
 
@@ -264,6 +273,7 @@ bool	CoreClient::joinRoom(EventPart::Event e)
   IPacket *pa = _factory->getPacket("joinroom", e.dataString["GAME_NAME"]);
   std::vector<std::string> p;
   _tcp->pushTo(p, pa->getPacketUnknown());
+  delete pa;
   return (true);
 }
 
@@ -272,6 +282,7 @@ bool	CoreClient::watchRoom(EventPart::Event e)
   IPacket *pa = _factory->getPacket("watchgame", e.dataString["GAME_NAME"]);
   std::vector<std::string> p;
   _tcp->pushTo(p, pa->getPacketUnknown());
+  delete pa;
   return (true);
 }
 
@@ -280,6 +291,7 @@ bool	CoreClient::startGame(EventPart::Event e)
   IPacket *pa = _factory->getPacket("startgame", e.dataString["GAME_NAME"]);
   std::vector<std::string> p;
   _tcp->pushTo(p, pa->getPacketUnknown());
+  delete pa;
   return (true);
 }
 
@@ -294,20 +306,21 @@ bool		CoreClient::errorPacket(const IPacket *pa, IUserNetwork *u)
 
 bool		CoreClient::welcome(const IPacket *pa, IUserNetwork *u)
 {
-  // PacketWelcome	*p = (PacketWelcome *)pa;
+  PacketWelcome	*p = (PacketWelcome *)pa;
   IPacket	*co = _factory->getPacket("connect");
   PacketC	ret(co->getPacketUnknown(), u);
   (void)pa;
-  //std::cout << p->getMessage() << std::endl;
+  std::cout << p->getMessage() << std::endl;
   _write->push(ret);
+  delete co;
   return (true);
 }
 
 bool		CoreClient::accept(const IPacket *pa, IUserNetwork *u)
 {
-  // PacketAccept	*p = (PacketAccept *)pa;
+  PacketAccept	*p = (PacketAccept *)pa;
 
-  //std::cout << p->getMessage() << std::endl;
+  std::cout << p->getMessage() << std::endl;
   _gui->displayLogin();
   _status = "login";
   (void)u;(void)pa;
@@ -336,8 +349,6 @@ bool		CoreClient::profile(const IPacket *pa, IUserNetwork *u)
 }
 
 
-/* je reçoit un [UDP_DATA] <-- tryconnect --> [IP du server TCP] [PORT du packet] */
-/* j'envoie un [UDP DATA] [IP du server TCP] [PORT du packet] */
 bool		CoreClient::udpData(const IPacket *pa, IUserNetwork *u)
 {
   IPacket				*pb;
@@ -345,7 +356,8 @@ bool		CoreClient::udpData(const IPacket *pa, IUserNetwork *u)
   Convert<uint8_t>			conv;
   std::vector<std::string>		empty;
   std::string				ip;
-
+  Thread				th;
+  
   std::cout << "[UDP_DATA]" << std::endl;
   ip = conv.toString(p->getIp()[0]) + ".";
   ip += conv.toString(p->getIp()[1]) + ".";
@@ -354,15 +366,45 @@ bool		CoreClient::udpData(const IPacket *pa, IUserNetwork *u)
   _udp->tryConnectClient(p->getPort(), _tcp->getRunning()->getIp());
   pb = _factory->getPacket("udpdata", calculIp(_tcp->getRunning()->getIp()), (uint16_t)p->getPort());
   _tcp->pushTo(empty, pb->getPacketUnknown());
-  _tcp->setTimeout(0, 0);
+  _tcp->setTimeout(0, 2);
   std::cout << "[UDP SERVER] ---> [" << _tcp->getRunning()->getIp() << "] [" << p->getPort() << "]" << std::endl;
   (void)u;
+  delete pb;
+  _gui->displayGame();
+  _gameData->init();
+  _th->launch(&CoreClient::timeLine, this);
   return (true);
+}
+
+void		CoreClient::timeLine()
+{
+  Clock		clo;
+  std::vector<std::string> empty;
+  
+  while (_gameData->gameIsEnded() == false)
+    {
+      if (_gameData->getTick() != (uint32_t)(clo.getTimeMilli() / 166))
+	{
+	  _gameData->setTick(clo.getTimeMilli() / 166);
+	  /*	  IPacket *p;
+
+	  p = _factory->getPacket("positionplayer", _gui->getPosX(), _gui->getPosY());
+	  _udp->pushTo(empty, p->getPacketUnknown());
+	  delete p;*/
+	}
+    }
 }
 
 bool		CoreClient::ping(const IPacket *pa, IUserNetwork *u)
 {
   (void)pa; (void)u;
   std::cout << "ping" << std::endl;
+  return (true);
+}
+
+bool		CoreClient::players(const IPacket *pa, IUserNetwork *u)
+{
+  (void)pa; (void)u;
+  std::cout << "players liste recu" << std::endl;
   return (true);
 }

@@ -61,7 +61,8 @@ namespace Packet
         SOUND			= 0x86,
 		PING			= 0x87,
 		PONG			= 0x88,
-		ASK_ROOMS		= 0x89
+		ASK_ROOMS		= 0x89,
+		GAMEENDED		= 0x90
     };
 
     /*! Clean all necessary data for packet management */

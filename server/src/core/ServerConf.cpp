@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Tue Dec 20 02:35:23 2016 Maxime Lecoq
-// Last update Wed Dec 21 05:28:55 2016 lecoq
+// Last update Fri Dec 23 15:03:26 2016 lecoq
 //
 
 #include	"ServerConf.hh"
@@ -43,7 +43,7 @@ ServerConf::ServerConf()
     }
   catch (AError const &e)
     {
-      std::cout << e.what() << std::endl;
+      (void)e;
     }
 }
 
@@ -99,13 +99,23 @@ bool				ServerConf::query() const
     {
       std::cout << "[.conf] file found, do you want to reload it [yes/no]: ";
       std::cin >> str;
-      if (str.compare("yes") == 0 && str.compare("no") == 0)
+      if (str.compare("yes") != 0 && str.compare("no") != 0)
 	std::cout << "Answer not correct!" << std::endl;
       else
 	ok = true;
     }
   if (str.compare("yes") == 0)
     return (true);
+  else
+    try
+      {
+	File f(".conf");
+	f.destroy();
+      }
+  catch (AError const &e)
+    {
+      (void)e;
+    }
   return (false);
 }
 

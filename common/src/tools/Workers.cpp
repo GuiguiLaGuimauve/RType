@@ -5,7 +5,7 @@
 // Login   <rembur_g@epitech.eu>
 //
 // Started on  Wed Dec  7 16:13:01 2016 La Guimauve
-// Last update Wed Dec 21 19:13:29 2016 La Guimauve
+// Last update Mon Dec 26 11:29:04 2016 lecoq
 //
 
 #include <iostream>
@@ -13,7 +13,7 @@
 
 void Workers::operator()()
 {
-    std::function<void()> task;
+  /*    std::function<void()> task;
     while(true)
     {
       {
@@ -29,5 +29,5 @@ void Workers::operator()()
           pool.workers.push_back(std::thread(Workers(pool)));
       }
       task();
-    }
+      }*/
 }

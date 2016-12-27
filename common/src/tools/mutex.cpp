@@ -5,7 +5,7 @@
 // Login   <rembur_g@epitech.eu>
 //
 // Started on  Fri Dec  2 10:30:19 2016 La Guimauve
-// Last update Tue Dec  6 15:50:45 2016 La Guimauve
+// Last update Mon Dec 26 16:47:45 2016 La Guimauve
 //
 
 #include "mutex.hh"
@@ -28,7 +28,7 @@ void      mymtx::mutex::unlock()
   this->mtx.unlock();
 }
 
-void      mymtx::mutex::try_lock()
+bool      mymtx::mutex::try_lock()
 {
-  this->mtx.try_lock();
+  return(this->mtx.try_lock());
 }

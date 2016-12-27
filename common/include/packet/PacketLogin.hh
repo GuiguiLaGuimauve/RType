@@ -8,6 +8,7 @@
 #include <stdint.h>
 #include <string>
 #include "APacket.hh"
+#include "Crypt.hh"
 
 namespace Packet {
 	/*!

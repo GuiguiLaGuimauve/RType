@@ -5,7 +5,7 @@
 // Login   <rembur_g@epitech.eu>
 //
 // Started on  Fri Dec  2 13:38:28 2016 La Guimauve
-// Last update Tue Dec 20 22:35:17 2016 julien dufrene
+// Last update Tue Dec 27 12:34:52 2016 lecoq
 //
 
 #ifndef _THREAD_HH_
@@ -19,20 +19,39 @@ namespace mythrd
   {
   private:
     std::thread thr;
+    bool	_isRunning;
   public:
-    Thread() {};
+    Thread() { _isRunning = false; };
     template <typename T, typename ... A>
     Thread(T&& func, A&&... args)
     {
+      _isRunning = true;
       this->thr = std::thread(func, args...);
+      _isRunning = false;
     };
-    template <typename C>
+    /*    template <typename C>
     explicit Thread(C&& f)
     {
+      _isRunning = true;
       this->thr = std::thread(f);
-    };
+      _isRunning = false;
+      };*/
 
-    ~Thread(){};
+    ~Thread(){ _isRunning = false; };
+    template <typename T, typename ... A>
+    void launch(T&& func, A&&... args)
+    {
+      _isRunning = true;
+      this->thr = std::thread(func, args...);
+      _isRunning = false;
+    };
+    /*    template <typename C>
+    void launch(C&& f)
+    {
+      _isRunning = true;
+      this->thr = std::thread(f);
+      _isRunning = false;
+      };*/
     void	pause(const uint32_t &a) const
     {
       std::this_thread::sleep_for(std::chrono::seconds(a));
@@ -51,7 +70,10 @@ namespace mythrd
     {
       this->thr.detach();
     };
+    bool isRunning() const { return (thr.joinable()); }
   };
 }
+
+using namespace mythrd;
 
 #endif // _THREAD_HH_
