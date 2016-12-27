@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Tue Dec 27 15:51:34 2016 lecoq
+// Last update Tue Dec 27 17:35:15 2016 lecoq
 //
 
 #include	"CoreClient.hh"
@@ -29,7 +29,10 @@ CoreClient::CoreClient()
   _packetPtr[IPacket::PacketType::PROFILE] = &CoreClient::profile;
   _packetPtr[IPacket::PacketType::UDP_DATA] = &CoreClient::udpData;
   _packetPtr[IPacket::PacketType::PING] = &CoreClient::ping;
+  _packetPtr[IPacket::PacketType::PONG] = &CoreClient::pong;
+  _packetPtr[IPacket::PacketType::POSITION_PLAYER] = &CoreClient::positionPlayer;
   _packetPtr[IPacket::PacketType::PLAYERS] = &CoreClient::players;
+  _packetPtr[IPacket::PacketType::GAMEENDED] = &CoreClient::gameEnded;
   _status = "connect";
   _backPtr["connect"] = &CoreClient::exitClient;
   _backPtr["login"] = &CoreClient::goConnect;
@@ -370,6 +373,7 @@ bool		CoreClient::udpData(const IPacket *pa, IUserNetwork *u)
   std::cout << "[UDP SERVER] ---> [" << _tcp->getRunning()->getIp() << "] [" << p->getPort() << "]" << std::endl;
   (void)u;
   delete pb;
+  _status = "game";
   _gui->displayGame();
   _gameData->init();
   _th->launch(&CoreClient::timeLine, this);
@@ -389,22 +393,56 @@ void		CoreClient::timeLine()
 	  /*	  IPacket *p;
 
 	  p = _factory->getPacket("positionplayer", _gui->getPosX(), _gui->getPosY());
-	  _udp->pushTo(empty, p->getPacketUnknown());*/
-	  delete p;
+	  p->setTickId(_gameData->getTick());
+	  _udp->pushTo(empty, p->getPacketUnknown());
+	  delete p;*/
 	}
     }
 }
 
 bool		CoreClient::ping(const IPacket *pa, IUserNetwork *u)
 {
+  IPacket	*p = new PacketPong;
+  _write->push(PacketC(p->getPacketUnknown(), u));
+  delete p;
+  std::cout << "ping recu et pong envoyé" << std::endl;
+  (void)pa;
+  return (true);
+}
+
+bool		CoreClient::pong(const IPacket *pa, IUserNetwork *u)
+{
   (void)pa; (void)u;
-  std::cout << "ping" << std::endl;
+  std::cout << "pong recu" << std::endl;
+  return (true);
+}
+
+bool		CoreClient::positionPlayer(const IPacket *pa, IUserNetwork *u)
+{
+  PacketPositionPlayer *p = (PacketPositionPlayer *)pa;
+
+  (void)u;
+  //_gui->setInitialPosition(p->getX(), p->getY());
   return (true);
 }
 
 bool		CoreClient::players(const IPacket *pa, IUserNetwork *u)
 {
-  (void)pa; (void)u;
+  PacketPlayers	*p = (PacketPlayers *)pa;
+  (void)u;
   std::cout << "players liste recu" << std::endl;
+  if (pa->getTickId() == _timeline)
+    _gui->setPlayersPosition(p->getPlayers());
+  return (true);
+}
+
+bool		CoreClient::gameEnded(const IPacket *pa, IUserNetwork *u)
+{
+  (void)pa; (void)u;
+  IPacket *p;
+
+  p = _factory->getPacket("askrooms");
+  _write->push(PacketC(p->getPacketUnknown()), u);
+  delete p;
   return (true);
 }

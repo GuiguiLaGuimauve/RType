@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Tue Dec 27 15:09:06 2016 lecoq
+// Last update Tue Dec 27 17:12:36 2016 lecoq
 //
 
 #include	"CoreServer.hh"
@@ -23,6 +23,8 @@ CoreServer::CoreServer()
   _packetPtr[IPacket::PacketType::START_GAME] = &CoreServer::startGame;
   _packetPtr[IPacket::PacketType::UDP_DATA] = &CoreServer::udpData;
   _packetPtr[IPacket::PacketType::PING] = &CoreServer::ping;
+  _packetPtr[IPacket::PacketType::PONG] = &CoreServer::pong;
+  _packetPtr[IPacket::PacketType::ASKROOMS] = &CoreServer::askRooms;
   _packetPtr[IPacket::PacketType::POSITION_PLAYER] = &CoreServer::game;
   _threadPool = new ThreadPool;
 }
@@ -291,9 +293,39 @@ bool		CoreServer::udpData(const IPacket *pa, IUserNetwork *u)
 
 bool		CoreServer::ping(const IPacket *pa, IUserNetwork *u)
 {
-  (void)pa;
+  IPacket       *p = new PacketPong;
+  _write->push(PacketC(p->getPacketUnknown(), u));
+  delete p;
+  std::cout << "ping recu et pong envoyé" << std::endl; 
   (void)u;
-  std::cout << "ping" << std::endl;
+  (void)pa;
+  return (true);
+}
+
+bool            CoreServer::pong(const IPacket *pa, IUserNetwork *u)
+{
+  (void)pa; (void)u;
+  std::cout << "pong recu" << std::endl;
+  return (true);
+}
+
+bool            CoreServer::askRooms(const IPacket *pa, IUserNetwork *u)
+{
+  if (_data->playerExist(u->getPseudo()) == true)
+    {
+      DataPlayer *data = _data->getPlayer(u->getPseudo());
+      pkt = _factory->getPacket("profile", data);
+      PacketC	c2(pkt->getPacketUnknown(), u);
+      PacketC	c;
+      
+      _write->push(c2);
+      delete pkt;
+      pkt = _factory->getPacket("rooms", _data->getRooms());
+      c.setPacket(pkt->getPacketUnknown());
+      c.setNetwork(u);
+      _write->push(c);
+      delete pkt;
+    }
   return (true);
 }
 
@@ -301,3 +333,4 @@ bool		CoreServer::game(const IPacket *pa, IUserNetwork *u)
 {
   return (_gameManager->execPacket(pa, u->getPseudo()));
 }
+

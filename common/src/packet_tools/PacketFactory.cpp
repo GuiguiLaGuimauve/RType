@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 11:43:18 2016 Maxime Lecoq
-// Last update Tue Dec 27 13:33:53 2016 lecoq
+// Last update Tue Dec 27 16:52:34 2016 lecoq
 //
 
 #include	"PacketFactory.hh"
@@ -365,6 +365,13 @@ IPacket		*PacketFactory::disconnect()
   return (ret);
 }
 
+IPacket		*PacketFactory::askRooms() 
+{
+  IPacket	*ret = new PacketAskRooms;
+
+  return (ret);
+}
+
 IPacket		*PacketFactory::getRooms(const std::vector<DataRoom *> &d) 
 {
   IPacket	*ret = new PacketRooms(d);
@@ -649,5 +656,11 @@ IPacket		*PacketFactory::revProfile(const uint8_t *p)
 IPacket		*PacketFactory::revGameEnded(const uint8_t *p)
 {
   IPacket *pa = new PacketGameEnded(p);
+  return (pa);
+}
+
+IPacket		*PacketFactory::revAskRooms(const uint8_t *p)
+{
+  IPacket *pa = new PacketAskRooms(p);
   return (pa);
 }

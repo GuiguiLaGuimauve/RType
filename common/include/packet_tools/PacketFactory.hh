@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 11:41:19 2016 Maxime Lecoq
-// Last update Tue Dec 27 13:32:04 2016 lecoq
+// Last update Tue Dec 27 16:51:41 2016 lecoq
 //
 
 #ifndef PACKETFACTORY_HH_
@@ -70,6 +70,7 @@ public:
   IPacket	*ping();
   IPacket	*pong();
   IPacket	*gameEnded();
+  IPacket	*askRooms();
   
   IPacket	*getError(const std::string &, const IPacket::PacketType &);
   
@@ -141,6 +142,7 @@ public:
   IPacket		*revAccept(const uint8_t *);
   IPacket		*revProfile(const uint8_t *);
   IPacket		*revGameEnded(const uint8_t *);
+  IPacket		*revAskRooms(const uint8_t *);
 private:
   PacketContener<void>										*_pkt1;
   PacketContener<const std::string &, const IPacket::PacketType &>				*_pkt2;
@@ -199,6 +201,7 @@ public:
     _map[IPacket::PacketType::ACCEPT] = &PacketFactory::revAccept;
     _map[IPacket::PacketType::PROFILE] = &PacketFactory::revProfile;
     _map[IPacket::PacketType::GAMEENDED] = &PacketFactory::revGameEnded;
+    _map[IPacket::PacketType::ASKROOMS] = &PacketFactory::revAskRooms;
     _converter["error"] = IPacket::PacketType::ERROR_PACKET;
     _converter["welcome"] = IPacket::PacketType::WELCOME;
     _converter["connect"] = IPacket::PacketType::CONNECT;
@@ -231,6 +234,7 @@ public:
     _converter["accept"] = IPacket::PacketType::ACCEPT;
     _converter["profile"] = IPacket::PacketType::PROFILE;
     _converter["gameended"] = IPacket::PacketType::GAMEENDED;
+    _converter["askrooms"] = IPacket::PacketType::ASKROOMS;
 };
   ~PacketContener() {};
   void	enable(const std::string &s)
@@ -865,6 +869,7 @@ public:
   _map["ping"] = &PacketFactory::ping;
   _map["pong"] = &PacketFactory::pong;
   _map["gameended"] = &PacketFactory::gameEnded;
+  _map["askrooms"] = &PacketFactory::askRooms;
   _converter[IPacket::PacketType::CONNECT] = "connect";
   _converter[IPacket::PacketType::UDP_DATA_FREE] = "udpdatafree";
   _converter[IPacket::PacketType::LOGOUT] = "logout";
@@ -872,6 +877,7 @@ public:
   _converter[IPacket::PacketType::PING] = "ping";
   _converter[IPacket::PacketType::PONG] = "pong";
   _converter[IPacket::PacketType::GAMEENDED] = "gameended";
+  _converter[IPacket::PacketType::ASKROOMS] = "askrooms";
 };
   ~PacketContener() {};
   void	enable(const std::string &s)
