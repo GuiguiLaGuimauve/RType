@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Tue Dec 27 19:49:58 2016 lecoq
+// Last update Tue Dec 27 20:00:22 2016 lecoq
 //
 
 #include	"CoreClient.hh"
@@ -426,7 +426,8 @@ bool		CoreClient::positionPlayer(const IPacket *pa, IUserNetwork *u)
 
   (void)u;
   (void)p;
-  _gui->setInitialPosition(p->getX(), p->getY());
+  _gui->setPosX(p->getX());
+  _gui->setPosY(p->getY());
   return (true);
 }
 
