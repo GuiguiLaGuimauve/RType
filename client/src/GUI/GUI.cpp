@@ -166,8 +166,10 @@ void		GUI::callback()
 	  {
 		  if (_gameWidgets)
 		  {
-			  _gameWidgets->_y -= MOVE_SPEED;
+		    std::cout << "J'augmente le X qui passe de " << _gameWidgets->_y;
+		    _gameWidgets->_y -= MOVE_SPEED;
 			  ep = EventPart::Event(EventPart::Event::MOVE_UP);
+		    std::cout << " à " << _gameWidgets->_y;
 		  }
 		  break;
 	  }
