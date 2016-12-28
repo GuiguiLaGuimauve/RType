@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Fri Dec 16 11:37:09 2016 julien dufrene
-// Last update Fri Dec 23 10:13:40 2016 lecoq
+// Last update Wed Dec 28 19:33:14 2016 lecoq
 //
 
 #include	"ManageNetworkUDPClient.hh"
@@ -69,38 +69,58 @@ std::vector<IUserNetwork *>	ManageNetworkUDPClient::exec()
 
   if (_initServ == false || _serv->getStatus() == false)
     return (newuser);
-  if (_serv->haveSomethingToWrite() == true)
+  while (_serv->haveSomethingToWrite() == true)
     _serv->writeSocket(_net);
   _serv->readSocket(_net);
-  if (_serv->getStatus() == true && _serv->haveSomethingToRead())
+  while (_serv->getStatus() == true && _serv->haveSomethingToRead())
     {
       PacketUnknown pk = _serv->popBufferRead();
       _read->push(PacketC(pk, _serv));
       std::cout << "un packet est lu" << std::endl;
       _serv->pushBufferWrite(pk);
     }
+  /*  if (_serv->getStatus() == true)
+    {
+      IUserNetwork                                  *u;
+      #ifdef _WIN32
+      u = new UserNetworkUDPWindowsServer();
+              #else
+      u = new UserNetworkUDPUnixServer();
+              #endif
+      u->setIp("0.0.0.0");
+      u->setFd(_net->getFdSocket());
+      u->setPseudo("Accept");
+      u = u->readSocket(_net);
+      while (u->haveSomethingToRead() == true)
+	{
+	  PacketUnknown pk = u->popBufferRead();
+	  _read->push(PacketC(pk, u));
+	  std::cout << "un packet est lu" << std::endl;
+	  if (_serv->getIp() == u->getIp())
+	    {
+	      while (_serv->haveSomethingToWrite() == true)
+		u->pushBufferWrite(_serv->popBufferWrite());
+	      _serv = u;
+	    }
+	  std::cout << "Server send me something" << std::endl;
+	}
+	}*/
   return (newuser);
 }
 
 bool		ManageNetworkUDPClient::run(const uint32_t &port, const uint32_t &maxCl)
 {
+  try {
 #ifdef _WIN32
-  try {
     _net = new SocketUDPWindows();
-  }
-  catch (AError const &e)
-    {
-      e.quit();
-    }
 #else
-  try {
     _net = new SocketUDPUnix();
+#endif
   }
   catch (AError const &e)
     {
       e.quit();
     }
-#endif
   _init = true;
   if (maxCl != 0 && _net->bindIt(port) == false)
     return (false);
@@ -119,12 +139,6 @@ bool			ManageNetworkUDPClient::tryConnectClient(const uint32_t &port, const std:
   u->setPort(port);
   u->setStatus(true);
   u->setPseudo("Accept");
-  int	i = 0;
-  while (i < 40)
-    {
-      u->pushBufferWrite(_factory->getPacket("ping")->getPacketUnknown());
-      i++;
-    }
   _serv = u;
   _initServ = true;
   std::cout << "Client UDP connected, IP: " << _serv->getIp() << " port: " << _serv->getPort() << std::endl;

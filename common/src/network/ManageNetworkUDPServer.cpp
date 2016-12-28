@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Fri Dec 16 11:37:09 2016 julien dufrene
-// Last update Tue Dec 27 15:04:38 2016 lecoq
+// Last update Wed Dec 28 20:09:22 2016 lecoq
 //
 
 #include	"ManageNetworkUDPServer.hh"
@@ -99,8 +99,7 @@ std::vector<IUserNetwork *>	ManageNetworkUDPServer::exec()
     {
       if (_user[i]->getStatus() != false)
 	{
-	  //	  while (_user[i]->haveSomethingToWrite() == true)
-	  if (_user[i]->haveSomethingToWrite() == true)
+	  while (_user[i]->haveSomethingToWrite() == true)
 	    _user[i]->writeSocket(_net);
 	}
       i++;
@@ -116,11 +115,10 @@ std::vector<IUserNetwork *>	ManageNetworkUDPServer::exec()
       u->setFd(_net->getFdSocket());
       u->setPseudo("Accept");
       u = u->readSocket(_net);
-      if (u->haveSomethingToRead() == true)
+      while (u->haveSomethingToRead() == true)
 	{
 	  PacketUnknown pk = u->popBufferRead();
 	  _read->push(PacketC(pk, u));
-	  std::cout << "un packet est lu" << std::endl;
 	  i = 0;
 	  ok = false;
 	  while (i < _user.size() && ok == false)
@@ -138,7 +136,6 @@ std::vector<IUserNetwork *>	ManageNetworkUDPServer::exec()
 	    }
 	  if (ok == false)
 		  _user.push_back(u);
-	  std::cout << "User: " << u->getPseudo() << " send me something" << std::endl;
 	}
     }
   return (newuser);

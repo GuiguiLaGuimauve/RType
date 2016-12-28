@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Tue Dec 27 21:12:57 2016 lecoq
+// Last update Wed Dec 28 19:35:26 2016 lecoq
 //
 
 #include	"CoreClient.hh"
@@ -110,6 +110,9 @@ bool				CoreClient::manageNetwork()
       _gui->displayStart();
       _tcp->run(4242);
       _status = "connect";
+      _gameData->endGame();
+      if (_th->joinable())
+	_th->join();
     }
   return (true);
 }
@@ -120,6 +123,7 @@ bool	CoreClient::managePackets()
     {
       PacketC tmp = _read->pop();
       IPacket *packet = _factory->getPacket(tmp.getPacket().getPacketData());
+      std::cout << (int)packet->getType() << std::endl;
       if (packet != NULL && _packetPtr.find(packet->getType()) != _packetPtr.end())
 	{
 	  (this->*_packetPtr[packet->getType()])(packet, tmp.getNetwork());
@@ -395,6 +399,7 @@ void		CoreClient::timeLine()
 	  _gameData->setTick(clo.getTimeMilli() / 166);
 	  IPacket *p;
 
+	  std::cout << "my pos " << _gui->getPosX() << " " << _gui->getPosY() << std::endl;
 	  p = _factory->getPacket("positionplayer", _gui->getPosX(), _gui->getPosY());
 	  p->setTickId(_gameData->getTick());
 	  _udp->pushTo(empty, p->getPacketUnknown());
