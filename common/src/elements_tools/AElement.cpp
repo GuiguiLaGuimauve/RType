@@ -92,3 +92,48 @@ std::vector<std::pair<int16_t, int16_t>> AElement::getPositions() const
 {
 	return (_positions);
 }
+
+void AElement::setType(const IElement::ElementType &type)
+{
+	_type = type;
+}
+
+void AElement::setSizeX(const uint16_t &size)
+{
+	_sizeX = size;
+}
+
+void AElement::setSizeY(const uint16_t &size)
+{
+	_sizeY = size;
+}
+
+void AElement::setSpriteName(const std::string &name)
+{
+	_spriteFileName = name;
+}
+
+void AElement::setPositions(const std::vector<std::pair<int16_t, int16_t>> &pos)
+{
+	_positions = pos;
+}
+
+void AElement::setHitBoxSizeX(const uint16_t &size)
+{
+	_hitboxSizeX = size;
+}
+
+void AElement::setHitBoxSizeY(const uint16_t &size)
+{
+	_hitboxSizeY = size;
+}
+
+void AElement::setDeltaHitBoxX(const int32_t &size)
+{
+	_hitboxDeltaX = size;
+}
+
+void AElement::setDeltaHitBoxY(const int32_t &size)
+{
+	_hitboxDeltaY = size;
+}
