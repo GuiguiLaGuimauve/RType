@@ -230,6 +230,11 @@ void		GUI::callback()
 		  updateCurrentGame();
 		  break;
 	  }
+	  case EventPart::Event::CHAT_SEND_MESSAGE :
+	  {
+		  ep = EventPart::Event(EventPart::Event::NEW_CHAT_MESSAGE, "MSG", _menuWidgets->chat->getAndClearInput());
+		  break;
+	  }
 	  default:
 		  ep.type = EventPart::Event::DEFAULT;
 	  }
@@ -395,6 +400,8 @@ void		GUI::displayMenu()
 	deleteWidgets();
 	_win->setBackground(PICTURE_BACKGROUND);
 	_menuWidgets = new Menu;
+	//_menuWidgets->chat = new Chat(_win, _guiQueue, 1200, 700);
+
 	updateGameInfo();
 
 	// init le gameText
@@ -1014,4 +1021,10 @@ void	GUI::setPosY(uint64_t y)
 {
   if (_gameWidgets != NULL)
     _gameWidgets->_y = y;
+}
+
+void	GUI::addChatMessage(const std::string &s)
+{
+	if (_menuWidgets && _menuWidgets->chat)
+		_menuWidgets->chat->post(s);
 }

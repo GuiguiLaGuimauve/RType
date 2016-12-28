@@ -19,6 +19,7 @@
 #include "EventQueue.hh"
 #include "Key.hh"
 #include "DataRoom.hpp"
+#include "Chat.hh"
 
 #define GUI_WIDTH 1920
 #define GUI_HEIGHT 1080
@@ -88,6 +89,9 @@ namespace Gui
 	  unsigned int		itScroll = 0;
 	  IWidget	*chooseRoomName = NULL;
 	  IWidget	*changeMaxPlayer = NULL;
+	  Chat		*chat = NULL;
+
+	  ~Menu() { if (chat) delete chat; };
       /* Vecteur de joueurs connectés */
       /* Container des joueurs connectés */
     };
@@ -115,6 +119,7 @@ namespace Gui
     void		setRooms(const std::vector<DataRoom *> &);
     void		setProfile(DataPlayer *p);
     void		setPlayersPositions(const std::vector<DataPlayer *> &);
+	void		addChatMessage(const std::string &);
     bool		isInGame(std::vector<DataPlayer*>);
     void		cleanGames();
     uint64_t		getPosX();

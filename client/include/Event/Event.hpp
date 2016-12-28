@@ -46,6 +46,7 @@ namespace EventPart
 	CLICK_SELECT_GAME,
 	BUTTON_SCROLL_UP,
 	BUTTON_SCROLL_DOWN,
+	CHAT_SEND_MESSAGE,
 	// events of the gui to the core
 	QUIT,
 	ATTACK,
@@ -59,7 +60,8 @@ namespace EventPart
 	JOIN_GAME, // string["GAME_NAME"]
 	LEAVE_GAME, // string["GAME_NAME"]
 	WATCH_GAME, // string["GAME_NAME"]
-	START_GAME // string["GAME_NAME"]
+	START_GAME, // string["GAME_NAME"]
+	NEW_CHAT_MESSAGE // string["MSG"] 
       };
 
     // constructeur classique

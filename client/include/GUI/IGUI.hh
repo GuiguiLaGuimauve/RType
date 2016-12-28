@@ -29,6 +29,7 @@ namespace Gui
     virtual void	setPosX(uint64_t) = 0;
     virtual void	setPosY(uint64_t) = 0;
     virtual void	setPlayersPositions(const std::vector<DataPlayer *> &) = 0;
+	virtual void	addChatMessage(const std::string &) = 0;
   };
 }
 
