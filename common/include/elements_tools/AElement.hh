@@ -18,8 +18,8 @@ namespace Element
     int16_t getX() const;
     int16_t getY() const;
     uint16_t getSizeX() const;
-    uint16_t getSizeY() const;
-    uint32_t getTickId() const;
+	uint16_t getSizeY() const;
+	uint32_t getTickId() const;
     std::string getSpriteName() const;
     bool collisionWith(IElement *) const;
 	std::vector<std::pair<int16_t, int16_t>> getPositions() const;
@@ -29,6 +29,15 @@ namespace Element
 	int16_t getHitBoxY() const;	
 	int16_t getSpriteY() const;
 	int16_t getSpriteX() const;
+	void setType(const IElement::ElementType &);
+	void setSpriteName(const std::string &);
+	void setPositions(const std::vector<std::pair<int16_t, int16_t>> &);
+	void setHitBoxSizeX(const uint16_t &);
+	void setHitBoxSizeY(const uint16_t &);
+	void setDeltaHitBoxX(const int32_t &);
+	void setDeltaHitBoxY(const int32_t &);
+	void setSizeY(const uint16_t &);
+	void setSizeX(const uint16_t &);
 	void move(const int16_t & x, const int16_t & y);
 
   protected:

@@ -5,19 +5,21 @@
 // Login   <rembur_g@epitech.eu>
 //
 // Started on  Thu Dec 15 14:39:03 2016 La Guimauve
-// Last update Thu Dec 15 15:16:51 2016 La Guimauve
+// Last update Wed Dec 28 15:19:27 2016 La Guimauve
 //
 
 #ifndef _IDLLOADER_HH_
 # define _IDLLOADER_HH_
 
+#include <string>
+
 class IDLloader
 {
 public:
   virtual ~IDLloader() {};
-  virtual bool loadLib(const std::string &path) = 0;
-  virtual bool extractLib(const std::string &func) = 0;
-  virtual bool loadandextract(const std::string &path, const std::string &func) = 0;
+  virtual bool loadLib(const std::string &) = 0;
+  virtual bool extractLib(const std::string &) = 0;
+  virtual bool loadandextract(const std::string &, const std::string &) = 0;
   virtual bool dropLib() = 0;
 };
 

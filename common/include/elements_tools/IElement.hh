@@ -30,8 +30,9 @@ namespace Element
 	virtual ~IElement(){};
 	
     /*! Get ElementType */
-    virtual ElementType getType() const = 0;
-	
+	virtual ElementType getType() const = 0;
+	virtual void setType(const ElementType &) = 0;
+
     /*! Get X position */
     virtual int16_t getX() const = 0;
 	
@@ -40,34 +41,40 @@ namespace Element
 	
     /*! Get sprite X size */
     virtual uint16_t getSizeX() const = 0;
-	
+	virtual void setSizeX(const uint16_t &) = 0;
+
     /*! Get sprite Y size */
     virtual uint16_t getSizeY() const = 0;
-	
+	virtual void setSizeY(const uint16_t &) = 0;
+
     /*! Get timer unique ID */
     virtual uint32_t getTickId() const = 0;
 	
 	/* Get the Hitbox size X */
 	virtual uint16_t getHitBoxSizeX() const = 0;
-	
+	virtual void setHitBoxSizeX(const uint16_t &) = 0;
+
 	/* Get the Hitbox size X */
 	virtual uint16_t getHitBoxSizeY() const = 0;
-	
+	virtual void setHitBoxSizeY(const uint16_t &) = 0;
+
 	/* Get the Hitbox X position */
 	virtual int16_t getHitBoxX() const = 0;
-	
+
 	/* Get the Hitbox X position */
 	virtual int16_t getHitBoxY() const = 0;
 	
 	/*! Get sprite filename */
     virtual std::string getSpriteName() const = 0;
+	virtual void setSpriteName(const std::string &) = 0;
 
 	/*! Check if the current element is in collision with and other element */
     virtual bool collisionWith(IElement *) const = 0;
 
 	/*! List of positions */
 	virtual std::vector<std::pair<int16_t, int16_t>> getPositions() const = 0;
-	
+	virtual void setPositions(const std::vector<std::pair<int16_t, int16_t>> &) = 0;
+
 	/*! Get the X position in the spritesheet */
 	virtual int16_t getSpriteX() const = 0;
 	
@@ -76,6 +83,10 @@ namespace Element
 	
 	/*! Move the object */
 	virtual void move(const int16_t & x, const int16_t & y) = 0;
+
+	virtual void setDeltaHitBoxX(const int32_t &) = 0;
+	virtual void setDeltaHitBoxY(const int32_t &) = 0;
+
   };
 };
 
