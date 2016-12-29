@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Thu Dec 29 12:33:22 2016 lecoq
+// Last update Thu Dec 29 15:01:15 2016 lecoq
 //
 
 #include	"CoreServer.hh"
@@ -328,6 +328,8 @@ bool            CoreServer::askRooms(const IPacket *pa, IUserNetwork *u)
 
 bool		CoreServer::game(const IPacket *pa, IUserNetwork *u)
 {
+  std::cout << "un truc game udp recu" << std::endl;
   return (_gameManager->execPacket(pa, u->getPseudo()));
+  std::cout << "un truc game udp recu ok" << std::endl;
 }
 

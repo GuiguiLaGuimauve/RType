@@ -10,6 +10,7 @@ Player::Player(uint8_t id, int16_t x, int16_t y)
 {
 	_x = x;
 	_y = y;
+	(void)id;
 }
 
 Player::~Player()

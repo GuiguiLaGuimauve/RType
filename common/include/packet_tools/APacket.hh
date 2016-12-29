@@ -17,8 +17,8 @@ namespace Packet
     virtual ~APacket(){};
     IPacket::PacketType getType() const;
     uint32_t getSize() const;
-	uint32_t getTickId() const;
-	void setTickId(uint32_t tickId);
+    uint32_t getTickId() const;
+    void setTickId(uint32_t tickId);
     uint8_t *getData() const;
     uint8_t *generate() const;
     PacketUnknown getPacketUnknown() const;

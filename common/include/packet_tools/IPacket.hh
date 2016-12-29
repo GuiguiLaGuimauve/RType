@@ -75,7 +75,7 @@ namespace Packet
 	virtual uint32_t getTickId() const = 0;
 
 	/*! Change the packet's timer ID */
-	virtual void setTickId(uint32_t tickId) = 0;
+    virtual void setTickId(uint32_t tickId) = 0;
 
     /*! Return the packet's data size  */
     virtual uint32_t getSize() const = 0;

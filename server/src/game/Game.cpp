@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 15:45:57 2016 Maxime Lecoq
-// Last update Thu Dec 29 13:15:04 2016 lecoq
+// Last update Thu Dec 29 15:02:31 2016 lecoq
 //
 
 #include	"Game.hh"
@@ -105,12 +105,13 @@ bool		Game::playerPresent(const std::string &pl)
 void		Game::execPacket(const IPacket *pa, const std::string &m)
 {
   if (_ptr.find(pa->getType()) != _ptr.end()
-      && (pa->getTickId() - _timeline == -1 || pa->getTickId() - _timeline == 0))
+      && ((int64_t)(pa->getTickId() - _timeline) == -1 || (uint64_t)pa->getTickId() - _timeline == 0))
     (this->*_ptr[pa->getType()])(pa, m);
 }
 
 void		Game::updatePosPlayer(const IPacket *pa, const std::string &m)
 {
+  std::cout << "update player pos of : " << m << std::endl;
   uint64_t	i;
   PacketPositionPlayer *p = (PacketPositionPlayer *)pa;
 
@@ -124,10 +125,12 @@ void		Game::updatePosPlayer(const IPacket *pa, const std::string &m)
 	}
       i++;
     }
+  std::cout << "update player pos of : " << m << " ok" << std::endl;
 }
 
 void		Game::updatePlayerShoots(const IPacket *pa, const std::string &m)
 {
+  std::cout << "update shoot of : " << m << std::endl;
   uint64_t	i;
   PacketShoots *p = (PacketShoots *)pa;
   std::vector<DataShoot *>	tmp;
@@ -158,4 +161,5 @@ void		Game::updatePlayerShoots(const IPacket *pa, const std::string &m)
 	}
       i++;
     }
+  std::cout << "update shoot of : " << m << " ok" << std::endl;
 }
