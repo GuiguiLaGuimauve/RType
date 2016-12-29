@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Thu Dec 29 17:08:26 2016 lecoq
+// Last update Thu Dec 29 17:52:20 2016 lecoq
 //
 
 #include	"CoreClient.hh"
@@ -125,6 +125,7 @@ bool	CoreClient::managePackets()
     {
       PacketC tmp = _read->pop();
       IPacket *packet = _factory->getPacket(tmp.getPacket().getPacketData());
+      std::cout << "pck" << std::endl;
       if (packet != NULL && _packetPtr.find(packet->getType()) != _packetPtr.end())
 	{
 	  (this->*_packetPtr[packet->getType()])(packet, tmp.getNetwork());
@@ -408,16 +409,15 @@ void		CoreClient::timeLine()
 	  _gameData->setTick(clo.getTimeMilli() / 50);
 	  IPacket *p;
 	  p = _factory->getPacket("positionplayer", _gui->getPosX(), _gui->getPosY());
-	  PacketPositionPlayer *pp = (PacketPositionPlayer *)p;
 	  p->setTickId(_gameData->getTick());
 	  _udp->pushTo(empty, p->getPacketUnknown());
-	  std::cout << "gui x : " << _gui->getPosX() << " gui y : " << _gui->getPosY() << "packet X : " << pp->getX() << " packet Y : " << pp->getY() << std::endl;
 	  delete p;
 	  p = _factory->getPacket("shoots", _gameData->getShoots());
 	  p->setTickId(_gameData->getTick());
 	  _udp->pushTo(empty, p->getPacketUnknown());
 	  delete p;	  
 	}
+
     }
 }
 
@@ -455,6 +455,7 @@ bool		CoreClient::players(const IPacket *pa, IUserNetwork *u)
   (void)u;
   (void)p;
   std::cout << "players liste recu" << std::endl;
+  //  _gameData->setMarge(pa->getTickId() - _gameData->getTick());
   std::cout << "tick serv : " << pa->getTickId() << " tick cli : " << _gameData->getTick() << " pos x : " << p->getPlayers()[0]->getX() << " pos y : " << p->getPlayers()[0]->getY() << std::endl;
   //if (pa->getTickId() == _gameData->getTick() || pa->getTickId() - _gameData->getTick() == 1)
     _gui->setPlayersPositions(p->getPlayers());
@@ -467,6 +468,7 @@ bool		CoreClient::shoots(const IPacket *pa, IUserNetwork *u)
   PacketShoots	*p = (PacketShoots *)pa;
   (void)u;
   (void)p;
+  //_gameData->setMarge(pa->getTickId() - _gameData->getTick());
   std::cout << "shoots liste recu" << std::endl;
   //  if (pa->getTickId() == _gameData->getTick() || pa->getTickId() - _gameData->getTick() == 1)
   //_gui->setPlayersShoots(p->getShoots());

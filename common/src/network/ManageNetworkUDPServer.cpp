@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Fri Dec 16 11:37:09 2016 julien dufrene
-// Last update Thu Dec 29 15:40:11 2016 lecoq
+// Last update Thu Dec 29 18:01:42 2016 lecoq
 //
 
 #include	"ManageNetworkUDPServer.hh"
@@ -59,7 +59,7 @@ std::vector<std::string>        ManageNetworkUDPServer::updateUsers(const std::v
       i = 0;
       while (i < _user.size())
 	{
-	  if (_user[i]->getPseudo() == user[j]->getPseudo() || _user[i]->getStatus() == false)
+	  if (_user[i]->getPseudo() == user[j]->getPseudo() && _user[i]->getStatus() == false)
 	    {
 	      if (_user[i] == _serv)
 		_initServ = false;
