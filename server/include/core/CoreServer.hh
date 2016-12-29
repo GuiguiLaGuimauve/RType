@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:19:16 2016 Maxime Lecoq
-// Last update Tue Dec 27 16:54:27 2016 lecoq
+// Last update Thu Dec 29 12:33:03 2016 lecoq
 //
 
 #ifndef CORESERVER_HH_

@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 15:44:47 2016 Maxime Lecoq
-// Last update Tue Dec 27 18:27:31 2016 lecoq
+// Last update Thu Dec 29 12:44:47 2016 lecoq
 //
 
 #include "GameManager.hh"
@@ -19,6 +19,7 @@ void	GameManager::createGame(DataRoom *room, const uint8_t *ip)
   IGame *newGame = new Game(room);
   uint64_t			i;
   std::vector<std::string>	tmp;
+  std::vector<DataShoot *>	reset;
   
   pb = _factory->getPacket("udpdata", ip, (uint16_t)4243);
   newGame->setFactory(_factory);
@@ -35,6 +36,7 @@ void	GameManager::createGame(DataRoom *room, const uint8_t *ip)
       room->getPlayers()[i]->setHealth(100);
       room->getPlayers()[i]->setX(100);
       room->getPlayers()[i]->setY(200 + (i * 200));
+      room->getPlayers()[i]->setShoots(reset);
       pb = _factory->getPacket("positionplayer", 200, 200 + (i * 200));
       tmp.push_back(room->getPlayers()[i]->getName());
       _tcp->pushTo(tmp, pb->getPacketUnknown());
@@ -57,6 +59,7 @@ bool          GameManager::gamesUpdate()
 	  IPacket	*p = _factory->getPacket("gameended");
 	  _tcp->pushTo(_gameList[i]->getAllName(), p->getPacketUnknown());
 	  delete p;
+	  delete _gameList[i];
 	  _gameList.erase(_gameList.begin() + i);
 	}
       else

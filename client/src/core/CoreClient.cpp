@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Wed Dec 28 19:35:26 2016 lecoq
+// Last update Thu Dec 29 14:00:18 2016 lecoq
 //
 
 #include	"CoreClient.hh"
@@ -22,6 +22,7 @@ CoreClient::CoreClient()
   _eventPtr[EventPart::Event::JOIN_GAME] = &CoreClient::joinRoom;
   _eventPtr[EventPart::Event::WATCH_GAME] = &CoreClient::watchRoom;
   _eventPtr[EventPart::Event::START_GAME] = &CoreClient::startGame;
+  _eventPtr[EventPart::Event::ATTACK] = &CoreClient::shoot;
   _packetPtr[IPacket::PacketType::WELCOME] = &CoreClient::welcome;
   _packetPtr[IPacket::PacketType::ACCEPT] = &CoreClient::accept;
   _packetPtr[IPacket::PacketType::ERROR_PACKET] = &CoreClient::errorPacket;
@@ -32,6 +33,7 @@ CoreClient::CoreClient()
   _packetPtr[IPacket::PacketType::PONG] = &CoreClient::pong;
   _packetPtr[IPacket::PacketType::POSITION_PLAYER] = &CoreClient::positionPlayer;
   _packetPtr[IPacket::PacketType::PLAYERS] = &CoreClient::players;
+  _packetPtr[IPacket::PacketType::SHOOTS] = &CoreClient::shoots;
   _packetPtr[IPacket::PacketType::GAMEENDED] = &CoreClient::gameEnded;
   _status = "connect";
   _backPtr["connect"] = &CoreClient::exitClient;
@@ -305,6 +307,14 @@ bool	CoreClient::startGame(EventPart::Event e)
   return (true);
 }
 
+bool	CoreClient::shoot(EventPart::Event e)
+{
+  Convert<uint16_t> conv;
+
+  _gameData->addShoot(conv.toNumber(e.dataString["X"]), conv.toNumber(e.dataString["Y"]));
+  return (true);
+}
+
 bool		CoreClient::errorPacket(const IPacket *pa, IUserNetwork *u)
 {
   PacketError	*p = (PacketError *)pa;
@@ -399,11 +409,14 @@ void		CoreClient::timeLine()
 	  _gameData->setTick(clo.getTimeMilli() / 166);
 	  IPacket *p;
 
-	  std::cout << "my pos " << _gui->getPosX() << " " << _gui->getPosY() << std::endl;
 	  p = _factory->getPacket("positionplayer", _gui->getPosX(), _gui->getPosY());
 	  p->setTickId(_gameData->getTick());
 	  _udp->pushTo(empty, p->getPacketUnknown());
 	  delete p;
+	  p = _factory->getPacket("shoots", _gameData->getShoots());
+	  p->setTickId(_gameData->getTick());
+	  _udp->pushTo(empty, p->getPacketUnknown());
+	  delete p;	  
 	}
     }
 }
@@ -442,9 +455,21 @@ bool		CoreClient::players(const IPacket *pa, IUserNetwork *u)
   (void)u;
   (void)p;
   std::cout << "players liste recu" << std::endl;
-  if (pa->getTickId() == _gameData->getTick())
+  if (pa->getTickId() == _gameData->getTick() || pa->getTickId() - _gameData->getTick() == 1)
     _gui->setPlayersPositions(p->getPlayers());
   std::cout << "players liste recu ok" << std::endl;
+  return (true);
+}
+
+bool		CoreClient::shoots(const IPacket *pa, IUserNetwork *u)
+{
+  PacketShoots	*p = (PacketShoots *)pa;
+  (void)u;
+  (void)p;
+  std::cout << "shoots liste recu" << std::endl;
+  //  if (pa->getTickId() == _gameData->getTick() || pa->getTickId() - _gameData->getTick() == 1)
+  //_gui->setPlayersShoots(p->getShoots());
+  std::cout << "shoots liste recu ok" << std::endl;
   return (true);
 }
 
@@ -456,5 +481,6 @@ bool		CoreClient::gameEnded(const IPacket *pa, IUserNetwork *u)
   p = _factory->getPacket("askrooms");
   _write->push(PacketC(p->getPacketUnknown(), u));
   delete p;
+  _gameData->reset();
   return (true);
 }

@@ -14,6 +14,7 @@ namespace Packet {
 
 	public:
 		DataShoot() {};
+	  DataShoot(const uint16_t &x, const uint16_t &y) : _x(x), _y(y) {};
 		~DataShoot() {};
 
 		std::string getName() const { return (_name); };

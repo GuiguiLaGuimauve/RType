@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Wed Dec 28 19:50:19 2016 lecoq
+// Last update Thu Dec 29 12:33:22 2016 lecoq
 //
 
 #include	"CoreServer.hh"
@@ -26,6 +26,7 @@ CoreServer::CoreServer()
   _packetPtr[IPacket::PacketType::PONG] = &CoreServer::pong;
   _packetPtr[IPacket::PacketType::ASK_ROOMS] = &CoreServer::askRooms;
   _packetPtr[IPacket::PacketType::POSITION_PLAYER] = &CoreServer::game;
+  _packetPtr[IPacket::PacketType::SHOOTS] = &CoreServer::game;
   _threadPool = new ThreadPool;
 }
 

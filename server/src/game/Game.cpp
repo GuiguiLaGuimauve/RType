@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 15:45:57 2016 Maxime Lecoq
-// Last update Tue Dec 27 15:43:55 2016 lecoq
+// Last update Thu Dec 29 13:15:04 2016 lecoq
 //
 
 #include	"Game.hh"
@@ -13,9 +13,12 @@
 Game::Game(DataRoom *p) : _room(p), _timeline(0)
 {
   _ptr[IPacket::PacketType::POSITION_PLAYER] = &IGame::updatePosPlayer;
+  _ptr[IPacket::PacketType::SHOOTS] = &IGame::updatePlayerShoots;
 }
 
-Game::~Game() {}
+Game::~Game()
+{
+}
 
 std::vector<std::string> Game::getAllName() const
 {
@@ -67,15 +70,19 @@ void		Game::timeLine()
 {
   Clock         clo;
   std::vector<std::string> list = getAllName();
-  
+  IPacket	*pa;
+
   while (_room->getPlayers().size() != 0)
     {
       if (_timeline != (uint64_t)clo.getTimeMilli() / 166)
 	{
 	  _timeline = clo.getTimeMilli() / 166;
-	  IPacket	*pa;
-
 	  pa = _factory->getPacket("players", _room->getPlayers());
+	  pa->setTickId(_timeline);
+	  _udp->pushTo(list, pa->getPacketUnknown());
+	  delete pa;
+	  pa = _factory->getPacket("shoots", _shoots);
+	  pa->setTickId(_timeline);
 	  _udp->pushTo(list, pa->getPacketUnknown());
 	  delete pa;
 	}
@@ -97,7 +104,8 @@ bool		Game::playerPresent(const std::string &pl)
 
 void		Game::execPacket(const IPacket *pa, const std::string &m)
 {
-  if (_ptr.find(pa->getType()) != _ptr.end())
+  if (_ptr.find(pa->getType()) != _ptr.end()
+      && (pa->getTickId() - _timeline == -1 || pa->getTickId() - _timeline == 0))
     (this->*_ptr[pa->getType()])(pa, m);
 }
 
@@ -113,6 +121,40 @@ void		Game::updatePosPlayer(const IPacket *pa, const std::string &m)
 	{
 	  _room->getPlayers()[i]->setX(p->getX());
 	  _room->getPlayers()[i]->setY(p->getY());
+	}
+      i++;
+    }
+}
+
+void		Game::updatePlayerShoots(const IPacket *pa, const std::string &m)
+{
+  uint64_t	i;
+  PacketShoots *p = (PacketShoots *)pa;
+  std::vector<DataShoot *>	tmp;
+  DataPlayer			*pl;
+  i = 0;
+  while (i < _room->getPlayers().size())
+    {
+      pl = _room->getPlayers()[i];
+      if (_room->getPlayers()[i]->getName() == m && _room->getPlayers()[i]->getShoots().size() != p->getShoots().size())
+	{
+	  uint64_t	pos = pl->getShoots().size();
+	  uint64_t	x = 0;
+	  while (x < p->getShoots().size())
+	    {
+	      if (x < pos)
+		{
+		  delete p->getShoots()[x];
+		  tmp.push_back(pl->getShoots()[x]);
+		}
+	      else
+		{
+		  tmp.push_back(p->getShoots()[x]);
+		  _shoots.push_back(p->getShoots()[x]);
+		}
+	      x++;
+	    }
+	  pl->setShoots(tmp);
 	}
       i++;
     }

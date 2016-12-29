@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 11:54:48 2016 Maxime Lecoq
-// Last update Tue Dec 27 15:28:42 2016 lecoq
+// Last update Thu Dec 29 13:14:30 2016 lecoq
 //
 
 #ifndef GAME_HH_
@@ -39,6 +39,7 @@ public:
   bool                          playerPresent(const std::string &);
   void                          execPacket(const IPacket *, const std::string &);
   void				updatePosPlayer(const IPacket *, const std::string &);
+  void				updatePlayerShoots(const IPacket *, const std::string &);
 private:
   DataRoom			*_room;
   std::string			_name;
@@ -48,6 +49,7 @@ private:
   PacketFactory			*_factory;
   uint64_t			_timeline;
   std::map<IPacket::PacketType, ptr>	_ptr;
+  std::vector<DataShoot *>	_shoots;
 };
 
 #endif /* !GAME_HH_ */
