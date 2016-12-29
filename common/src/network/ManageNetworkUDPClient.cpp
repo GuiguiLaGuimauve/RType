@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Fri Dec 16 11:37:09 2016 julien dufrene
-// Last update Thu Dec 29 15:10:33 2016 lecoq
+// Last update Thu Dec 29 15:21:30 2016 lecoq
 //
 
 #include	"ManageNetworkUDPClient.hh"
@@ -67,8 +67,10 @@ std::vector<IUserNetwork *>	ManageNetworkUDPClient::exec()
 {
   std::vector<IUserNetwork *>	newuser;
 
+  std::cout << "exec cli" << std::endl;
   if (_initServ == false || _serv->getStatus() == false)
     return (newuser);
+  std::cout << "exec cli 2" << std::endl;
   while (_serv->haveSomethingToWrite() == true)
     {
       std::cout << "something write to " << _serv->getPseudo() << " ip : " << _serv->getIp() << " port : " << _serv->getPort() << std::endl;

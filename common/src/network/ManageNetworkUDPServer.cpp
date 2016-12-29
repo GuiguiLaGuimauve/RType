@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Fri Dec 16 11:37:09 2016 julien dufrene
-// Last update Thu Dec 29 15:08:53 2016 lecoq
+// Last update Thu Dec 29 15:21:50 2016 lecoq
 //
 
 #include	"ManageNetworkUDPServer.hh"
@@ -95,6 +95,7 @@ std::vector<IUserNetwork *>	ManageNetworkUDPServer::exec()
   bool							ok;
 
   i = 0;
+  std::cout << _user.size() << std::endl;
   while (i < _user.size())
     {
       if (_user[i]->getStatus() != false)
