@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Thu Dec 29 16:15:25 2016 lecoq
+// Last update Thu Dec 29 17:08:26 2016 lecoq
 //
 
 #include	"CoreClient.hh"
@@ -403,9 +403,9 @@ void		CoreClient::timeLine()
   
   while (_gameData->gameIsEnded() == false)
     {
-      if (_gameData->getTick() != (uint32_t)(clo.getTimeMilli() / 166))
+      if (_gameData->getTick() != (uint32_t)(clo.getTimeMilli() / 50))
 	{
-	  _gameData->setTick(clo.getTimeMilli() / 166);
+	  _gameData->setTick(clo.getTimeMilli() / 50);
 	  IPacket *p;
 	  p = _factory->getPacket("positionplayer", _gui->getPosX(), _gui->getPosY());
 	  PacketPositionPlayer *pp = (PacketPositionPlayer *)p;
