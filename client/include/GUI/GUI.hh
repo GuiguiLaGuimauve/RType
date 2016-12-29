@@ -20,6 +20,7 @@
 #include "Key.hh"
 #include "DataRoom.hpp"
 #include "Chat.hh"
+#include "DataShoot.hpp"
 
 #define GUI_WIDTH 1920
 #define GUI_HEIGHT 1080
@@ -119,6 +120,7 @@ namespace Gui
     void		setRooms(const std::vector<DataRoom *> &);
     void		setProfile(DataPlayer *p);
     void		setPlayersPositions(const std::vector<DataPlayer *> &);
+    void		setShootsPos(const std::vector<Packet::DataShoot *> &);
 	void		addChatMessage(const std::string &);
     bool		isInGame(std::vector<DataPlayer*>);
     void		cleanGames();
@@ -150,10 +152,10 @@ namespace Gui
     Game					*_gameWidgets = NULL;
     // popup
     IWidget					*_fadedWidget = NULL;
-    /* temp pour test GUI */
+    /* Widgets de games */
     std::vector<IWidget *>	_playersPos;
+    std::vector<IWidget *>	_shotsPos;
     //std::vector<data>		players;
-    std::vector<data>		shots;
     std::vector<data>		envs;
     std::vector<data>		monsters;
   };

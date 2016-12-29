@@ -26,10 +26,6 @@ GUI::GUI()
   _userEvents->bindKey(KEY_DOWN, EventPart::Event::KEY_DOWN);
   _userEvents->bindKey(KEY_ATTACK, EventPart::Event::KEY_ATTACK);
   _userEvents->bindKey(KEY_QUIT, EventPart::Event::CLOSE_WINDOW);
-  //display init
-  //displayStart();
-  //displayLogin();
-  //displayMenu();
 }
 
 GUI::~GUI()
@@ -258,33 +254,6 @@ void		GUI::displayGame()
   //_win->setBackground(this->backgroundMap[this->_gameWidgets->levelId]);// Ou on pourrait set le levelId ?
 
   struct data oui;
-
-  oui.x = 500;
-  oui.y = 50;
-  this->shots.push_back(oui);
-  oui.x = 550;
-  oui.y = 150;
-  this->shots.push_back(oui);
-  oui.x = 550;
-  oui.y = 300;
-  this->shots.push_back(oui);
-  oui.x = 650;
-  oui.y = 450;
-  this->shots.push_back(oui);
-
-  //SHOTS
-  for (unsigned int i = 0; i < shots.size(); i++)
-    {
-      IWidget *temp;
-
-      temp = _win->addWidget(shots[i].x, 100 + shots[i].y, 34, 20);
-
-      Style s3 = temp->getStyle();
-
-      //s.image = "Shot-" + _gameWidgets->shots[i].name;
-      s3.image = "Shot-" + std::to_string(/*i + */1);
-      temp->setStyle(s3);
-    }
 
   oui.x = 1200;
   oui.y = 150;
@@ -999,6 +968,29 @@ void	GUI::setPlayersPositions(const std::vector<DataPlayer *> &dp)
 	s.image = "Ship" + std::to_string((elem->getId() + 1));
 	temp->setStyle(s);
 	_playersPos.push_back(temp);
+      }
+}
+
+void	GUI::setShootsPos(const std::vector<Packet::DataShoot *> &ds)
+{
+  if (_gameWidgets == NULL)
+    return;
+  for (auto elem : _shotsPos)
+    {
+      _win->deleteWidget(elem);
+    }
+  _shotsPos.clear();
+  if (ds.size())
+    for (auto elem : ds)
+      {
+	IWidget	*temp = _win->addWidget(elem->getX(), 100 + elem->getY(), 0, 0);
+	Style	s = temp->getStyle();
+	
+	/* Ajout du Widget de tir */
+	//s.image = "Shot-" + std::to_string((elem->getId() + 1));
+	s.image = "Shot-1";
+	temp->setStyle(s);
+	_shotsPos.push_back(temp);
       }
 }
 
