@@ -5,7 +5,7 @@
 // Login   <rembur_g@epitech.eu>
 //
 // Started on  Wed Dec  7 13:53:17 2016 La Guimauve
-// Last update Tue Dec 27 12:35:51 2016 lecoq
+// Last update Thu Dec 29 19:21:35 2016 lecoq
 //
 
 #ifndef THREADPOOL_HH_

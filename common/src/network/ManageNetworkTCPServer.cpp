@@ -186,7 +186,7 @@ void		ManageNetworkTCPServer::pushTo(const std::vector<std::string> &list, const
   while (i < _user.size())
     {
       if (inList(_user[i]->getPseudo(), list) == true)
-        _user[i]->pushBufferWrite(p);
+	_user[i]->pushBufferWrite(p);
       i++;
     }
 }

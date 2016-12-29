@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Thu Dec 29 17:52:20 2016 lecoq
+// Last update Thu Dec 29 19:47:47 2016 lecoq
 //
 
 #include	"CoreClient.hh"
@@ -353,8 +353,11 @@ bool		CoreClient::rooms(const IPacket *pa, IUserNetwork *u)
 
   if (_status == "login")
     _gui->displayMenu();
-  _gui->setRooms(p->getRooms());
-  _status = "rooms";
+  if (_status != "game")
+    {
+      _gui->setRooms(p->getRooms());
+      _status = "rooms";
+    }
   (void)u;
   return (true);
 }

@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 11:52:02 2016 Maxime Lecoq
-// Last update Tue Dec 27 15:11:30 2016 lecoq
+// Last update Thu Dec 29 19:26:49 2016 lecoq
 //
 
 #ifndef GAMEMANAGER_HH_
@@ -15,6 +15,7 @@
 # include	"IGameManager.hh"
 # include	"DataRoom.hpp"
 # include	"ThreadPool.hpp"
+# include	"Printer.hpp"
 
 class GameManager : public IGameManager
 {

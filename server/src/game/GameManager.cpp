@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 15:44:47 2016 Maxime Lecoq
-// Last update Thu Dec 29 12:44:47 2016 lecoq
+// Last update Thu Dec 29 19:50:38 2016 lecoq
 //
 
 #include "GameManager.hh"
@@ -20,15 +20,16 @@ void	GameManager::createGame(DataRoom *room, const uint8_t *ip)
   uint64_t			i;
   std::vector<std::string>	tmp;
   std::vector<DataShoot *>	reset;
-  
+  Printer d;
   pb = _factory->getPacket("udpdata", ip, (uint16_t)4243);
   newGame->setFactory(_factory);
   newGame->setUdp(_udp);
   _gameList.push_back(newGame);
+  d.print(newGame->getAllName());
   _tcp->pushTo(newGame->getAllName(), pb->getPacketUnknown());
   delete pb; 
   _threadPool->launchTask(&GameManager::runTimeline, this, newGame);
-  i = 0;
+  /*  i = 0;
   while (i < room->getPlayers().size())
     {
       room->getPlayers()[i]->setGamePlayed(room->getPlayers()[i]->getGamePlayed() + 1);
@@ -44,7 +45,7 @@ void	GameManager::createGame(DataRoom *room, const uint8_t *ip)
       delete pb;
       i++;
     }
-  newGame->run();
+    newGame->run();*/
 }
 
 bool          GameManager::gamesUpdate()
