@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Fri Dec 16 11:37:09 2016 julien dufrene
-// Last update Thu Dec 29 15:21:30 2016 lecoq
+// Last update Thu Dec 29 15:24:52 2016 lecoq
 //
 
 #include	"ManageNetworkUDPClient.hh"
@@ -67,10 +67,8 @@ std::vector<IUserNetwork *>	ManageNetworkUDPClient::exec()
 {
   std::vector<IUserNetwork *>	newuser;
 
-  std::cout << "exec cli" << std::endl;
   if (_initServ == false || _serv->getStatus() == false)
     return (newuser);
-  std::cout << "exec cli 2" << std::endl;
   while (_serv->haveSomethingToWrite() == true)
     {
       std::cout << "something write to " << _serv->getPseudo() << " ip : " << _serv->getIp() << " port : " << _serv->getPort() << std::endl;
@@ -85,7 +83,7 @@ std::vector<IUserNetwork *>	ManageNetworkUDPClient::exec()
       std::cout << "un packet est lu" << std::endl;
       _serv->pushBufferWrite(pk);
     }
-  /*  if (_serv->getStatus() == true)
+  if (_serv->getStatus() == true)
     {
       IUserNetwork                                  *u;
       #ifdef _WIN32
@@ -99,6 +97,7 @@ std::vector<IUserNetwork *>	ManageNetworkUDPClient::exec()
       u = u->readSocket(_net);
       while (u->haveSomethingToRead() == true)
 	{
+	  std::cout << "ploooop" << std::endl;
 	  PacketUnknown pk = u->popBufferRead();
 	  _read->push(PacketC(pk, u));
 	  std::cout << "un packet est lu" << std::endl;
@@ -110,7 +109,7 @@ std::vector<IUserNetwork *>	ManageNetworkUDPClient::exec()
 	    }
 	  std::cout << "Server send me something" << std::endl;
 	}
-	}*/
+    }
   return (newuser);
 }
 
