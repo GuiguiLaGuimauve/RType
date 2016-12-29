@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Fri Dec 16 11:37:09 2016 julien dufrene
-// Last update Thu Dec 29 15:24:52 2016 lecoq
+// Last update Thu Dec 29 15:29:32 2016 lecoq
 //
 
 #include	"ManageNetworkUDPClient.hh"
@@ -83,7 +83,7 @@ std::vector<IUserNetwork *>	ManageNetworkUDPClient::exec()
       std::cout << "un packet est lu" << std::endl;
       _serv->pushBufferWrite(pk);
     }
-  if (_serv->getStatus() == true)
+  /*  if (_serv->getStatus() == true)
     {
       IUserNetwork                                  *u;
       #ifdef _WIN32
@@ -97,7 +97,6 @@ std::vector<IUserNetwork *>	ManageNetworkUDPClient::exec()
       u = u->readSocket(_net);
       while (u->haveSomethingToRead() == true)
 	{
-	  std::cout << "ploooop" << std::endl;
 	  PacketUnknown pk = u->popBufferRead();
 	  _read->push(PacketC(pk, u));
 	  std::cout << "un packet est lu" << std::endl;
@@ -109,7 +108,7 @@ std::vector<IUserNetwork *>	ManageNetworkUDPClient::exec()
 	    }
 	  std::cout << "Server send me something" << std::endl;
 	}
-    }
+    }*/
   return (newuser);
 }
 
@@ -152,15 +151,20 @@ bool			ManageNetworkUDPClient::tryConnectClient(const uint32_t &port, const std:
 
 void		ManageNetworkUDPClient::pushTo(const std::vector<std::string> &s, const PacketUnknown &m)
 {
+  std::cout << "plop push" << std::endl;
   if (_initServ == true)
     {
       (void)s;
       uint32_t		i = 0;
       while (i < _user.size())
 	{
+	  std::cout << "plop push elem list " << i << "/" << _user.size() << std::endl;
 	  if (_user[i] == _serv)
-	    _serv->pushBufferWrite(m);
-	  i++;
+	    {
+	      std::cout << "j ai reussi a push ds le serv en udp" << std::endl;
+	      _serv->pushBufferWrite(m);
+	    }
+	      i++;
 	}
     }
 }
