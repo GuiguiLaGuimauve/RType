@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Fri Dec 16 11:37:09 2016 julien dufrene
-// Last update Thu Dec 29 15:29:32 2016 lecoq
+// Last update Thu Dec 29 15:31:34 2016 lecoq
 //
 
 #include	"ManageNetworkUDPClient.hh"
@@ -156,6 +156,7 @@ void		ManageNetworkUDPClient::pushTo(const std::vector<std::string> &s, const Pa
     {
       (void)s;
       uint32_t		i = 0;
+      std::cout << "serv init" << std::endl;
       while (i < _user.size())
 	{
 	  std::cout << "plop push elem list " << i << "/" << _user.size() << std::endl;
@@ -167,4 +168,6 @@ void		ManageNetworkUDPClient::pushTo(const std::vector<std::string> &s, const Pa
 	      i++;
 	}
     }
+  else
+    std::cout << "serv pas init" << std::endl;
 }
