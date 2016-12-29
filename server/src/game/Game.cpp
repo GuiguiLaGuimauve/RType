@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 15:45:57 2016 Maxime Lecoq
-// Last update Thu Dec 29 18:38:06 2016 lecoq
+// Last update Thu Dec 29 19:59:58 2016 lecoq
 //
 
 #include	"Game.hh"
