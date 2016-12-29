@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Thu Dec 29 15:01:15 2016 lecoq
+// Last update Thu Dec 29 16:59:57 2016 lecoq
 //
 
 #include	"CoreServer.hh"
@@ -256,6 +256,9 @@ bool				CoreServer::startGame(const IPacket *pa, IUserNetwork *u)
       room->setStarted(true);
       if ((ip = calculIp(u->getIp())) != NULL)
 	_threadPool->launchTask(&CoreServer::createGame, this, room, ip);
+      IPacket *pb = _factory->getPacket("rooms", _data->getRooms());
+      _tcp->pushTo(_data->getOnlineClients(), pb->getPacketUnknown());
+      delete pb;
     }
   return (true);
 }
