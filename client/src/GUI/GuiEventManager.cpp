@@ -21,6 +21,17 @@ void		GuiEventManager::callback()
 {
   if (!_queue)
     return ;
+  // gestions des touches
+  if (clock.getTimeMilli() < INTERVAL_CHECK_KEY)
+  {
+	  for (auto i : _keys)
+	  {
+		  if (sf::Keyboard::isKeyPressed(i.first))
+			  _queue->push(EventPart::Event(_events[i.second]));
+	  }
+	  clock.reset();
+  }
+  // évènements classiques sfml
   sf::Event event;
   while (_win->pollEvent(event))
     {
@@ -52,13 +63,14 @@ void		GuiEventManager::callback()
 					    "Y", event.mouseMove.y));
 	    break;
 	  }
-	case sf::Event::KeyPressed :
+	  // deprécié maintenant géré autrement
+	/*case sf::Event::KeyPressed :
 	  {
 	    auto i = _keys.find(event.key.code);
 	    if (i != _keys.end())
 	      _queue->push(EventPart::Event(_events[_keys[event.key.code]]));
 	    break ;
-	  }
+	  }*/
 	case sf::Event::TextEntered:
 	  {
 	    if (_textTracking && event.text.unicode <= 127)
