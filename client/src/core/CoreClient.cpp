@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Thu Dec 29 16:00:48 2016 lecoq
+// Last update Thu Dec 29 16:15:25 2016 lecoq
 //
 
 #include	"CoreClient.hh"
@@ -456,7 +456,7 @@ bool		CoreClient::players(const IPacket *pa, IUserNetwork *u)
   (void)p;
   std::cout << "players liste recu" << std::endl;
   std::cout << "tick serv : " << pa->getTickId() << " tick cli : " << _gameData->getTick() << " pos x : " << p->getPlayers()[0]->getX() << " pos y : " << p->getPlayers()[0]->getY() << std::endl;
-  if (pa->getTickId() == _gameData->getTick() || pa->getTickId() - _gameData->getTick() == 1)
+  //if (pa->getTickId() == _gameData->getTick() || pa->getTickId() - _gameData->getTick() == 1)
     _gui->setPlayersPositions(p->getPlayers());
   std::cout << "players liste recu ok" << std::endl;
   return (true);
