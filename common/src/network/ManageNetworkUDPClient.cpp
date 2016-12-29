@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Fri Dec 16 11:37:09 2016 julien dufrene
-// Last update Thu Dec 29 15:32:57 2016 lecoq
+// Last update Thu Dec 29 15:37:28 2016 lecoq
 //
 
 #include	"ManageNetworkUDPClient.hh"
@@ -145,30 +145,14 @@ bool			ManageNetworkUDPClient::tryConnectClient(const uint32_t &port, const std:
   u->setPseudo("Accept");
   _serv = u;
   _initServ = true;
-  _user.push_back(u);
   std::cout << "Client UDP connected, IP: " << _serv->getIp() << " port: " << _serv->getPort() << std::endl;
   return (true);
 }
 
 void		ManageNetworkUDPClient::pushTo(const std::vector<std::string> &s, const PacketUnknown &m)
 {
-  std::cout << "plop push" << std::endl;
   if (_initServ == true)
     {
-      (void)s;
-      uint32_t		i = 0;
-      std::cout << "serv init" << std::endl;
-      while (i < _user.size())
-	{
-	  std::cout << "plop push elem list " << i << "/" << _user.size() << std::endl;
-	  if (_user[i] == _serv)
-	    {
-	      std::cout << "j ai reussi a push ds le serv en udp" << std::endl;
-	      _serv->pushBufferWrite(m);
-	    }
-	      i++;
-	}
+	    _serv->pushBufferWrite(m);
     }
-  else
-    std::cout << "serv pas init" << std::endl;
 }
