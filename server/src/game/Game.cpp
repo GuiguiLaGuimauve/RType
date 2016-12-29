@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 15:45:57 2016 Maxime Lecoq
-// Last update Thu Dec 29 16:13:28 2016 lecoq
+// Last update Thu Dec 29 16:20:11 2016 lecoq
 //
 
 #include	"Game.hh"
@@ -74,9 +74,9 @@ void		Game::timeLine()
 
   while (_room->getPlayers().size() != 0)
     {
-      if (_timeline != (uint64_t)clo.getTimeMilli() / 50)
+      if (_timeline != (uint64_t)clo.getTimeMilli() / 166)
 	{
-	  _timeline = clo.getTimeMilli() / 50;
+	  _timeline = clo.getTimeMilli() / 166;
 	  pa = _factory->getPacket("players", _room->getPlayers());
 	  pa->setTickId(_timeline);
 	  _udp->pushTo(list, pa->getPacketUnknown());
@@ -105,7 +105,7 @@ bool		Game::playerPresent(const std::string &pl)
 void		Game::execPacket(const IPacket *pa, const std::string &m)
 {
   if (_ptr.find(pa->getType()) != _ptr.end()
-      && ((int64_t)(pa->getTickId() - _timeline) == -1 || (uint64_t)pa->getTickId() - _timeline == 0))
+      /*&& ((int64_t)(pa->getTickId() - _timeline) == -1 || (uint64_t)pa->getTickId() - _timeline == 0)*/)
     (this->*_ptr[pa->getType()])(pa, m);
 }
 
