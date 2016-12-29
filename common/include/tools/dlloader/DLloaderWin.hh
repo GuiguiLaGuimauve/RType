@@ -40,7 +40,6 @@ public:
 template <typename T>
 DLloaderWin<T>::~DLloaderWin()
 {
-  this->dropLib();
 }
 
 template <typename T>
@@ -51,7 +50,7 @@ bool DLloaderWin<T>::loadLib(const std::string &path)
   if (this->_lib == NULL)
     {
       std::cerr << "Could not load DLL \"" << path << "\"" << std::endl;
-      throw Error::RunTimeError("Library not found in the directory");
+	  throw std::runtime_error("Library not found in the directory");
     }
   return (true);
 }
@@ -60,14 +59,14 @@ template <typename T>
 bool DLloaderWin<T>::extractLib(const std::string &func)
 {
 	if (this->_lib == NULL)
-		throw Error::RunTimeError("No lib loaded");
+		throw std::runtime_error("No lib loaded");
 
   this->_extract = GetProcAddress(this->_lib, func.c_str());
-  if (!this->_extract)
+  if (this->_extract == NULL)
     {
-      std::cerr << "Could not locate the function \"" << func << "\" in DLL\""
+      std::cerr << "Could not locate the function \"" << func << "\" in DLL \""
                 << this->_lib << "\"" << std::endl;
-      throw Error::RunTimeError("function not found in the lib");
+	  throw std::runtime_error("function not found in the lib");
     }
   //TODO : __stdcall
   this->_func = reinterpret_cast<T*>(this->_extract);
@@ -82,7 +81,7 @@ bool DLloaderWin<T>::loadandextract(const std::string &path, const std::string &
   if (this->_lib == NULL)
     {
       std::cerr << "Could not load DLL \"" << path << "\"" << std::endl;
-      throw Error::RunTimeError("Library not found in the directory");
+      throw std::runtime_error("Library not found in the directory");
     }
 
     this->_extract = GetProcAddress(this->_lib, func.c_str());
@@ -90,7 +89,7 @@ bool DLloaderWin<T>::loadandextract(const std::string &path, const std::string &
       {
         std::cerr << "Could not locate the function \"" << func << "\" in DLL\""
                   << this->_lib << "\"" << std::endl;
-        throw Error::RunTimeError("function not found in the lib");
+		throw std::runtime_error("function not found in the lib");
       }
 
 	//TODO : __stdcall
