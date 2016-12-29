@@ -373,6 +373,7 @@ void		GUI::displayMenu()
 	deleteWidgets();
 	_win->setBackground(PICTURE_BACKGROUND);
 	_menuWidgets = new Menu;
+	_menuWidgets->itScroll = 0;
 	//_menuWidgets->chat = new Chat(_win, _guiQueue, 1200, 700);
 
 	updateGameInfo();
@@ -677,8 +678,9 @@ void		GUI::updateGameInfo(/*const GameInfo &*/)
   int i = 0;
   int nb = 0;
 
-  if (_menuWidgets)
-    cleanGames();
+  if (!_menuWidgets)
+    return;
+  cleanGames();
   std::cout << "scroll iterator = " << _menuWidgets->itScroll << std::endl;
   if (_menuWidgets->itScroll >= _menuInfos.size())
 	  _menuWidgets->itScroll = (unsigned int) _menuInfos.size() - 1;
