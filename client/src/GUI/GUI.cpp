@@ -842,7 +842,7 @@ void		GUI::updateCurrentGame()
 		_menuWidgets->selectedGame->setText("");
 	}
 	// affichage du bouton join
-	if (_currentGame && _currentGame->getNbPlayers() < _currentGame->getMaxPlayers()
+	if (_currentGame && _currentGame->getNbPlayers() < _currentGame->getMaxPlayers() && _currentGame->getStarted() == false
 	    && (isInGame(_currentGame->getPlayers()) == false && isInGame(_currentGame->getWatchers()) == false))
 	{
 	  _menuWidgets->confirm->setText("JOIN");
