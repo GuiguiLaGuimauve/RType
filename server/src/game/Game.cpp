@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 15:45:57 2016 Maxime Lecoq
-// Last update Thu Dec 29 19:59:58 2016 lecoq
+// Last update Thu Dec 29 20:03:14 2016 lecoq
 //
 
 #include	"Game.hh"
@@ -79,11 +79,11 @@ void		Game::timeLine()
 	  _timeline = clo.getTimeMilli() / 50;
 	  pa = _factory->getPacket("players", _room->getPlayers());
 	  pa->setTickId(_timeline);
-	  _udp->pushTo(list, pa->getPacketUnknown());
+	  //_udp->pushTo(list, pa->getPacketUnknown());
 	  delete pa;
 	  pa = _factory->getPacket("shoots", _shoots);
 	  pa->setTickId(_timeline);
-	  _udp->pushTo(list, pa->getPacketUnknown());
+	  //_udp->pushTo(list, pa->getPacketUnknown());
 	  delete pa;
 	}
     }
