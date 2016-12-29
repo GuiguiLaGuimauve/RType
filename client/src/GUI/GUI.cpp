@@ -769,7 +769,7 @@ void			GUI::showPopup(const std::string &string, int tMilli)
   _fadedWidget->showPopup(string, tMilli);
 
   // Define position
-  _fadedWidget->move((_win->getWidth() - _fadedWidget->getTextWidth()) / 2, 1040);
+  _fadedWidget->move((_win->getWidth() - _fadedWidget->getTextWidth()) / 2, 1000);
 }
 
 void			GUI::loadSoundAssets()
