@@ -12,7 +12,7 @@
 #include "Clock.hpp"
 #include "Click.hh"
 
-#define INTERVAL_CHECK_KEY 500
+#define INTERVAL_CHECK_KEY 1
 
 namespace Gui
 {
