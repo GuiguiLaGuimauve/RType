@@ -945,9 +945,7 @@ void	GUI::setPlayersPositions(const std::vector<DataPlayer *> &dp)
   if (_gameWidgets == NULL)
     return;
   for (auto elem : _playersPos)
-    {
       _win->deleteWidget(elem);
-    }
   _playersPos.clear();
   if (dp.size())
     for (auto elem : dp)
@@ -956,8 +954,8 @@ void	GUI::setPlayersPositions(const std::vector<DataPlayer *> &dp)
 	Style	s;
 	
 	/* Ajout du Widget d'HUD pour le joueur i */
-	temp = _win->addWidget((_win->getWidth() / 4) * (int)(elem->getId()) + 100, 30, _win->getWidth() / (int) dp.size(), 100);
-	temp->setText(" " + std::to_string(elem->getHealth()) + " %");
+	temp = _win->addWidget((_win->getWidth() / 4) * (int)(elem->getId()) + 10, 0, _win->getWidth() / (int) dp.size(), 100);
+	temp->setText("\n  " + std::to_string(elem->getHealth()) + " %");
 	s = temp->getStyle();
 	s.textColor = Color(red[elem->getId()], green[elem->getId()], blue[elem->getId()]);
 	s.policeSize = 60;
@@ -973,14 +971,12 @@ void	GUI::setPlayersPositions(const std::vector<DataPlayer *> &dp)
       }
 }
 
-void	GUI::setShootsPos(const std::vector<Packet::DataShoot *> &ds)
+void	GUI::setShootsPositions(const std::vector<Packet::DataShoot *> &ds)
 {
   if (_gameWidgets == NULL)
     return;
   for (auto elem : _shotsPos)
-    {
-      _win->deleteWidget(elem);
-    }
+    _win->deleteWidget(elem);
   _shotsPos.clear();
   if (ds.size())
     for (auto elem : ds)
@@ -989,10 +985,52 @@ void	GUI::setShootsPos(const std::vector<Packet::DataShoot *> &ds)
 	Style	s = temp->getStyle();
 	
 	/* Ajout du Widget de tir */
-	//s.image = "Shot-" + std::to_string((elem->getId() + 1));
+	//s.image = "Shot-" + elem->getName();
 	s.image = "Shot-1";
 	temp->setStyle(s);
 	_shotsPos.push_back(temp);
+      }
+}
+
+void	GUI::setEnemyPositions(const std::vector<Packet::DataEnnemy *> &de)
+{
+  if (_gameWidgets == NULL)
+    return;
+  for (auto elem : _enemyPos)
+    _win->deleteWidget(elem);
+  _enemyPos.clear();
+  if (de.size())
+    for (auto elem : de)
+      {
+	IWidget	*temp = _win->addWidget(elem->getX(), 100 + elem->getY(), 0, 0);
+	Style	s = temp->getStyle();
+	
+	/* Ajout du Widget d'ennemi */
+	//s.image = "Enemy" + std::to_string((elem->getType() + 1));
+	s.image = "Bydos";
+	temp->setStyle(s);
+	_enemyPos.push_back(temp);
+      }
+}
+
+void	GUI::setEnvsPositions(const std::vector<Packet::DataBackground *> &de)
+{
+  if (_gameWidgets == NULL)
+    return;
+  for (auto elem : _envsPos)
+    _win->deleteWidget(elem);
+  _envsPos.clear();
+  if (de.size())
+    for (auto elem : de)
+      {
+	IWidget	*temp = _win->addWidget(elem->getX(), 100 + elem->getY(), 0, 0);
+	Style	s = temp->getStyle();
+	
+	/* Ajout du Widget d'ennemi */
+	//s.image = "Env" + std::to_string((elem->getType() + 1));
+	s.image = "Env-1";
+	temp->setStyle(s);
+	_envsPos.push_back(temp);
       }
 }
 

@@ -26,23 +26,23 @@ Chat::Chat(IWindow *w, EventPart::IEventQueue *eq, int x, int y) :
 	_input->setStyle(inputStyle);
 	_input->setOnFocus(TextColorFocus);
 	_input->setOnLeaveFocus(TextColorNoFocus);
-	_input->setOnTextEntered([](IWidget *w, const std::string &c)
+	_input->setOnTextEntered([](IWidget *wd, const std::string &c)
 	{
 		if (c[0] == '\n' || c[0] == '\r')
-			w->getEventQueue()->push(EventPart::Event(EventPart::Event::CHAT_SEND_MESSAGE));
-		else if (w->getText().length() > 15)
+			wd->getEventQueue()->push(EventPart::Event(EventPart::Event::CHAT_SEND_MESSAGE));
+		else if (wd->getText().length() > 15)
 		{
 			// do nothing
 		}
 		else if (c[0] == 127 || c[0] == 8)
 		{
-			std::string tmp = w->getText();
+			std::string tmp = wd->getText();
 			if (tmp.length() > 0)
 				tmp.pop_back();
-			w->setText(tmp);
+			wd->setText(tmp);
 		}
-		else if (isprint(c[0]) && w->getText().size() < 25)
-			w->setText(w->getText() + c);
+		else if (isprint(c[0]) && wd->getText().size() < 25)
+			wd->setText(wd->getText() + c);
 	});
 	move(x, y);
 }

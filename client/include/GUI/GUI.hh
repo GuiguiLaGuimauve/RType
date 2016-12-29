@@ -21,6 +21,8 @@
 #include "DataRoom.hpp"
 #include "Chat.hh"
 #include "DataShoot.hpp"
+#include "DataEnnemy.hpp"
+#include "DataBackground.hpp"
 
 #define GUI_WIDTH 1920
 #define GUI_HEIGHT 1080
@@ -85,12 +87,12 @@ namespace Gui
       IWidget	*leaveButton = NULL; // bouton pour regarder
       IWidget	*watchButton = NULL; // bouton pour regarder
       IWidget	*startButton = NULL; // bouton pour regarder
-	  IWidget	*downScrollButton = NULL; // pour scroller les parties vers le bas
-	  IWidget	*upScrollButton = NULL; // pour scroller les parties vers le haut
-	  unsigned int		itScroll = 0;
-	  IWidget	*chooseRoomName = NULL;
-	  IWidget	*changeMaxPlayer = NULL;
-	  Chat		*chat = NULL;
+      IWidget	*downScrollButton = NULL; // pour scroller les parties vers le bas
+      IWidget	*upScrollButton = NULL; // pour scroller les parties vers le haut
+      unsigned int		itScroll = 0;
+      IWidget	*chooseRoomName = NULL;
+      IWidget	*changeMaxPlayer = NULL;
+      Chat		*chat = NULL;
 
 	  ~Menu() { if (chat) delete chat; };
       /* Vecteur de joueurs connectés */
@@ -111,53 +113,56 @@ namespace Gui
     void        displayGame();
     void        displayStart();
     void        displayMenu();
-    void		displayLogin();
+    void	displayLogin();
     void        updateGameInfo(/*const GameInfo &*/);
-    void		setEventQueue(EventPart::IEventQueue *);
-    void		setSoundManager(Audio::ISoundManager *);
-    void		showPopup(const std::string &s, int tMilli = 2000);
-    void		loadSoundAssets();
-    void		setRooms(const std::vector<DataRoom *> &);
-    void		setProfile(DataPlayer *p);
-    void		setPlayersPositions(const std::vector<DataPlayer *> &);
-    void		setShootsPos(const std::vector<Packet::DataShoot *> &);
-	void		addChatMessage(const std::string &);
-    bool		isInGame(std::vector<DataPlayer*>);
-    void		cleanGames();
-    uint64_t		getPosX();
-    uint64_t		getPosY();
-    void		setPosX(uint64_t);
-    void		setPosY(uint64_t);
+    void	setEventQueue(EventPart::IEventQueue *);
+    void	setSoundManager(Audio::ISoundManager *);
+    void	showPopup(const std::string &s, int tMilli = 2000);
+    void	loadSoundAssets();
+    void	setRooms(const std::vector<DataRoom *> &);
+    void	setProfile(DataPlayer *p);
+    void	setPlayersPositions(const std::vector<DataPlayer *> &);
+    void	setShootsPositions(const std::vector<Packet::DataShoot *> &);
+    void	setEnemyPositions(const std::vector<Packet::DataEnnemy *> &);
+    void	setEnvsPositions(const std::vector<Packet::DataBackground *> &);
+    void	addChatMessage(const std::string &);
+    bool	isInGame(std::vector<DataPlayer*>);
+    void	cleanGames();
+    uint64_t	getPosX();
+    uint64_t	getPosY();
+    void	setPosX(uint64_t);
+    void	setPosY(uint64_t);
   protected:
     void	deleteWidgets();
-	void	updateCurrentGame();
+    void	updateCurrentGame();
   protected:
     Audio::ISoundManager	*_audio;
-    IWindow					*_win;
+    IWindow			*_win;
     IGuiEventManager		*_userEvents;
 	// pour gérer le menu
     std::vector<DataRoom*>	_menuInfos;
-    DataRoom				*_currentGame = NULL;
-    DataPlayer				*_profile = NULL;
+    DataRoom			*_currentGame = NULL;
+    DataPlayer			*_profile = NULL;
 	// les queues d'events
     EventPart::IEventQueue	*_coreQueue;
     EventPart::IEventQueue	*_guiQueue;
     // gestion effets graphiques
-    IWidget					*_hoverWidget = NULL;
-    IWidget					*_focusWidget = NULL;
+    IWidget			*_hoverWidget = NULL;
+    IWidget			*_focusWidget = NULL;
     // liste des widgets dans les structures
-    Start					*_startWidgets = NULL;
-    Login					*_loginWidgets = NULL;
-    Menu					*_menuWidgets = NULL;
-    Game					*_gameWidgets = NULL;
+    Start			*_startWidgets = NULL;
+    Login			*_loginWidgets = NULL;
+    Menu			*_menuWidgets = NULL;
+    Game			*_gameWidgets = NULL;
     // popup
-    IWidget					*_fadedWidget = NULL;
+    IWidget			*_fadedWidget = NULL;
     /* Widgets de games */
     std::vector<IWidget *>	_playersPos;
     std::vector<IWidget *>	_shotsPos;
-    //std::vector<data>		players;
-    std::vector<data>		envs;
+    std::vector<IWidget *>	_enemyPos;
+    std::vector<IWidget *>	_envsPos;
     std::vector<data>		monsters;
+    std::vector<data>		envs;
   };
 }
 
