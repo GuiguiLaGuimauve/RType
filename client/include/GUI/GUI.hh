@@ -27,7 +27,7 @@
 
 #define NB_GAME_SCROLL 4
 
-#define MOVE_SPEED 1
+#define MOVE_SPEED 3
 
 void	TextColorNoFocus(Gui::IWidget *w);
 void	TextColorFocus(Gui::IWidget *w);
