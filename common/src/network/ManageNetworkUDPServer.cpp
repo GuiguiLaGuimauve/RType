@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Fri Dec 16 11:37:09 2016 julien dufrene
-// Last update Thu Dec 29 18:51:42 2016 lecoq
+// Last update Thu Dec 29 20:21:47 2016 lecoq
 //
 
 #include	"ManageNetworkUDPServer.hh"
@@ -130,6 +130,7 @@ std::vector<IUserNetwork *>	ManageNetworkUDPServer::exec()
 		  while (_user[i]->haveSomethingToWrite() == true)
 		    u->pushBufferWrite(_user[i]->popBufferWrite());
 		  _user[i] = u;
+		  u->setPseudo(_user[i]->getPseudo());
 		  ok = true;
 		}
 	      i++;
