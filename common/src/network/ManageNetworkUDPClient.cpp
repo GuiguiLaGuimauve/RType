@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Fri Dec 16 11:37:09 2016 julien dufrene
-// Last update Thu Dec 29 15:37:28 2016 lecoq
+// Last update Thu Dec 29 15:39:24 2016 lecoq
 //
 
 #include	"ManageNetworkUDPClient.hh"
@@ -70,45 +70,14 @@ std::vector<IUserNetwork *>	ManageNetworkUDPClient::exec()
   if (_initServ == false || _serv->getStatus() == false)
     return (newuser);
   while (_serv->haveSomethingToWrite() == true)
-    {
-      std::cout << "something write to " << _serv->getPseudo() << " ip : " << _serv->getIp() << " port : " << _serv->getPort() << std::endl;
-      _serv->writeSocket(_net);
-    }
+    _serv->writeSocket(_net);
   _serv->readSocket(_net);
   while (_serv->getStatus() == true && _serv->haveSomethingToRead())
     {
-      std::cout << "something read from " << _serv->getPseudo() << " ip : " << _serv->getIp() << " port : " << _serv->getPort() << std::endl;
       PacketUnknown pk = _serv->popBufferRead();
       _read->push(PacketC(pk, _serv));
-      std::cout << "un packet est lu" << std::endl;
       _serv->pushBufferWrite(pk);
     }
-  /*  if (_serv->getStatus() == true)
-    {
-      IUserNetwork                                  *u;
-      #ifdef _WIN32
-      u = new UserNetworkUDPWindowsServer();
-              #else
-      u = new UserNetworkUDPUnixServer();
-              #endif
-      u->setIp("0.0.0.0");
-      u->setFd(_net->getFdSocket());
-      u->setPseudo("Accept");
-      u = u->readSocket(_net);
-      while (u->haveSomethingToRead() == true)
-	{
-	  PacketUnknown pk = u->popBufferRead();
-	  _read->push(PacketC(pk, u));
-	  std::cout << "un packet est lu" << std::endl;
-	  if (_serv->getIp() == u->getIp())
-	    {
-	      while (_serv->haveSomethingToWrite() == true)
-		u->pushBufferWrite(_serv->popBufferWrite());
-	      _serv = u;
-	    }
-	  std::cout << "Server send me something" << std::endl;
-	}
-    }*/
   return (newuser);
 }
 
@@ -152,7 +121,5 @@ bool			ManageNetworkUDPClient::tryConnectClient(const uint32_t &port, const std:
 void		ManageNetworkUDPClient::pushTo(const std::vector<std::string> &s, const PacketUnknown &m)
 {
   if (_initServ == true)
-    {
-	    _serv->pushBufferWrite(m);
-    }
+    _serv->pushBufferWrite(m);
 }
