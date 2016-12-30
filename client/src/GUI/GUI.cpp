@@ -412,8 +412,9 @@ void		GUI::displayMenu()
 	});
 	_menuWidgets->createGame->setOnHover(TextColorFocus);
 	_menuWidgets->createGame->setOnLeaveHover(TextColorNoFocus);
+
 	// init chooseRoomName
-	_menuWidgets->chooseRoomName = _win->addWidget(_menuWidgets->createGame->getX() + 150, _menuWidgets->createGame->getY() + 13, 300, 100);
+	_menuWidgets->chooseRoomName = _win->addWidget(_menuWidgets->createGame->getX() + 150, _menuWidgets->createGame->getY() + 13, _win->getWidth() / 2, 100);
 	s = _menuWidgets->chooseRoomName->getStyle();
 	s.textColor = Color(TEXT_COLOR_R, TEXT_COLOR_G, TEXT_COLOR_B);
 	s.policeSize = 35;
@@ -428,6 +429,7 @@ void		GUI::displayMenu()
 	});
 	_menuWidgets->chooseRoomName->setOnFocus(TextColorFocus);
 	_menuWidgets->chooseRoomName->setOnLeaveFocus(TextColorNoFocus);
+
 	// ############################################################
 	// init changeMaxPlayer
 	_menuWidgets->changeMaxPlayer = _win->addWidget(_menuWidgets->createGame->getX() + 75, _menuWidgets->createGame->getY() + 13, 50, 50);
@@ -447,6 +449,7 @@ void		GUI::displayMenu()
 			tmpString[0] = '1';
 		w->setText(tmpString);
 	});
+
 	// ##############################################################
 	// init profile text
 	_menuWidgets->profile = _win->addWidget(3 * (_win->getWidth() / 4), 3 * (_win->getHeight() / 4), _win->getHeight() / 4, 300);
@@ -831,7 +834,8 @@ void		GUI::updateCurrentGame()
 	if (_currentGame)
 	{
 		std::stringstream ss;
-		ss << "Name : " << _currentGame->getName();
+		//ss << "Name : " << _currentGame->getName();
+		ss << _currentGame->getName();
 		if (_currentGame->getWatchers().size() != 0)
 		  ss << "\n\nViewers : " << _currentGame->getWatchers().size();
 		ss << "\n\nPlayers :\n";
