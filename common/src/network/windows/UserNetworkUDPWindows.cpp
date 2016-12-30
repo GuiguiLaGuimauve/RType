@@ -30,7 +30,6 @@ void			UserNetworkUDPWindows::writeSocket(ISocket *net)
 	  return;
 	}
 	s_out.sin_family = AF_INET;
-	//TODO : Le port semble mauvais à revoir
 	if (WSAHtons(_fd, _port, &(s_out.sin_port)) == SOCKET_ERROR)
 	{
 	  std::cerr << "UNUW Error on WSAHtons: " << WSAGetLastError() << std::endl;
