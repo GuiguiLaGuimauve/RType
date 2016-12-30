@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Fri Dec 16 11:37:09 2016 julien dufrene
-// Last update Fri Dec 30 22:29:37 2016 Lecoq Maxime
+// Last update Fri Dec 30 23:21:30 2016 Lecoq Maxime
 //
 
 #include	"ManageNetworkUDPServer.hh"
@@ -106,15 +106,19 @@ std::vector<IUserNetwork *>	ManageNetworkUDPServer::exec()
     }
   if (_user.size() > 0)
     {
+      std::cout << "pp" << std::endl;
 	#ifdef _WIN32
 	  u = new UserNetworkUDPWindowsServer();
 	#else
 	  u = new UserNetworkUDPUnixServer();
 	#endif
 	  u->setIp("0.0.0.0");
+	  std::cout << "pp2" << std::endl;
       u->setFd(_net->getFdSocket());
+      std::cout << "pp3" << std::endl;
       u->setPseudo("Accept");
       u = u->readSocket(_net);
+      std::cout << "pp4" << std::endl;
       while (u->haveSomethingToRead() == true)
 	{
 	  PacketUnknown pk = u->popBufferRead();
@@ -125,10 +129,10 @@ std::vector<IUserNetwork *>	ManageNetworkUDPServer::exec()
 	    {
 	      if (_user[i]->getIp() == u->getIp())
 		{
-			if (_user[i]->getPseudo().compare("Accept") != 0 && u->getPseudo().compare("Accept") == 0)
-				u->setPseudo(_user[i]->getPseudo());
-			while (_user[i]->haveSomethingToWrite() == true)
-			  u->pushBufferWrite(_user[i]->popBufferWrite());
+		  if (_user[i]->getPseudo().compare("Accept") != 0 && u->getPseudo().compare("Accept") == 0)
+		    u->setPseudo(_user[i]->getPseudo());
+		  while (_user[i]->haveSomethingToWrite() == true)
+		    u->pushBufferWrite(_user[i]->popBufferWrite());
 		  u->setPseudo(_user[i]->getPseudo());
 		  _user[i] = u;
 		  ok = true;
@@ -136,9 +140,11 @@ std::vector<IUserNetwork *>	ManageNetworkUDPServer::exec()
 	      i++;
 	    }
 	  if (ok == false)
-		  _user.push_back(u);
+	    _user.push_back(u);
 	}
-    }
+      std::cout << "pp ok" << std::endl; 
+
+    }    
   return (newuser);
 }
 

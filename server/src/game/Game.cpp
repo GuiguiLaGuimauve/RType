@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 15:45:57 2016 Maxime Lecoq
-// Last update Fri Dec 30 22:30:04 2016 Lecoq Maxime
+// Last update Fri Dec 30 23:09:46 2016 Lecoq Maxime
 //
 
 #include	"Game.hh"
@@ -85,6 +85,14 @@ void		Game::timeLine()
 	  delete pa;
 	  pa = _factory->getPacket("shoots", _shoots);
 	  pa->setTickId(_timeline);
+	  uint64_t i;
+	  i = 0;
+	  while (i < _shoots.size())
+	    {
+	      std::cout << _shoots[i]->getName() << " " << _shoots[i]->getX() << " " << _shoots[i]->getY() << _shoots[i]->getDamage() << std::endl;
+	      i++;
+	    }
+	  std::cout << "packt size" << pa->getSize() << std::endl;
 	  _udp->pushTo(list, pa->getPacketUnknown());
 	  delete pa;
 	}
@@ -135,10 +143,11 @@ void		Game::updatePlayerShoots(const IPacket *pa, const std::string &m)
   std::vector<DataShoot *>	tmp;
   DataPlayer			*pl;
   i = 0;
+
   while (i < _room->getPlayers().size())
     {
       pl = _room->getPlayers()[i];
-      if (_room->getPlayers()[i]->getName() == m && _room->getPlayers()[i]->getShoots().size() != p->getShoots().size())
+      if (pl->getName() == m && pl->getShoots().size() != p->getShoots().size() && p->getShoots().size() != 0)
 	{
 	  uint64_t	pos = pl->getShoots().size();
 	  uint64_t	x = 0;
@@ -152,7 +161,7 @@ void		Game::updatePlayerShoots(const IPacket *pa, const std::string &m)
 	      else
 		{
 		  tmp.push_back(p->getShoots()[x]);
-		  //		  _shoots.push_back(p->getShoots()[x]);
+		  _shoots.push_back(p->getShoots()[x]);
 		}
 	      x++;
 	    }
