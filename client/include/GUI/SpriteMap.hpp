@@ -5,7 +5,7 @@
 // Login   <oger_a@epitech.net>
 // 
 // Started on  Fri Dec  2 15:23:46 2016 Antonin Oger
-// Last update Sat Dec 17 22:52:16 2016 root
+// Last update Fri Dec 30 12:42:37 2016 root
 //
 
 #ifndef _SPRITEMAP_HPP_

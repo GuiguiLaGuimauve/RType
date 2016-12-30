@@ -31,6 +31,8 @@
 
 #define MOVE_SPEED 1
 
+#define LAYOUT_HEIGHT 100
+
 void	TextColorNoFocus(Gui::IWidget *w);
 void	TextColorFocus(Gui::IWidget *w);
 void	textEntered(Gui::IWidget *w, const std::string &c);

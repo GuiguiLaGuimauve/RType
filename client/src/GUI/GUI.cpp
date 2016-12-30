@@ -162,10 +162,9 @@ void		GUI::callback()
 	  {
 		  if (_gameWidgets)
 		  {
-		    std::cout << "J'augmente le Y qui passe de " << _gameWidgets->_y;
-		    _gameWidgets->_y -= MOVE_SPEED;
+		    if (_gameWidgets->_y - MOVE_SPEED > 0)
+		      _gameWidgets->_y -= MOVE_SPEED;
 		    ep = EventPart::Event(EventPart::Event::MOVE_UP);
-		    std::cout << " à " << _gameWidgets->_y << std::endl;
 		  }
 		  break;
 	  }
@@ -173,8 +172,10 @@ void		GUI::callback()
 	  {
 		  if (_gameWidgets)
 		  {
-			  _gameWidgets->_y += MOVE_SPEED;
-			  ep = EventPart::Event(EventPart::Event::MOVE_DOWN);
+		    // if (future Y position < windows height - (layout height + sfml offset + sprite_height * sprite_scale))
+		    if (_gameWidgets->_y + MOVE_SPEED < _win->getHeight() - (LAYOUT_HEIGHT + 30 + 20 * 3))
+		      _gameWidgets->_y += MOVE_SPEED;
+		    ep = EventPart::Event(EventPart::Event::MOVE_DOWN);
 		  }
 		  break;
 	  }
@@ -182,8 +183,9 @@ void		GUI::callback()
 	  {
 		  if (_gameWidgets)
 		  {
-			  _gameWidgets->_x -= MOVE_SPEED;
-			  ep = EventPart::Event(EventPart::Event::MOVE_LEFT);
+		    if (_gameWidgets->_x - MOVE_SPEED > 0)
+		      _gameWidgets->_x -= MOVE_SPEED;
+		    ep = EventPart::Event(EventPart::Event::MOVE_LEFT);
 		  }
 		  break;
 	  }
@@ -191,8 +193,9 @@ void		GUI::callback()
 	  {
 		  if (_gameWidgets)
 		  {
-			  _gameWidgets->_x += MOVE_SPEED;
-			  ep = EventPart::Event(EventPart::Event::MOVE_RIGHT);
+		    if (_gameWidgets->_x + MOVE_SPEED < _win->getWidth() - (34 * 3))
+		      _gameWidgets->_x += MOVE_SPEED;
+		    ep = EventPart::Event(EventPart::Event::MOVE_RIGHT);
 		  }
 		  break;
 	  }
@@ -956,7 +959,7 @@ void	GUI::setPlayersPositions(const std::vector<DataPlayer *> &dp)
 	Style	s;
 	
 	/* Ajout du Widget d'HUD pour le joueur i */
-	temp = _win->addWidget((_win->getWidth() / 4) * (int)(elem->getId()) + 10, 0, _win->getWidth() / (int) dp.size(), 100);
+	temp = _win->addWidget((_win->getWidth() / 4) * (int)(elem->getId()) + 10, 0, _win->getWidth() / (int) dp.size(), LAYOUT_HEIGHT);
 	temp->setText("\n  " + std::to_string(elem->getHealth()) + " %");
 	s = temp->getStyle();
 	s.textColor = Color(red[elem->getId()], green[elem->getId()], blue[elem->getId()]);
@@ -966,7 +969,7 @@ void	GUI::setPlayersPositions(const std::vector<DataPlayer *> &dp)
 	_playersPos.push_back(temp);
 	
 	/* Ajout du Sprite pour le joueur i */
-	temp = _win->addWidget(elem->getX(), 100 + elem->getY(), 0, 0);
+	temp = _win->addWidget(elem->getX(), LAYOUT_HEIGHT + elem->getY(), 0, 0);
 	s.image = "Ship" + std::to_string((elem->getId() + 1));
 	temp->setStyle(s);
 	_playersPos.push_back(temp);
@@ -983,7 +986,7 @@ void	GUI::setShootsPositions(const std::vector<Packet::DataShoot *> &ds)
   if (ds.size())
     for (auto elem : ds)
       {
-	IWidget	*temp = _win->addWidget(elem->getX(), 100 + elem->getY(), 0, 0);
+	IWidget	*temp = _win->addWidget(elem->getX(), LAYOUT_HEIGHT + elem->getY(), 0, 0);
 	Style	s = temp->getStyle();
 	
 	/* Ajout du Widget de tir */
@@ -1004,7 +1007,7 @@ void	GUI::setEnemyPositions(const std::vector<Packet::DataEnnemy *> &de)
   if (de.size())
     for (auto elem : de)
       {
-	IWidget	*temp = _win->addWidget(elem->getX(), 100 + elem->getY(), 0, 0);
+	IWidget	*temp = _win->addWidget(elem->getX(), LAYOUT_HEIGHT + elem->getY(), 0, 0);
 	Style	s = temp->getStyle();
 	
 	/* Ajout du Widget d'ennemi */
@@ -1025,7 +1028,7 @@ void	GUI::setEnvsPositions(const std::vector<Packet::DataBackground *> &de)
   if (de.size())
     for (auto elem : de)
       {
-	IWidget	*temp = _win->addWidget(elem->getX(), 100 + elem->getY(), 0, 0);
+	IWidget	*temp = _win->addWidget(elem->getX(), LAYOUT_HEIGHT + elem->getY(), 0, 0);
 	Style	s = temp->getStyle();
 	
 	/* Ajout du Widget d'ennemi */
