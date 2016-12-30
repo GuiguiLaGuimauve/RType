@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Fri Dec 16 11:37:09 2016 julien dufrene
-// Last update Fri Dec 30 14:47:27 2016 lecoq
+// Last update Fri Dec 30 15:20:40 2016 lecoq
 //
 
 #include	"ManageNetworkUDPServer.hh"
@@ -95,7 +95,6 @@ std::vector<IUserNetwork *>	ManageNetworkUDPServer::exec()
   bool							ok;
 
   i = 0;
-  std::cout << "size " << _user.size() << std::endl;
   while (i < _user.size())
     {
       if (_user[i]->getStatus() != false)
@@ -191,10 +190,7 @@ void		ManageNetworkUDPServer::pushTo(const std::vector<std::string> &list, const
   while (i < _user.size())
     {
       if (inList(_user[i]->getPseudo(), list) == true)
-	{
-	  std::cout << _user[i]->getPseudo() << " gonna receive : " << (int)p.getPacketData()[0] << std::endl;
-	  _user[i]->pushBufferWrite(p);
-	}
+	_user[i]->pushBufferWrite(p);
       i++;
     }
   _mtx.unlock();

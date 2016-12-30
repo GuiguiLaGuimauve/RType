@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 15:45:57 2016 Maxime Lecoq
-// Last update Fri Dec 30 13:25:20 2016 lecoq
+// Last update Fri Dec 30 15:22:10 2016 lecoq
 //
 
 #include	"Game.hh"
@@ -113,7 +113,6 @@ void		Game::execPacket(const IPacket *pa, const std::string &m)
 
 void		Game::updatePosPlayer(const IPacket *pa, const std::string &m)
 {
-  std::cout << "update player pos of : " << m << std::endl;
   uint64_t	i;
   PacketPositionPlayer *p = (PacketPositionPlayer *)pa;
 
@@ -127,12 +126,10 @@ void		Game::updatePosPlayer(const IPacket *pa, const std::string &m)
 	}
       i++;
     }
-  std::cout << "update player pos of : " << m << " ok" << std::endl;
 }
 
 void		Game::updatePlayerShoots(const IPacket *pa, const std::string &m)
 {
-  std::cout << "update shoot of : " << m << std::endl;
   uint64_t	i;
   PacketShoots *p = (PacketShoots *)pa;
   std::vector<DataShoot *>	tmp;
@@ -163,5 +160,4 @@ void		Game::updatePlayerShoots(const IPacket *pa, const std::string &m)
 	}
       i++;
     }
-  std::cout << "update shoot of : " << m << " ok" << std::endl;
 }

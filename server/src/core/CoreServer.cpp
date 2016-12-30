@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Fri Dec 30 14:20:27 2016 lecoq
+// Last update Fri Dec 30 15:16:46 2016 lecoq
 //
 
 #include	"CoreServer.hh"
@@ -38,13 +38,14 @@ CoreServer::~CoreServer() {
 void				CoreServer::run()
 {
   bool				loop;
-  std::vector<IUserNetwork *>	delUsers;
-  std::vector<std::string>	delUsersName;
   uint32_t			i;
 
   loop = true;
   while (loop == true)
     {
+      std::vector<IUserNetwork *>	delUsers;
+      std::vector<std::string>	delUsersName;
+
       _tcp->init();
       _udp->init();
       if (_tcp->selectIt() == false || _udp->selectIt() == false)
@@ -63,6 +64,7 @@ void				CoreServer::run()
 	      tmp->setPseudo(delUsersName[i]);
 	      tmp->setStatus(false);
 	      delUsers.push_back(tmp);
+	      std::cout << "to del : " << delUsersName[i] << std::endl;
 	      i++;
 	    }
 	  _data->logout(delUsersName);
