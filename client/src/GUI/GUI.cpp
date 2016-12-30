@@ -412,8 +412,9 @@ void		GUI::displayMenu()
 	});
 	_menuWidgets->createGame->setOnHover(TextColorFocus);
 	_menuWidgets->createGame->setOnLeaveHover(TextColorNoFocus);
+
 	// init chooseRoomName
-	_menuWidgets->chooseRoomName = _win->addWidget(_menuWidgets->createGame->getX() + 150, _menuWidgets->createGame->getY() + 13, 300, 100);
+	_menuWidgets->chooseRoomName = _win->addWidget(_menuWidgets->createGame->getX() + 150, _menuWidgets->createGame->getY() + 13, _win->getWidth() / 2, 100);
 	s = _menuWidgets->chooseRoomName->getStyle();
 	s.textColor = Color(TEXT_COLOR_R, TEXT_COLOR_G, TEXT_COLOR_B);
 	s.policeSize = 35;
@@ -428,6 +429,7 @@ void		GUI::displayMenu()
 	});
 	_menuWidgets->chooseRoomName->setOnFocus(TextColorFocus);
 	_menuWidgets->chooseRoomName->setOnLeaveFocus(TextColorNoFocus);
+
 	// ############################################################
 	// init changeMaxPlayer
 	_menuWidgets->changeMaxPlayer = _win->addWidget(_menuWidgets->createGame->getX() + 75, _menuWidgets->createGame->getY() + 13, 50, 50);
@@ -447,6 +449,7 @@ void		GUI::displayMenu()
 			tmpString[0] = '1';
 		w->setText(tmpString);
 	});
+
 	// ##############################################################
 	// init profile text
 	_menuWidgets->profile = _win->addWidget(3 * (_win->getWidth() / 4), 3 * (_win->getHeight() / 4), _win->getHeight() / 4, 300);
@@ -831,7 +834,8 @@ void		GUI::updateCurrentGame()
 	if (_currentGame)
 	{
 		std::stringstream ss;
-		ss << "Name : " << _currentGame->getName();
+		//ss << "Name : " << _currentGame->getName();
+		ss << _currentGame->getName();
 		if (_currentGame->getWatchers().size() != 0)
 		  ss << "\n\nViewers : " << _currentGame->getWatchers().size();
 		ss << "\n\nPlayers :\n";
@@ -957,22 +961,28 @@ void	GUI::setPlayersPositions(const std::vector<DataPlayer *> &dp)
       {
 	IWidget	*temp;
 	Style	s;
-	
+
 	/* Ajout du Widget d'HUD pour le joueur i */
 	temp = _win->addWidget((_win->getWidth() / 4) * (int)(elem->getId()) + 10, 0, _win->getWidth() / (int) dp.size(), LAYOUT_HEIGHT);
-	temp->setText("\n  " + std::to_string(elem->getHealth()) + " %");
+	temp->setText("\n   " + std::to_string(elem->getHealth()) + " %");
 	s = temp->getStyle();
 	s.textColor = Color(red[elem->getId()], green[elem->getId()], blue[elem->getId()]);
 	s.policeSize = 50;
-	s.image = "Heart" + std::to_string((elem->getId() + 1));
+	if (elem->getHealth() > 0)
+	  s.image = "Heart" + std::to_string((elem->getId() + 1));
+	else
+	  s.image = "Dead";
 	temp->setStyle(s);
 	_playersPos.push_back(temp);
 	
 	/* Ajout du Sprite pour le joueur i */
-	temp = _win->addWidget(elem->getX(), LAYOUT_HEIGHT + elem->getY(), 0, 0);
-	s.image = "Ship" + std::to_string((elem->getId() + 1));
-	temp->setStyle(s);
-	_playersPos.push_back(temp);
+	if (elem->getHealth() > 0)
+	  {
+	    temp = _win->addWidget(elem->getX(), LAYOUT_HEIGHT + elem->getY(), 0, 0);
+	    s.image = "Ship" + std::to_string((elem->getId() + 1));
+	    temp->setStyle(s);
+	    _playersPos.push_back(temp);
+	  }
       }
 }
 

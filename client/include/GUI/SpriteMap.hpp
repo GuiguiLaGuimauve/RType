@@ -5,7 +5,7 @@
 // Login   <oger_a@epitech.net>
 // 
 // Started on  Fri Dec  2 15:23:46 2016 Antonin Oger
-// Last update Fri Dec 30 12:42:37 2016 root
+// Last update Fri Dec 30 18:07:27 2016 root
 //
 
 #ifndef _SPRITEMAP_HPP_
@@ -55,10 +55,12 @@ public:
     LoadSpriteFromTexture("SupBoss1", "SupBoss1", 0, 0, 34, 20, 3, 3);
     /* Menus Sprites */
     LoadSpriteFromTexture("Logo", "Logo", 0, 0, 445, 75, 1, 1);
-    LoadSpriteFromTexture("Hearts", "Heart1", 0, 0, 120, 120, 1, 1);
-    LoadSpriteFromTexture("Hearts", "Heart2", 120, 0, 120, 120, 1, 1);
-    LoadSpriteFromTexture("Hearts", "Heart3", 0, 130, 120, 120, 1, 1);
-    LoadSpriteFromTexture("Hearts", "Heart4", 120, 130, 120, 120, 1, 1);
+    LoadSpriteFromTexture("Hearts", "Heart1", 0, 0, 128, 128, 1, 1);
+    LoadSpriteFromTexture("Hearts", "Heart2", 128, 0, 128, 128, 1, 1);
+    LoadSpriteFromTexture("Hearts", "Heart3", 0, 128, 128, 128, 1, 1);
+    LoadSpriteFromTexture("Hearts", "Heart4", 128, 128, 128, 128, 1, 1);
+    LoadSpriteFromTexture("Hearts", "Heart5", 0, 256, 128, 128, 1, 1);
+    LoadSpriteFromTexture("Hearts", "Dead", 128, 256, 128, 128, 1, 1);
   };
 
   ~SpriteMap()

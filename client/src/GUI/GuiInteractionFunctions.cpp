@@ -40,6 +40,6 @@ void	textEntered(IWidget *w, const std::string &c)
 	tmp.pop_back();
       w->setText(tmp);
     }
-  else if (isprint(c[0]) && w->getText().size() < 25)
+  else if (isprint(c[0]) && w->getText().size() < 22)
     w->setText(w->getText() + c);
 }
