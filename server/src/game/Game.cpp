@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 15:45:57 2016 Maxime Lecoq
-// Last update Thu Dec 29 20:09:05 2016 lecoq
+// Last update Fri Dec 30 11:51:21 2016 lecoq
 //
 
 #include	"Game.hh"
@@ -71,17 +71,21 @@ void		Game::timeLine()
   Clock         clo;
   std::vector<std::string> list = getAllName();
   IPacket	*pa;
-
+  Printer pd;
   while (_room->getPlayers().size() != 0)
     {
       if (_timeline != (uint64_t)clo.getTimeMilli() / 50)
 	{
 	  _timeline = clo.getTimeMilli() / 50;
 	  pa = _factory->getPacket("players", _room->getPlayers());
+	  pd.print(_room->getPlayers());
+	  pd.print(list);
+	  std::cout << "gonna send : " << (int)pa->getType() << std::endl;
 	  pa->setTickId(_timeline);
 	  _udp->pushTo(list, pa->getPacketUnknown());
 	  delete pa;
 	  pa = _factory->getPacket("shoots", _shoots);
+	  std::cout << "gonna send : " << (int)pa->getType() << std::endl;
 	  pa->setTickId(_timeline);
 	  _udp->pushTo(list, pa->getPacketUnknown());
 	  delete pa;

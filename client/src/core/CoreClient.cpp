@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Fri Dec 30 10:41:01 2016 lecoq
+// Last update Fri Dec 30 12:31:22 2016 lecoq
 //
 
 #include	"CoreClient.hh"
@@ -125,7 +125,6 @@ bool	CoreClient::managePackets()
     {
       PacketC tmp = _read->pop();
       IPacket *packet = _factory->getPacket(tmp.getPacket().getPacketData());
-      std::cout << "pck" << std::endl;
       if (packet != NULL && _packetPtr.find(packet->getType()) != _packetPtr.end())
 	{
 	  (this->*_packetPtr[packet->getType()])(packet, tmp.getNetwork());
@@ -380,7 +379,7 @@ bool		CoreClient::udpData(const IPacket *pa, IUserNetwork *u)
   std::vector<std::string>		empty;
   std::string				ip;
   Thread				th;
-  
+
   std::cout << "[UDP_DATA]" << std::endl;
   ip = conv.toString(p->getIp()[0]) + ".";
   ip += conv.toString(p->getIp()[1]) + ".";
@@ -413,12 +412,12 @@ void		CoreClient::timeLine()
 	  IPacket *p;
 	  p = _factory->getPacket("positionplayer", _gui->getPosX(), _gui->getPosY());
 	  p->setTickId(_gameData->getTick());
-	  _udp->pushTo(empty, p->getPacketUnknown());
+	  //	  _udp->pushTo(empty, p->getPacketUnknown());
 	  delete p;
 	  p = _factory->getPacket("shoots", _gameData->getShoots());
 	  p->setTickId(_gameData->getTick());
-	  _udp->pushTo(empty, p->getPacketUnknown());
-	  delete p;	  
+	  //_udp->pushTo(empty, p->getPacketUnknown());
+	  delete p;
 	}
 
     }
@@ -457,12 +456,10 @@ bool		CoreClient::players(const IPacket *pa, IUserNetwork *u)
   PacketPlayers	*p = (PacketPlayers *)pa;
   (void)u;
   (void)p;
-  std::cout << "players liste recu" << std::endl;
   //  _gameData->setMarge(pa->getTickId() - _gameData->getTick());
-  std::cout << "tick serv : " << pa->getTickId() << " tick cli : " << _gameData->getTick() << " pos x : " << p->getPlayers()[0]->getX() << " pos y : " << p->getPlayers()[0]->getY() << std::endl;
   //if (pa->getTickId() == _gameData->getTick() || pa->getTickId() - _gameData->getTick() == 1)
-    _gui->setPlayersPositions(p->getPlayers());
-  std::cout << "players liste recu ok" << std::endl;
+  std::cout << "plllll " << p->getPlayers().size() << std::endl; 
+  _gui->setPlayersPositions(p->getPlayers());
   return (true);
 }
 
@@ -472,10 +469,8 @@ bool		CoreClient::shoots(const IPacket *pa, IUserNetwork *u)
   (void)u;
   (void)p;
   //_gameData->setMarge(pa->getTickId() - _gameData->getTick());
-  std::cout << "shoots liste recu" << std::endl;
   //  if (pa->getTickId() == _gameData->getTick() || pa->getTickId() - _gameData->getTick() == 1)
   //_gui->setPlayersShoots(p->getShoots());
-  std::cout << "shoots liste recu ok" << std::endl;
   return (true);
 }
 
