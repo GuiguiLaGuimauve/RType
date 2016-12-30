@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Fri Dec 30 21:55:36 2016 Lecoq Maxime
+// Last update Fri Dec 30 22:08:50 2016 Lecoq Maxime
 //
 
 #include	"CoreClient.hh"
@@ -308,6 +308,7 @@ bool	CoreClient::startGame(EventPart::Event e)
 
 bool	CoreClient::shoot(EventPart::Event e)
 {
+  std::cout << "p" << std::endl;
   _gameData->addShoot(e.dataInt["X"], e.dataInt["Y"]);
   return (true);
 }

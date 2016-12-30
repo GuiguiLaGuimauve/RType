@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 15:45:57 2016 Maxime Lecoq
-// Last update Fri Dec 30 19:05:04 2016 Lecoq Maxime
+// Last update Fri Dec 30 22:30:04 2016 Lecoq Maxime
 //
 
 #include	"Game.hh"
@@ -152,7 +152,7 @@ void		Game::updatePlayerShoots(const IPacket *pa, const std::string &m)
 	      else
 		{
 		  tmp.push_back(p->getShoots()[x]);
-		  _shoots.push_back(p->getShoots()[x]);
+		  //		  _shoots.push_back(p->getShoots()[x]);
 		}
 	      x++;
 	    }
