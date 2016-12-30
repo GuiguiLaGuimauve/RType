@@ -62,6 +62,10 @@ IUserNetwork		*UserNetworkUDPWindowsClient::readSocket(ISocket *net)
 	std::cout << "error from WSARecvFrom: " << WSAGetLastError() << std::endl;
 	closeFd();
       }
+	else if (WSAGetLastError() != 10022)
+	{
+		std::cout << "Error :" << WSAGetLastError() << std::endl;
+	}
   if (RecvBytes == -1)
     {
       std::cout << "error from WSARecvFrom: " << WSAGetLastError() << std::endl;
