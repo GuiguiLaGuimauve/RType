@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 11:41:19 2016 Maxime Lecoq
-// Last update Tue Dec 27 17:54:44 2016 lecoq
+// Last update Fri Dec 30 00:15:39 2016 lecoq
 //
 
 #ifndef PACKETFACTORY_HH_
@@ -246,6 +246,7 @@ public:
   {
     IPacket::PacketType p = (IPacket::PacketType)pa[0];
 
+    std::cout << (int)p << std::endl;
     if (_enableMap.find(p) != _enableMap.end())
       return ((_p->*_enableMap[p])(pa));
     return (NULL);

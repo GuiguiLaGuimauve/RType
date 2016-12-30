@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Thu Dec 29 20:03:39 2016 lecoq
+// Last update Fri Dec 30 10:41:01 2016 lecoq
 //
 
 #include	"CoreClient.hh"
@@ -342,7 +342,7 @@ bool		CoreClient::accept(const IPacket *pa, IUserNetwork *u)
 
   std::cout << p->getMessage() << std::endl;
   _gui->displayLogin();
-  _status = "login";
+  _status = "waitingRooms";
   (void)u;(void)pa;
   return (true);
 }
@@ -351,9 +351,9 @@ bool		CoreClient::rooms(const IPacket *pa, IUserNetwork *u)
 {
   PacketRooms	*p = (PacketRooms *)pa;
 
-  if (_status == "login")
+  if (_status == "waitingRooms")
     _gui->displayMenu();
-  if (_status != "game")
+  if (_status == "waitingRooms" || _status == "rooms")
     {
       _gui->setRooms(p->getRooms());
       _status = "rooms";

@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Fri Dec 16 11:43:03 2016 julien dufrene
-// Last update Thu Dec 22 15:26:21 2016 julien dufrene
+// Last update Thu Dec 29 21:48:25 2016 lecoq
 //
 
 #ifndef		__MANAGENETWORKUDPSERVER_HH__
@@ -28,6 +28,8 @@ namespace Network
     void			pushTo(const std::vector<std::string> &, const PacketUnknown &);
     IUserNetwork		*getRunning() const;
     std::vector<std::string>    updateUsers(const std::vector<IUserNetwork *> &);
+private:
+    mymtx::mutex		_mtx;
   };
 };
 

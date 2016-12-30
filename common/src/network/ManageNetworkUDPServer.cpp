@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Fri Dec 16 11:37:09 2016 julien dufrene
-// Last update Thu Dec 29 20:21:47 2016 lecoq
+// Last update Fri Dec 30 10:27:51 2016 lecoq
 //
 
 #include	"ManageNetworkUDPServer.hh"
@@ -118,6 +118,7 @@ std::vector<IUserNetwork *>	ManageNetworkUDPServer::exec()
       while (u->haveSomethingToRead() == true)
 	{
 	  PacketUnknown pk = u->popBufferRead();
+	  std::cout << "server receive : " << (int)pk.getPacketData()[0] << std::endl;
 	  _read->push(PacketC(pk, u));
 	  i = 0;
 	  ok = false;
@@ -129,8 +130,8 @@ std::vector<IUserNetwork *>	ManageNetworkUDPServer::exec()
 				u->setPseudo(_user[i]->getPseudo());
 		  while (_user[i]->haveSomethingToWrite() == true)
 		    u->pushBufferWrite(_user[i]->popBufferWrite());
-		  _user[i] = u;
 		  u->setPseudo(_user[i]->getPseudo());
+		  _user[i] = u;
 		  ok = true;
 		}
 	      i++;
@@ -185,10 +186,15 @@ void		ManageNetworkUDPServer::pushTo(const std::vector<std::string> &list, const
   uint64_t              i;
 
   i = 0;
+  _mtx.lock();
   while (i < _user.size())
     {
       if (inList(_user[i]->getPseudo(), list) == true)
-	_user[i]->pushBufferWrite(p);
+	{
+	  std::cout << _user[i]->getPseudo() << " gonna receive : " << (int)p.getPacketData()[0] << std::endl;
+	  _user[i]->pushBufferWrite(p);
+	}
       i++;
     }
+  _mtx.unlock();
 }

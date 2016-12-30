@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Fri Dec 16 11:43:03 2016 julien dufrene
-// Last update Thu Dec 29 20:19:16 2016 lecoq
+// Last update Thu Dec 29 21:45:54 2016 lecoq
 //
 
 #ifndef		__MANAGENETWORKUDP_HH__
@@ -13,6 +13,7 @@
 
 #include	"AManageNetwork.hh"
 #include	"ErrorSocket.hpp"
+#include	"mutex.hh"
 
 #ifdef _WIN32
 	#include	"SocketUDPWindows.hh"

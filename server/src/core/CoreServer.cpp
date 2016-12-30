@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Thu Dec 29 19:18:01 2016 lecoq
+// Last update Fri Dec 30 00:04:38 2016 lecoq
 //
 
 #include	"CoreServer.hh"
@@ -47,6 +47,7 @@ void				CoreServer::run()
     {
       _tcp->init();
       _udp->init();
+      std::cout << "loop" << std::endl;
       if (_tcp->selectIt() == false || _udp->selectIt() == false)
 	loop = false;
       else
@@ -70,21 +71,30 @@ void				CoreServer::run()
 	}
       if (managePackets() == false || _gameManager->gamesUpdate() == false)
 	loop = false;
+      std::cout << "loop ok" << std::endl;
     }
 }
 
 bool	CoreServer::managePackets()
 {
+  std::cout << "pkt" << std::endl;
   while (_read->isEmpty() == false)
     {
+      std::cout << "read" << std::endl;
       PacketC tmp = _read->pop();
+      std::cout << "read pop ok " << std::endl;
       IPacket *packet = _factory->getPacket(tmp.getPacket().getPacketData());
+      std::cout << "read getPa ok" << std::endl;
       if (packet != NULL && _packetPtr.find(packet->getType()) != _packetPtr.end())
 	{
+	  std::cout << "read in" << std::endl;
 	  (this->*_packetPtr[packet->getType()])(packet, tmp.getNetwork());
+	  std::cout << "read in ok" << std::endl;
 	  delete packet;
 	}
+      std::cout << "read ok" << std::endl;
     }
+  std::cout << "pkt ok" << std::endl;
   if (_data->roomAreUpdate() == true)
     {
       IPacket *pa = _factory->getPacket("rooms", _data->getRooms());
