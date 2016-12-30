@@ -5,6 +5,9 @@
 #include	"IEventQueue.hh"
 #include	"ISoundManager.hh"
 #include	"DataRoom.hpp"
+#include	"DataShoot.hpp"
+#include	"DataEnnemy.hpp"
+#include	"DataBackground.hpp"
 
 namespace Gui
 {
@@ -29,7 +32,10 @@ namespace Gui
     virtual void	setPosX(uint64_t) = 0;
     virtual void	setPosY(uint64_t) = 0;
     virtual void	setPlayersPositions(const std::vector<DataPlayer *> &) = 0;
-	virtual void	addChatMessage(const std::string &) = 0;
+    virtual void	setShootsPositions(const std::vector<Packet::DataShoot *> &) = 0;
+    virtual void	setEnemyPositions(const std::vector<Packet::DataEnnemy *> &) = 0;
+    virtual void	setEnvsPositions(const std::vector<Packet::DataBackground *> &) = 0;
+    virtual void	addChatMessage(const std::string &) = 0;
   };
 }
 
