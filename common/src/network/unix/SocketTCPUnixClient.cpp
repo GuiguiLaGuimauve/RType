@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Fri Oct 14 15:52:42 2016 julien dufrene
-// Last update Fri Dec 23 07:23:48 2016 julien dufrene
+// Last update Fri Dec 30 21:02:35 2016 Lecoq Maxime
 //
 
 #include "SocketTCPUnixClient.hh"

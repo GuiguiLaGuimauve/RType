@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Fri Dec 30 17:47:31 2016 lecoq
+// Last update Fri Dec 30 21:07:15 2016 Lecoq Maxime
 //
 
 #include	"CoreServer.hh"
@@ -64,7 +64,6 @@ void				CoreServer::run()
 	      tmp->setPseudo(delUsersName[i]);
 	      tmp->setStatus(false);
 	      delUsers.push_back(tmp);
-	      std::cout << "to del : " << delUsersName[i] << std::endl;
 	      i++;
 	    }
 	  _data->logout(delUsersName);
@@ -81,9 +80,7 @@ bool	CoreServer::managePackets()
   while (_read->isEmpty() == false)
     {
       PacketC tmp = _read->pop();
-      std::cout << "read from " << tmp.getNetwork()->getPseudo() << std::endl;
       IPacket *packet = _factory->getPacket(tmp.getPacket().getPacketData());
-      std::cout << "read getPa ok" << std::endl;
       if (packet != NULL && _packetPtr.find(packet->getType()) != _packetPtr.end())
 	{
 	  (this->*_packetPtr[packet->getType()])(packet, tmp.getNetwork());
@@ -336,8 +333,6 @@ bool            CoreServer::askRooms(const IPacket *pa, IUserNetwork *u)
 
 bool		CoreServer::game(const IPacket *pa, IUserNetwork *u)
 {
-  std::cout << "un truc game udp recu" << std::endl;
   return (_gameManager->execPacket(pa, u->getPseudo()));
-  std::cout << "un truc game udp recu ok" << std::endl;
 }
 

@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Fri Dec 30 17:47:53 2016 lecoq
+// Last update Fri Dec 30 21:08:17 2016 Lecoq Maxime
 //
 
 #include	"CoreClient.hh"
@@ -482,5 +482,6 @@ bool		CoreClient::gameEnded(const IPacket *pa, IUserNetwork *u)
   _write->push(PacketC(p->getPacketUnknown(), u));
   delete p;
   _gameData->reset();
+  _status = "waitingRooms";
   return (true);
 }

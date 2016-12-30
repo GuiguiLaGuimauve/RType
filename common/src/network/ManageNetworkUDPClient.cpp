@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Fri Dec 16 11:37:09 2016 julien dufrene
-// Last update Fri Dec 30 13:01:13 2016 lecoq
+// Last update Fri Dec 30 21:06:39 2016 Lecoq Maxime
 //
 
 #include	"ManageNetworkUDPClient.hh"
@@ -75,7 +75,6 @@ std::vector<IUserNetwork *>	ManageNetworkUDPClient::exec()
   while (_serv->getStatus() == true && _serv->haveSomethingToRead())
     {
       PacketUnknown pk = _serv->popBufferRead();
-      std::cout << "client receive : " << (int)pk.getPacketData()[0] << std::endl;
       _read->push(PacketC(pk, _serv));
       _serv->pushBufferWrite(pk);
     }
@@ -123,9 +122,5 @@ void		ManageNetworkUDPClient::pushTo(const std::vector<std::string> &s, const Pa
 {
   (void)s;
   if (_initServ == true)
-    {
-      std::cout << "server gonna receive : " << (int)m.getPacketData()[0] << std::endl;
-      _serv->pushBufferWrite(m);
-
-    }
+    _serv->pushBufferWrite(m);
 }
