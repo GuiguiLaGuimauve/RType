@@ -964,7 +964,7 @@ void	GUI::setPlayersPositions(const std::vector<DataPlayer *> &dp)
 	
 	/* Ajout du Widget d'HUD pour le joueur i */
 	temp = _win->addWidget((_win->getWidth() / 4) * (int)(elem->getId()) + 10, 0, _win->getWidth() / (int) dp.size(), LAYOUT_HEIGHT);
-	temp->setText("\n  " + std::to_string(elem->getHealth()) + " %");
+	temp->setText("\n   " + std::to_string(elem->getHealth()) + " %");
 	s = temp->getStyle();
 	s.textColor = Color(red[elem->getId()], green[elem->getId()], blue[elem->getId()]);
 	s.policeSize = 50;
