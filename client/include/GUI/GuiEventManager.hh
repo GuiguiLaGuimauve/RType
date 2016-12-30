@@ -13,7 +13,7 @@
 #include "Click.hh"
 
 #define INTERVAL_CHECK_KEY 1
-#define INTERVAL_CHECK_ATTACK 50
+#define INTERVAL_CHECK_ATTACK 500
 
 namespace Gui
 {
