@@ -70,10 +70,10 @@ namespace Gui
     //    sf::Texture				_loadBackground;
     Clock	clock;
     int		timeLimit = -1;
-	// animations
-	std::string											_direction = "RIGHT";
-	std::map<std::string, std::vector < sf::Sprite > >	_animations;
-	Clock												_anim_timer;
+    // animations
+    std::string											_direction = "RIGHT";
+    std::map<std::string, std::vector < sf::Sprite > >	_animations;
+    Clock												_anim_timer;
   };
 }
 

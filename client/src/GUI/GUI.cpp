@@ -319,7 +319,11 @@ void		GUI::displayStart()
   // Sprite : Logo
   _startWidgets->title = _win->addWidget((GUI_WIDTH - 445) / 2, GUI_HEIGHT / 6, 0, 0);
   Style	titleStyle;
-  titleStyle.image = "Logo";
+  titleStyle.anims["NORMAL"].push_back("Logo");
+  titleStyle.anims["NORMAL"].push_back("Logo2");
+  titleStyle.anims["NORMAL"].push_back("Logo3");
+  titleStyle.anims["NORMAL"].push_back("Logo4");
+  titleStyle.frequency = 250;
   _startWidgets->title->setStyle(titleStyle);
   
   // Text : Enter the address

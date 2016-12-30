@@ -15,7 +15,7 @@
 #define PICTURE_ENEMY7 			"assets/pictures/enemy7.png"
 #define PICTURE_ENEMY8 			"assets/pictures/enemy8.png"
 #define PICTURE_BOSS2 			"assets/pictures/boss2.png"
-#define PICTURE_LOGO 			"assets/pictures/logo.png"
+#define PICTURE_LOGO 			"assets/pictures/RTypeBlink.png"
 #define PICTURE_HEARTS			"assets/pictures/hearts.png"
 #define PICTURE_SUPBOSS1 		"assets/pictures/supboss1.png"
 
