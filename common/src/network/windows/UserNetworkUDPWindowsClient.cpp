@@ -32,7 +32,7 @@ IUserNetwork		*UserNetworkUDPWindowsClient::readSocket(ISocket *net)
   s_in.sin_family = AF_INET;
   if (WSAHtons(_fd, _port, &(s_in.sin_port)) == SOCKET_ERROR)
   {
-	  std::cerr << "Error on WSAHtons: " << WSAGetLastError() << std::endl;
+	  std::cerr << "UNUWC Error on WSAHtons: " << WSAGetLastError() << std::endl;
 	  IUserNetwork		*u = new UserNetworkUDPWindowsClient(*this);
 	  return (u);
   }

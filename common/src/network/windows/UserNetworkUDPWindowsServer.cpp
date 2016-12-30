@@ -31,7 +31,7 @@ IUserNetwork		*UserNetworkUDPWindowsServer::readSocket(ISocket *net)
   s_in.sin_family = AF_INET;
   if (WSAHtons(_fd, _port, &(s_in.sin_port)) == SOCKET_ERROR)
   {
-	  std::cerr << "Error on WSAHtons: " << WSAGetLastError() << std::endl;
+	  std::cerr << "UNUWS Error on WSAHtons: " << WSAGetLastError() << std::endl;
 	  IUserNetwork		*u = new UserNetworkUDPWindowsServer(*this);
 	  return (u);
   }
@@ -57,14 +57,14 @@ IUserNetwork		*UserNetworkUDPWindowsServer::readSocket(ISocket *net)
       std::cout << "Modif Sender: " << getIp() << ":" << getPort() << std::endl;
     }
   else
-    if (WSAGetLastError() != 10035 && WSAGetLastError() != 10060)
+    if (WSAGetLastError() != 10035 && WSAGetLastError() != 10060 && WSAGetLastError() != 10054)
       {
-		std::cout << "error from WSARecvFrom: " << WSAGetLastError() << std::endl;
+		std::cout << "NB error from WSARecvFrom: " << WSAGetLastError() << std::endl;
 		closeFd();
       }
   if (RecvBytes == -1)
     {
-      std::cout << "error from WSARecvFrom: " << WSAGetLastError() << std::endl;
+      std::cout << "LENGTH error from WSARecvFrom: " << WSAGetLastError() << std::endl;
       closeFd();
     }
   return (this);
