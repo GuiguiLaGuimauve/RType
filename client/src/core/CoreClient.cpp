@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Fri Dec 30 12:31:22 2016 lecoq
+// Last update Fri Dec 30 12:43:58 2016 lecoq
 //
 
 #include	"CoreClient.hh"
@@ -412,7 +412,7 @@ void		CoreClient::timeLine()
 	  IPacket *p;
 	  p = _factory->getPacket("positionplayer", _gui->getPosX(), _gui->getPosY());
 	  p->setTickId(_gameData->getTick());
-	  //	  _udp->pushTo(empty, p->getPacketUnknown());
+	  //_udp->pushTo(empty, p->getPacketUnknown());
 	  delete p;
 	  p = _factory->getPacket("shoots", _gameData->getShoots());
 	  p->setTickId(_gameData->getTick());

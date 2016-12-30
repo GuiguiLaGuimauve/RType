@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Fri Dec 30 12:10:55 2016 lecoq
+// Last update Fri Dec 30 14:20:27 2016 lecoq
 //
 
 #include	"CoreServer.hh"
@@ -61,6 +61,7 @@ void				CoreServer::run()
 	      IUserNetwork	*tmp = new UserNetworkUDPUnixServer();
 #endif
 	      tmp->setPseudo(delUsersName[i]);
+	      tmp->setStatus(false);
 	      delUsers.push_back(tmp);
 	      i++;
 	    }
@@ -271,9 +272,9 @@ bool		CoreServer::udpData(const IPacket *pa, IUserNetwork *u)
   Convert<uint8_t>                      conv;
   std::string                           ip;
 #ifdef _WIN32
-  IUserNetwork				*udpUser = new UserNetworkUDPWindowsServer();
+  IUserNetwork				*udpUser = new UserNetworkUDPWindowsClient();
 #else
-  IUserNetwork				*udpUser = new UserNetworkUDPUnixServer();
+  IUserNetwork				*udpUser = new UserNetworkUDPUnixClient();
 #endif
   std::cout << "[UDP_DATA]" << std::endl;
   ip = conv.toString(p->getIp()[0]) + ".";
@@ -287,7 +288,7 @@ bool		CoreServer::udpData(const IPacket *pa, IUserNetwork *u)
   udpUser->setStatus(true);
   _udp->pushNewUser(udpUser);
   _tcp->setTimeout(0, 2);
-  std::cout << "[UDP User] --> [" << udpUser->getIp() << "] [" << udpUser->getPort() << "]" << std::endl;
+  std::cout << "[UDP User] --> [" << udpUser->getIp() << "] [" << udpUser->getPort() << "] [" << udpUser->getPseudo() << "]" << std::endl;
   return (true);
 }
 

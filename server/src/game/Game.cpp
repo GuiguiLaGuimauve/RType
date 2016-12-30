@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 15:45:57 2016 Maxime Lecoq
-// Last update Fri Dec 30 11:51:21 2016 lecoq
+// Last update Fri Dec 30 13:25:20 2016 lecoq
 //
 
 #include	"Game.hh"
@@ -78,8 +78,6 @@ void		Game::timeLine()
 	{
 	  _timeline = clo.getTimeMilli() / 50;
 	  pa = _factory->getPacket("players", _room->getPlayers());
-	  pd.print(_room->getPlayers());
-	  pd.print(list);
 	  std::cout << "gonna send : " << (int)pa->getType() << std::endl;
 	  pa->setTickId(_timeline);
 	  _udp->pushTo(list, pa->getPacketUnknown());

@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Wed Dec 21 01:24:37 2016 julien dufrene
-// Last update Thu Dec 29 20:22:06 2016 lecoq
+// Last update Fri Dec 30 13:12:00 2016 lecoq
 //
 
 #include	"AManageNetwork.hh"
@@ -56,7 +56,6 @@ bool		AManageNetwork::inList(const std::string &n, const std::vector<std::string
   i = 0;
   if (n.empty() == true)
     return (false);
-  std::cout << n << std::endl;
   while (i < li.size())
     {
       if (st.lower(n) == st.lower(li[i]))
