@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Fri Dec 30 21:08:17 2016 Lecoq Maxime
+// Last update Fri Dec 30 21:55:36 2016 Lecoq Maxime
 //
 
 #include	"CoreClient.hh"
@@ -308,9 +308,7 @@ bool	CoreClient::startGame(EventPart::Event e)
 
 bool	CoreClient::shoot(EventPart::Event e)
 {
-  Convert<uint16_t> conv;
-
-  _gameData->addShoot(conv.toNumber(e.dataString["X"]), conv.toNumber(e.dataString["Y"]));
+  _gameData->addShoot(e.dataInt["X"], e.dataInt["Y"]);
   return (true);
 }
 
@@ -469,7 +467,7 @@ bool		CoreClient::shoots(const IPacket *pa, IUserNetwork *u)
   (void)p;
   //_gameData->setMarge(pa->getTickId() - _gameData->getTick());
   //  if (pa->getTickId() == _gameData->getTick() || pa->getTickId() - _gameData->getTick() == 1)
-  //_gui->setShotsPosition(p->getShoots());
+  _gui->setShootsPositions(p->getShoots());
   return (true);
 }
 
