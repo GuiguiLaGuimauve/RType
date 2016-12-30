@@ -961,22 +961,28 @@ void	GUI::setPlayersPositions(const std::vector<DataPlayer *> &dp)
       {
 	IWidget	*temp;
 	Style	s;
-	
+
 	/* Ajout du Widget d'HUD pour le joueur i */
 	temp = _win->addWidget((_win->getWidth() / 4) * (int)(elem->getId()) + 10, 0, _win->getWidth() / (int) dp.size(), LAYOUT_HEIGHT);
 	temp->setText("\n   " + std::to_string(elem->getHealth()) + " %");
 	s = temp->getStyle();
 	s.textColor = Color(red[elem->getId()], green[elem->getId()], blue[elem->getId()]);
 	s.policeSize = 50;
-	s.image = "Heart" + std::to_string((elem->getId() + 1));
+	if (elem->getHealth() > 0)
+	  s.image = "Heart" + std::to_string((elem->getId() + 1));
+	else
+	  s.image = "Dead";
 	temp->setStyle(s);
 	_playersPos.push_back(temp);
 	
 	/* Ajout du Sprite pour le joueur i */
-	temp = _win->addWidget(elem->getX(), LAYOUT_HEIGHT + elem->getY(), 0, 0);
-	s.image = "Ship" + std::to_string((elem->getId() + 1));
-	temp->setStyle(s);
-	_playersPos.push_back(temp);
+	if (elem->getHealth() > 0)
+	  {
+	    temp = _win->addWidget(elem->getX(), LAYOUT_HEIGHT + elem->getY(), 0, 0);
+	    s.image = "Ship" + std::to_string((elem->getId() + 1));
+	    temp->setStyle(s);
+	    _playersPos.push_back(temp);
+	  }
       }
 }
 
