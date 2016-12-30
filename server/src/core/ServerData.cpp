@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Mon Dec 19 23:24:16 2016 Maxime Lecoq
-// Last update Fri Dec 30 16:08:24 2016 lecoq
+// Last update Fri Dec 30 17:49:42 2016 lecoq
 //
 
 #include	"ServerData.hh"
@@ -226,7 +226,7 @@ bool	ServerData::leaveRoom(const std::string &roomName, const std::string &playe
 	{
 	  std::cout << getRoom(st.lower(roomName))->getName() << " room's just delete" << std::endl;
 	  _isUpdate = true;
-	  deleteRoom(st.lower(roomName));
+	  //	  deleteRoom(st.lower(roomName));
 	}
     }
   _isUpdate = true;
