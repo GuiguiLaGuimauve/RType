@@ -789,6 +789,8 @@ void			GUI::loadSoundAssets()
 void			GUI::setRooms(const std::vector<DataRoom *> &d)
 {
   std::cout << "Je recois un setRoom " << std::endl;
+  if (_menuWidgets == NULL)
+    return;
   _menuInfos = d;
   if (_currentGame)
     {
@@ -958,7 +960,7 @@ void	GUI::setPlayersPositions(const std::vector<DataPlayer *> &dp)
 	temp->setText("\n  " + std::to_string(elem->getHealth()) + " %");
 	s = temp->getStyle();
 	s.textColor = Color(red[elem->getId()], green[elem->getId()], blue[elem->getId()]);
-	s.policeSize = 60;
+	s.policeSize = 50;
 	s.image = "Heart" + std::to_string((elem->getId() + 1));
 	temp->setStyle(s);
 	_playersPos.push_back(temp);
