@@ -13,6 +13,7 @@
 #include "Click.hh"
 
 #define INTERVAL_CHECK_KEY 1
+#define INTERVAL_CHECK_ATTACK 50
 
 namespace Gui
 {
@@ -35,6 +36,7 @@ namespace Gui
     std::map<KEY, EventPart::Event::TYPE>	_events;
     std::map<sf::Keyboard::Key, KEY>	    _keys;
 	Clock									clock;
+	Clock									attackCd;
   };
 }
 

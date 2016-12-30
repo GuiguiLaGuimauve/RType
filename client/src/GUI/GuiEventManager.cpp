@@ -27,7 +27,15 @@ void		GuiEventManager::callback()
 	  for (auto i : _keys)
 	  {
 		  if (sf::Keyboard::isKeyPressed(i.first))
-			  _queue->push(EventPart::Event(_events[i.second]));
+		  {
+			  if (i.second != KEY_ATTACK)
+				_queue->push(EventPart::Event(_events[i.second]));
+			  else if (attackCd.getTimeMilli() > INTERVAL_CHECK_ATTACK)
+			  {
+				  _queue->push(EventPart::Event(_events[i.second]));
+				  attackCd.reset();
+			  }
+		  }
 	  }
 	  clock.reset();
   }
