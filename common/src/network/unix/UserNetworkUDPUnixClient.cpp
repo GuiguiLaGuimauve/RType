@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Thu Dec 15 15:33:48 2016 julien dufrene
-// Last update Fri Dec 30 14:05:06 2016 lecoq
+// Last update Fri Dec 30 16:58:30 2016 lecoq
 //
 
 #include "UserNetworkUDPUnixClient.hh"
@@ -22,14 +22,22 @@ IUserNetwork		*UserNetworkUDPUnixClient::readSocket(ISocket *net)
   int32_t               nb;
   sockaddr_in		s_in;
   socklen_t		s_inLen = sizeof (s_in);
-
+  uint8_t		*s;
+  
   (void)net;
   //std::cout << "Trying to recv from: " << _ip << ":" << _port << std::endl;
   errno = 0;
   if ((nb = recvfrom(_fd, buff, 16384, 0, (sockaddr *)&s_in, &s_inLen)) > 0)
     {
-      buff[nb] = 0;
-      PacketUnknown pkt((uint8_t *)buff, nb);
+      s = new uint8_t[nb + 1];
+      int32_t i = 0;
+      while (i < nb)
+	{
+	  s[i] = buff[i];
+	  i++;
+	}
+      s[nb] = 0;
+      PacketUnknown pkt((uint8_t *)s, nb);
       buff_r.push(pkt);
       /*      setIp(inet_ntoa(s_in.sin_addr));
       setPort(ntohs(s_in.sin_port));

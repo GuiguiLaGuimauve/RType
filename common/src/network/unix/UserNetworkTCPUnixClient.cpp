@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 //
 // Started on  Fri Oct 21 15:02:22 2016 julien dufrene
-// Last update Fri Dec 23 07:26:37 2016 julien dufrene
+// Last update Fri Dec 30 16:58:21 2016 lecoq
 //
 
 #include "UserNetworkTCPUnixClient.hh"
@@ -20,12 +20,21 @@ IUserNetwork		*UserNetworkTCPUnixClient::readSocket(ISocket *net)
 {
   (void)net;
   char			buff[16384];
+  uint8_t		*s;
   int32_t		nb;
 
   if ((nb = recv(_fd, buff, 16384, 0)) > 0)
     {
-      buff[nb] = 0;
-      cutRead((uint8_t *)buff, nb);
+      s = new uint8_t[nb + 1];
+      int32_t i;
+      i = 0;
+      while (i < nb)
+	{
+	  s[i] = buff[i];
+	  i++;
+	}
+      s[nb] = 0;
+      cutRead((uint8_t *)s, nb);
       //PacketUnknown pkt((uint8_t *)buff, nb);
       //buff_r.push(pkt);
     }

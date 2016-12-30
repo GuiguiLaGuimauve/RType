@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 15:45:57 2016 Maxime Lecoq
-// Last update Fri Dec 30 15:22:10 2016 lecoq
+// Last update Fri Dec 30 16:03:18 2016 lecoq
 //
 
 #include	"Game.hh"
@@ -72,6 +72,8 @@ void		Game::timeLine()
   std::vector<std::string> list = getAllName();
   IPacket	*pa;
   Printer pd;
+  _timeline = 0;
+
   while (_room->getPlayers().size() != 0)
     {
       if (_timeline != (uint64_t)clo.getTimeMilli() / 50)

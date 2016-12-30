@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Fri Dec 16 11:37:09 2016 julien dufrene
-// Last update Fri Dec 30 15:20:40 2016 lecoq
+// Last update Fri Dec 30 16:13:55 2016 lecoq
 //
 
 #include	"ManageNetworkUDPServer.hh"
@@ -118,7 +118,6 @@ std::vector<IUserNetwork *>	ManageNetworkUDPServer::exec()
       while (u->haveSomethingToRead() == true)
 	{
 	  PacketUnknown pk = u->popBufferRead();
-	  std::cout << "server receive : " << (int)pk.getPacketData()[0] << std::endl;
 	  _read->push(PacketC(pk, u));
 	  i = 0;
 	  ok = false;

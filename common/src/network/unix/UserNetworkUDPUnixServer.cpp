@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Thu Dec 15 15:33:48 2016 julien dufrene
-// Last update Tue Dec 27 23:43:40 2016 root
+// Last update Fri Dec 30 16:58:39 2016 lecoq
 //
 
 #include "UserNetworkUDPUnixServer.hh"
@@ -19,6 +19,7 @@ UserNetworkUDPUnixServer::~UserNetworkUDPUnixServer() {}
 IUserNetwork		*UserNetworkUDPUnixServer::readSocket(ISocket *net)
 {
   char                  buff[16384];
+  uint8_t		*s;
   int32_t               nb;
   sockaddr_in		s_in;
   socklen_t		s_inLen = sizeof (s_in);
@@ -28,8 +29,15 @@ IUserNetwork		*UserNetworkUDPUnixServer::readSocket(ISocket *net)
   errno = 0;
   if ((nb = recvfrom(_fd, buff, 16384, 0, (sockaddr *)&s_in, &s_inLen)) > 0)
     {
-      buff[nb] = 0;
-      PacketUnknown pkt((uint8_t *)buff, nb);
+      s = new uint8_t[nb + 1];
+      int32_t i = 0;
+      while (i < nb)
+	{
+	  s[i] = buff[i];
+	  i++;
+	}
+      s[nb] = 0;
+      PacketUnknown pkt((uint8_t *)s, nb);
       setIp(inet_ntoa(s_in.sin_addr));
       setPort(ntohs(s_in.sin_port));
       setFd(net->getFdSocket());
