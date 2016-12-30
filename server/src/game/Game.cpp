@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 15:45:57 2016 Maxime Lecoq
-// Last update Fri Dec 30 23:09:46 2016 Lecoq Maxime
+// Last update Sat Dec 31 00:21:56 2016 Lecoq Maxime
 //
 
 #include	"Game.hh"
@@ -89,7 +89,7 @@ void		Game::timeLine()
 	  i = 0;
 	  while (i < _shoots.size())
 	    {
-	      std::cout << _shoots[i]->getName() << " " << _shoots[i]->getX() << " " << _shoots[i]->getY() << _shoots[i]->getDamage() << std::endl;
+	      std::cout <<  _shoots[i]->getX() << " " << _shoots[i]->getY() << _shoots[i]->getDamage() << std::endl;
 	      i++;
 	    }
 	  std::cout << "packt size" << pa->getSize() << std::endl;
