@@ -101,17 +101,6 @@
 			"name": "gameName"
 		}]
 	}, {
-		"name": "login",
-		"type": "LOGIN",
-		"network": "tcp",
-		"arguments": [{
-			"type": "std::string",
-			"name": "login"
-		}, {
-			"type": "std::string",
-			"name": "password"
-		}]
-	}, {
 		"name": "register",
 		"type": "REGISTER",
 		"network": "tcp",
@@ -127,17 +116,6 @@
 		"type": "LOGOUT",
 		"network": "tcp",
 		"arguments": []
-	}, {
-		"name": "move",
-		"type": "MOVE",
-		"network": "udp",
-		"arguments": [{
-			"type": "uint16_t",
-			"name": "x"
-		}, {
-			"type": "uint16_t",
-			"name": "y"
-		}]
 	}, {
 		"name": "disconnect",
 		"type": "DISCONNECT",
