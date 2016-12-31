@@ -41,15 +41,6 @@ public:
   void setHealth(const uint8_t & health) { _health = health; };
   void setOnline(const bool & status) { _online = status; }
   void setShoots(const std::vector<DataShoot *> &s) {
-    if (s.size() < _shoots.size())
-      {
-	uint64_t	i = 0;
-	while (i < _shoots.size())
-	  {
-	    delete _shoots[i];
-	    i++;
-	  }
-      }
     _shoots = s;
   };
 private:

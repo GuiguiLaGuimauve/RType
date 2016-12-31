@@ -4,7 +4,7 @@
 // Login   <dufren_b@epitech.net>
 //
 // Started on  Fri Dec 02 15:02:22 2016 julien dufrene
-// Last update Tue Dec 27 23:46:19 2016 root
+// Last update Sat Dec 31 01:41:27 2016 Lecoq Maxime
 //
 
 #include "UserNetworkUDPUnix.hh"
@@ -14,6 +14,8 @@ using namespace Network;
 UserNetworkUDPUnix::UserNetworkUDPUnix() : UserNetworkUDP() {}
 
 UserNetworkUDPUnix::~UserNetworkUDPUnix() {}
+
+# include "PacketShoots.hh"
 
 void				UserNetworkUDPUnix::writeSocket(ISocket *net)
 {
@@ -25,7 +27,6 @@ void				UserNetworkUDPUnix::writeSocket(ISocket *net)
       s_out.sin_family = AF_INET;
       s_out.sin_port = htons(_port);
       to_write = buff_w.pop();
-      //std::cout << "Trying to send to: " << _ip << ":" << _port << std::endl;
       errno = 0;
       if (sendto(_fd, to_write.getPacketData(), to_write.getPacketSize(), 0, (sockaddr *)&s_out, sizeof (s_out)) == -1)
         {

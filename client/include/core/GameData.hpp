@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Tue Dec 27 12:50:43 2016 Maxime Lecoq
-// Last update Thu Dec 29 17:15:48 2016 lecoq
+// Last update Sat Dec 31 01:30:47 2016 Lecoq Maxime
 //
 
 #ifndef GAMEDATA_HPP_
