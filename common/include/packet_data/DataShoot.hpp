@@ -16,6 +16,7 @@ namespace Packet {
 		DataShoot() {};
 	  DataShoot(const uint16_t &x, const uint16_t &y) :  _x(x), _y(y), _damage(10) {};
 	  DataShoot(const DataShoot *c) : _x(c->_x), _y(c->_y), _damage(c->_damage) {};
+	  DataShoot(const DataShoot &c) : _x(c._x), _y(c._y), _damage(c._damage) {};
 	  ~DataShoot() {};
 	  
 		uint16_t getX() const { return (_x); };
