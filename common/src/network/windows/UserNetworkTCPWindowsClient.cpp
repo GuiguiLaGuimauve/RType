@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Fri Oct 21 15:02:22 2016 julien dufrene
-// Last update Fri Dec 23 07:26:54 2016 julien dufrene
+// Last update Sat Dec 31 16:04:06 2016 Lecoq Maxime
 //
 
 #include "UserNetworkTCPWindowsClient.hh"
@@ -67,6 +67,8 @@ void			UserNetworkTCPWindowsClient::writeSocket(ISocket *net)
   PacketUnknown           write;
 
   write = buff_w.front();
+  if (write.packetIsValid() == false)
+    return;
   DataBuf.len = write.getPacketSize();
   DataBuf.buf = (char *)(write.getPacketData());
   Flags = 0;

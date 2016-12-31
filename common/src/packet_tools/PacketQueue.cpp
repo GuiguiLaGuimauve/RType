@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 11:08:06 2016 Maxime Lecoq
-// Last update Thu Dec 15 11:33:29 2016 lecoq
+// Last update Sat Dec 31 14:27:40 2016 Lecoq Maxime
 //
 
 #include	"PacketQueue.hh"
@@ -36,4 +36,9 @@ PacketC		PacketQueue::pop()
 bool		PacketQueue::isEmpty() const
 {
   return (_list.empty());
+}
+
+uint64_t	PacketQueue::size() const
+{
+  return (_list.size());
 }

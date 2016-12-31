@@ -4,7 +4,7 @@
 // Login   <dufren_b@epitech.net>
 //
 // Started on  Fri Dec 02 15:02:22 2016 julien dufrene
-// Last update Fri Dec 23 07:49:45 2016 julien dufrene
+// Last update Sat Dec 31 16:03:28 2016 Lecoq Maxime
 //
 
 #include "UserNetworkUDPWindows.hh"
@@ -35,6 +35,8 @@ void			UserNetworkUDPWindows::writeSocket(ISocket *net)
 	  std::cerr << "UNUW Error on WSAHtons: " << WSAGetLastError() << std::endl;
 	}
 	write = buff_w.pop();
+	if (write.packetIsValid() == false)
+	  return;
 	DataBuf.len = write.getPacketSize();
 	DataBuf.buf = (char *)(write.getPacketData());
 	Flags = 0;

@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Fri Dec 16 11:37:09 2016 julien dufrene
-// Last update Fri Dec 30 21:06:39 2016 Lecoq Maxime
+// Last update Sat Dec 31 15:48:10 2016 Lecoq Maxime
 //
 
 #include	"ManageNetworkUDPClient.hh"

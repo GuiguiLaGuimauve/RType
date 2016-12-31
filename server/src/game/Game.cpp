@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 15:45:57 2016 Maxime Lecoq
-// Last update Sat Dec 31 13:24:37 2016 Lecoq Maxime
+// Last update Sat Dec 31 14:55:56 2016 Lecoq Maxime
 //
 
 #include	"Game.hh"
@@ -82,7 +82,7 @@ void		Game::end()
 
 void		Game::movements()
 {
-  /*  Clock         clo;
+  Clock         clo;
   uint64_t	i;
   uint64_t	x;
 
@@ -98,14 +98,14 @@ void		Game::movements()
 	      _shoots[i]->setX(_shoots[i]->getX() + 2);
 	      if (_shoots[i]->getX() > 1920)
 		{
-		  delete _shoots[i];
+		  //		  delete _shoots[i];
 		  _shoots.erase(_shoots.begin() + i);
 		}
 	      else
 		i++;
 	    }
 	}
-    }*/
+    }
 }
 
 void		Game::timeLine()
@@ -139,7 +139,7 @@ void		Game::timeLine()
 		  x++;
 		}
 	      i++;
-	    }
+	      }
 	  pa = _factory->getPacket("shoots", _shoots);
 	  pa->setTickId(_timeline);
 	  _udp->pushTo(list, pa->getPacketUnknown());
@@ -187,7 +187,7 @@ void		Game::updatePosPlayer(const IPacket *pa, const std::string &m)
 
 uint64_t pppp = 0;
 
-void		Game::updatePlayerShoots(const IPacket *pa, const std::string &m)
+void Game::updatePlayerShoots(const IPacket *pa, const std::string &m)
 {
   uint64_t	i;
   PacketShoots *p = (PacketShoots *)pa;
@@ -195,45 +195,46 @@ void		Game::updatePlayerShoots(const IPacket *pa, const std::string &m)
   DataPlayer			*pl;
   i = 0;
 
+  std::cout << "nb de shoot ds le paquet : " << p->getShoots().size() << std::endl;
+  std::cout << "paquet provenant de : " << m << std::endl;
+  std::vector<DataShoot *> tmppp;
   while (i < _room->getPlayers().size())
     {
       pl = _room->getPlayers()[i];
-      if (pl->getName() == m && p->getShoots().size() != 0)
-	{
-	  uint64_t	pos = pl->getShoots().size();
-	  uint64_t	x = 0;
-	  std::cout << "lui qui envoie " << pl->getName() << " nb shoot packet " << p->getShoots().size() << " nb shoot stock : " << pl->getShoots().size() << " my id " << _timeline << " packet id " << pa->getTickId() << std::endl;
-	  while (x < pl->getShoots().size())
-	    {
-	      delete pl->getShoots()[x];
-	      x++;
-	    }
-	  pl->setShoots(p->getShoots());
-	}
-      /*if (pl->getName() == m && pl->getShoots().size() < p->getShoots().size() && p->getShoots().size() != 0)
+      uint64_t z;
+      tmppp = pl->getShoots();
+      z = tmppp.size();
+      std::cout << "Im : " << pl->getName() << " et j ai : " << z << " shoots" << std::endl;
+      if (pl->getName() == m && pl->getShoots().size() < p->getShoots().size() && p->getShoots().size() != 0)
 	{
 	
-	  std::cout << "ppp" << std::endl;
+	  uint64_t	x = 0;
+	  uint64_t	pos = pl->getShoots().size();
 	  while (x < p->getShoots().size())
 	    {
 	      pppp++;
-	      std::cout << "ppp2 " << pppp << " " << pl->getName() << " " << m << " " << pl->getShoots().size() << std::endl;
-	      if (x < pos)
-		delete pl->getShoots()[x];
-	      else
+	      std::cout << "nb de tour totaux : " << pppp << " X : " << p->getShoots()[x]->getX() << " Y : " << p->getShoots()[x]->getY() << std::endl;
+	      if (x >= pos)
+		//		delete pl->getShoots()[x];
+		//	      else
 		{
-		  DataShoot *d = new DataShoot;
+		  /*DataShoot *d = new DataShoot;
 		  d->setX(p->getShoots()[x]->getX());
 		  d->setY(p->getShoots()[x]->getY());
 		  d->setDamage(p->getShoots()[x]->getDamage());
-		  std::cout << d->getX() << " " << d->getY() << " " << d->getDamage() << std::endl;
-	
-	  _shoots.push_back(d);
+		  _shoots.push_back(d);
+		  std::cout << d->getX() << " " << d->getY() << " " << (int)d->getDamage() << " total size : " << _shoots.size() << std::endl;*/
+		  tmppp.push_back(p->getShoots()[x]);
 		}
 	      x++;
 	    }
-	  pl->setShoots(p->getShoots());
-	  }*/
+	  //	  pl->setShoots(p->getShoots());
+	}
+      pl->setShoots(tmppp);
+      if (z != pl->getShoots().size())
+	std::cout << "CHAAAANGGGGEEEEEE, Im : " << pl->getName() << " et j ai : " << pl->getShoots().size() << " shoots" << std::endl;
+      else
+	std::cout << "J AI PAS CHANGE" << std::endl;
       i++;
     }
 }

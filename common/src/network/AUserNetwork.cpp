@@ -74,7 +74,7 @@ int32_t			AUserNetwork::getFd() const
 
 void			AUserNetwork::pushBufferWrite(const PacketUnknown &mes)
 {
-	buff_w.push(mes);
+  buff_w.push(mes);
 }
 
 void			AUserNetwork::pushBufferRead(const PacketUnknown &mes)
@@ -84,12 +84,12 @@ void			AUserNetwork::pushBufferRead(const PacketUnknown &mes)
 
 PacketUnknown		AUserNetwork::popBufferRead()
 {
-	return (buff_r.pop());
+  return (buff_r.pop());
 }
 
 PacketUnknown		AUserNetwork::popBufferWrite()
 {
-	return (buff_w.pop());
+  return (buff_w.pop());
 }
 
 void			AUserNetwork::cutRead(uint8_t *buff, const int32_t &nb)
