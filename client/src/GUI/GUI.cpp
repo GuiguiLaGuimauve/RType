@@ -261,25 +261,6 @@ void		GUI::displayGame()
   _win->setBackground(PICTURE_BACKGROUND);
   //_win->setBackground(this->backgroundMap[this->_gameWidgets->levelId]);// Ou on pourrait set le levelId ?
 
-  struct data oui;
-
-  oui.x = 1200;
-  oui.y = 150;
-  this->monsters.push_back(oui);
-
-  // MONSTERS
-  for (unsigned int i = 0; i < monsters.size(); i++)
-    {
-      IWidget *temp;
-
-      temp = _win->addWidget(monsters[i].x, 100 + monsters[i].y, 25, 25);
-
-      Style s4 = temp->getStyle();
-
-      s4.image = "Bydos";
-      temp->setStyle(s4);
-    }
-
   // Envs
   /*for (int i = 0; i < envs.size(); i++)
     {

@@ -163,8 +163,6 @@ namespace Gui
     std::vector<IWidget *>	_shotsPos;
     std::vector<IWidget *>	_enemyPos;
     std::vector<IWidget *>	_envsPos;
-    std::vector<data>		monsters;
-    std::vector<data>		envs;
   };
 }
 
