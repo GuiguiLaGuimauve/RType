@@ -5,7 +5,7 @@
 // Login   <rembur_g@epitech.eu>
 //
 // Started on  Sat Dec 31 11:54:26 2016 La Guimauve
-// Last update Sat Dec 31 22:36:46 2016 La Guimauve
+// Last update Sat Dec 31 23:21:38 2016 La Guimauve
 //
 
 #include <vector>
@@ -17,8 +17,10 @@ std::vector<Ennemy *> EnnemyGenerator::loadAllEnnemy()
 	std::vector<Ennemy *> tmp;
 #ifdef _WIN32
 	tmp.push_back(el.LoadEnnemy("Alienlib.dll"));
+	tmp.push_back(el.LoadEnnemy("Alflib.dll"));
 #else
 	tmp.push_back(el.LoadEnnemy("libAlien.so"));
+	tmp.push_back(el.LoadEnnemy("libAlf.so"));
 #endif // _WIN32
 	return (tmp);
 }
