@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Tue Dec 27 12:50:43 2016 Maxime Lecoq
-// Last update Sat Dec 31 01:30:47 2016 Lecoq Maxime
+// Last update Sat Dec 31 11:13:26 2016 Lecoq Maxime
 //
 
 #ifndef GAMEDATA_HPP_
@@ -41,6 +41,7 @@ public:
 	i++;
       }
     _shoots.clear();
+    std::cout << "shoots reset, size : " << _shoots.size() << std::endl;
   }
 private:
   bool	_ended;

@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 15:45:57 2016 Maxime Lecoq
-// Last update Sat Dec 31 10:58:54 2016 Lecoq Maxime
+// Last update Sat Dec 31 11:17:57 2016 Lecoq Maxime
 //
 
 #include	"Game.hh"
@@ -187,20 +187,16 @@ void		Game::updatePlayerShoots(const IPacket *pa, const std::string &m)
 	  while (x < p->getShoots().size())
 	    {
 	      if (x < pos)
-		{
-		  delete p->getShoots()[x];
-		  tmp.push_back(pl->getShoots()[x]);
-		}
+		delete pl->getShoots()[x];
 	      else
 		{
-		  tmp.push_back(p->getShoots()[x]);
 		  DataShoot nStmp(p->getShoots()[x]);
 		  DataShoot *nS = new DataShoot(nStmp);
 		  _shoots.push_back(nS);
 		}
 	      x++;
 	    }
-	  pl->setShoots(tmp);
+	  pl->setShoots(p->getShoots());
 	}
       i++;
     }
