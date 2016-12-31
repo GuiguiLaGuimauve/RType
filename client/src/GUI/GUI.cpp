@@ -249,7 +249,12 @@ void		GUI::displayGame()
   deleteWidgets();
   /* Load le bon background en fonction du stage séléctionné */
   _gameWidgets = new Game;
-
+  /* Init des vectors d'affichage, entre les games */
+  _playersPos.clear();
+  _shotsPos.clear();
+  _enemyPos.clear();
+  _envsPos.clear();
+  
   _audio->stopMusic();
   _audio->playMusic("Stage1");
   //this->_gameWidgets->levelId = ...

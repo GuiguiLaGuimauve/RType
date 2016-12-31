@@ -52,19 +52,15 @@ IUserNetwork		*UserNetworkUDPWindowsClient::readSocket(ISocket *net)
       buff_r.push(pkt);
       if (WSANtohs(_fd, s_in.sin_port, &port) == SOCKET_ERROR)
 	std::cerr << "Error from Wsatohs(): " << WSAGetLastError() << std::endl;
-      else
-	std::cout << "Sender: " << inet_ntoa(s_in.sin_addr) << ":" << port << std::endl;
+      /*else
+	std::cout << "Sender: " << inet_ntoa(s_in.sin_addr) << ":" << port << std::endl;*/
     }
   else
-    if (WSAGetLastError() != 10035 && WSAGetLastError() != 10060)
+    if (WSAGetLastError() != 10035 && WSAGetLastError() != 10060 && WSAGetLastError() != 10022)
       {
 	std::cout << "error from WSARecvFrom: " << WSAGetLastError() << std::endl;
 	closeFd();
       }
-	else if (WSAGetLastError() != 10022)
-	{
-		std::cout << "Error :" << WSAGetLastError() << std::endl;
-	}
   if (RecvBytes == -1)
     {
       std::cout << "error from WSARecvFrom: " << WSAGetLastError() << std::endl;
