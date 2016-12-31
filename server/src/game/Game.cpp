@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 15:45:57 2016 Maxime Lecoq
-// Last update Sat Dec 31 23:04:48 2016 Lecoq Maxime
+// Last update Sun Jan  1 00:26:31 2017 Lecoq Maxime
 //
 
 #include	"Game.hh"
@@ -15,20 +15,21 @@ Game::Game(DataRoom *p) : _room(p), _timeline(0)
   _ptr[IPacket::PacketType::POSITION_PLAYER] = &IGame::updatePosPlayer;
   _ptr[IPacket::PacketType::SHOOTS_CLIENT] = &IGame::updatePlayerShoots;
   _ennemyGenerator = new EnnemyGenerator;
-  _ennemy = _ennemyGenerator->loadAllEnnemy();
+  std::vector<Ennemy *> en = _ennemyGenerator->loadAllEnnemy();
   uint64_t	i;
-
   i = 0;
-  while (i < _ennemy.size())
+  while (i < en.size())
     {
-      std::cout << "size x " << _ennemy[i]->getSizeX() << " sizeY " << _ennemy[i]->getSizeY() << " name " << _ennemy[i]->getSpriteName() << std::endl; 
+      DataEnnemy *d = new DataEnnemy;
+      //setname, hitbox
+      _ennemyList.push_back(d);
       i++;
     }
   DataBackground *d = new DataBackground(0, 0);
   d->setSpeed(-1);
   _background.push_back(d);
-  d = new DataBackground(0, 0);
-  d->setSpeed(1);
+  d = new DataBackground(1920, 0);
+  d->setSpeed(-1);
   _background.push_back(d); 
 }
 
@@ -41,6 +42,12 @@ Game::~Game()
   while (i < _background.size())
     {
       delete _background[i];
+      i++;
+    }
+  i = 0;
+  while (i < _ennemyList.size())
+    {
+      delete _ennemyList[i];
       i++;
     }
 }
@@ -133,20 +140,17 @@ void		Game::movements()
 		i++;
 	    }
 	}
-      if (z != (uint64_t)clo.getTimeMilli() / 100)
+      if (z != (uint64_t)clo.getTimeMilli() / 25)
 	{
-	  z = clo.getTimeMilli() / 100;
+	  z = clo.getTimeMilli() / 25;
 	  i = 0;
 	  while (i < _background.size())
 	    {
 	      _background[i]->setX(_background[i]->getX() + _background[i]->getSpeed());
 	      if (i < 2)
 		{
-		  if (_background[i]->getX() > 1920)
-		    _background[i]->setX(0);
-		  else
-		    if (_background[i]->getX() < 0)
-		      _background[i]->setX(1920);
+		  if (_background[i]->getX() <  -1920)
+		    _background[i]->setX(_background[i]->getX() + (2 * 1920));
 		  i++;
 		}
 	      else

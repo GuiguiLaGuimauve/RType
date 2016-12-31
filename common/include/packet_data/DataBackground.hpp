@@ -19,12 +19,12 @@ namespace Packet {
 	  uint8_t getType() const { return (_type); };
 	  int16_t getX() const { return (_x); };
 	  int16_t getY() const { return (_y); };
-	  uint8_t getSpeed() const { return (_speed); };
+	  int8_t getSpeed() const { return (_speed); };
 	  
 	  void setType(const uint8_t & type) { _type = type; };
 	  void setX(const int16_t & x) { _x = x; };
 	  void setY(const int16_t & y) { _y = y; };
-	  void setSpeed(const uint8_t &s) { _speed = s; }
+	  void setSpeed(const int8_t &s) { _speed = s; }
 	private:
 	  uint8_t _type;
 	  int16_t _x;
