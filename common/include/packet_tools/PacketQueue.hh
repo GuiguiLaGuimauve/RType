@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 11:06:44 2016 Maxime Lecoq
-// Last update Thu Dec 15 11:10:36 2016 lecoq
+// Last update Sat Dec 31 14:24:28 2016 Lecoq Maxime
 //
 
 #ifndef PACKETQUEUE_HH_
@@ -21,6 +21,7 @@ public:
   void		push(const PacketC &);
   PacketC	pop();
   bool		isEmpty() const;
+  uint64_t	size() const;
 private:
   std::vector<PacketC>	_list;
 };

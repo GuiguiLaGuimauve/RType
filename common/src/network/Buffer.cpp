@@ -5,7 +5,7 @@
 // Login   <bertho_i@epitech.net>
 // 
 // Started on  Tue Jun 14 16:46:23 2016 Simon BERTHO
-// Last update Sun Dec 18 19:46:02 2016 lecoq
+// Last update Sat Dec 31 16:10:35 2016 Lecoq Maxime
 //
 
 #include "Buffer.hh"

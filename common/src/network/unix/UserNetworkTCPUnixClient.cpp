@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 //
 // Started on  Fri Oct 21 15:02:22 2016 julien dufrene
-// Last update Fri Dec 30 16:58:21 2016 lecoq
+// Last update Sat Dec 31 16:02:40 2016 Lecoq Maxime
 //
 
 #include "UserNetworkTCPUnixClient.hh"
@@ -53,6 +53,8 @@ void			UserNetworkTCPUnixClient::writeSocket(ISocket *net)
   PacketUnknown         to_write;
 
   to_write = buff_w.front();
+  if (to_write.packetIsValid() == false)
+    return;
   if (send(_fd, to_write.getPacketData(), to_write.getPacketSize(), 0) != to_write.getPacketSize())
     std::cerr << "Error on write" << std::endl;
   else

@@ -4,7 +4,7 @@
 // Login   <dufren_b@epitech.net>
 //
 // Started on  Fri Dec 02 15:02:22 2016 julien dufrene
-// Last update Sat Dec 31 01:41:27 2016 Lecoq Maxime
+// Last update Sat Dec 31 16:14:06 2016 Lecoq Maxime
 //
 
 #include "UserNetworkUDPUnix.hh"
@@ -27,6 +27,8 @@ void				UserNetworkUDPUnix::writeSocket(ISocket *net)
       s_out.sin_family = AF_INET;
       s_out.sin_port = htons(_port);
       to_write = buff_w.pop();
+      if (to_write.packetIsValid() == false)
+	return;
       errno = 0;
       if (sendto(_fd, to_write.getPacketData(), to_write.getPacketSize(), 0, (sockaddr *)&s_out, sizeof (s_out)) == -1)
         {

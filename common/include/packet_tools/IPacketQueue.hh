@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 11:02:19 2016 Maxime Lecoq
-// Last update Thu Dec 15 11:40:37 2016 lecoq
+// Last update Sat Dec 31 14:24:45 2016 Lecoq Maxime
 //
 
 #ifndef IPACKETQUEUE_HH_
@@ -21,6 +21,7 @@ public:
   virtual void		push(const PacketC &) = 0;
   virtual PacketC	pop() = 0;
   virtual bool		isEmpty() const = 0;
+  virtual uint64_t	size() const = 0;
 };
 
 #endif /* !IPACKETQUEUE_HH_ */

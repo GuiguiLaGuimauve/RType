@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 15:44:47 2016 Maxime Lecoq
-// Last update Sat Dec 31 11:36:51 2016 Lecoq Maxime
+// Last update Sat Dec 31 13:59:12 2016 Lecoq Maxime
 //
 
 #include "GameManager.hh"
