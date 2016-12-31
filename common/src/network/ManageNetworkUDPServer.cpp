@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Fri Dec 16 11:37:09 2016 julien dufrene
-// Last update Fri Dec 30 23:31:02 2016 Lecoq Maxime
+// Last update Sat Dec 31 01:42:55 2016 Lecoq Maxime
 //
 
 #include	"ManageNetworkUDPServer.hh"
@@ -106,19 +106,15 @@ std::vector<IUserNetwork *>	ManageNetworkUDPServer::exec()
     }
   if (_user.size() > 0)
     {
-      std::cout << "pp" << std::endl;
 	#ifdef _WIN32
 	  u = new UserNetworkUDPWindowsServer();
 	#else
 	  u = new UserNetworkUDPUnixServer();
 	#endif
 	  u->setIp("0.0.0.0");
-	  std::cout << "pp2" << std::endl;
       u->setFd(_net->getFdSocket());
-      std::cout << "pp3 " << _net->getFdSocket() << std::endl;
       u->setPseudo("Accept");
       u = u->readSocket(_net);
-      std::cout << "pp4" << std::endl;
       while (u->haveSomethingToRead() == true)
 	{
 	  PacketUnknown pk = u->popBufferRead();
@@ -142,8 +138,6 @@ std::vector<IUserNetwork *>	ManageNetworkUDPServer::exec()
 	  if (ok == false)
 	    _user.push_back(u);
 	}
-      std::cout << "pp ok" << std::endl; 
-
     }    
   return (newuser);
 }
