@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 15:45:57 2016 Maxime Lecoq
-// Last update Sat Dec 31 21:15:05 2016 Lecoq Maxime
+// Last update Sat Dec 31 22:09:21 2016 Lecoq Maxime
 //
 
 #include	"Game.hh"
@@ -14,10 +14,21 @@ Game::Game(DataRoom *p) : _room(p), _timeline(0)
 {
   _ptr[IPacket::PacketType::POSITION_PLAYER] = &IGame::updatePosPlayer;
   _ptr[IPacket::PacketType::SHOOTS_CLIENT] = &IGame::updatePlayerShoots;
+  _ennemyGenerator = EnnemyGenerator;
+  _ennemy = _ennemyGenerator->loadAllEnnemy();
+  uint64_t	i;
+
+  i = 0;
+  while (i < _ennemy.size())
+    {
+      std::cout << "size x " << _ennemy->getSizeX() << " sizeY " << getSizeY() << " name " << _ennemy->getSpriteName() << std::endl; 
+      i++;
+    }
 }
 
 Game::~Game()
 {
+  delete _ennemyGenerator;
 }
 
 std::vector<std::string> Game::getAllName() const
@@ -73,6 +84,7 @@ void		Game::setUdp(IManageNetwork *u) { _udp = u; }
 
 void		Game::run()
 {
+  
 }
 
 void		Game::end()
@@ -178,13 +190,11 @@ void Game::updatePlayerShoots(const IPacket *pa, const std::string &m)
   DataPlayer			*pl;
   i = 0;
 
-  std::vector<DataShoot *> tmppp;
+  std::vector<DataShoot *> tmpD;
   while (i < _room->getPlayers().size())
     {
       pl = _room->getPlayers()[i];
-      uint64_t z;
-      tmppp = pl->getShoots();
-      z = tmppp.size();
+      tmpD = pl->getShoots();
       if (pl->getName() == m && pl->getShoots().size() < p->getShoots().size() && p->getShoots().size() != 0)
 	{
 	  
@@ -194,19 +204,19 @@ void Game::updatePlayerShoots(const IPacket *pa, const std::string &m)
 	    {
 	      if (x >= pos)
 		//		delete pl->getShoots()[x];
-		//	      else
+		//else
 		{
 		  DataShoot *d = new DataShoot;
 		    d->setX(p->getShoots()[x]->getX());
 		    d->setY(p->getShoots()[x]->getY());
 		    d->setDamage(p->getShoots()[x]->getDamage());
 		    _shoots.push_back(d);
-		    tmppp.push_back(p->getShoots()[x]);
+		    tmpD.push_back(p->getShoots()[x]);
 		}
 	      x++;
 	    }
 	}
-      pl->setShoots(tmppp);
+      pl->setShoots(tmpD);
       i++;
     }
 }

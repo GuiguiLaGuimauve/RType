@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 11:54:48 2016 Maxime Lecoq
-// Last update Sat Dec 31 08:24:22 2016 Lecoq Maxime
+// Last update Sat Dec 31 22:02:47 2016 Lecoq Maxime
 //
 
 #ifndef GAME_HH_
@@ -22,6 +22,7 @@
 # include	"PacketFactory.hh"
 # include	"Clock.hpp"
 # include	"Printer.hpp"
+# include	"EnnemyGenerator.hh"
 
 class Game : public IGame
 {
@@ -53,6 +54,8 @@ private:
   uint64_t			_timeline;
   std::map<IPacket::PacketType, ptr>	_ptr;
   std::vector<DataShoot *>	_shoots;
+  std::vector<Ennemy *>		_ennemy;
+  EnnemyGenerator		*_ennemyGenerator;
 };
 
 #endif /* !GAME_HH_ */
