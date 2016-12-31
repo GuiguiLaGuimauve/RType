@@ -9,6 +9,7 @@ GuiEventManager::GuiEventManager(sf::Window *w):
   _keys[sf::Keyboard::Right] = KEY_RIGHT;
   _keys[sf::Keyboard::Down] = KEY_DOWN;
   _keys[sf::Keyboard::Up] = KEY_UP;
+  _keys[sf::Keyboard::LControl] = KEY_ATTACK;
   _keys[sf::Keyboard::Space] = KEY_ATTACK;
   _keys[sf::Keyboard::Escape] = KEY_QUIT;
 }
