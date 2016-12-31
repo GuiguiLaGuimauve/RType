@@ -27,7 +27,6 @@ IUserNetwork		*UserNetworkUDPWindowsClient::readSocket(ISocket *net)
   u_short						port;
 
   (void)net;
-  std::cout << "Trying to recv from ip: " << _ip << " port: " << _port << std::endl;
   s_in.sin_addr.s_addr = inet_addr(_ip.c_str());
   s_in.sin_family = AF_INET;
   if (WSAHtons(_fd, _port, &(s_in.sin_port)) == SOCKET_ERROR)
