@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 11:52:02 2016 Maxime Lecoq
-// Last update Sat Dec 31 07:34:59 2016 Lecoq Maxime
+// Last update Sat Dec 31 22:04:12 2016 Lecoq Maxime
 //
 
 #ifndef GAMEMANAGER_HH_
@@ -29,6 +29,7 @@ public:
   void		setThreadPool(ThreadPool *);
   void		runTimeline(IGame *);
   void		runMovements(IGame *);
+  void		runGame(IGame *);
   bool          gamesUpdate();
   bool          execPacket(const IPacket *, const std::string &);
 private:
