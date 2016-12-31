@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 15:45:57 2016 Maxime Lecoq
-// Last update Sat Dec 31 14:55:56 2016 Lecoq Maxime
+// Last update Sat Dec 31 17:02:35 2016 Lecoq Maxime
 //
 
 #include	"Game.hh"
@@ -126,6 +126,7 @@ void		Game::timeLine()
 	  delete pa;
 	  while (_shoots.empty() == false)
 	    _shoots.erase(_shoots.begin());
+	  _shoots.push_back(new DataShoot(300, 300));
 	  uint64_t i;
 	  uint64_t x;
 
@@ -133,13 +134,14 @@ void		Game::timeLine()
 	  while (i < _room->getPlayers().size())
 	    {
 	      x = 0;
-	      while (x < _room->getPlayers()[i]->getShoots().size())
+	      std::cout << _room->getPlayers()[i]->getName() << " " << _room->getPlayers()[i]->getOnline() << std::endl;
+	      /*	      while (x < _room->getPlayers()[i]->getShoots().size())
 		{
 		  _shoots.push_back(new DataShoot(_room->getPlayers()[i]->getShoots()[x]));
 		  x++;
-		}
+		  }*/
 	      i++;
-	      }
+	    }
 	  pa = _factory->getPacket("shoots", _shoots);
 	  pa->setTickId(_timeline);
 	  _udp->pushTo(list, pa->getPacketUnknown());
