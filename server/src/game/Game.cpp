@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 15:45:57 2016 Maxime Lecoq
-// Last update Sat Dec 31 07:59:20 2016 Lecoq Maxime
+// Last update Sat Dec 31 08:35:08 2016 Lecoq Maxime
 //
 
 #include	"Game.hh"
@@ -31,6 +31,20 @@ std::vector<std::string> Game::getAllName() const
       ret.push_back(_room->getPlayers()[i]->getName());
       i++;
     }
+  i = 0;
+  while (i < _room->getWatchers().size())
+    {
+      ret.push_back(_room->getWatchers()[i]->getName());
+      i++;
+    }
+  return (ret);
+}
+
+std::vector<std::string> Game::getViewersName() const
+{
+  uint64_t	i;
+  std::vector<std::string> ret;
+
   i = 0;
   while (i < _room->getWatchers().size())
     {
@@ -121,7 +135,7 @@ bool		Game::playerPresent(const std::string &pl)
 
   while (i < _room->getPlayers().size())
     {
-      if (_room->getPlayers()[i]->getName() == pl)
+      if (_room->getPlayers()[i]->getName() == pl && _room->getPlayers()[i]->getHealth() > 0)
 	return (true);
       i++;
     }

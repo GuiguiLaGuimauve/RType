@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 11:41:19 2016 Maxime Lecoq
-// Last update Fri Dec 30 21:36:04 2016 Lecoq Maxime
+// Last update Sat Dec 31 08:20:28 2016 Lecoq Maxime
 //
 
 #ifndef PACKETFACTORY_HH_
@@ -40,8 +40,6 @@ public:
   IPacket	*getPacket(const IPacket::PacketType &, const std::vector<DataRoom *> &);
   IPacket	*getPacket(const std::string &, const std::string &, const uint8_t &);
   IPacket	*getPacket(const IPacket::PacketType &, const std::string &, const uint8_t &);
-  IPacket	*getPacket(const std::string &, const uint8_t *, const uint16_t &);
-  IPacket	*getPacket(const IPacket::PacketType &, const uint8_t *, const uint16_t &);
   IPacket	*getPacket(const std::string &, const DataRoom *);
   IPacket	*getPacket(const IPacket::PacketType &, const DataRoom *);
   IPacket	*getPacket(const std::string &, const std::string &, const std::string &);
@@ -58,6 +56,8 @@ public:
   IPacket	*getPacket(const IPacket::PacketType &, const std::vector<DataPlayer *> &);
   IPacket	*getPacket(const std::string &, const DataPlayer *);
   IPacket	*getPacket(const IPacket::PacketType &, const DataPlayer *);
+  IPacket	*getPacket(const std::string &, const uint8_t *, const uint16_t &, const std::string & = "client");
+  IPacket	*getPacket(const IPacket::PacketType &, const uint8_t *, const uint16_t &, const std::string & = "client");
   
   IPacket *	getPacket(const uint8_t *) const;
   void		enableSerialiser(const std::string &);
@@ -90,7 +90,7 @@ public:
 
   IPacket	*createRoom(const std::string &, const uint8_t &);
 
-  IPacket	*udpData(const uint8_t *, const uint16_t &);
+  IPacket	*udpData(const uint8_t *, const uint16_t &, const std::string & = "client");
 
   IPacket	*getDataRoom(const DataRoom *);
 
@@ -149,7 +149,7 @@ private:
   PacketContener<const std::string &>								*_pkt3;
   PacketContener<const std::vector<DataRoom *> &>						*_pkt4;
   PacketContener<const std::string &, const uint8_t &>						*_pkt5;
-  PacketContener<const uint8_t *, const uint16_t &>						*_pkt6;
+  PacketContener<const uint8_t *, const uint16_t &, const std::string &>			*_pkt6;
   PacketContener<const DataRoom *>								*_pkt7;
   PacketContener<const std::string &, const std::string &>					*_pkt8;
   PacketContener<const uint16_t &, const uint16_t &>						*_pkt9;
@@ -611,10 +611,10 @@ private:
 
 
 template<>
-class PacketContener<const uint8_t *, const uint16_t &>
+class PacketContener<const uint8_t *, const uint16_t &, const std::string &>
 {
 public:
-  typedef IPacket *(PacketFactory::*ptr)(const uint8_t *, const uint16_t &);
+  typedef IPacket *(PacketFactory::*ptr)(const uint8_t *, const uint16_t &, const std::string &);
   PacketContener(PacketFactory *p) : _p(p)
   {
     _map["udpdata"] = &PacketFactory::udpData;
@@ -626,16 +626,16 @@ public:
     if (_map.find(s) != _map.end())
       _enableMap[s] = _map[s]; 
   }
-  IPacket	*getPacket(const std::string &s, const uint8_t *m, const uint16_t &t)
+  IPacket	*getPacket(const std::string &s, const uint8_t *m, const uint16_t &t, const std::string &st = "client")
   {
   if (_enableMap.find(s) != _enableMap.end())
-    return ((_p->*_enableMap[s])(m, t));
+    return ((_p->*_enableMap[s])(m, t, st));
   return (NULL);
   }
-  IPacket	*getPacket(const IPacket::PacketType &s, const uint8_t *m, const uint16_t &t)
+  IPacket	*getPacket(const IPacket::PacketType &s, const uint8_t *m, const uint16_t &t, const std::string &st = "client")
   {
   if (_converter.find(s) != _converter.end() && _enableMap.find(_converter[s]) != _enableMap.end())
-    return ((_p->*_enableMap[_converter[s]])(m, t));
+    return ((_p->*_enableMap[_converter[s]])(m, t, st));
   return (NULL);
   }
   bool	isEnable(const std::string &s)

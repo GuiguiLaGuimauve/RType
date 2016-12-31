@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 11:43:18 2016 Maxime Lecoq
-// Last update Fri Dec 30 00:20:29 2016 lecoq
+// Last update Sat Dec 31 08:21:00 2016 Lecoq Maxime
 //
 
 #include	"PacketFactory.hh"
@@ -17,7 +17,7 @@ PacketFactory::PacketFactory()
   _pkt3 = new PacketContener<const std::string &>(this);
   _pkt4 = new PacketContener<const std::vector<DataRoom *> &>(this);
   _pkt5 = new PacketContener<const std::string &, const uint8_t &>(this);
-  _pkt6 = new PacketContener<const uint8_t *, const uint16_t &>(this);
+  _pkt6 = new PacketContener<const uint8_t *, const uint16_t &, const std::string &>(this);
   _pkt7 = new PacketContener<const DataRoom *>(this);
   _pkt8 = new PacketContener<const std::string &, const std::string &>(this);
   _pkt9 = new PacketContener<const uint16_t &, const uint16_t &>(this);
@@ -114,14 +114,14 @@ IPacket		*PacketFactory::getPacket(const IPacket::PacketType &p, const std::stri
   return (_pkt5->getPacket(p, m, t));
 }
 
-IPacket		*PacketFactory::getPacket(const std::string &p, const uint8_t *m, const uint16_t &t) 
+IPacket		*PacketFactory::getPacket(const std::string &p, const uint8_t *m, const uint16_t &t, const std::string &s) 
 {
-  return (_pkt6->getPacket(p, m, t));
+  return (_pkt6->getPacket(p, m, t, s));
 }
 
-IPacket		*PacketFactory::getPacket(const IPacket::PacketType &p, const uint8_t *m, const uint16_t &t) 
+IPacket		*PacketFactory::getPacket(const IPacket::PacketType &p, const uint8_t *m, const uint16_t &t, const std::string &s) 
 {
-  return (_pkt6->getPacket(p, m, t));
+  return (_pkt6->getPacket(p, m, t, s));
 }
 
 IPacket		*PacketFactory::getPacket(const std::string &p, const DataRoom *m) 
@@ -386,9 +386,9 @@ IPacket		*PacketFactory::createRoom(const std::string &m, const uint8_t &t)
   return (ret);
 }
 
-IPacket		*PacketFactory::udpData(const uint8_t *m, const uint16_t &t) 
+IPacket		*PacketFactory::udpData(const uint8_t *m, const uint16_t &t, const std::string &s) 
 {
-  IPacket	*ret = new PacketUdpData(m, t);
+  IPacket	*ret = new PacketUdpData(m, t, s);
 
   return (ret);
 }

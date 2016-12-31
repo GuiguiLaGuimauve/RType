@@ -5,7 +5,7 @@
 #include <iostream>
 #include "PacketUdpData.hh"
 
-PacketUdpData::PacketUdpData(const uint8_t *ip, const uint16_t & port)
+PacketUdpData::PacketUdpData(const uint8_t *ip, const uint16_t & port, const std::string &m)
 {
 	PacketSerializer ps;
 	uint32_t dataPacketSize = 0;
@@ -17,6 +17,7 @@ PacketUdpData::PacketUdpData(const uint8_t *ip, const uint16_t & port)
 	_ip[2] = ip[2];
 	_ip[3] = ip[3];
 	_port = port;
+	_status = m;
 
 	ps.add(_ip[0]);
 	ps.add(_ip[1]);
@@ -27,6 +28,10 @@ PacketUdpData::PacketUdpData(const uint8_t *ip, const uint16_t & port)
 	ps.add(_port);
 	dataPacketSize += 2;
 
+	ps.add((uint16_t)_status.size());
+	ps.add(_status);
+	dataPacketSize += 2 + (uint32_t)_status.size();
+	
 	_data = ps.getPacket();
 	_size = dataPacketSize;
 }
@@ -55,6 +60,9 @@ PacketUdpData::PacketUdpData(const uint8_t *data)
 
 	_port = pd.get16(posInPacket);
 	posInPacket += 2;
+
+	_status = pd.getString(posInPacket + 2, pd.get16(posInPacket));
+	posInPacket += 2 + (uint32_t)pd.get16(posInPacket);  
 }
 
 PacketUdpData::~PacketUdpData()
@@ -79,4 +87,9 @@ bool PacketUdpData::isTcp() const
 bool PacketUdpData::isUdp() const
 {
 	return (false);
+}
+
+const std::string &PacketUdpData::getStatus() const
+{
+  return (_status);
 }

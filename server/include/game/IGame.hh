@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 11:54:14 2016 Maxime Lecoq
-// Last update Sat Dec 31 07:35:46 2016 Lecoq Maxime
+// Last update Sat Dec 31 08:24:11 2016 Lecoq Maxime
 //
 
 #ifndef IGAME_HH_
@@ -32,6 +32,7 @@ public:
     };
   virtual ~IGame() {};
   virtual std::vector<std::string> getPlayersName() const = 0;
+  virtual std::vector<std::string> getViewersName() const = 0;
   virtual std::vector<std::string> getAllName() const = 0;
   virtual void                          setFactory(PacketFactory *) = 0;
   virtual void                          setUdp(IManageNetwork *) = 0;

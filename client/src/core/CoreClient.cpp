@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Sat Dec 31 02:10:32 2016 Lecoq Maxime
+// Last update Sat Dec 31 08:43:07 2016 Lecoq Maxime
 //
 
 #include	"CoreClient.hh"
@@ -399,7 +399,16 @@ bool		CoreClient::udpData(const IPacket *pa, IUserNetwork *u)
   _status = "game";
   _gui->displayGame();
   _gameData->init();
+  _game = p->getStatus();
   _th->launch(&CoreClient::timeLine, this);
+  pb = _factory->getPacket("ping");
+  uint8_t i = 0;
+  while (i < 5)
+    {
+      _udp->pushTo(empty, pb->getPacketUnknown());
+      i++;
+    }
+  delete pb;
   return (true);
 }
 
@@ -410,7 +419,7 @@ void		CoreClient::timeLine()
   
   while (_gameData->gameIsEnded() == false)
     {
-      if (_gameData->getTick() != (uint32_t)(clo.getTimeMilli() / 50))
+      if (_game == "player" && _gameData->getTick() != (uint32_t)(clo.getTimeMilli() / 50))
 	{
 	  _gameData->setTick(clo.getTimeMilli() / 50);
 	  IPacket *p;
@@ -423,7 +432,6 @@ void		CoreClient::timeLine()
 	  _udp->pushTo(empty, p->getPacketUnknown());
 	  delete p;
 	}
-
     }
 }
 
@@ -487,5 +495,6 @@ bool		CoreClient::gameEnded(const IPacket *pa, IUserNetwork *u)
   delete p;
   _gameData->reset();
   _status = "waitingRooms";
+  _game = "";
   return (true);
 }

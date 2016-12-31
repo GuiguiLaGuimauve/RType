@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 11:54:48 2016 Maxime Lecoq
-// Last update Sat Dec 31 07:35:29 2016 Lecoq Maxime
+// Last update Sat Dec 31 08:24:22 2016 Lecoq Maxime
 //
 
 #ifndef GAME_HH_
@@ -30,6 +30,7 @@ public:
   Game(DataRoom *);
   ~Game();
   std::vector<std::string> getPlayersName() const;
+  std::vector<std::string> getViewersName() const;
   std::vector<std::string> getAllName() const;
   void				setFactory(PacketFactory *);
   void				setUdp(IManageNetwork *);
