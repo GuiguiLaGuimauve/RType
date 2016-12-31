@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 11:41:19 2016 Maxime Lecoq
-// Last update Sat Dec 31 08:20:28 2016 Lecoq Maxime
+// Last update Sat Dec 31 20:52:39 2016 Lecoq Maxime
 //
 
 #ifndef PACKETFACTORY_HH_
@@ -101,6 +101,7 @@ public:
   IPacket	*shoot(const uint16_t &, const uint16_t &);
 
   IPacket	*getShoots(const std::vector<DataShoot *>&);
+  IPacket	*getShootsClient(const std::vector<DataShoot *>&);
 
   IPacket	*getEnnemies(const std::vector<DataEnnemy *>&);
 
@@ -143,6 +144,7 @@ public:
   IPacket		*revProfile(const uint8_t *);
   IPacket		*revGameEnded(const uint8_t *);
   IPacket		*revAskRooms(const uint8_t *);
+  IPacket		*revShootsClient(const uint8_t *);
 private:
   PacketContener<void>										*_pkt1;
   PacketContener<const std::string &, const IPacket::PacketType &>				*_pkt2;
@@ -202,6 +204,7 @@ public:
     _map[IPacket::PacketType::PROFILE] = &PacketFactory::revProfile;
     _map[IPacket::PacketType::GAMEENDED] = &PacketFactory::revGameEnded;
     _map[IPacket::PacketType::ASK_ROOMS] = &PacketFactory::revAskRooms;
+    _map[IPacket::PacketType::SHOOTS_CLIENT] = &PacketFactory::revShootsClient;
     _converter["error"] = IPacket::PacketType::ERROR_PACKET;
     _converter["welcome"] = IPacket::PacketType::WELCOME;
     _converter["connect"] = IPacket::PacketType::CONNECT;
@@ -235,6 +238,7 @@ public:
     _converter["profile"] = IPacket::PacketType::PROFILE;
     _converter["gameended"] = IPacket::PacketType::GAMEENDED;
     _converter["askrooms"] = IPacket::PacketType::ASK_ROOMS;
+    _converter["shootsclient"] = IPacket::PacketType::SHOOTS_CLIENT;
 };
   ~PacketContener() {};
   void	enable(const std::string &s)
@@ -484,6 +488,8 @@ public:
   PacketContener(PacketFactory *p) : _p(p)
   {
     _map["shoots"] = &PacketFactory::getShoots;
+    _map["shootsclient"] = &PacketFactory::getShootsClient;
+    _converter[IPacket::PacketType::SHOOTS_CLIENT] = "shootsclient";
     _converter[IPacket::PacketType::SHOOTS] = "shoots";
   };
   ~PacketContener() {};

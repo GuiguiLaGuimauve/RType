@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Sat Dec 17 00:47:42 2016 Maxime Lecoq
-// Last update Tue Dec 27 16:52:53 2016 lecoq
+// Last update Sat Dec 31 20:27:17 2016 Lecoq Maxime
 //
 
 #ifndef PACKETLIST_H_
@@ -45,5 +45,6 @@
 # include	"PacketChatMessage.hh"
 # include	"PacketGameEnded.hh"
 # include	"PacketAskRooms.hh"
+# include	"PacketShootsClient.hh"
 
 #endif /* !PACKETLIST_H_ */

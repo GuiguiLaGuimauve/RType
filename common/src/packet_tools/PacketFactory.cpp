@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 11:43:18 2016 Maxime Lecoq
-// Last update Sat Dec 31 08:21:00 2016 Lecoq Maxime
+// Last update Sat Dec 31 20:30:58 2016 Lecoq Maxime
 //
 
 #include	"PacketFactory.hh"
@@ -435,6 +435,13 @@ IPacket		*PacketFactory::getShoots(const std::vector<DataShoot *> &m)
   return (ret);  
 }
 
+IPacket		*PacketFactory::getShootsClient(const std::vector<DataShoot *> &m)
+{
+  IPacket	*ret= new PacketShootsClient(m);
+
+  return (ret);  
+}
+
 IPacket		*PacketFactory::getEnnemies(const std::vector<DataEnnemy *> &m)
 {
   IPacket	*ret= new PacketEnnemies(m);
@@ -662,5 +669,11 @@ IPacket		*PacketFactory::revGameEnded(const uint8_t *p)
 IPacket		*PacketFactory::revAskRooms(const uint8_t *p)
 {
   IPacket *pa = new PacketAskRooms(p);
+  return (pa);
+}
+
+IPacket		*PacketFactory::revShootsClient(const uint8_t *p)
+{
+  IPacket *pa = new PacketShootsClient(p);
   return (pa);
 }
