@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Sat Dec 31 08:43:07 2016 Lecoq Maxime
+// Last update Sat Dec 31 10:10:55 2016 Lecoq Maxime
 //
 
 #include	"CoreClient.hh"
@@ -426,10 +426,12 @@ void		CoreClient::timeLine()
 	  p = _factory->getPacket("positionplayer", _gui->getPosX(), _gui->getPosY());
 	  p->setTickId(_gameData->getTick());
 	  _udp->pushTo(empty, p->getPacketUnknown());
+	  //std::cout << "pla pos send" << std::endl;
 	  delete p;
 	  p = _factory->getPacket("shoots", _gameData->getShoots());
 	  p->setTickId(_gameData->getTick());
 	  _udp->pushTo(empty, p->getPacketUnknown());
+	  //	  std::cout << "shoot pos send" << std::endl;
 	  delete p;
 	}
     }
@@ -470,6 +472,7 @@ bool		CoreClient::players(const IPacket *pa, IUserNetwork *u)
   (void)p;
   //  _gameData->setMarge(pa->getTickId() - _gameData->getTick());
   //if (pa->getTickId() == _gameData->getTick() || pa->getTickId() - _gameData->getTick() == 1)
+  std::cout << "pla pos recu" << std::endl;
   _gui->setPlayersPositions(p->getPlayers());
   return (true);
 }
@@ -481,6 +484,7 @@ bool		CoreClient::shoots(const IPacket *pa, IUserNetwork *u)
   (void)p;
   //_gameData->setMarge(pa->getTickId() - _gameData->getTick());
   //  if (pa->getTickId() == _gameData->getTick() || pa->getTickId() - _gameData->getTick() == 1)
+  std::cout << "shoot pos recu" << std::endl;
   _gui->setShootsPositions(p->getShoots());
   return (true);
 }
