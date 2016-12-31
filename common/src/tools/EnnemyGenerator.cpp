@@ -5,7 +5,7 @@
 // Login   <rembur_g@epitech.eu>
 //
 // Started on  Sat Dec 31 11:54:26 2016 La Guimauve
-// Last update Sat Dec 31 11:54:41 2016 La Guimauve
+// Last update Sat Dec 31 22:18:44 2016 Lecoq Maxime
 //
 
 #include <vector>
@@ -18,7 +18,7 @@ std::vector<Ennemy *> EnnemyGenerator::loadAllEnnemy()
 #ifdef _WIN32
 	tmp.push_back(el.LoadEnnemy("Alienlib.dll"));
 #else
-	tmp.push_back(el.LoadEnnemy("Alienlib.so"));
+	tmp.push_back(el.LoadEnnemy("LibAlien.so"));
 #endif // _WIN32
 	return (tmp);
 }

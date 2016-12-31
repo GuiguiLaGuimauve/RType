@@ -5,7 +5,7 @@
 // Login   <rembur_g@epitech.eu>
 //
 // Started on  Wed Dec 28 08:56:14 2016 La Guimauve
-// Last update Wed Dec 28 16:47:58 2016 La Guimauve
+// Last update Sat Dec 31 22:13:35 2016 Lecoq Maxime
 //
 
 #ifndef _ENNEMYLOADER_HH_
@@ -29,7 +29,7 @@ class EnnemyLoader
 {
 public:
     Ennemy *LoadEnnemy(const std::string &);
-    void     ReloadEnnemy(IElement &) {};
+  //void     ReloadEnnemy(IElement &) {};
 };
 
 #endif //_ENNEMYLOADER_HH_

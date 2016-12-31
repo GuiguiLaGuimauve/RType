@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 11:54:48 2016 Maxime Lecoq
-// Last update Sat Dec 31 22:02:47 2016 Lecoq Maxime
+// Last update Sat Dec 31 22:14:37 2016 Lecoq Maxime
 //
 
 #ifndef GAME_HH_
@@ -48,7 +48,7 @@ private:
   DataRoom			*_room;
   std::string			_name;
   IGame::Stage			_stage;
-  std::vector<IElement *>	_elementList;
+  //std::vector<IElement *>	_elementList;
   IManageNetwork		*_udp;
   PacketFactory			*_factory;
   uint64_t			_timeline;

@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 15:45:57 2016 Maxime Lecoq
-// Last update Sat Dec 31 22:09:21 2016 Lecoq Maxime
+// Last update Sat Dec 31 22:15:36 2016 Lecoq Maxime
 //
 
 #include	"Game.hh"
@@ -14,14 +14,14 @@ Game::Game(DataRoom *p) : _room(p), _timeline(0)
 {
   _ptr[IPacket::PacketType::POSITION_PLAYER] = &IGame::updatePosPlayer;
   _ptr[IPacket::PacketType::SHOOTS_CLIENT] = &IGame::updatePlayerShoots;
-  _ennemyGenerator = EnnemyGenerator;
+  _ennemyGenerator = new EnnemyGenerator;
   _ennemy = _ennemyGenerator->loadAllEnnemy();
   uint64_t	i;
 
   i = 0;
   while (i < _ennemy.size())
     {
-      std::cout << "size x " << _ennemy->getSizeX() << " sizeY " << getSizeY() << " name " << _ennemy->getSpriteName() << std::endl; 
+      std::cout << "size x " << _ennemy[i]->getSizeX() << " sizeY " << _ennemy[i]->getSizeY() << " name " << _ennemy[i]->getSpriteName() << std::endl; 
       i++;
     }
 }
