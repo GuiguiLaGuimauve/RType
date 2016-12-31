@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Mon Dec 19 23:24:16 2016 Maxime Lecoq
-** Last update Fri Dec 30 18:57:46 2016 Lecoq Maxime
+// Last update Sat Dec 31 11:41:40 2016 Lecoq Maxime
 */
 
 #include	"ServerData.hh"
@@ -99,6 +99,7 @@ void	ServerData::logoutPlayer(const std::string &name)
 	  _isUpdate = true;
 	}
       getPlayer(st.lower(name))->setOnline(false);
+      getPlayer(st.lower(name))->resetGame();
     }
 }
 
