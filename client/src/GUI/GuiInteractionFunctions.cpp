@@ -33,6 +33,8 @@ void	TextColorNoHover(IWidget *w)
 
 void	textEntered(IWidget *w, const std::string &c)
 {
+  if (c[0] == '|')
+    return;
   if (c[0] == 127 || c[0] == 8)
     {
       std::string tmp = w->getText();
