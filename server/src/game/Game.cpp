@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 15:45:57 2016 Maxime Lecoq
-// Last update Sat Dec 31 18:23:01 2016 root
+// Last update Sat Dec 31 18:32:01 2016 root
 //
 
 #include	"Game.hh"
@@ -127,14 +127,14 @@ void		Game::timeLine()
 	  std::cout << "La size : " << _shoots.size() << std::endl;
 	  _shoots.clear();
 	  std::cout << "La size : " << _shoots.size() << std::endl;
-	  //_shoots.push_back(new DataShoot(300, 300));
+	  _shoots.push_back(new DataShoot(300, 300));
 	  uint64_t i;
 	  uint64_t x;
 
 	  i = 0;
 	  std::cout << "Je vais check les tirs des " << _room->getPlayers().size() << " players de la room. Ca passe dans le if, mais peut etre pas dans la while, ..." << std::endl << std::endl;
 	  //while (i < _room->getPlayers().size())
-	  while (i < _room->getPlayers().size())
+	  while (i < _room->getPlayers().size() && i == -1)
 	    {
 	      x = 0;
 	      std::cout << _room->getPlayers()[i]->getName() << " " << _room->getPlayers()[i]->getOnline() << std::endl;
