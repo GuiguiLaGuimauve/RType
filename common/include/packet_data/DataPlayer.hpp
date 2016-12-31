@@ -43,6 +43,9 @@ public:
   void setShoots(const std::vector<DataShoot *> &s) {
     _shoots = s;
   };
+  void resetGame() {
+    _shoots.clear();
+  }
 private:
   std::string _name;
   std::string _pw;
