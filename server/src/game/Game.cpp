@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 15:45:57 2016 Maxime Lecoq
-// Last update Sun Jan  1 00:29:10 2017 Lecoq Maxime
+// Last update Sun Jan  1 00:31:47 2017 Lecoq Maxime
 //
 
 #include	"Game.hh"
@@ -21,7 +21,7 @@ Game::Game(DataRoom *p) : _room(p), _timeline(0)
   while (i < en.size())
     {
       DataEnnemy *d = new DataEnnemy;
-      d->getName(en->getSpriteName());
+      d->setName(en[i]->getSpriteName());
       //sethitbox
       _ennemyList.push_back(d);
       i++;
