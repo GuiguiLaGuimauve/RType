@@ -43,15 +43,10 @@ PacketShoots::PacketShoots(const uint8_t *data)
 
 	_data = new uint8_t[_size];
 	for (uint32_t a = 0; a < _size; a++)
-	  {
-	    _data[a] = data[a + 9];
-	    std::cout << (int)_data[a] << " ";
-	  }
-	std::cout << std::endl;
+	  _data[a] = data[a + 9];
 
 	uint64_t shootsLength = (uint16_t)pd.get16(posInPacket);
 	posInPacket += 2;
-	std::cout << "shootlenght " << shootsLength << std::endl;
 	for (uint64_t i = 0; i < shootsLength; i++)
 	{
 		DataShoot *shootsTemp = new DataShoot();
