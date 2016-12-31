@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Sat Dec 31 23:05:17 2016 Lecoq Maxime
+// Last update Sun Jan  1 00:47:41 2017 Lecoq Maxime
 //
 
 #include	"CoreClient.hh"
@@ -37,6 +37,7 @@ CoreClient::CoreClient()
   _packetPtr[IPacket::PacketType::PLAYERS] = &CoreClient::players;
   _packetPtr[IPacket::PacketType::SHOOTS] = &CoreClient::shoots;
   _packetPtr[IPacket::PacketType::BACKGROUNDS] = &CoreClient::background;
+  _packetPtr[IPacket::PacketType::ENNEMIES] = &CoreClient::ennemies;
 
   _status = "connect";
   _backPtr["connect"] = &CoreClient::exitClient;
@@ -504,6 +505,17 @@ bool		CoreClient::background(const IPacket *pa, IUserNetwork *u)
   //_gameData->setMarge(pa->getTickId() - _gameData->getTick());
   //  if (pa->getTickId() == _gameData->getTick() || pa->getTickId() - _gameData->getTick() == 1)
   _gui->setEnvsPositions(p->getBackgrounds());
+  return (true);
+}
+
+bool		CoreClient::ennemies(const IPacket *pa, IUserNetwork *u)
+{
+  PacketEnnemies	*p = (PacketEnnemies *)pa;
+  (void)u;
+  (void)p;
+  //_gameData->setMarge(pa->getTickId() - _gameData->getTick());
+  //  if (pa->getTickId() == _gameData->getTick() || pa->getTickId() - _gameData->getTick() == 1)
+  _gui->setEnemyPositions(p->getEnnemies());
   return (true);
 }
 

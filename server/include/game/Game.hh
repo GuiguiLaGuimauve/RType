@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 11:54:48 2016 Maxime Lecoq
-// Last update Sat Dec 31 23:57:13 2016 Lecoq Maxime
+// Last update Sun Jan  1 00:32:50 2017 Lecoq Maxime
 //
 
 #ifndef GAME_HH_
@@ -58,6 +58,7 @@ private:
   std::vector<DataShoot *>	_shoots;
   EnnemyGenerator		*_ennemyGenerator;
   std::vector<DataEnnemy *>	_ennemyList;
+  std::vector<DataEnnemy *>	_ennemy;
   std::vector<DataBackground *>	_background;
 };
 

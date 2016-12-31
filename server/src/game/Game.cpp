@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 15:45:57 2016 Maxime Lecoq
-// Last update Sun Jan  1 00:31:47 2017 Lecoq Maxime
+// Last update Sun Jan  1 00:46:52 2017 Lecoq Maxime
 //
 
 #include	"Game.hh"
@@ -32,6 +32,17 @@ Game::Game(DataRoom *p) : _room(p), _timeline(0)
   d = new DataBackground(1920, 0);
   d->setSpeed(-1);
   _background.push_back(d); 
+  DataEnnemy *e = new DataEnnemy;
+  e->setX(400);
+  e->setY(200);
+  e->setName(_ennemyList[0]->getName());
+  _ennemy.push_back(e);
+  
+  e = new DataEnnemy;  
+  e->setX(1000);
+  e->setY(400);
+  e->setName(_ennemyList[0]->getName());
+  _ennemy.push_back(e);
 }
 
 Game::~Game()
@@ -190,6 +201,10 @@ void		Game::timeLine()
 	  _udp->pushTo(list, pa->getPacketUnknown());
 	  delete pa;
 	  pa = _factory->getPacket("background", _background);
+	  pa->setTickId(_timeline);
+	  _udp->pushTo(list, pa->getPacketUnknown());
+	  delete pa;
+	  pa = _factory->getPacket("ennemies", _ennemy);
 	  pa->setTickId(_timeline);
 	  _udp->pushTo(list, pa->getPacketUnknown());
 	  delete pa;
