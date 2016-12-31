@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 15:45:57 2016 Maxime Lecoq
-// Last update Sat Dec 31 18:32:01 2016 root
+// Last update Sat Dec 31 19:12:52 2016 Lecoq Maxime
 //
 
 #include	"Game.hh"
@@ -82,7 +82,7 @@ void		Game::end()
 
 void		Game::movements()
 {
-  Clock         clo;
+  /*  Clock         clo;
   uint64_t	i;
   uint64_t	x;
 
@@ -105,7 +105,7 @@ void		Game::movements()
 		i++;
 	    }
 	}
-    }
+	}*/
 }
 
 void		Game::timeLine()
@@ -118,34 +118,35 @@ void		Game::timeLine()
   while (_room->getPlayers().size() != 0)
     {
       if (_timeline != (uint64_t)clo.getTimeMilli() / 50)
-	{
+	{	  
 	  _timeline = clo.getTimeMilli() / 50;
 	  pa = _factory->getPacket("players", _room->getPlayers());
 	  pa->setTickId(_timeline);
 	  _udp->pushTo(list, pa->getPacketUnknown());
 	  delete pa;
-	  std::cout << "La size : " << _shoots.size() << std::endl;
-	  _shoots.clear();
-	  std::cout << "La size : " << _shoots.size() << std::endl;
-	  _shoots.push_back(new DataShoot(300, 300));
-	  uint64_t i;
+	  std::vector<DataShoot *> data;
+	  /*uint64_t i;
 	  uint64_t x;
 
 	  i = 0;
 	  std::cout << "Je vais check les tirs des " << _room->getPlayers().size() << " players de la room. Ca passe dans le if, mais peut etre pas dans la while, ..." << std::endl << std::endl;
 	  //while (i < _room->getPlayers().size())
-	  while (i < _room->getPlayers().size() && i == -1)
+	  while (i < _room->getPlayers().size())
 	    {
 	      x = 0;
 	      std::cout << _room->getPlayers()[i]->getName() << " " << _room->getPlayers()[i]->getOnline() << std::endl;
 	      while (x < _room->getPlayers()[i]->getShoots().size())
 		{
-		  _shoots.push_back(new DataShoot(_room->getPlayers()[i]->getShoots()[x]));
+		  std::cout << "mega pute" << std::endl;
+		  data.push_back(new DataShoot(_room->getPlayers()[i]->getShoots()[x]));
 		  x++;
 		}
 	      i++;
 	    }
-	  pa = _factory->getPacket("shoots", _shoots);
+	  std::cout << std::endl << data.size() << std::endl << std::endl;
+	  */
+	  data.push_back(new DataShoot(300, 300));
+	  pa = _factory->getPacket("shoots", data);
 	  pa->setTickId(_timeline);
 	  _udp->pushTo(list, pa->getPacketUnknown());
 	  delete pa;
@@ -190,11 +191,11 @@ void		Game::updatePosPlayer(const IPacket *pa, const std::string &m)
     }
 }
 
-uint64_t pppp = 0;
+//uint64_t pppp = 0;
 
 void Game::updatePlayerShoots(const IPacket *pa, const std::string &m)
 {
-  uint64_t	i;
+  /*  uint64_t	i;
   PacketShoots *p = (PacketShoots *)pa;
   std::vector<DataShoot *>	tmp;
   DataPlayer			*pl;
@@ -212,7 +213,7 @@ void Game::updatePlayerShoots(const IPacket *pa, const std::string &m)
       std::cout << "Im : " << pl->getName() << " et j ai : " << z << " shoots" << std::endl;
       if (pl->getName() == m && pl->getShoots().size() < p->getShoots().size() && p->getShoots().size() != 0)
 	{
-	
+	  
 	  uint64_t	x = 0;
 	  uint64_t	pos = pl->getShoots().size();
 	  while (x < p->getShoots().size())
@@ -224,11 +225,11 @@ void Game::updatePlayerShoots(const IPacket *pa, const std::string &m)
 		//	      else
 		{
 		  /*DataShoot *d = new DataShoot;
-		  d->setX(p->getShoots()[x]->getX());
-		  d->setY(p->getShoots()[x]->getY());
-		  d->setDamage(p->getShoots()[x]->getDamage());
-		  _shoots.push_back(d);
-		  std::cout << d->getX() << " " << d->getY() << " " << (int)d->getDamage() << " total size : " << _shoots.size() << std::endl;*/
+		    d->setX(p->getShoots()[x]->getX());
+		    d->setY(p->getShoots()[x]->getY());
+		    d->setDamage(p->getShoots()[x]->getDamage());
+		    _shoots.push_back(d);
+		    std::cout << d->getX() << " " << d->getY() << " " << (int)d->getDamage() << " total size : " << _shoots.size() << std::endl;
 		  tmppp.push_back(p->getShoots()[x]);
 		}
 	      x++;
@@ -241,5 +242,5 @@ void Game::updatePlayerShoots(const IPacket *pa, const std::string &m)
       else
 	std::cout << "J AI PAS CHANGE" << std::endl;
       i++;
-    }
+      }*/
 }

@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Sat Dec 31 18:47:07 2016 root
+// Last update Sat Dec 31 19:13:02 2016 Lecoq Maxime
 //
 
 #include	"CoreClient.hh"
@@ -432,11 +432,11 @@ void		CoreClient::timeLine()
 	  p->setTickId(_gameData->getTick());
 	  _udp->pushTo(empty, p->getPacketUnknown());
 	  delete p;
-	  p = _factory->getPacket("shoots", _gameData->getShoots());
+	  /*	  p = _factory->getPacket("shoots", _gameData->getShoots());
 	  p->setTickId(_gameData->getTick());
 	  PacketShoots *d = (PacketShoots *)p;
 	  _udp->pushTo(empty, p->getPacketUnknown());
-	  delete p;
+	  delete p;*/
 	}
     }
 }
@@ -487,7 +487,7 @@ bool		CoreClient::shoots(const IPacket *pa, IUserNetwork *u)
   (void)p;
   //_gameData->setMarge(pa->getTickId() - _gameData->getTick());
   //  if (pa->getTickId() == _gameData->getTick() || pa->getTickId() - _gameData->getTick() == 1)
-  //_gui->setShootsPositions(p->getShoots());
+  _gui->setShootsPositions(p->getShoots());
   return (true);
 }
 
