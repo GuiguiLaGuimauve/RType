@@ -35,7 +35,6 @@ int16_t AElement::getSpriteX() const
 	return (_spritePositionX);
 }
 
-
 uint16_t AElement::getSizeX() const
 {
 	return (_sizeX);
@@ -48,12 +47,12 @@ uint16_t AElement::getSizeY() const
 
 int16_t AElement::getHitBoxX() const
 {
-	return (_x + _hitboxSizeX);
+	return (_x + _hitboxDeltaX);
 }
 
 int16_t AElement::getHitBoxY() const
 {
-	return (_y + _hitboxSizeY);
+	return (_y + _hitboxDeltaY);
 }
 
 uint16_t AElement::getHitBoxSizeX() const

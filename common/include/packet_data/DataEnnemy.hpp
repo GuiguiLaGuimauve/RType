@@ -5,6 +5,7 @@
 #ifndef __DATAENNEMY_HH__
 #define __DATAENNEMY_HH__
 
+#include <string>
 #include <stdint.h>
 
 namespace Packet {
@@ -15,16 +16,16 @@ namespace Packet {
 		DataEnnemy() {};
 		~DataEnnemy() {};
 
-		uint8_t getType() const { return (_type); };
+		std::string getName() const { return (_name); };
 		uint16_t getX() const { return (_x); };
 		uint16_t getY() const { return (_y); };
 
-		void setType(const uint8_t & type) { _type = type; };
+		void setName(const std::string & name) { _name = name; };
 		void setX(const uint16_t & x) { _x = x; };
 		void setY(const uint16_t & y) { _y = y; };
 
 	private:
-		uint8_t _type;
+		std::string _name;
 		uint16_t _x;
 		uint16_t _y;
 	};
