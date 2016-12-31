@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 11:54:14 2016 Maxime Lecoq
-// Last update Thu Dec 29 12:36:23 2016 lecoq
+// Last update Sat Dec 31 07:35:46 2016 Lecoq Maxime
 //
 
 #ifndef IGAME_HH_
@@ -38,6 +38,7 @@ public:
   virtual void                          run() = 0;
   virtual void                          end() = 0;
   virtual void				timeLine() = 0;
+  virtual void				movements() = 0;
   virtual const std::string		&getName() const = 0;
   virtual bool				playerPresent(const std::string &) = 0;
   virtual void				execPacket(const IPacket *, const std::string &) = 0;

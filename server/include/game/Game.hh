@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 11:54:48 2016 Maxime Lecoq
-// Last update Thu Dec 29 19:56:29 2016 lecoq
+// Last update Sat Dec 31 07:35:29 2016 Lecoq Maxime
 //
 
 #ifndef GAME_HH_
@@ -36,6 +36,7 @@ public:
   void				run();
   void				end();
   void				timeLine();
+  void				movements();
   const std::string		&getName() const { return (_name); }
   bool                          playerPresent(const std::string &);
   void                          execPacket(const IPacket *, const std::string &);

@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 15:45:57 2016 Maxime Lecoq
-// Last update Sat Dec 31 01:40:06 2016 Lecoq Maxime
+// Last update Sat Dec 31 07:59:20 2016 Lecoq Maxime
 //
 
 #include	"Game.hh"
@@ -66,12 +66,36 @@ void		Game::end()
   _room->setStarted(false);
 }
 
+void		Game::movements()
+{
+  Clock         clo;
+  uint64_t	i;
+  uint64_t	x;
+
+  x = 0;
+  while (_room->getPlayers().size() != 0)
+    {
+      if (x != (uint64_t)clo.getTimeMilli() / 2)
+	{
+	  x = clo.getTimeMilli() / 2;
+	  i = 0;
+	  while (i < _shoots.size())
+	    {
+	      _shoots[i]->setX(_shoots[i]->getX() + 1);
+	      if (_shoots[i]->getX() > 1920)
+		_shoots.erase(_shoots.begin() + i);
+	      else
+		i++;
+	    }
+	}
+    }
+}
+
 void		Game::timeLine()
 {
   Clock         clo;
   std::vector<std::string> list = getAllName();
   IPacket	*pa;
-  Printer pd;
   _timeline = 0;
 
   while (_room->getPlayers().size() != 0)

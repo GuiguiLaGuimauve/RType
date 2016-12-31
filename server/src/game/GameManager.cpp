@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 15:44:47 2016 Maxime Lecoq
-// Last update Sat Dec 31 01:18:13 2016 Lecoq Maxime
+// Last update Sat Dec 31 07:34:42 2016 Lecoq Maxime
 //
 
 #include "GameManager.hh"
@@ -46,6 +46,7 @@ void	GameManager::createGame(DataRoom *room, const uint8_t *ip)
       i++;
     }
   _threadPool->launchTask(&GameManager::runTimeline, this, newGame);
+  _threadPool->launchTask(&GameManager::runMovements, this, newGame);
 }
 
 bool          GameManager::gamesUpdate()
@@ -72,6 +73,11 @@ bool          GameManager::gamesUpdate()
 void	GameManager::runTimeline(IGame *g)
 {
   g->timeLine();
+}
+
+void	GameManager::runMovements(IGame *g)
+{
+  g->movements();
 }
 
 void	GameManager::setFactory(PacketFactory *f)
