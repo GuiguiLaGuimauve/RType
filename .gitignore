@@ -10,7 +10,7 @@
 
 # Compiled Dynamic libraries
 *.dylib
-*.dll
+#*.dll
 
 # Fortran module files
 *.mod
@@ -20,7 +20,7 @@
 *.lai
 *.la
 *.a
-*.lib
+#*.lib
 
 # Executables
 *.exe
@@ -38,4 +38,4 @@
 **/Debug/
 RType_server
 RType
-.conf
+.conf
