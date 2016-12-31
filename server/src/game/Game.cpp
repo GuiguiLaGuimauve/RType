@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 15:45:57 2016 Maxime Lecoq
-// Last update Sat Dec 31 10:11:41 2016 Lecoq Maxime
+// Last update Sat Dec 31 10:14:10 2016 Lecoq Maxime
 //
 
 #include	"Game.hh"
@@ -158,7 +158,6 @@ void		Game::updatePosPlayer(const IPacket *pa, const std::string &m)
   PacketPositionPlayer *p = (PacketPositionPlayer *)pa;
 
   i = 0;
-  std::cout << "update player pos" << std::endl;
   while (i < _room->getPlayers().size())
     {
       if (_room->getPlayers()[i]->getName() == m)
@@ -178,7 +177,6 @@ void		Game::updatePlayerShoots(const IPacket *pa, const std::string &m)
   DataPlayer			*pl;
   i = 0;
 
-  std::cout << "update shoot pos" << std::endl;
   while (i < _room->getPlayers().size())
     {
       pl = _room->getPlayers()[i];

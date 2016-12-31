@@ -117,7 +117,6 @@ std::vector<IUserNetwork *>	ManageNetworkTCPServer::exec()
   int32_t			i;
   
   i = 0;
-  std::cout << "nb user tcp : " << _user.size() << std::endl;
   while (i < (int32_t)_user.size())
     {
       if (_user[i]->getStatus() == true)

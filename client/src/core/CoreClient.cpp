@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Sat Dec 31 10:10:55 2016 Lecoq Maxime
+// Last update Sat Dec 31 10:45:26 2016 Lecoq Maxime
 //
 
 #include	"CoreClient.hh"
@@ -472,7 +472,6 @@ bool		CoreClient::players(const IPacket *pa, IUserNetwork *u)
   (void)p;
   //  _gameData->setMarge(pa->getTickId() - _gameData->getTick());
   //if (pa->getTickId() == _gameData->getTick() || pa->getTickId() - _gameData->getTick() == 1)
-  std::cout << "pla pos recu" << std::endl;
   _gui->setPlayersPositions(p->getPlayers());
   return (true);
 }
@@ -484,7 +483,6 @@ bool		CoreClient::shoots(const IPacket *pa, IUserNetwork *u)
   (void)p;
   //_gameData->setMarge(pa->getTickId() - _gameData->getTick());
   //  if (pa->getTickId() == _gameData->getTick() || pa->getTickId() - _gameData->getTick() == 1)
-  std::cout << "shoot pos recu" << std::endl;
   _gui->setShootsPositions(p->getShoots());
   return (true);
 }

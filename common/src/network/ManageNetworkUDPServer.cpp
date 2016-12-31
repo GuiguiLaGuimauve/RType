@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Fri Dec 16 11:37:09 2016 julien dufrene
-// Last update Sat Dec 31 10:05:29 2016 Lecoq Maxime
+// Last update Sat Dec 31 10:44:46 2016 Lecoq Maxime
 //
 
 #include	"ManageNetworkUDPServer.hh"
@@ -94,7 +94,6 @@ std::vector<IUserNetwork *>	ManageNetworkUDPServer::exec()
   uint64_t						i;
   bool							ok;
 
-  std::cout << "nb user udp : " << _user.size() << std::endl;
   i = 0;
   while (i < _user.size())
     {
@@ -136,10 +135,8 @@ std::vector<IUserNetwork *>	ManageNetworkUDPServer::exec()
 		}
 	      i++;
 	    }
-	  if (ok == false)
-	    _user.push_back(u);
 	}
-    }    
+    }
   return (newuser);
 }
 
