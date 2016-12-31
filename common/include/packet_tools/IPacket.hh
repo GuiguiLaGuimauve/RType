@@ -62,7 +62,8 @@ namespace Packet
 		PING			= 0x87,
 		PONG			= 0x88,
 		ASK_ROOMS		= 0x89,
-		GAMEENDED		= 0x90
+		GAMEENDED		= 0x90,
+		SHOOTS_CLIENT	= 0x99
     };
 
     /*! Clean all necessary data for packet management */
