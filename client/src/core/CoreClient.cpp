@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Sat Dec 31 11:35:07 2016 Lecoq Maxime
+// Last update Sat Dec 31 11:50:52 2016 Lecoq Maxime
 //
 
 #include	"CoreClient.hh"
@@ -433,6 +433,9 @@ void		CoreClient::timeLine()
 	  _udp->pushTo(empty, p->getPacketUnknown());
 	  delete p;
 	  p = _factory->getPacket("shoots", _gameData->getShoots());
+	  PacketShoots *pp = (PacketShoots *)p;
+	  for (int i = 0; i < pp->getShoots().size(); i++)
+	    std::cout << " X : " << pp->getShoots()[i]->getX() << " Y " << pp->getShoots()[i]->getY() << std::endl;
 	  p->setTickId(_gameData->getTick());
 	  _udp->pushTo(empty, p->getPacketUnknown());
 	  delete p;
