@@ -28,7 +28,7 @@
 class EnnemyLoader
 {
 public:
-    IElement &LoadEnnemy(const std::string &);
+    Ennemy *LoadEnnemy(const std::string &);
     void     ReloadEnnemy(IElement &) {};
 };
 
