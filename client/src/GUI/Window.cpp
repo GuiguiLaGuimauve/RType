@@ -85,9 +85,12 @@ void        Window::setBackground(const std::string &s)
 {
   if (_loadBackground.loadFromFile(s))
     {
-      _loadBackground.setRepeated(true);
+      //_loadBackground.setRepeated(true);
+      _loadBackground.setRepeated(false);
       _background.setTexture(_loadBackground);
       _background.setTextureRect({ 0, 0, _width, _height });
+      _background2.setTexture(_loadBackground);
+      _background2.setTextureRect({ 0, 0, _width, _height });
     }
 }
 
@@ -134,4 +137,14 @@ void	Window::deleteAllWidgets()
   for (auto elem : _list)
     delete elem;
   _list.clear();
+}
+
+sf::Sprite	Window::getBackground() const
+{
+  return (_background);
+}
+
+sf::Sprite	Window::getBackground2() const
+{
+  return (_background2);
 }

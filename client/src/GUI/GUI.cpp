@@ -1045,18 +1045,30 @@ void	GUI::setEnvsPositions(const std::vector<Packet::DataBackground *> &de)
   for (auto elem : _envsPos)
     _win->deleteWidget(elem);
   _envsPos.clear();
-  if (de.size())
-    for (auto elem : de)
-      {
-	IWidget	*temp = _win->addWidget(elem->getX(), LAYOUT_HEIGHT + elem->getY(), 0, 0);
-	Style	s = temp->getStyle();
-	
-	/* Ajout du Widget d'ennemi */
-	//s.image = "Env" + std::to_string((elem->getType() + 1));
-	s.image = "Env-1";
-	temp->setStyle(s);
-	_envsPos.push_back(temp);
-      }
+
+  int	i = 0;
+
+  if (de.size() >= 2)
+    {
+      std::cout << "Je deplace le Background1 à : " << de[0]->getX() << ":" << de[0]->getY() << "." << std::endl;
+      std::cout << "Je deplace le Background2 à : " << de[1]->getX() << ":" << de[1]->getY() << "." << std::endl;
+      _win->getBackground().setOrigin(de[0]->getX(), de[0]->getY());
+      _win->getBackground2().setOrigin(de[1]->getX(), de[1]->getY());
+      for (auto elem : de)
+	{
+	  if (i > 1)
+	    {
+	      IWidget	*temp = _win->addWidget(elem->getX(), LAYOUT_HEIGHT + elem->getY(), 0, 0);
+	      Style	s = temp->getStyle();
+
+	      /* Ajout du Widget d'ennemi */
+	      //s.image = "Env" + std::to_string((elem->getType() + 1));
+	      s.image = "Env-1";
+	      temp->setStyle(s);
+	      _envsPos.push_back(temp);
+	    }
+	}
+    }
 }
 
 uint64_t	GUI::getPosX()
