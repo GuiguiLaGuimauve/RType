@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 15:45:57 2016 Maxime Lecoq
-// Last update Sat Dec 31 13:14:03 2016 Lecoq Maxime
+// Last update Sat Dec 31 13:24:37 2016 Lecoq Maxime
 //
 
 #include	"Game.hh"
@@ -117,9 +117,9 @@ void		Game::timeLine()
 
   while (_room->getPlayers().size() != 0)
     {
-      if (_timeline != (uint64_t)clo.getTimeMilli() / 1000)
+      if (_timeline != (uint64_t)clo.getTimeMilli() / 50)
 	{
-	  _timeline = clo.getTimeMilli() / 1000;
+	  _timeline = clo.getTimeMilli() / 50;
 	  pa = _factory->getPacket("players", _room->getPlayers());
 	  pa->setTickId(_timeline);
 	  _udp->pushTo(list, pa->getPacketUnknown());
