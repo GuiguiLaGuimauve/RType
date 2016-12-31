@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Sat Dec 31 01:40:34 2016 Lecoq Maxime
+// Last update Sat Dec 31 02:10:32 2016 Lecoq Maxime
 //
 
 #include	"CoreClient.hh"
@@ -299,10 +299,14 @@ bool	CoreClient::watchRoom(EventPart::Event e)
 
 bool	CoreClient::startGame(EventPart::Event e)
 {
-  IPacket *pa = _factory->getPacket("startgame", e.dataString["GAME_NAME"]);
-  std::vector<std::string> p;
-  _tcp->pushTo(p, pa->getPacketUnknown());
-  delete pa;
+  if (_status == "rooms")
+    {
+      IPacket *pa = _factory->getPacket("startgame", e.dataString["GAME_NAME"]);
+      std::vector<std::string> p;
+      _tcp->pushTo(p, pa->getPacketUnknown());
+      delete pa;
+      _status = "waitGame";
+    }
   return (true);
 }
 
@@ -317,6 +321,8 @@ bool		CoreClient::errorPacket(const IPacket *pa, IUserNetwork *u)
   PacketError	*p = (PacketError *)pa;
   
   _gui->showPopup(p->getMessage());
+  if (p->getErrorType() == IPacket::PacketType::START_GAME)
+    _status = "rooms";
   (void)u;
   return (true);
 }
