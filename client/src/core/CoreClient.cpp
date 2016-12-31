@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Sat Dec 31 11:12:38 2016 Lecoq Maxime
+// Last update Sat Dec 31 11:25:26 2016 Lecoq Maxime
 //
 
 #include	"CoreClient.hh"
@@ -113,7 +113,6 @@ bool				CoreClient::manageNetwork()
       _tcp->run(4242);
       _status = "connect";
       _gameData->endGame();
-      _gameData->reset();
       if (_th->joinable())
 	_th->join();
     }
@@ -187,7 +186,6 @@ bool	CoreClient::goConnect()
   _tcp->run(4242);
   _status = "connect";
   _gameData->endGame();
-  _gameData->reset();
   if (_th->joinable())
     _th->join();
    return (true);
@@ -406,6 +404,7 @@ bool		CoreClient::udpData(const IPacket *pa, IUserNetwork *u)
   _gui->displayGame();
   _gameData->init();
   _game = p->getStatus();
+  _gameData->reset();
   _th->launch(&CoreClient::timeLine, this);
   pb = _factory->getPacket("ping");
   uint8_t i = 0;

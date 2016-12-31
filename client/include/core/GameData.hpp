@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Tue Dec 27 12:50:43 2016 Maxime Lecoq
-// Last update Sat Dec 31 11:13:26 2016 Lecoq Maxime
+// Last update Sat Dec 31 11:24:07 2016 Lecoq Maxime
 //
 
 #ifndef GAMEDATA_HPP_
@@ -22,7 +22,16 @@ public:
     _tick = 0;
     _marge = 0;
   }
-  void endGame() { _ended = true; }
+  void endGame() { _ended = true; _tick = 0;
+      uint64_t i;
+    i = 0;
+    while (i < _shoots.size())
+      {
+	delete _shoots[i];
+	i++;
+      }
+    _shoots.clear();
+}
   bool gameIsEnded() const { return (_ended); }
   void setTick(const uint32_t &i) { _tick = i; }
   uint32_t getTick() const { return (_tick + _marge); }
@@ -31,7 +40,7 @@ public:
   std::vector<DataShoot *> getShoots() const { return (_shoots); }
   void reset()
   {
-    _ended = true;
+    _ended = false;
     _tick = 0;
     uint64_t i;
     i = 0;
