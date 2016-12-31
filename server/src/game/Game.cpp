@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 15:45:57 2016 Maxime Lecoq
-// Last update Sat Dec 31 10:14:10 2016 Lecoq Maxime
+// Last update Sat Dec 31 10:58:54 2016 Lecoq Maxime
 //
 
 #include	"Game.hh"
@@ -98,7 +98,7 @@ void		Game::movements()
 	      _shoots[i]->setX(_shoots[i]->getX() + 2);
 	      if (_shoots[i]->getX() > 1920)
 		{
-		  //		  delete _shoots[i];
+		  delete _shoots[i];
 		  _shoots.erase(_shoots.begin() + i);
 		}
 	      else

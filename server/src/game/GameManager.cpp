@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 15:44:47 2016 Maxime Lecoq
-// Last update Sat Dec 31 10:04:03 2016 Lecoq Maxime
+// Last update Sat Dec 31 11:07:05 2016 Lecoq Maxime
 //
 
 #include "GameManager.hh"
@@ -55,7 +55,6 @@ bool          GameManager::gamesUpdate()
   uint64_t	i;
 
   i = 0;
-  std::cout << "nb game : " << _gameList.size() << std::endl;
   while (i < _gameList.size())
     {
       if (_gameList[i]->getPlayersName().size() == 0)
