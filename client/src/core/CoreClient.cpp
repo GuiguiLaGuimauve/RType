@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Sat Dec 31 10:45:26 2016 Lecoq Maxime
+// Last update Sat Dec 31 10:55:18 2016 Lecoq Maxime
 //
 
 #include	"CoreClient.hh"
@@ -201,6 +201,7 @@ bool	CoreClient::goRooms()
 bool	CoreClient::quit(EventPart::Event e)
 {
   (void)e;
+  exit(0);
   return (false);
 }
 
@@ -426,12 +427,10 @@ void		CoreClient::timeLine()
 	  p = _factory->getPacket("positionplayer", _gui->getPosX(), _gui->getPosY());
 	  p->setTickId(_gameData->getTick());
 	  _udp->pushTo(empty, p->getPacketUnknown());
-	  //std::cout << "pla pos send" << std::endl;
 	  delete p;
 	  p = _factory->getPacket("shoots", _gameData->getShoots());
 	  p->setTickId(_gameData->getTick());
 	  _udp->pushTo(empty, p->getPacketUnknown());
-	  //	  std::cout << "shoot pos send" << std::endl;
 	  delete p;
 	}
     }
