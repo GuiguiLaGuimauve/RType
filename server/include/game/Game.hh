@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 11:54:48 2016 Maxime Lecoq
-// Last update Sat Dec 31 22:14:37 2016 Lecoq Maxime
+// Last update Sat Dec 31 23:04:00 2016 Lecoq Maxime
 //
 
 #ifndef GAME_HH_
@@ -23,6 +23,7 @@
 # include	"Clock.hpp"
 # include	"Printer.hpp"
 # include	"EnnemyGenerator.hh"
+# include	"DataBackground.hpp"
 
 class Game : public IGame
 {
@@ -56,6 +57,7 @@ private:
   std::vector<DataShoot *>	_shoots;
   std::vector<Ennemy *>		_ennemy;
   EnnemyGenerator		*_ennemyGenerator;
+  std::vector<DataBackground *>	_background;
 };
 
 #endif /* !GAME_HH_ */

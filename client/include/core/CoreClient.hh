@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:19:16 2016 Maxime Lecoq
-// Last update Sat Dec 31 08:29:43 2016 Lecoq Maxime
+// Last update Sat Dec 31 23:01:59 2016 Lecoq Maxime
 //
 
 #ifndef CORECLIENT_HH_
@@ -69,6 +69,7 @@ private:
   bool				players(const IPacket *, IUserNetwork *);
   bool				gameEnded(const IPacket *, IUserNetwork *);
   bool				shoots(const IPacket *, IUserNetwork *);
+  bool				background(const IPacket *, IUserNetwork *);
 
   bool				exitClient();
   bool				goConnect();

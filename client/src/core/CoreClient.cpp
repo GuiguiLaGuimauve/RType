@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Sat Dec 31 20:31:50 2016 Lecoq Maxime
+// Last update Sat Dec 31 23:05:17 2016 Lecoq Maxime
 //
 
 #include	"CoreClient.hh"
@@ -31,10 +31,13 @@ CoreClient::CoreClient()
   _packetPtr[IPacket::PacketType::UDP_DATA] = &CoreClient::udpData;
   _packetPtr[IPacket::PacketType::PING] = &CoreClient::ping;
   _packetPtr[IPacket::PacketType::PONG] = &CoreClient::pong;
+  _packetPtr[IPacket::PacketType::GAMEENDED] = &CoreClient::gameEnded;
+
   _packetPtr[IPacket::PacketType::POSITION_PLAYER] = &CoreClient::positionPlayer;
   _packetPtr[IPacket::PacketType::PLAYERS] = &CoreClient::players;
   _packetPtr[IPacket::PacketType::SHOOTS] = &CoreClient::shoots;
-  _packetPtr[IPacket::PacketType::GAMEENDED] = &CoreClient::gameEnded;
+  _packetPtr[IPacket::PacketType::BACKGROUNDS] = &CoreClient::background;
+
   _status = "connect";
   _backPtr["connect"] = &CoreClient::exitClient;
   _backPtr["login"] = &CoreClient::goConnect;
@@ -490,6 +493,17 @@ bool		CoreClient::shoots(const IPacket *pa, IUserNetwork *u)
   //_gameData->setMarge(pa->getTickId() - _gameData->getTick());
   //  if (pa->getTickId() == _gameData->getTick() || pa->getTickId() - _gameData->getTick() == 1)
   _gui->setShootsPositions(p->getShoots());
+  return (true);
+}
+
+bool		CoreClient::background(const IPacket *pa, IUserNetwork *u)
+{
+  PacketBackgrounds	*p = (PacketBackgrounds *)pa;
+  (void)u;
+  (void)p;
+  //_gameData->setMarge(pa->getTickId() - _gameData->getTick());
+  //  if (pa->getTickId() == _gameData->getTick() || pa->getTickId() - _gameData->getTick() == 1)
+  _gui->setEnvsPositions(p->getBackgrounds());
   return (true);
 }
 
