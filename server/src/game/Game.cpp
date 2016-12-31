@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 15:45:57 2016 Maxime Lecoq
-// Last update Sat Dec 31 17:02:35 2016 Lecoq Maxime
+// Last update Sat Dec 31 18:23:01 2016 root
 //
 
 #include	"Game.hh"
@@ -124,22 +124,25 @@ void		Game::timeLine()
 	  pa->setTickId(_timeline);
 	  _udp->pushTo(list, pa->getPacketUnknown());
 	  delete pa;
-	  while (_shoots.empty() == false)
-	    _shoots.erase(_shoots.begin());
-	  _shoots.push_back(new DataShoot(300, 300));
+	  std::cout << "La size : " << _shoots.size() << std::endl;
+	  _shoots.clear();
+	  std::cout << "La size : " << _shoots.size() << std::endl;
+	  //_shoots.push_back(new DataShoot(300, 300));
 	  uint64_t i;
 	  uint64_t x;
 
 	  i = 0;
+	  std::cout << "Je vais check les tirs des " << _room->getPlayers().size() << " players de la room. Ca passe dans le if, mais peut etre pas dans la while, ..." << std::endl << std::endl;
+	  //while (i < _room->getPlayers().size())
 	  while (i < _room->getPlayers().size())
 	    {
 	      x = 0;
 	      std::cout << _room->getPlayers()[i]->getName() << " " << _room->getPlayers()[i]->getOnline() << std::endl;
-	      /*	      while (x < _room->getPlayers()[i]->getShoots().size())
+	      while (x < _room->getPlayers()[i]->getShoots().size())
 		{
 		  _shoots.push_back(new DataShoot(_room->getPlayers()[i]->getShoots()[x]));
 		  x++;
-		  }*/
+		}
 	      i++;
 	    }
 	  pa = _factory->getPacket("shoots", _shoots);
