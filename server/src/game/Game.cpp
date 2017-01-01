@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 15:45:57 2016 Maxime Lecoq
-// Last update Sun Jan  1 20:06:46 2017 Lecoq Maxime
+// Last update Sun Jan  1 20:19:15 2017 Lecoq Maxime
 //
 
 #include	"Game.hh"
@@ -185,7 +185,8 @@ void		Game::movements()
 		}
 	      else
 		{
-		  if (_background[i]->getX() > 1920 || _background[i]->getX() < 0)
+		  if (_background[i]->getX() > 1920 || _background[i]->getX() < 0
+		      || _background[i]->getY() < 0 || _background[i]->getY() > 1080)
 		    {
 		      delete _background[i];
 		      _background.erase(_background.begin());
@@ -257,9 +258,9 @@ void		Game::background()
   (void)pa;
   while (_room->getStarted() == true && _room->getPlayers().size() != 0)
     {
-      if (i != (uint64_t)clo.getTimeMilli() / 5000)
+      if (i != (uint64_t)clo.getTimeMilli() / 20000)
 	{
-	  i = clo.getTimeMilli() / 5000;
+	  i = clo.getTimeMilli() / 20000;
 	  DataBackground *d = new DataBackground;
 	  d->setX(1920);
 	  uint16_t y = std::rand() % 800;
@@ -271,7 +272,7 @@ void		Game::background()
 	    d->setSpriteName("Env-2");
 	  _background.push_back(d);
 	}
-      std::this_thread::sleep_for(std::chrono::milliseconds(2500));
+      std::this_thread::sleep_for(std::chrono::milliseconds(10000));
     }
 }
 
