@@ -26,7 +26,7 @@ GUI::GUI()
   _userEvents->bindKey(KEY_DOWN, EventPart::Event::KEY_DOWN);
   _userEvents->bindKey(KEY_ATTACK, EventPart::Event::KEY_ATTACK);
   _userEvents->bindKey(KEY_QUIT, EventPart::Event::CLOSE_WINDOW);
-  _userEvents->bindKey(KEY_BACK, EventPart::Event::BACK);
+  _userEvents->bindKey(KEY_BACK, EventPart::Event::KEY_BACK);
 }
 
 GUI::~GUI()
@@ -152,6 +152,11 @@ void		GUI::callback()
 			  _menuWidgets->itScroll--;
 		  updateGameInfo();
 		  break;
+	  }
+	  case EventPart::Event::KEY_BACK:
+	  {
+	    ep = EventPart::Event(EventPart::Event::BACK);
+	    break;
 	  }
 	  case EventPart::Event::KEY_ATTACK:
 	  {
