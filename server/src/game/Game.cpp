@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 15:45:57 2016 Maxime Lecoq
-// Last update Sun Jan  1 15:50:23 2017 Lecoq Maxime
+// Last update Sun Jan  1 15:58:29 2017 Lecoq Maxime
 //
 
 #include	"Game.hh"
@@ -144,7 +144,7 @@ void		Game::movements()
   IPacket	*pa;
   x = 0;
   z = 0;
-  while (_room->getPlayers().size() != 0)
+  while (_room->getStarted() == true && _room->getPlayers().size() != 0)
     {
       if (x != (uint64_t)clo.getTimeMilli() / 2)
 	{
@@ -201,7 +201,7 @@ void		Game::timeLine()
   Clock         clo;
   IPacket	*pa;
   _timeline = 0;
-  while (_room->getPlayers().size() != 0)
+  while (_room->getStarted() == true && _room->getPlayers().size() != 0)
     {
       if (_timeline != (uint64_t)clo.getTimeMilli() / 50)
 	{	  
