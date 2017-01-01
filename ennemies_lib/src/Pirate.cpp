@@ -5,7 +5,7 @@
 // Login   <rembur_g@epitech.eu>
 //
 // Started on  Tue Dec 27 13:34:43 2016 La Guimauve
-// Last update Sun Jan  1 19:22:20 2017 La Guimauve
+// Last update Sun Jan  1 23:33:35 2017 Lecoq Maxime
 //
 
 #include <utility>
@@ -37,6 +37,12 @@ void Pirate::move()
 DataShoot *Pirate::getShoot()
 {
 	return (new PirateShoot());
+}
+
+
+DataEnnemy *Pirate::getNewEnnemy()
+{
+  return (new Pirate);
 }
 
 extern "C"

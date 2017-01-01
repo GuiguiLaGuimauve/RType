@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 15:45:57 2016 Maxime Lecoq
-// Last update Sun Jan  1 22:01:49 2017 Lecoq Maxime
+// Last update Sun Jan  1 23:34:02 2017 Lecoq Maxime
 //
 
 #include	"Game.hh"
@@ -17,7 +17,7 @@ Game::Game(DataRoom *p) : _room(p), _timeline(0)
   _ptr[IPacket::PacketType::SHOOTS_CLIENT] = &IGame::updatePlayerShoots;
 
   _ennemyGenerator = new EnnemyGenerator;
-  _ennemyList = _ennemyGenerator->loadAllEnnemy();
+  refreshEnnemy();
 
   DataBackground *d = new DataBackground;
   d->setX(0);
@@ -72,11 +72,14 @@ void			Game::refreshEnnemy()
       find = false;
       while (x < en.size())
 	{
-	  if (_ennemyList[i]->getSpriteName() == en[x]->getSpriteName())
+	  if (_ennemyList[i]->getSpriteName() == en[x]->getSpriteName() && en[x]->isBoss() == false)
 	    find = true;
+	  else
+	    if (en[x]->isBoss() == true && _boss == NULL)
+	      _boss = en[x];
 	  x++;
 	}
-      if (find == false)
+      if (find == false && en[x]->isBoss() == true)
 	_ennemyList.push_back(en[x]);
       i++;
     }
@@ -151,8 +154,11 @@ void		Game::movements()
   Clock         clo;
   uint64_t	i;
   uint64_t	x;
+  uint64_t	m;
   uint64_t	z;
   IPacket	*pa;
+
+  m = 0;
   x = 0;
   z = 0;
   while (_room->getStarted() == true && _room->getPlayers().size() != 0)
@@ -172,6 +178,24 @@ void		Game::movements()
 		}
 	      else
 		i++;
+	    }
+	}
+      if (m != (uint64_t)clo.getTimeMilli() / 50)
+	{
+	  m = clo.getTimeMilli() / 50;
+	  i = 0;
+	  while (i < _ennemy.size())
+	    {
+	      _ennemy[i]->move();
+	      if (_ennemy[i]->getX() > 1920 || _ennemy[i]->getX() < 0
+		  || _ennemy[i]->getY() < 0 || _ennemy[i]->getY() > 1080)
+		{
+		  delete _ennemy[i];
+		  _ennemy.erase(_ennemy.begin() + i);
+		}
+	      else
+		i++;
+	      i++;
 	    }
 	}
       if (z != (uint64_t)clo.getTimeMilli() / 100)
@@ -237,18 +261,34 @@ void		Game::timeLine()
 
 void		Game::lvl1()
 {
+  if (_ennemyList.size() != 0)
+    {
+      DataEnnemy	*en = _ennemyList[std::rand() % _ennemyList.size()]->getNewEnnemy();
+      en->setX(1920);
+      en->setY((std::rand() % 900) + 50);
+      _ennemy.push_back(en);
+    }
 }
 
 void		Game::lvl2()
 {
+  if (_ennemyList.size() != 0)
+    {
+    }
 }
 
 void		Game::lvl3()
 {
+  if (_ennemyList.size() != 0)
+    {
+    }
 }
 
 void		Game::boss()
 {
+  if (_ennemyList.size() != 0)
+    {
+    }
   _bossMod = true;
 }
 
@@ -288,7 +328,7 @@ void		Game::background()
 	  i = clo.getTimeMilli() / 50000;
 	  DataBackground *d = new DataBackground;
 	  d->setX(1920);
-	  uint16_t y = std::rand() % 800;
+	  uint16_t y = (std::rand() % 800) + 200;
 	  d->setY(y);
 	  d->setSpeed(-2);
 	  if (y % 2== 0)

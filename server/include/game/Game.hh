@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 11:54:48 2016 Maxime Lecoq
-// Last update Sun Jan  1 21:37:42 2017 Lecoq Maxime
+// Last update Sun Jan  1 22:40:31 2017 Lecoq Maxime
 //
 
 #ifndef GAME_HH_
@@ -69,6 +69,7 @@ private:
   EnnemyGenerator		*_ennemyGenerator;
   std::vector<DataEnnemy *>	_ennemyList;
   std::vector<DataEnnemy *>	_ennemy;
+  DataEnnemy			*_boss;
   std::vector<DataBackground *>	_background;
   std::map<uint8_t, fMonster>	_ptrM;
   bool				_bossMod;

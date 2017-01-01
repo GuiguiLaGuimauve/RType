@@ -5,7 +5,7 @@
 // Login   <rembur_g@epitech.eu>
 //
 // Started on  Tue Dec 27 13:34:43 2016 La Guimauve
-// Last update Sun Jan  1 22:31:28 2017 Lecoq Maxime
+// Last update Sun Jan  1 23:31:31 2017 Lecoq Maxime
 //
 
 #include <utility>
@@ -37,6 +37,11 @@ void Alf::move()
 DataShoot *Alf::getShoot()
 {
 	return (new AlfShoot());
+}
+
+DataEnnemy *Alf::getNewEnnemy()
+{
+  return (new Alf);
 }
 
 extern "C"

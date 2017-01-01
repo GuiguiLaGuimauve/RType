@@ -5,7 +5,7 @@
 // Login   <rembur_g@epitech.eu>
 //
 // Started on  Tue Dec 27 13:34:43 2016 La Guimauve
-// Last update Sun Jan  1 23:03:22 2017 La Guimauve
+// Last update Sun Jan  1 23:33:09 2017 Lecoq Maxime
 //
 
 #include <utility>
@@ -37,6 +37,11 @@ void Monster::move()
 DataShoot *Monster::getShoot()
 {
 	return (new MonsterShoot());
+}
+
+DataEnnemy *Monster::getNewEnnemy()
+{
+  return (new Monster);
 }
 
 extern "C"

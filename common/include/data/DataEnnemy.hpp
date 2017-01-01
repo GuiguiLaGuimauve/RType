@@ -15,11 +15,12 @@ namespace Data {
 	class DataEnnemy : public AData {
 
 	public:
-		DataEnnemy() {_health = 100;};
-		~DataEnnemy() {};
+		DataEnnemy() {_health = 100; };
+	  ~DataEnnemy() {};
 	  virtual void move() {};
 	  virtual DataShoot *getShoot() { return (new DataShoot); };
 	  virtual bool isBoss() const { return (false); };
+	  virtual DataEnnemy *getNewEnnemy() { return (new DataEnnemy); }
 	};
 };
 

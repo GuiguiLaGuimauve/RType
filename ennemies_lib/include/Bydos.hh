@@ -21,6 +21,7 @@ public:
 	void move();
 	DataShoot *getShoot();
   bool isBoss() const;
+  DataEnnemy *getNewEnnemy();
 };
 
 extern "C"
