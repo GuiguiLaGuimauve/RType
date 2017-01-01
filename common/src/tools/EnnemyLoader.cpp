@@ -5,7 +5,7 @@
 // Login   <rembur_g@epitech.eu>
 //
 // Started on  Wed Dec 28 09:24:15 2016 La Guimauve
-// Last update Sat Dec 31 12:00:57 2016 La Guimauve
+// Last update Sun Jan  1 16:48:30 2017 root
 //
 
 #include "EnnemyLoader.hh"
@@ -19,7 +19,7 @@ DataEnnemy *EnnemyLoader::LoadEnnemy(const std::string &lib)
 
 	try {
 		#ifndef _WIN32
-			DLloaderUnix<Ennemy *()> dl_ui16;
+			DLloaderUnix<DataEnnemy *()> dl_ui16;
 		#else
 			DLloaderWin<DataEnnemy *()> dl_ui16;
 		#endif //_WIN32
