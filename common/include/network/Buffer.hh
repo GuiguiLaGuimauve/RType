@@ -5,7 +5,7 @@
 // Login   <bertho_i@epitech.net>
 // 
 // Started on  Tue Jun 14 16:46:40 2016 Simon BERTHO
-// Last update Sun Dec 18 19:37:40 2016 lecoq
+// Last update Sun Jan  1 13:21:16 2017 Lecoq Maxime
 //
 
 #ifndef BUFFER_HH
@@ -32,6 +32,7 @@ public:
   void			clear();
 protected:
   std::queue<PacketUnknown>		listS;
+  int64_t				_nb;
 };
 
 #endif
