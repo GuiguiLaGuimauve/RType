@@ -5,7 +5,7 @@
 // Login   <oger_a@epitech.net>
 // 
 // Started on  Fri Dec  2 15:23:46 2016 Antonin Oger
-// Last update Sun Jan  1 20:04:57 2017 root
+// Last update Sun Jan  1 21:34:28 2017 root
 //
 
 #ifndef _SPRITEMAP_HPP_
@@ -33,6 +33,7 @@ public:
     LoadTexture(PICTURE_BYDOS, "Bydos");
     LoadTexture(PICTURE_ENEMY7, "Enemy7");
     LoadTexture(PICTURE_ENEMY8, "Enemy8");
+    LoadTexture(PICTURE_ENEMY8, "Enemy1");
     LoadTexture(PICTURE_BOSS2, "Boss2");
     LoadTexture(PICTURE_SUPBOSS1, "SupBoss1");
     LoadTexture(PICTURE_LOGO, "Logo");
@@ -55,7 +56,9 @@ public:
     LoadSpriteFromTexture("PowerUp1", "SpherePowerUp", 0, 0, 34, 20, 3, 3);
     LoadSpriteFromTexture("Bydos", "Bydos", 20, 0, 160, 210, 3, 3);
     LoadSpriteFromTexture("Enemy7", "Enemy7", 0, 0, 34, 20, 3, 3);
-    LoadSpriteFromTexture("Enemy8", "Enemy8", 0, 0, 34, 20, 3, 3);
+    LoadSpriteFromTexture("Enemy8", "Enemy8", 103, 39, 24, 20, 3, 3);
+    LoadSpriteFromTexture("Enemy8", "Shot-Enemy8", 111, 88, 8, 8, 2, 2);
+    LoadSpriteFromTexture("Enemy1", "Enemy1", 0, 0, 33, 36, 3, 3);/* Multiples de 33 pour les anims */
     LoadSpriteFromTexture("Boss2", "Boss2", 0, 0, 34, 20, 3, 3);
     LoadSpriteFromTexture("SupBoss1", "SupBoss1", 0, 0, 34, 20, 3, 3);
     /* Env Sprites */

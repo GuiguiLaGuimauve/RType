@@ -1042,11 +1042,8 @@ void	GUI::setEnvsPositions(const std::vector<Data::DataBackground *> &de)
 	      IWidget	*temp = _win->addWidget(elem->getX(), LAYOUT_HEIGHT + elem->getY(), 0, 0);
 	      Style	s = temp->getStyle();
 
-	      std::cout << "J'essaye d'afficher un sprite du nom de " << elem->getSpriteName() << ", en " << elem->getX() << ":" << elem->getY() << std::endl;
 	      /* Ajout du Widget d'ennemi */
 	      s.image = elem->getSpriteName();
-	      //s.image = "Env-1";
-
 	      temp->setStyle(s);
 	      _envsPos.push_back(temp);
 	    }
