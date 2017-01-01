@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Sun Jan  1 13:34:24 2017 Lecoq Maxime
+// Last update Sun Jan  1 13:53:17 2017 Lecoq Maxime
 //
 
 #include	"CoreClient.hh"
@@ -420,7 +420,6 @@ bool		CoreClient::udpData(const IPacket *pa, IUserNetwork *u)
       i++;
     }
   delete pb;
-  std::cout << "k" << std::endl;
   return (true);
 }
 
@@ -535,5 +534,7 @@ bool		CoreClient::gameEnded(const IPacket *pa, IUserNetwork *u)
   _udp->run(4243);
   _status = "waitingRooms";
   _game = "";
+  if (_th->joinable())
+    _th->join();
   return (true);
 }
