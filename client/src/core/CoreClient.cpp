@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Sun Jan  1 04:54:22 2017 Lecoq Maxime
+// Last update Sun Jan  1 05:41:38 2017 Lecoq Maxime
 //
 
 #include	"CoreClient.hh"
@@ -445,7 +445,9 @@ void		CoreClient::timeLine()
 	  _udp->pushTo(empty, p->getPacketUnknown());
 	  delete p;
 	}
+#ifndef _WIN32
       std::this_thread::sleep_for(std::chrono::milliseconds(25));
+#endif //_WIN32
     }
 }
 

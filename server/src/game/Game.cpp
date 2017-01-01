@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 15:45:57 2016 Maxime Lecoq
-// Last update Sun Jan  1 04:58:57 2017 Lecoq Maxime
+// Last update Sun Jan  1 05:40:57 2017 Lecoq Maxime
 //
 
 #include	"Game.hh"
@@ -217,7 +217,9 @@ void		Game::timeLine()
 	  _udp->pushTo(list, pa->getPacketUnknown());
 	  delete pa;
 	}
+#ifndef _WIN32
       std::this_thread::sleep_for(std::chrono::milliseconds(25));
+#endif //_WIN32
     }
 }
 

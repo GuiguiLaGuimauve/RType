@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Fri Dec 16 11:37:09 2016 julien dufrene
-// Last update Sun Jan  1 04:38:14 2017 Lecoq Maxime
+// Last update Sun Jan  1 05:42:08 2017 Lecoq Maxime
 //
 
 #include	"ManageNetworkUDPServer.hh"
@@ -127,8 +127,8 @@ std::vector<IUserNetwork *>	ManageNetworkUDPServer::exec()
 		{
 		  if (_user[i]->getPseudo().compare("Accept") != 0 && u->getPseudo().compare("Accept") == 0)
 		    u->setPseudo(_user[i]->getPseudo());
-		  while (_user[i]->haveSomethingToWrite() == true)
-		    u->pushBufferWrite(_user[i]->popBufferWrite());
+		  //		  while (_user[i]->haveSomethingToWrite() == true)
+		  //u->pushBufferWrite(_user[i]->popBufferWrite());
 		  u->setPseudo(_user[i]->getPseudo());
 		  _user[i] = u;
 		  ok = true;
