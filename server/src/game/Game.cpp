@@ -5,14 +5,13 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 15:45:57 2016 Maxime Lecoq
-// Last update Sun Jan  1 23:46:05 2017 Lecoq Maxime
+// Last update Sun Jan  1 23:57:44 2017 Lecoq Maxime
 //
 
 #include	"Game.hh"
 
 Game::Game(DataRoom *p) : _room(p), _timeline(0)
 {
-  std::srand(std::time(0));
   _ptr[IPacket::PacketType::POSITION_PLAYER] = &IGame::updatePosPlayer;
   _ptr[IPacket::PacketType::SHOOTS_CLIENT] = &IGame::updatePlayerShoots;
 
@@ -66,21 +65,21 @@ void			Game::refreshEnnemy()
   
   i = 0;
   en = _ennemyGenerator->loadAllEnnemy();
-  while (i < _ennemyList.size())
+  while (i < en.size())
     {
       x = 0;
       find = false;
-      while (x < en.size())
+      while (x < _ennemyList.size())
 	{
-	  if (_ennemyList[i]->getSpriteName() == en[x]->getSpriteName() && en[x]->isBoss() == false)
+	  if (_ennemyList[x]->getSpriteName() == en[i]->getSpriteName() && en[i]->isBoss() == false)
 	    find = true;
 	  else
-	    if (en[x]->isBoss() == true && _boss == NULL)
-	      _boss = en[x];
+	    if (en[i]->isBoss() == true && _boss == NULL)
+	      _boss = en[i];
 	  x++;
 	}
-      if (find == false && en[x]->isBoss() == true)
-	_ennemyList.push_back(en[x]);
+      if (find == false && en[i]->isBoss() == false)
+	_ennemyList.push_back(en[i]);
       i++;
     }
 }
@@ -267,16 +266,19 @@ void		Game::timeLine()
 
 void		Game::lvl1()
 {
+  uint64_t i = 0;
   if (_ennemyList.size() != 0)
     {
-      DataEnnemy	*en = _ennemyList[std::rand() % _ennemyList.size()]->getNewEnnemy();
-      en->setX(1920);
-      en->setY((std::rand() % 900) + 50);
-      _ennemy.push_back(en);
-      //      std::cout << "plop1" << std::endl;
+      DataEnnemy	*en;
+      while (i < _room->getPlayers().size())
+	{
+	  en = _ennemyList[std::rand() % _ennemyList.size()]->getNewEnnemy();
+	  en->setX(1920);
+	  en->setY((std::rand() % 900) + 50);
+	  _ennemy.push_back(en);
+	  i++;
+	}
     }
-  //  else
-  //std::cout << "plop" << std::endl;
 }
 
 void		Game::lvl2()
@@ -311,9 +313,10 @@ void		Game::monster()
   i = 0;
   while (_room->getStarted() == true && _room->getPlayers().size() != 0)
     {
-      if (i != (uint64_t)clo.getTimeMilli() / 2000)
+      if (i != (uint64_t)clo.getTimeMilli() / 5000)
 	{
-	  i = clo.getTimeMilli();
+	  std::srand(std::time(0));
+	  i = clo.getTimeMilli() / 5000;
 	  if (_ptrM.find(_lvl) != _ptrM.end())
 	    (this->*_ptrM[_lvl])();
 	}
