@@ -48,6 +48,8 @@ void                Widget::draw()
 		  int i = _anim_timer.getTimeMilli() / _style.frequency;
 		  if (i < (int)sprites.size())
 		    _win->draw(sprites[i]);
+		  else
+			_win->draw(sprites[0]);
 	  }
   }
   else if (_style.image != "")
