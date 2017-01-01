@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 15:45:57 2016 Maxime Lecoq
-// Last update Sun Jan  1 14:56:31 2017 Lecoq Maxime
+// Last update Sun Jan  1 15:50:23 2017 Lecoq Maxime
 //
 
 #include	"Game.hh"
@@ -72,17 +72,18 @@ std::vector<std::string> Game::getAllName() const
 {
   uint64_t	i;
   std::vector<std::string> ret;
-
+  DataPlayer *pl;
+  
   i = 0;
-  while (i < _room->getPlayers().size())
+  while (i < _room->getPlayers().size() && (pl = _room->getPlayers()[i]) != NULL)
     {
-      ret.push_back(_room->getPlayers()[i]->getName());
+      ret.push_back(pl->getName());
       i++;
     }
   i = 0;
-  while (i < _room->getWatchers().size())
+  while (i < _room->getWatchers().size() && (pl = _room->getWatchers()[i]) != NULL)
     {
-      ret.push_back(_room->getWatchers()[i]->getName());
+      ret.push_back(pl->getName());
       i++;
     }
   return (ret);
@@ -92,11 +93,12 @@ std::vector<std::string> Game::getViewersName() const
 {
   uint64_t	i;
   std::vector<std::string> ret;
-
+  DataPlayer		*pl;
+  
   i = 0;
-  while (i < _room->getWatchers().size())
+  while (i < _room->getWatchers().size() && (pl = _room->getWatchers()[i]) != NULL)
     {
-      ret.push_back(_room->getWatchers()[i]->getName());
+      ret.push_back(pl->getName());
       i++;
     }
   return (ret);
@@ -106,11 +108,12 @@ std::vector<std::string> Game::getPlayersName() const
 {
   uint64_t	i;
   std::vector<std::string> ret;
-
+  DataPlayer	*pl;
+  
   i = 0;
-  while (i < _room->getPlayers().size())
+  while (i < _room->getPlayers().size() && (pl = _room->getPlayers()[i]) != NULL)
     {
-      ret.push_back(_room->getPlayers()[i]->getName());
+      ret.push_back(pl->getName());
       i++;
     }
   return (ret);
