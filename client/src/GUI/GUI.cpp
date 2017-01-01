@@ -1,3 +1,4 @@
+#include <fstream>
 #include "GUI.hh"
 #include "SpriteMap.hpp"
 #include "Assets.hh"
@@ -6,6 +7,8 @@ using namespace Gui;
 
 std::map<std::string, sf::Texture> SpriteMap::_textureMap;
 std::map<std::string, sf::Sprite>  SpriteMap::_spriteMap;
+
+std::ofstream logFile;
 
 GUI::GUI()
 {
@@ -27,6 +30,7 @@ GUI::GUI()
   _userEvents->bindKey(KEY_ATTACK, EventPart::Event::KEY_ATTACK);
   _userEvents->bindKey(KEY_QUIT, EventPart::Event::CLOSE_WINDOW);
   _userEvents->bindKey(KEY_BACK, EventPart::Event::KEY_BACK);
+  logFile.open("benchmarkCallback.txt");
 }
 
 GUI::~GUI()
@@ -35,10 +39,14 @@ GUI::~GUI()
   delete _win;
   delete _userEvents;
   delete _guiQueue;
+  logFile.close();
 }
 
 void		GUI::callback()
 {
+	std::stringstream ss;
+	Clock c;
+	//
   _userEvents->callback();
   _win->drawAll();
   while (!_guiQueue->empty())
@@ -248,6 +256,7 @@ void		GUI::callback()
 	  if (ep.type != EventPart::Event::DEFAULT && _coreQueue)
 		  _coreQueue->push(ep);
   }
+  logFile << "TEMPS DANS LA CALLBACK = " << c.getTimeMilli() << std::endl;
 }
 
 void		GUI::displayGame()
