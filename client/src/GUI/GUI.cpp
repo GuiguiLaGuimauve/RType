@@ -1012,8 +1012,8 @@ void	GUI::setEnemyPositions(const std::vector<Packet::DataEnnemy *> &de)
 	Style	s = temp->getStyle();
 	
 	/* Ajout du Widget d'ennemi */
-	//s.image = "Enemy" + std::to_string((elem->getType() + 1));
-	s.image = "Bydos";
+	s.image = elem->getName();
+	//std::cout << "On me demande un ennemi du nom de : " << elem->getName() << std::endl;
 	temp->setStyle(s);
 	_enemyPos.push_back(temp);
       }
@@ -1041,8 +1041,8 @@ void	GUI::setEnvsPositions(const std::vector<Packet::DataBackground *> &de)
 	      Style	s = temp->getStyle();
 
 	      /* Ajout du Widget d'ennemi */
-	      //s.image = "Env" + std::to_string((elem->getType() + 1));
-	      s.image = "Env-1";
+	      s.image = "Env-" + std::to_string((elem->getType() + 1));
+	      //s.image = "Env-1";
 	      temp->setStyle(s);
 	      _envsPos.push_back(temp);
 	    }

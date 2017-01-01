@@ -18,6 +18,8 @@
 #define PICTURE_LOGO 			"assets/pictures/RTypeBlink.png"
 #define PICTURE_HEARTS			"assets/pictures/hearts.png"
 #define PICTURE_SUPBOSS1 		"assets/pictures/supboss1.png"
+#define PICTURE_ENV1			"assets/pictures/128x128 SquEnv.png"
+#define PICTURE_ENV2			"assets/pictures/128x66 RecEnv.png"
 
 #define SOUNDS_TITLESCREEN		"assets/sounds/titlescreen.ogg"
 #define SOUNDS_STAGE1 			"assets/sounds/stage1.ogg"

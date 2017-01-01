@@ -5,7 +5,7 @@
 // Login   <oger_a@epitech.net>
 // 
 // Started on  Fri Dec  2 15:23:46 2016 Antonin Oger
-// Last update Fri Dec 30 21:52:54 2016 root
+// Last update Sun Jan  1 02:05:29 2017 root
 //
 
 #ifndef _SPRITEMAP_HPP_
@@ -37,27 +37,35 @@ public:
     LoadTexture(PICTURE_SUPBOSS1, "SupBoss1");
     LoadTexture(PICTURE_LOGO, "Logo");
     LoadTexture(PICTURE_HEARTS, "Hearts");
+    LoadTexture(PICTURE_ENV1, "Env1");
+    LoadTexture(PICTURE_ENV2, "Env2");
 	
     
     /********************************************/
     /*		LOAD	THE	SPRITES		*/
     /********************************************/
+    /* Spaceships Sprites */ 
     LoadSpriteFromTexture("Ships", "Ship1", 0, 0, 34, 20, 3, 3);
     LoadSpriteFromTexture("Ships", "Ship2", 0, 17, 34, 20, 3, 3);
     LoadSpriteFromTexture("Ships", "Ship3", 0, 34, 34, 20, 3, 3);
     LoadSpriteFromTexture("Ships", "Ship4", 0, 51, 34, 20, 3, 3);
     LoadSpriteFromTexture("Shots", "Shot-1", 218, 133, 47, 18, 2, 2);
+    /* Misc Sprites */
     LoadSpriteFromTexture("PowerUp1", "SpherePowerUp", 0, 0, 34, 20, 3, 3);
     LoadSpriteFromTexture("Bydos", "Bydos", 20, 0, 160, 210, 3, 3);
     LoadSpriteFromTexture("Enemy7", "Enemy7", 0, 0, 34, 20, 3, 3);
     LoadSpriteFromTexture("Enemy8", "Enemy8", 0, 0, 34, 20, 3, 3);
     LoadSpriteFromTexture("Boss2", "Boss2", 0, 0, 34, 20, 3, 3);
     LoadSpriteFromTexture("SupBoss1", "SupBoss1", 0, 0, 34, 20, 3, 3);
+    /* Env Sprites */
+    LoadSpriteFromTexture("Env1", "Env-1", 0, 0, 128, 128, 2, 2);
+    LoadSpriteFromTexture("Env2", "Env-2", 0, 0, 128, 66, 2, 2);
     /* Menus Sprites */
     LoadSpriteFromTexture("Logo", "Logo", 0, 0, 445, 75, 1, 1);
     LoadSpriteFromTexture("Logo", "Logo2", 0, 75, 445, 75, 1, 1);
     LoadSpriteFromTexture("Logo", "Logo3", 0, 150, 445, 75, 1, 1);
     LoadSpriteFromTexture("Logo", "Logo4", 0, 225, 445, 75, 1, 1);
+    /* HUD Sprites */
     LoadSpriteFromTexture("Hearts", "Heart1", 0, 0, 128, 128, 1, 1);
     LoadSpriteFromTexture("Hearts", "Heart2", 128, 0, 128, 128, 1, 1);
     LoadSpriteFromTexture("Hearts", "Heart3", 0, 128, 128, 128, 1, 1);
