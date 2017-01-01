@@ -441,9 +441,7 @@ void		CoreClient::timeLine()
 	  _udp->pushTo(empty, p->getPacketUnknown());
 	  delete p;
 	}
-#ifndef _WIN32
       std::this_thread::sleep_for(std::chrono::milliseconds(25));
-#endif //_WIN32
     }
 }
 

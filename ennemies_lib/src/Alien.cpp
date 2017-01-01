@@ -16,8 +16,6 @@
 
 Alien::Alien()
 {
-	this->setX(0);
-	this->setY(0);
 	this->setSizeX(155);
 	this->setSizeY(210);
 	this->setHitBoxSizeX(155);
