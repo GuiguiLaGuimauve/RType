@@ -1031,10 +1031,8 @@ void	GUI::setEnvsPositions(const std::vector<Packet::DataBackground *> &de)
 
   if (de.size() >= 2)
     {
-      std::cout << "Je deplace le Background1 à : " << de[0]->getX() << ":" << de[0]->getY() << "." << std::endl;
-      std::cout << "Je deplace le Background2 à : " << de[1]->getX() << ":" << de[1]->getY() << "." << std::endl;
-      _win->getBackground().setOrigin(de[0]->getX(), de[0]->getY());
-      _win->getBackground2().setOrigin(de[1]->getX(), de[1]->getY());
+      _win->setBg1Pos(de[0]->getX(), de[0]->getY());
+      _win->setBg2Pos(de[1]->getX(), de[1]->getY());
       for (auto elem : de)
 	{
 	  if (i > 1)

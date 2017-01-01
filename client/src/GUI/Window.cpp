@@ -60,6 +60,7 @@ void        Window::drawAll()
   if (_hidden)
     return ;
   _win->draw(_background);
+  _win->draw(_background2);
   for (auto i = _list.begin(); i != _list.end(); i++)
     (*i)->draw();
   _win->display();
@@ -89,6 +90,7 @@ void        Window::setBackground(const std::string &s)
       _loadBackground.setRepeated(false);
       _background.setTexture(_loadBackground);
       _background.setTextureRect({ 0, 0, _width, _height });
+      _background.setPosition(_width / 2, 0);
       _background2.setTexture(_loadBackground);
       _background2.setTextureRect({ 0, 0, _width, _height });
     }
@@ -147,4 +149,14 @@ sf::Sprite	Window::getBackground() const
 sf::Sprite	Window::getBackground2() const
 {
   return (_background2);
+}
+
+void	Window::setBg1Pos(float x, float y)
+{
+  _background.setPosition(x, y);
+}
+
+void	Window::setBg2Pos(float x, float y)
+{
+  _background2.setPosition(x, y);
 }

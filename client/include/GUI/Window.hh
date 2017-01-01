@@ -35,6 +35,8 @@ namespace Gui
     void		deleteAllWidgets();
     sf::Sprite		getBackground() const;
     sf::Sprite		getBackground2() const;
+    void		setBg1Pos(float, float);
+    void		setBg2Pos(float, float);
   protected:
     int				_width;
     int				_height;
