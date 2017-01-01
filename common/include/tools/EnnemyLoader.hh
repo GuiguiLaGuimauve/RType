@@ -5,7 +5,7 @@
 // Login   <rembur_g@epitech.eu>
 //
 // Started on  Wed Dec 28 08:56:14 2016 La Guimauve
-// Last update Sat Dec 31 22:13:35 2016 Lecoq Maxime
+// Last update Sun Jan  1 17:01:33 2017 La Guimauve
 //
 
 #ifndef _ENNEMYLOADER_HH_
@@ -19,7 +19,7 @@
 #include "IElement.hh"
 #include "DataEnnemy.hpp"
 
-#define ENNEMY_LIB_PATH "ennemies_lib/"
+#define ENNEMY_LIB_PATH "./"
 
 /**
 * \class EnnemyLoader EnnemyLoader.hh
