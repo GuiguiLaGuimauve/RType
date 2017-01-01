@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 15:45:57 2016 Maxime Lecoq
-// Last update Sun Jan  1 20:19:15 2017 Lecoq Maxime
+// Last update Sun Jan  1 22:01:49 2017 Lecoq Maxime
 //
 
 #include	"Game.hh"
@@ -31,6 +31,11 @@ Game::Game(DataRoom *p) : _room(p), _timeline(0)
   d->setSpeed(-1);
   _background.push_back(d); 
   _lvl = 1;
+  _ptrM[1] = &Game::lvl1;
+  _ptrM[2] = &Game::lvl2;
+  _ptrM[3] = &Game::lvl3;
+  _ptrM[4] = &Game::boss;
+  _bossMod = false;
 }
 
 Game::~Game()
@@ -187,10 +192,7 @@ void		Game::movements()
 		{
 		  if (_background[i]->getX() > 1920 || _background[i]->getX() < 0
 		      || _background[i]->getY() < 0 || _background[i]->getY() > 1080)
-		    {
-		      delete _background[i];
-		      _background.erase(_background.begin());
-		    }
+		    _background.erase(_background.begin());
 		  else
 		    i++;
 		}
@@ -210,6 +212,8 @@ void		Game::timeLine()
   _timeline = 0;
   while (_room->getStarted() == true && _room->getPlayers().size() != 0)
     {
+      if (_lvl != (uint64_t)clo.getTimeMilli() / 50000)
+	_lvl = clo.getTimeMilli() / 50000;
       if (_timeline != (uint64_t)clo.getTimeMilli() / 50)
 	{	  
 	  std::vector<std::string> list = getAllName();
@@ -227,24 +231,44 @@ void		Game::timeLine()
 	  _udp->pushTo(list, pa->getPacketUnknown());
 	  delete pa;
 	}
-	  std::this_thread::sleep_for(std::chrono::milliseconds(25));
+      std::this_thread::sleep_for(std::chrono::milliseconds(25));
     }
+}
+
+void		Game::lvl1()
+{
+}
+
+void		Game::lvl2()
+{
+}
+
+void		Game::lvl3()
+{
+}
+
+void		Game::boss()
+{
+  _bossMod = true;
 }
 
 void		Game::monster()
 {
   Clock         clo;
   IPacket	*pa;
-
+  uint64_t	i;
+  
   (void)pa;
+  i = 0;
   while (_room->getStarted() == true && _room->getPlayers().size() != 0)
     {
-      if (_lvl != (uint64_t)clo.getTimeMilli() / 2000)
+      if (i != (uint64_t)clo.getTimeMilli() / 2000)
 	{
-	  std::vector<std::string> list = getAllName();
-	  _lvl = clo.getTimeMilli() / 2000;
+	  i = clo.getTimeMilli();
+	  if (_ptrM.find(_lvl) != _ptrM.end())
+	    (this->*_ptrM[_lvl])();
 	}
-      std::this_thread::sleep_for(std::chrono::milliseconds(100));
+      std::this_thread::sleep_for(std::chrono::milliseconds(1000));
     }
 }
 
@@ -258,9 +282,10 @@ void		Game::background()
   (void)pa;
   while (_room->getStarted() == true && _room->getPlayers().size() != 0)
     {
-      if (i != (uint64_t)clo.getTimeMilli() / 20000)
+      if (i != (uint64_t)clo.getTimeMilli() / 50000)
 	{
-	  i = clo.getTimeMilli() / 20000;
+	  refreshEnnemy();
+	  i = clo.getTimeMilli() / 50000;
 	  DataBackground *d = new DataBackground;
 	  d->setX(1920);
 	  uint16_t y = std::rand() % 800;

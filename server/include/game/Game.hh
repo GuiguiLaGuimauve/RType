@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 11:54:48 2016 Maxime Lecoq
-// Last update Sun Jan  1 19:50:23 2017 Lecoq Maxime
+// Last update Sun Jan  1 21:37:42 2017 Lecoq Maxime
 //
 
 #ifndef GAME_HH_
@@ -32,6 +32,7 @@ class Game : public IGame
 {
 public:
   typedef void (IGame::*ptr)(const IPacket *, const std::string &);
+  typedef void (Game::*fMonster)();
   Game(DataRoom *);
   ~Game();
   std::vector<std::string> getPlayersName() const;
@@ -52,6 +53,10 @@ public:
   void				updatePlayerShoots(const IPacket *, const std::string &);
 private:
   void				refreshEnnemy();
+  void				lvl1();
+  void				lvl2();
+  void				lvl3();
+  void				boss();
 private:
   DataRoom			*_room;
   std::string			_name;
@@ -65,6 +70,8 @@ private:
   std::vector<DataEnnemy *>	_ennemyList;
   std::vector<DataEnnemy *>	_ennemy;
   std::vector<DataBackground *>	_background;
+  std::map<uint8_t, fMonster>	_ptrM;
+  bool				_bossMod;
 };
 
 #endif /* !GAME_HH_ */
