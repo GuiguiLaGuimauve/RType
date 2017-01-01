@@ -2,13 +2,14 @@ cmake_minimum_required (VERSION 2.8)
 project (RType_server)
 
 #Config CMAKE
-set(CMAKE_AUTOMOC ON)
-
 cmake_policy(SET CMP0015 NEW)
+
+set(CMAKE_AUTOMOC ON)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_SUPPRESS_REGENERATION true)
 set(EXECUTABLE_OUTPUT_PATH ${CMAKE_SOURCE_DIR})
-set(LIBRARY_OUTPUT_PATH ${CMAKE_SOURCE_DIR}/ennemies_lib/)
+set(LIBRARY_OUTPUT_PATH ${CMAKE_SOURCE_DIR})
+
 ############################################
 #                   SFML                   #
 ############################################
