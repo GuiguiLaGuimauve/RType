@@ -253,6 +253,8 @@ void		GUI::callback()
 void		GUI::displayGame()
 {
   deleteWidgets();
+  _userEvents->setMouseTracking(false);
+  _userEvents->setTextTracking(false);
   /* Load le bon background en fonction du stage séléctionné */
   _gameWidgets = new Game;
   /* Init des vectors d'affichage, entre les games */
@@ -270,6 +272,8 @@ void		GUI::displayGame()
 
 void		GUI::displayStart()
 {
+	_userEvents->setMouseTracking(true);
+	_userEvents->setTextTracking(true);
   // Delete widget
   deleteWidgets();
 
@@ -356,6 +360,8 @@ void		GUI::displayStart()
 
 void		GUI::displayMenu()
 {
+	_userEvents->setMouseTracking(true);
+	_userEvents->setTextTracking(true);
 	Style		s;
 	deleteWidgets();
 	_win->setBackground(PICTURE_BACKGROUND);
@@ -561,6 +567,8 @@ void		GUI::displayMenu()
 
 void		GUI::displayLogin()
 {
+	_userEvents->setMouseTracking(true);
+	_userEvents->setTextTracking(true);
   // Delete all unused Widgets
   deleteWidgets();
 
@@ -987,17 +995,17 @@ void	GUI::setShootsPositions(const std::vector<Data::DataShoot *> &ds)
     _win->deleteWidget(elem);
   _shotsPos.clear();
   if (ds.size())
-    for (auto elem : ds)
-      {
-	IWidget	*temp = _win->addWidget(elem->getX(), LAYOUT_HEIGHT + elem->getY(), 0, 0);
-	Style	s = temp->getStyle();
-	
-	/* Ajout du Widget de tir */
-	//s.image = "Shot-" + elem->getName();
-	s.image = "Shot-1";
-	temp->setStyle(s);
-	_shotsPos.push_back(temp);
-      }
+	  for (auto elem : ds)
+	  {
+		  IWidget	*temp = _win->addWidget(elem->getX(), LAYOUT_HEIGHT + elem->getY(), 0, 0);
+		  Style	s = temp->getStyle();
+
+		  /* Ajout du Widget de tir */
+		  //s.image = "Shot-" + elem->getName();
+		  s.image = "Shot-1";
+		  temp->setStyle(s);
+		  _shotsPos.push_back(temp);
+	  }
 }
 
 void	GUI::setEnemyPositions(const std::vector<Data::DataEnnemy *> &de)
@@ -1008,17 +1016,17 @@ void	GUI::setEnemyPositions(const std::vector<Data::DataEnnemy *> &de)
     _win->deleteWidget(elem);
   _enemyPos.clear();
   if (de.size())
-    for (auto elem : de)
-      {
-	IWidget	*temp = _win->addWidget(elem->getX(), LAYOUT_HEIGHT + elem->getY(), 0, 0);
-	Style	s = temp->getStyle();
-	
-	/* Ajout du Widget d'ennemi */
-	s.image = elem->getSpriteName();
-	//std::cout << "On me demande un ennemi du nom de : " << elem->getName() << std::endl;
-	temp->setStyle(s);
-	_enemyPos.push_back(temp);
-      }
+	  for (auto elem : de)
+	  {
+		  IWidget	*temp = _win->addWidget(elem->getX(), LAYOUT_HEIGHT + elem->getY(), 0, 0);
+		  Style	s = temp->getStyle();
+
+		  /* Ajout du Widget d'ennemi */
+		  s.image = elem->getSpriteName();
+		  //std::cout << "On me demande un ennemi du nom de : " << elem->getName() << std::endl;
+		  temp->setStyle(s);
+		  _enemyPos.push_back(temp);
+	  }
 }
 
 void	GUI::setEnvsPositions(const std::vector<Data::DataBackground *> &de)
