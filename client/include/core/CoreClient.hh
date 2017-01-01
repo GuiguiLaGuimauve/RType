@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:19:16 2016 Maxime Lecoq
-// Last update Sun Jan  1 15:12:05 2017 Lecoq Maxime
+// Last update Sun Jan  1 17:34:51 2017 Lecoq Maxime
 //
 
 #ifndef CORECLIENT_HH_
@@ -56,6 +56,7 @@ private:
   bool                          watchRoom(EventPart::Event);
   bool                          startGame(EventPart::Event);
   bool                          shoot(EventPart::Event);
+  bool                          back(EventPart::Event);
 
   bool				welcome(const IPacket *, IUserNetwork *);
   bool				accept(const IPacket *, IUserNetwork *);
