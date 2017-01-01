@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Sun Jan  1 06:10:08 2017 Lecoq Maxime
+// Last update Sun Jan  1 06:11:17 2017 Lecoq Maxime
 //
 
 #include	"CoreClient.hh"
@@ -119,7 +119,7 @@ bool				CoreClient::manageNetwork()
       _gameData->endGame();
       if (_th->joinable())
 	_th->join();
-      _udp->run();
+      _udp->run(4243);
     }
   return (true);
 }
@@ -193,7 +193,7 @@ bool	CoreClient::goConnect()
   _gameData->endGame();
   if (_th->joinable())
     _th->join();
-  _udp->run();
+  _udp->run(4243);
   return (true);
 }
 
