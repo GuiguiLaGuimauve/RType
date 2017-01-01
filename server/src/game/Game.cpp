@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 15:45:57 2016 Maxime Lecoq
-// Last update Sun Jan  1 23:34:02 2017 Lecoq Maxime
+// Last update Sun Jan  1 23:46:05 2017 Lecoq Maxime
 //
 
 #include	"Game.hh"
@@ -233,11 +233,17 @@ void		Game::timeLine()
 {
   Clock         clo;
   IPacket	*pa;
+  uint64_t	ckLvl;
+  
   _timeline = 0;
+  ckLvl = 0;
   while (_room->getStarted() == true && _room->getPlayers().size() != 0)
     {
-      if (_lvl != (uint64_t)clo.getTimeMilli() / 50000)
-	_lvl = clo.getTimeMilli() / 50000;
+      if (ckLvl != (uint64_t)clo.getTimeMilli() / 50000)
+	{
+	  ckLvl = clo.getTimeMilli() / 50000;
+	  _lvl++;
+	}
       if (_timeline != (uint64_t)clo.getTimeMilli() / 50)
 	{	  
 	  std::vector<std::string> list = getAllName();
@@ -267,7 +273,10 @@ void		Game::lvl1()
       en->setX(1920);
       en->setY((std::rand() % 900) + 50);
       _ennemy.push_back(en);
+      //      std::cout << "plop1" << std::endl;
     }
+  //  else
+  //std::cout << "plop" << std::endl;
 }
 
 void		Game::lvl2()
