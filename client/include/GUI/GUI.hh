@@ -124,9 +124,9 @@ namespace Gui
     void	setRooms(const std::vector<DataRoom *> &);
     void	setProfile(DataPlayer *p);
     void	setPlayersPositions(const std::vector<DataPlayer *> &);
-    void	setShootsPositions(const std::vector<Packet::DataShoot *> &);
-    void	setEnemyPositions(const std::vector<Packet::DataEnnemy *> &);
-    void	setEnvsPositions(const std::vector<Packet::DataBackground *> &);
+    void	setShootsPositions(const std::vector<Data::DataShoot *> &);
+    void	setEnemyPositions(const std::vector<Data::DataEnnemy *> &);
+    void	setEnvsPositions(const std::vector<Data::DataBackground *> &);
     void	addChatMessage(const std::string &);
     bool	isInGame(std::vector<DataPlayer*>);
     void	cleanGames();

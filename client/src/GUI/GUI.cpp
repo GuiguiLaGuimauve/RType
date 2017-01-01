@@ -987,7 +987,7 @@ void	GUI::setPlayersPositions(const std::vector<DataPlayer *> &dp)
       }
 }
 
-void	GUI::setShootsPositions(const std::vector<Packet::DataShoot *> &ds)
+void	GUI::setShootsPositions(const std::vector<Data::DataShoot *> &ds)
 {
   if (_gameWidgets == NULL)
     return;
@@ -1008,7 +1008,7 @@ void	GUI::setShootsPositions(const std::vector<Packet::DataShoot *> &ds)
       }
 }
 
-void	GUI::setEnemyPositions(const std::vector<Packet::DataEnnemy *> &de)
+void	GUI::setEnemyPositions(const std::vector<Data::DataEnnemy *> &de)
 {
   if (_gameWidgets == NULL)
     return;
@@ -1022,14 +1022,14 @@ void	GUI::setEnemyPositions(const std::vector<Packet::DataEnnemy *> &de)
 	Style	s = temp->getStyle();
 	
 	/* Ajout du Widget d'ennemi */
-	s.image = elem->getName();
+	s.image = elem->getSpriteName();
 	//std::cout << "On me demande un ennemi du nom de : " << elem->getName() << std::endl;
 	temp->setStyle(s);
 	_enemyPos.push_back(temp);
       }
 }
 
-void	GUI::setEnvsPositions(const std::vector<Packet::DataBackground *> &de)
+void	GUI::setEnvsPositions(const std::vector<Data::DataBackground *> &de)
 {
   if (_gameWidgets == NULL)
     return;
@@ -1051,8 +1051,10 @@ void	GUI::setEnvsPositions(const std::vector<Packet::DataBackground *> &de)
 	      Style	s = temp->getStyle();
 
 	      /* Ajout du Widget d'ennemi */
+	      s.image = elem->getSpriteName();
 	      //s.image = "Env-" + std::to_string((elem->getType() + 1));
-	      s.image = "Env-1";
+	      //s.image = "Env-1";
+
 	      temp->setStyle(s);
 	      _envsPos.push_back(temp);
 	    }

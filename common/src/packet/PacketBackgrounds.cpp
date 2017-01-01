@@ -3,6 +3,7 @@
 //
 
 #include <iostream>
+#include "DataBackground.hpp"
 #include "PacketBackgrounds.hh"
 
 PacketBackgrounds::PacketBackgrounds(const std::vector<DataBackground *> & backgrounds)
@@ -18,9 +19,6 @@ PacketBackgrounds::PacketBackgrounds(const std::vector<DataBackground *> & backg
 	dataPacketSize += 2;
 	for (uint64_t i = 0; i < _backgrounds.size(); i++)
 	{
-		ps.add(_backgrounds[i]->getType());
-		dataPacketSize += 1;
-
 		ps.add((uint16_t)(_backgrounds[i]->getX()));
 		dataPacketSize += 2;
 
@@ -49,11 +47,8 @@ PacketBackgrounds::PacketBackgrounds(const uint8_t *data)
 	posInPacket += 2;
 	for (uint64_t i = 0; i < backgroundsLength; i++)
 	{
-		DataBackground *backgroundsTemp = new DataBackground();
-
-		backgroundsTemp->setType(pd.get8(posInPacket));
-		posInPacket += 1;
-
+		DataBackground *backgroundsTemp = new DataBackground;
+		
 		backgroundsTemp->setX((int16_t)pd.get16(posInPacket));
 		posInPacket += 2;
 

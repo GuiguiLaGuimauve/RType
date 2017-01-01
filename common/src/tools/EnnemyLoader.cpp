@@ -10,22 +10,25 @@
 
 #include "EnnemyLoader.hh"
 
-Ennemy *EnnemyLoader::LoadEnnemy(const std::string &lib)
+DataEnnemy *EnnemyLoader::LoadEnnemy(const std::string &lib)
 {
-	Ennemy *dflt = new Ennemy(0, 0);
+	DataEnnemy *dflt = new Data::DataEnnemy();
+
+
+
 
 	try {
 		#ifndef _WIN32
 			DLloaderUnix<Ennemy *()> dl_ui16;
 		#else
-			DLloaderWin<Ennemy *()> dl_ui16;
+			DLloaderWin<DataEnnemy *()> dl_ui16;
 		#endif //_WIN32
 
 		std::cout << "We looking for " << ENNEMY_LIB_PATH + lib << std::endl;
 		dl_ui16.loadLib(ENNEMY_LIB_PATH + lib);
 
 		dl_ui16.extractLib("entrypoint");
-		Ennemy *tmp = dl_ui16._func();
+		DataEnnemy *tmp = dl_ui16._func();
 		return (tmp);
 	} catch (std::exception &e) {
 		std::cerr << "Exception : " << e.what() << std::endl;

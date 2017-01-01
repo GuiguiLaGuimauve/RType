@@ -32,9 +32,9 @@ namespace Gui
     virtual void	setPosX(uint64_t) = 0;
     virtual void	setPosY(uint64_t) = 0;
     virtual void	setPlayersPositions(const std::vector<DataPlayer *> &) = 0;
-    virtual void	setShootsPositions(const std::vector<Packet::DataShoot *> &) = 0;
-    virtual void	setEnemyPositions(const std::vector<Packet::DataEnnemy *> &) = 0;
-    virtual void	setEnvsPositions(const std::vector<Packet::DataBackground *> &) = 0;
+    virtual void	setShootsPositions(const std::vector<Data::DataShoot *> &) = 0;
+    virtual void	setEnemyPositions(const std::vector<Data::DataEnnemy *> &) = 0;
+    virtual void	setEnvsPositions(const std::vector<Data::DataBackground *> &) = 0;
     virtual void	addChatMessage(const std::string &) = 0;
   };
 }

@@ -18,10 +18,10 @@ PacketShoots::PacketShoots(const std::vector<DataShoot *> & shoots)
 	dataPacketSize += 2;
 	for (uint64_t i = 0; i < _shoots.size(); i++)
 	{
-		ps.add(_shoots[i]->getX());
+		ps.add((uint16_t)(_shoots[i]->getX()));
 		dataPacketSize += 2;
 
-		ps.add(_shoots[i]->getY());
+		ps.add((uint16_t)(_shoots[i]->getY()));
 		dataPacketSize += 2;
 
 		ps.add(_shoots[i]->getDamage());

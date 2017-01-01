@@ -17,7 +17,7 @@
 #include "DLloaderWin.hh"
 #include "IDLloader.hh"
 #include "IElement.hh"
-#include "Ennemy.hh"
+#include "DataEnnemy.hpp"
 
 #define ENNEMY_LIB_PATH "ennemies_lib/"
 
@@ -28,7 +28,7 @@
 class EnnemyLoader
 {
 public:
-    Ennemy *LoadEnnemy(const std::string &);
+    DataEnnemy *LoadEnnemy(const std::string &);
   //void     ReloadEnnemy(IElement &) {};
 };
 

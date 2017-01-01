@@ -12,11 +12,12 @@
 # define __ENNEMYGENERATOR_HH_
 
 #include "EnnemyLoader.hh"
+#include "DataEnnemy.hpp"
 
 class EnnemyGenerator
 {
 public: 
-	std::vector<Ennemy *> loadAllEnnemy();
+	std::vector<DataEnnemy *> loadAllEnnemy();
 };
 
 #endif //__ENNEMYGENERATOR_HH_
