@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Sun Jan  1 14:44:55 2017 Lecoq Maxime
+// Last update Sun Jan  1 14:51:33 2017 Lecoq Maxime
 //
 
 #include	"CoreClient.hh"
@@ -408,9 +408,9 @@ bool		CoreClient::udpData(const IPacket *pa, IUserNetwork *u)
   delete pb;
   _status = "game";
   _gui->displayGame();
+  _gameData->reset();
   _gameData->init();
   _game = p->getStatus();
-  _gameData->reset();
   _th->launch(&CoreClient::timeLine, this);
   pb = _factory->getPacket("ping");
   uint8_t i = 0;
@@ -438,9 +438,6 @@ void		CoreClient::timeLine()
 	  p->setTickId(_gameData->getTick());
 	  _udp->pushTo(empty, p->getPacketUnknown());
 	  delete p;
-	  //std::vector<DataShoot *> dd;
-	  //	  dd.push_back(new DataShoot(1000, 200));
-	  //p = _factory->getPacket("shoots", dd);
 	  p = _factory->getPacket("shootsclient", _gameData->getShoots());
 	  p->setTickId(_gameData->getTick());
 	  _udp->pushTo(empty, p->getPacketUnknown());
