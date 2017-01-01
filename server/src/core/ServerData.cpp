@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Mon Dec 19 23:24:16 2016 Maxime Lecoq
-// Last update Sun Jan  1 02:51:39 2017 Lecoq Maxime
+// Last update Sun Jan  1 19:12:59 2017 Lecoq Maxime
 */
 
 #include	"ServerData.hh"
@@ -87,7 +87,7 @@ bool	ServerData::registerPlayer(const std::string &name, const std::string &pwd)
   return (true);
 }
 
-void	ServerData::logoutPlayer(const std::string &name)
+bool	ServerData::logoutPlayer(const std::string &name)
 {
   StringCk	st;
   if (playerExist(st.lower(name)) == true)
@@ -100,7 +100,9 @@ void	ServerData::logoutPlayer(const std::string &name)
 	}
       getPlayer(st.lower(name))->setOnline(false);
       getPlayer(st.lower(name))->resetGame();
+      return (true);
     }
+  return (false);
 }
 
 void	ServerData::logout(const std::vector<std::string> &list)
@@ -175,7 +177,7 @@ bool	ServerData::createRoom(const std::string &name, const uint8_t &mPlayer, con
   room->setPlayers(playerList);
   _room.push_back(room);
   _isUpdate = true;
-  std::cout << "room : [" << name << "] crée par : [" << player << "]" <<  std::endl;
+  std::cout << "room : [" << name << "] create by : [" << player << "]" <<  std::endl;
   return (true);
 }
 
@@ -194,7 +196,7 @@ bool	ServerData::joinRoom(const std::string &roomName, const std::string &player
   pl.push_back(player);
   room->setPlayers(pl);
   _isUpdate = true;
-  std::cout << "room : [" << roomName << "] rejointe par : [" << playerName << "]" << std::endl;
+  std::cout << "room : [" << roomName << "] join by : [" << playerName << "]" << std::endl;
   return (true);
 }
 
@@ -211,7 +213,7 @@ bool	ServerData::watchGame(const std::string &roomName, const std::string &playe
   pl.push_back(player);
   room->setWatchers(pl);
   _isUpdate = true;
-    std::cout << "room : [" << roomName << "] rejointe par : [" << playerName << "] en tant que viewer" << std::endl;
+    std::cout << "room : [" << roomName << "] join by : [" << playerName << "] as watcher" << std::endl;
     if (room->getStarted() == true)
       throw CatchIt<std::string>("watchGameBegin");
     return (true);
@@ -222,7 +224,7 @@ bool	ServerData::leaveRoom(const std::string &roomName, const std::string &playe
   StringCk	st;
   if (roomExist(st.lower(roomName)) == false || playerExist(st.lower(playerName)) == false || playerInRoom(st.lower(playerName), getRoom(st.lower(roomName))) == false)
     return (false);
-  std::cout << "[" << playerName << "] a quitter la room : [" << roomName << "]" << std::endl;
+  std::cout << "[" << playerName << "] leave room : [" << roomName << "]" << std::endl;
   if (deletePlayerInRoom(st.lower(playerName), getRoom(st.lower(roomName))) == true)
     {
       if (getRoom(st.lower(roomName))->getPlayers().size() == 0)
@@ -232,6 +234,17 @@ bool	ServerData::leaveRoom(const std::string &roomName, const std::string &playe
 	  deleteRoom(st.lower(roomName));
 	}
     }
+  _isUpdate = true;
+  return (true);
+}
+
+bool	ServerData::leaveRoom(const std::string &playerName)
+{
+  StringCk	st;
+  if (playerExist(st.lower(playerName)) == false || playerAlreadyInRoom(st.lower(playerName)) == false)
+    return (false);
+  std::cout << "[" << playerName << "] back to menu" << std::endl;
+  deletePlayerOfRoom(st.lower(playerName));
   _isUpdate = true;
   return (true);
 }

@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Sun Jan  1 18:19:26 2017 Lecoq Maxime
+// Last update Sun Jan  1 19:00:38 2017 Lecoq Maxime
 //
 
 #include	"CoreClient.hh"
@@ -43,7 +43,7 @@ CoreClient::CoreClient()
 
   _status = "connect";
   _backPtr["connect"] = &CoreClient::exitClient;
-  _backPtr["login"] = &CoreClient::goConnect;
+  _backPtr["waitingRooms"] = &CoreClient::goConnect;
   _backPtr["rooms"] = &CoreClient::goLogin;
   _backPtr["game"] = &CoreClient::goRooms;
   _gameData = new GameData;
@@ -197,12 +197,28 @@ bool	CoreClient::goConnect()
 }
 
 bool	CoreClient::goLogin()
-{  
+{
+  std::vector<std::string> empty;
+  IPacket *p = _factory->getPacket("logout");
+  _tcp->pushTo(empty, p->getPacketUnknown());
+  delete p;
   return (true);
 }
 
 bool	CoreClient::goRooms()
-{  
+{
+  std::vector<std::string> empty;
+  IPacket *p;
+
+  p = _factory->getPacket("askrooms");
+  _tcp->pushTo(empty, p->getPacketUnknown());
+  delete p;
+  _gameData->reset();
+  _udp->run(4243);
+  _status = "waitingRooms";
+  _game = "";
+  if (_th->joinable())
+    _th->join();
   return (true);
 }
 
@@ -212,6 +228,8 @@ bool	CoreClient::quit(EventPart::Event e)
   exit(0);
   return (false);
 }
+
+
 
 bool	CoreClient::tryConnect(EventPart::Event e)
 {
@@ -328,6 +346,8 @@ bool	CoreClient::shoot(EventPart::Event e)
 bool	CoreClient::back(EventPart::Event e)
 {
   (void)e;
+  if (_backPtr.find(_status) != _backPtr.end())
+    return ((this->*_backPtr[_status])());
   return (true);
 }
 

@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Sun Jan  1 13:38:43 2017 Lecoq Maxime
+// Last update Sun Jan  1 19:05:19 2017 Lecoq Maxime
 //
 
 #include	"CoreServer.hh"
@@ -16,6 +16,7 @@ CoreServer::CoreServer()
   _isInit = false;
   _packetPtr[IPacket::PacketType::CONNECT] = &CoreServer::connect;
   _packetPtr[IPacket::PacketType::LOGIN] = &CoreServer::login;
+  _packetPtr[IPacket::PacketType::LOGOUT] = &CoreServer::logout;
   _packetPtr[IPacket::PacketType::CREATE_ROOM] = &CoreServer::createRoom;
   _packetPtr[IPacket::PacketType::LEAVE_ROOM] = &CoreServer::leaveRoom;
   _packetPtr[IPacket::PacketType::JOIN_ROOM] = &CoreServer::joinRoom;
@@ -154,6 +155,21 @@ bool		CoreServer::connect(const IPacket *pa, IUserNetwork *u)
       _write->push(ret);
     }
   delete co;
+  return (true);
+}
+
+bool		CoreServer::logout(const IPacket *pa, IUserNetwork *u)
+{
+  (void)pa;
+  if (_data->logoutPlayer(u->getPseudo()) == true)
+    {
+      IPacket *co;
+      
+      co = _factory->getPacket("accept", ACCEPT_MESSAGE);
+      PacketC       ret(co->getPacketUnknown(), u);
+      _write->push(ret);
+      delete co;
+    }
   return (true);
 }
 
@@ -334,6 +350,7 @@ bool            CoreServer::askRooms(const IPacket *pa, IUserNetwork *u)
   (void)pa;
   if (_data->playerExist(u->getPseudo()) == true)
     {
+      _data->leaveRoom(u->getPseudo());
       IPacket	*pkt;
       DataPlayer *data = _data->getPlayer(u->getPseudo());
       pkt = _factory->getPacket("profile", data);

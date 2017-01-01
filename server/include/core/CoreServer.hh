@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:19:16 2016 Maxime Lecoq
-// Last update Thu Dec 29 12:33:03 2016 lecoq
+// Last update Sun Jan  1 18:45:48 2017 Lecoq Maxime
 //
 
 #ifndef CORESERVER_HH_
@@ -45,6 +45,7 @@ private:
   typedef bool	(CoreServer::*fPkt)(const IPacket *, IUserNetwork *);
   bool		connect(const IPacket *, IUserNetwork *);
   bool		login(const IPacket *, IUserNetwork *);
+  bool		logout(const IPacket *, IUserNetwork *);
   bool		createRoom(const IPacket *, IUserNetwork *);
   bool		leaveRoom(const IPacket *, IUserNetwork *);
   bool		joinRoom(const IPacket *, IUserNetwork *);

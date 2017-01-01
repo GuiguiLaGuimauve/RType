@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Mon Dec 19 23:14:36 2016 Maxime Lecoq
-// Last update Sun Jan  1 02:41:48 2017 Lecoq Maxime
+// Last update Sun Jan  1 19:09:09 2017 Lecoq Maxime
 //
 
 #ifndef SERVERDATA_HH_
@@ -28,7 +28,7 @@ public:
   ~ServerData();
   bool		loginPlayer(const std::string &, const std::string &);
   bool		registerPlayer(const std::string &, const std::string &);
-  void		logoutPlayer(const std::string &);
+  bool		logoutPlayer(const std::string &);
   DataPlayer	*getPlayer(const std::string &) const;
   bool		playerExist(const std::string &) const;
   bool		createRoom(const std::string &, const uint8_t & = 4, const std::string & = "");
@@ -41,11 +41,12 @@ public:
   std::vector<DataRoom *> getRooms();
   void		logout(const std::vector<std::string> &);
   std::vector<std::string> getOnlineClients() const;
+  bool		leaveRoom(const std::string &);
+  bool		playerAlreadyInRoom(const std::string &);
 private:
   uint64_t	getPlayerPos(const std::string &) const;
   uint64_t	getRoomPos(const std::string &) const;
   bool		playerInRoom(const std::string &, const DataRoom *);
-  bool		playerAlreadyInRoom(const std::string &);
   bool		deletePlayerInRoom(const std::string &, DataRoom *);
   void		deletePlayerOfRoom(const std::string &);
   void		save();
