@@ -25,12 +25,15 @@ Bydos::Bydos()
 void Bydos::move()
 {
 	static int state = -1;
+	static int wait = 0;
 	
 	if (_x > 1200)
 		_x += -5;
-	if (state == 0)
+	_y += state * 2;
+	wait++;
+	if (wait == 10)
 	{
-		_y += state * 10;
+		wait = 0;
 		state *= -1;
 	}
 }
