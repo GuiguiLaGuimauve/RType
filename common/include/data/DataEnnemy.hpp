@@ -15,7 +15,7 @@ namespace Data {
 	class DataEnnemy : public AData {
 
 	public:
-		DataEnnemy() {};
+		DataEnnemy() {_health = 100;};
 		~DataEnnemy() {};
 	  virtual void move() {};
 	  virtual DataShoot *getShoot() { return (new DataShoot); };
