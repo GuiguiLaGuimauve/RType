@@ -19,6 +19,7 @@ Bydos::Bydos()
 	this->setDeltaHitBoxX(10);
 	this->setDeltaHitBoxY(10);
 	this->setSpriteName("Bydos");
+	this->setHealth(400);
 }
 
 void Bydos::move()

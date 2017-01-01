@@ -10,7 +10,7 @@
 class BydosShoot : public DataShoot {
 
 public:
-	BydosShoot() : DataShoot() { _damage = 25; _spriteFileName = "ShootBydos"; _health = 400; };
+	BydosShoot() : DataShoot() { _damage = 30; _spriteFileName = "ShootBydos"; };
 	virtual void move() { _x += -4; };
 protected:
 	uint8_t _damage;

@@ -15,7 +15,7 @@ namespace Data {
 
 	public:
 		DataShoot() {};
-	  DataShoot(const uint16_t &x, const uint16_t &y) { _x = x; _y = y; _damage = 10; };
+	  DataShoot(const uint16_t &x, const uint16_t &y) { _x = x; _y = y; _damage = 10; _health = 1;};
 		DataShoot(const DataShoot *c) { _x = c->_x; _y = c->_y; _damage = c->_damage; };
 		DataShoot(const DataShoot &c) { _x = c._x; _y = c._y, _damage = c._damage; };
 	  ~DataShoot() {};
