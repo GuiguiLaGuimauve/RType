@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Mon Dec 19 23:14:36 2016 Maxime Lecoq
-// Last update Fri Dec 23 16:04:42 2016 lecoq
+// Last update Sun Jan  1 02:41:48 2017 Lecoq Maxime
 //
 
 #ifndef SERVERDATA_HH_
@@ -20,6 +20,7 @@
 # include "StringCk.hpp"
 # include "Thread.hpp"
 # include "Epur.hh"
+# include "CatchIt.hpp"
 
 class ServerData {
 public:

@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Sat Dec 31 20:53:42 2016 Lecoq Maxime
+// Last update Sun Jan  1 02:58:37 2017 Lecoq Maxime
 //
 
 #include	"CoreServer.hh"
@@ -230,7 +230,27 @@ bool		CoreServer::watchGame(const IPacket *pa, IUserNetwork *u)
 {
   PacketWatchGame *p = (PacketWatchGame *)pa;
 
-  _data->watchGame(p->getGameName(), u->getPseudo());
+  try
+    {
+      _data->watchGame(p->getGameName(), u->getPseudo());
+    }
+  catch (CatchIt<std::string> const &e)
+    {
+      if (e.getIt() == "watchGameBegin")
+	{
+	  std::vector<std::string> s;
+	  IPacket *pd;
+	  uint8_t			*ip;
+
+	  s.push_back(u->getPseudo());
+	  if ((ip = calculIp(u->getIp())) != NULL)
+	    {
+	      pd = _factory->getPacket("udpdata", ip, (uint16_t)4243, "watcher");
+	      _tcp->pushTo(s, pd->getPacketUnknown());
+	      delete pd;
+	    }	  
+	}
+    }
   return (true);
 }
 

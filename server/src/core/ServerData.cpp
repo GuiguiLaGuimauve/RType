@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Mon Dec 19 23:24:16 2016 Maxime Lecoq
-// Last update Sat Dec 31 11:41:40 2016 Lecoq Maxime
+// Last update Sun Jan  1 02:51:39 2017 Lecoq Maxime
 */
 
 #include	"ServerData.hh"
@@ -212,7 +212,9 @@ bool	ServerData::watchGame(const std::string &roomName, const std::string &playe
   room->setWatchers(pl);
   _isUpdate = true;
     std::cout << "room : [" << roomName << "] rejointe par : [" << playerName << "] en tant que viewer" << std::endl;
-  return (true);
+    if (room->getStarted() == true)
+      throw CatchIt<std::string>("watchGameBegin");
+    return (true);
 }
 
 bool	ServerData::leaveRoom(const std::string &roomName, const std::string &playerName)
