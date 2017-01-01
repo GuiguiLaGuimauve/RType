@@ -266,19 +266,6 @@ void		GUI::displayGame()
   //this->_gameWidgets->levelId = ...
   _win->setBackground(PICTURE_BACKGROUND);
   //_win->setBackground(this->backgroundMap[this->_gameWidgets->levelId]);// Ou on pourrait set le levelId ?
-
-  // Envs
-  /*for (int i = 0; i < envs.size(); i++)
-    {
-      IWidget *temp;
-      temp = _win->addWidget(envs[i].x, 100 + envs[i].y, 34, 20);
-
-      Style s5 = temp->getStyle();
-
-      //s.image = "Env-" + _gameWidgets->envs[i].name;
-      s5.image = "Env-" + std::to_string();
-      temp->setStyle(s5);
-      }*/
 }
 
 void		GUI::displayStart()

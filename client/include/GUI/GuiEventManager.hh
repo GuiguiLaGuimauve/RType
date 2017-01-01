@@ -37,6 +37,7 @@ namespace Gui
     std::map<sf::Keyboard::Key, KEY>	    _keys;
 	Clock									clock;
 	Clock									attackCd;
+	Clock									backCd;
   };
 }
 
