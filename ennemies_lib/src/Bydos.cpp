@@ -40,6 +40,11 @@ DataShoot *Bydos::getShoot()
 	return (new BydosShoot);
 }
 
+bool	Bydos::isBoss()
+{
+  return (true);
+}
+
 extern "C"
 
 #ifdef _WIN32

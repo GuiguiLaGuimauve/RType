@@ -19,7 +19,7 @@ namespace Data {
 		~DataEnnemy() {};
 	  virtual void move() {};
 	  virtual DataShoot *getShoot() { return (new DataShoot); };
-  
+	  virtual bool isBoss() const { return (false); };
 	};
 };
 

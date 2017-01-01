@@ -20,6 +20,7 @@ public:
 	Bydos();
 	void move();
 	DataShoot *getShoot();
+  bool isBoss() const;
 };
 
 extern "C"
