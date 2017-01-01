@@ -454,8 +454,8 @@ void		GUI::displayMenu()
 	if (_profile != NULL)
 	{
 	  _menuWidgets->profileInfo->setText("Name :\t" + _profile->getName()
-					     + "\n\nSuccess :\t" + std::to_string(_profile->getGamePlayed())
-					     + "/" + std::to_string(_profile->getStageSucceed()));
+					     + "\n\nSuccess :\t" + std::to_string(_profile->getStageSucceed())
+					     + "/" + std::to_string(_profile->getGamePlayed()));
 	  if (_menuWidgets->chooseRoomName)
 	    if (_menuWidgets->chooseRoomName->getText() == "")
 	      _menuWidgets->chooseRoomName->setText(_profile->getName());
@@ -810,9 +810,6 @@ void			GUI::setRooms(const std::vector<DataRoom *> &d)
 
 void			GUI::setProfile(DataPlayer *p)
 {
-  std::cout << "Je met a jour le profile, mon nom est " << p->getName()
-	    << " mon nombre partie jouees/gagnes" << std::to_string(p->getGamePlayed())
-	    << "/" << std::to_string(p->getStageSucceed()) << std::endl;
   _profile = p;
 }
 
@@ -835,8 +832,8 @@ void		GUI::updateCurrentGame()
 		  {
 		    ss << "\n - ";
 		    ss << _currentGame->getPlayers()[i]->getName() << "\t";
-		    ss << _currentGame->getPlayers()[i]->getGamePlayed() << "/";
-		    ss << _currentGame->getPlayers()[i]->getStageSucceed();
+		    ss << _currentGame->getPlayers()[i]->getStageSucceed() << "/";
+		    ss << _currentGame->getPlayers()[i]->getGamePlayed();
 		  }
 		_menuWidgets->selectedGame->setText(ss.str());
 	}
