@@ -40,7 +40,7 @@ DataShoot *Bydos::getShoot()
 	return (new BydosShoot);
 }
 
-bool	Bydos::isBoss()
+bool	Bydos::isBoss() const
 {
   return (true);
 }
