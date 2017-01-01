@@ -5,7 +5,7 @@
 // Login   <rembur_g@epitech.eu>
 //
 // Started on  Tue Dec 27 13:13:44 2016 La Guimauve
-// Last update Sun Jan  1 19:17:04 2017 La Guimauve
+// Last update Sun Jan  1 22:55:56 2017 La Guimauve
 //
 
 #ifndef _PIRATE_HH_
@@ -36,4 +36,4 @@ PIRATE_API
 #endif //_WIN32
 DataEnnemy	*entrypoint();
 
-#endif //_ALF_HH_
+#endif //_PIRATE_HH_
