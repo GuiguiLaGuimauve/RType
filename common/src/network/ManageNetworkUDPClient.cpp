@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Fri Dec 16 11:37:09 2016 julien dufrene
-// Last update Sat Dec 31 15:48:10 2016 Lecoq Maxime
+// Last update Sun Jan  1 13:34:08 2017 Lecoq Maxime
 //
 
 #include	"ManageNetworkUDPClient.hh"
@@ -96,7 +96,9 @@ bool		ManageNetworkUDPClient::run(const uint32_t &port, const uint32_t &maxCl)
     }
   _init = true;
   if (maxCl != 0 && _net->bindIt(port) == false)
-    return (false);
+    return (false); 
+  _initServ = false;
+  _serv = NULL;
   return (true);
 }
 

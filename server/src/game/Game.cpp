@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 15:45:57 2016 Maxime Lecoq
-// Last update Sun Jan  1 05:52:03 2017 Lecoq Maxime
+// Last update Sun Jan  1 15:58:29 2017 Lecoq Maxime
 //
 
 #include	"Game.hh"
@@ -75,17 +75,18 @@ std::vector<std::string> Game::getAllName() const
 {
   uint64_t	i;
   std::vector<std::string> ret;
-
+  DataPlayer *pl;
+  
   i = 0;
-  while (i < _room->getPlayers().size())
+  while (i < _room->getPlayers().size() && (pl = _room->getPlayers()[i]) != NULL)
     {
-      ret.push_back(_room->getPlayers()[i]->getName());
+      ret.push_back(pl->getName());
       i++;
     }
   i = 0;
-  while (i < _room->getWatchers().size())
+  while (i < _room->getWatchers().size() && (pl = _room->getWatchers()[i]) != NULL)
     {
-      ret.push_back(_room->getWatchers()[i]->getName());
+      ret.push_back(pl->getName());
       i++;
     }
   return (ret);
@@ -95,11 +96,12 @@ std::vector<std::string> Game::getViewersName() const
 {
   uint64_t	i;
   std::vector<std::string> ret;
-
+  DataPlayer		*pl;
+  
   i = 0;
-  while (i < _room->getWatchers().size())
+  while (i < _room->getWatchers().size() && (pl = _room->getWatchers()[i]) != NULL)
     {
-      ret.push_back(_room->getWatchers()[i]->getName());
+      ret.push_back(pl->getName());
       i++;
     }
   return (ret);
@@ -109,11 +111,12 @@ std::vector<std::string> Game::getPlayersName() const
 {
   uint64_t	i;
   std::vector<std::string> ret;
-
+  DataPlayer	*pl;
+  
   i = 0;
-  while (i < _room->getPlayers().size())
+  while (i < _room->getPlayers().size() && (pl = _room->getPlayers()[i]) != NULL)
     {
-      ret.push_back(_room->getPlayers()[i]->getName());
+      ret.push_back(pl->getName());
       i++;
     }
   return (ret);
@@ -138,9 +141,10 @@ void		Game::movements()
   uint64_t	i;
   uint64_t	x;
   uint64_t	z;
+  IPacket	*pa;
   x = 0;
   z = 0;
-  while (_room->getPlayers().size() != 0)
+  while (_room->getStarted() == true && _room->getPlayers().size() != 0)
     {
       if (x != (uint64_t)clo.getTimeMilli() / 2)
 	{
@@ -158,10 +162,10 @@ void		Game::movements()
 		i++;
 	    }
 	}
-      if (z != (uint64_t)clo.getTimeMilli() / 50)
+      if (z != (uint64_t)clo.getTimeMilli() / 100)
 	{
 	  std::vector<std::string> list = getAllName();
-	  z = clo.getTimeMilli() / 50;
+	  z = clo.getTimeMilli() / 100;
 	  i = 0;
 	  while (i < _background.size())
 	    {
@@ -183,6 +187,10 @@ void		Game::movements()
 		    i++;
 		}
 	    }
+	  pa = _factory->getPacket("background", _background);
+	  pa->setTickId(_timeline);
+	  _udp->pushTo(list, pa->getPacketUnknown());
+	  delete pa;
 	}
     }
 }
@@ -193,7 +201,7 @@ void		Game::timeLine()
   Clock         clo;
   IPacket	*pa;
   _timeline = 0;
-  while (_room->getPlayers().size() != 0)
+  while (_room->getStarted() == true && _room->getPlayers().size() != 0)
     {
       if (_timeline != (uint64_t)clo.getTimeMilli() / 50)
 	{	  
@@ -211,14 +219,8 @@ void		Game::timeLine()
 	  pa->setTickId(_timeline);
 	  _udp->pushTo(list, pa->getPacketUnknown());
 	  delete pa;
-	  pa = _factory->getPacket("background", _background);
-	  pa->setTickId(_timeline);
-	  _udp->pushTo(list, pa->getPacketUnknown());
-	  delete pa;
 	}
-#ifndef _WIN32
-      std::this_thread::sleep_for(std::chrono::milliseconds(25));
-#endif //_WIN32
+	  std::this_thread::sleep_for(std::chrono::milliseconds(25));
     }
 }
 

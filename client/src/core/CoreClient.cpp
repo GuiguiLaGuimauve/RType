@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Sun Jan  1 05:41:38 2017 Lecoq Maxime
+// Last update Sun Jan  1 15:12:39 2017 Lecoq Maxime
 //
 
 #include	"CoreClient.hh"
@@ -14,6 +14,7 @@ CoreClient::CoreClient()
 {
   _manager = new ManagerClient;
   _isInit = false;
+  _loop = true;
   _eventPtr[EventPart::Event::QUIT] = &CoreClient::quit;
   _eventPtr[EventPart::Event::TRY_CONNECT] = &CoreClient::tryConnect;
   _eventPtr[EventPart::Event::TRY_LOGIN] = &CoreClient::tryLogin;
@@ -60,14 +61,11 @@ CoreClient::~CoreClient()
 
 void	CoreClient::run()
 {
-  bool	loop;
-
-  loop = true;
   _gui->displayStart();
-  while (loop == true)
+  while (_loop == true)
     {
       if (manageGui() == false || manageNetwork() == false || managePackets() == false)
-	loop = false;
+	_loop = false;
     }
 }
 
@@ -119,6 +117,7 @@ bool				CoreClient::manageNetwork()
       _gameData->endGame();
       if (_th->joinable())
 	_th->join();
+      _udp->run(4243);
     }
   return (true);
 }
@@ -192,7 +191,8 @@ bool	CoreClient::goConnect()
   _gameData->endGame();
   if (_th->joinable())
     _th->join();
-   return (true);
+  _udp->run(4243);
+  return (true);
 }
 
 bool	CoreClient::goLogin()
@@ -406,9 +406,9 @@ bool		CoreClient::udpData(const IPacket *pa, IUserNetwork *u)
   delete pb;
   _status = "game";
   _gui->displayGame();
+  _gameData->reset();
   _gameData->init();
   _game = p->getStatus();
-  _gameData->reset();
   _th->launch(&CoreClient::timeLine, this);
   pb = _factory->getPacket("ping");
   uint8_t i = 0;
@@ -418,7 +418,6 @@ bool		CoreClient::udpData(const IPacket *pa, IUserNetwork *u)
       i++;
     }
   delete pb;
-  std::cout << "k" << std::endl;
   return (true);
 }
 
@@ -437,17 +436,12 @@ void		CoreClient::timeLine()
 	  p->setTickId(_gameData->getTick());
 	  _udp->pushTo(empty, p->getPacketUnknown());
 	  delete p;
-	  //std::vector<DataShoot *> dd;
-	  //	  dd.push_back(new DataShoot(1000, 200));
-	  //p = _factory->getPacket("shoots", dd);
 	  p = _factory->getPacket("shootsclient", _gameData->getShoots());
 	  p->setTickId(_gameData->getTick());
 	  _udp->pushTo(empty, p->getPacketUnknown());
 	  delete p;
 	}
-#ifndef _WIN32
       std::this_thread::sleep_for(std::chrono::milliseconds(25));
-#endif //_WIN32
     }
 }
 
@@ -508,7 +502,7 @@ bool		CoreClient::background(const IPacket *pa, IUserNetwork *u)
   (void)p;
   //_gameData->setMarge(pa->getTickId() - _gameData->getTick());
   //  if (pa->getTickId() == _gameData->getTick() || pa->getTickId() - _gameData->getTick() == 1)
-  _gui->setEnvsPositions(p->getBackgrounds());
+  //  _gui->setEnvsPositions(p->getBackgrounds());
   return (true);
 }
 
@@ -532,7 +526,10 @@ bool		CoreClient::gameEnded(const IPacket *pa, IUserNetwork *u)
   _write->push(PacketC(p->getPacketUnknown(), u));
   delete p;
   _gameData->reset();
+  _udp->run(4243);
   _status = "waitingRooms";
   _game = "";
+  if (_th->joinable())
+    _th->join();
   return (true);
 }

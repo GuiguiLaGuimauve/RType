@@ -5,24 +5,27 @@
 // Login   <bertho_i@epitech.net>
 // 
 // Started on  Tue Jun 14 16:46:23 2016 Simon BERTHO
-// Last update Sat Dec 31 16:10:35 2016 Lecoq Maxime
+// Last update Sun Jan  1 15:23:19 2017 Lecoq Maxime
 //
 
 #include "Buffer.hh"
 #include <iostream>
 
-Buffer::Buffer() {}
+Buffer::Buffer() : _nb(0) {}
 
 Buffer::~Buffer() {}
 
 void	Buffer::push(const PacketUnknown &pkt)
 {
-  listS.push(pkt);
+  _nb++;
+  if (&pkt != NULL && pkt.getPacketData() != NULL)
+    listS.push(pkt);
 }
 
 PacketUnknown		Buffer::pop()
 {
-  if (listS.empty())
+  _nb--;
+  if (listS.empty() || _nb < 0)
     {
       PacketUnknown pkt;
       return (pkt);
@@ -40,7 +43,10 @@ size_t	Buffer::len() const
 void	Buffer::clear()
 {
   while (!listS.empty())
-    listS.pop();
+    {
+      _nb--;
+      listS.pop();
+    }
 }
 
 PacketUnknown	Buffer::front()

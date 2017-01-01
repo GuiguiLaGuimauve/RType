@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Sun Jan  1 05:00:34 2017 Lecoq Maxime
+// Last update Sun Jan  1 13:38:43 2017 Lecoq Maxime
 //
 
 #include	"CoreServer.hh"
@@ -347,6 +347,16 @@ bool            CoreServer::askRooms(const IPacket *pa, IUserNetwork *u)
       c.setNetwork(u);
       _write->push(c);
       delete pkt;
+#ifdef _WIN32
+      IUserNetwork	*tmp = new UserNetworkUDPWindowsServer();
+#else
+      IUserNetwork	*tmp = new UserNetworkUDPUnixServer();
+#endif
+      tmp->setPseudo(u->getPseudo());
+      tmp->setStatus(false);
+      std::vector<IUserNetwork *> delUsers;
+      delUsers.push_back(tmp);
+      _udp->updateUsers(delUsers);
     }
   return (true);
 }

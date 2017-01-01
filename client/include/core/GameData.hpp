@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Tue Dec 27 12:50:43 2016 Maxime Lecoq
-// Last update Sat Dec 31 19:47:12 2016 Lecoq Maxime
+// Last update Sun Jan  1 14:50:41 2017 Lecoq Maxime
 //
 
 #ifndef GAMEDATA_HPP_
@@ -40,7 +40,7 @@ public:
   std::vector<DataShoot *> getShoots() const { return (_shoots); }
   void reset()
   {
-    _ended = false;
+    _ended = true;
     _tick = 0;
     uint64_t i;
     i = 0;

@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 11:54:14 2016 Maxime Lecoq
-// Last update Sun Jan  1 04:59:03 2017 Lecoq Maxime
+// Last update Sun Jan  1 15:56:59 2017 Lecoq Maxime
 //
 
 #ifndef IGAME_HH_
