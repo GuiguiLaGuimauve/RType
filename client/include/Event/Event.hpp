@@ -5,7 +5,7 @@
 // Login   <bertho_i@epitech.net>
 //
 // Started on  Wed Oct 19 11:16:12 2016 Simon BERTHO
-// Last update Sun Jan  1 02:29:23 2017 root
+// Last update Sun Jan  1 02:43:30 2017 root
 //
 
 #ifndef EVENT_HH
@@ -62,7 +62,7 @@ namespace EventPart
 	LEAVE_GAME, // string["GAME_NAME"]
 	WATCH_GAME, // string["GAME_NAME"]
 	START_GAME, // string["GAME_NAME"]
-	NEW_CHAT_MESSAGE, // string["MSG"] 
+	NEW_CHAT_MESSAGE, // string["MSG"]
 	BACK
       };
 
