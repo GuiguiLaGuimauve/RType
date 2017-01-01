@@ -8,7 +8,7 @@
 #include <utility>
 #include <vector>
 #include "DataEnnemy.hpp"
-#include "ShootBydos.hpp"
+#include "BydosShoot.hpp"
 
 #ifdef _WIN32
 # define BYDOS_API __declspec(dllexport)
