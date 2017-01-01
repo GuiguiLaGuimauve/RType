@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 15:45:57 2016 Maxime Lecoq
-// Last update Sun Jan  1 18:25:34 2017 Lecoq Maxime
+// Last update Sun Jan  1 19:29:42 2017 Lecoq Maxime
 //
 
 #include	"Game.hh"
@@ -29,25 +29,7 @@ Game::Game(DataRoom *p) : _room(p), _timeline(0)
   d->setY(0);
   d->setSpeed(-1);
   _background.push_back(d); 
-
-  /*  d = new DataBackground(195, 100);
-  d->setSpeed(-1);
-  _background.push_back(d);
-  d = new DataBackground(56, 700);
-  d->setSpeed(-1);
-  _background.push_back(d);
-*/
-  /*  DataEnnemy *e = new DataEnnemy;
-  e->setX(400);
-  e->setY(200);
-  e->setSpriteName(_ennemyList[0]->getSpriteName());
-  _ennemy.push_back(e);
-  
-  e = new DataEnnemy;  
-  e->setX(1000);
-  e->setY(400);
-   e->setName(_ennemyList[0]->getName());
-  _ennemy.push_back(e);*/
+  _lvl = 1;
 }
 
 Game::~Game()
@@ -219,7 +201,6 @@ void		Game::movements()
     }
 }
 
-#include <thread>
 void		Game::timeLine()
 {
   Clock         clo;
@@ -245,6 +226,42 @@ void		Game::timeLine()
 	  delete pa;
 	}
 	  std::this_thread::sleep_for(std::chrono::milliseconds(25));
+    }
+}
+
+void		Game::monster()
+{
+  Clock         clo;
+  IPacket	*pa;
+
+  (void)pa;
+  while (_room->getStarted() == true && _room->getPlayers().size() != 0)
+    {
+      if (_lvl != (uint64_t)clo.getTimeMilli() / 2000)
+	{
+	  std::vector<std::string> list = getAllName();
+	  _lvl = clo.getTimeMilli() / 2000;
+	}
+      std::this_thread::sleep_for(std::chrono::milliseconds(100));
+    }
+}
+
+void		Game::background()
+{
+  Clock         clo;
+  IPacket	*pa;
+  uint64_t	i;
+
+  i = 0;
+  (void)pa;
+  while (_room->getStarted() == true && _room->getPlayers().size() != 0)
+    {
+      if (i != (uint64_t)clo.getTimeMilli() / 200)
+	{
+	  std::vector<std::string> list = getAllName();
+	  i = clo.getTimeMilli() / 200;
+	}
+      std::this_thread::sleep_for(std::chrono::milliseconds(100));
     }
 }
 

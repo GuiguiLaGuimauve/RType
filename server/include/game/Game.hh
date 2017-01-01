@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 11:54:48 2016 Maxime Lecoq
-// Last update Sun Jan  1 17:33:33 2017 Lecoq Maxime
+// Last update Sun Jan  1 19:25:57 2017 Lecoq Maxime
 //
 
 #ifndef GAME_HH_
@@ -42,6 +42,8 @@ public:
   void				end();
   void				timeLine();
   void				movements();
+  void				monster();
+  void				background();
   const std::string		&getName() const { return (_name); }
   bool                          playerPresent(const std::string &);
   void                          execPacket(const IPacket *, const std::string &);
@@ -52,8 +54,7 @@ private:
 private:
   DataRoom			*_room;
   std::string			_name;
-  IGame::Stage			_stage;
-  //std::vector<IElement *>	_elementList;
+  uint8_t			_lvl;
   IManageNetwork		*_udp;
   PacketFactory			*_factory;
   uint64_t			_timeline;

@@ -5,7 +5,7 @@
 // Login   <rembur_g@epitech.eu>
 //
 // Started on  Tue Dec 27 13:13:44 2016 La Guimauve
-// Last update Sat Dec 31 23:21:07 2016 La Guimauve
+// Last update Sun Jan  1 19:30:51 2017 Lecoq Maxime
 //
 
 #ifndef _ALF_HH_
@@ -26,8 +26,8 @@ private:
 
 public:
   Alf();
-  void Alf::move();
-  DataShoot *Alf::getShoot();
+  void move();
+  DataShoot *getShoot();
 };
 
 extern "C"
