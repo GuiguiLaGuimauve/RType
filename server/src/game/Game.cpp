@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 15:45:57 2016 Maxime Lecoq
-// Last update Sun Jan  1 05:40:57 2017 Lecoq Maxime
+// Last update Sun Jan  1 05:52:03 2017 Lecoq Maxime
 //
 
 #include	"Game.hh"
@@ -14,7 +14,7 @@ Game::Game(DataRoom *p) : _room(p), _timeline(0)
 {
   _ptr[IPacket::PacketType::POSITION_PLAYER] = &IGame::updatePosPlayer;
   _ptr[IPacket::PacketType::SHOOTS_CLIENT] = &IGame::updatePlayerShoots;
-  //  _ennemyGenerator = new EnnemyGenerator;
+  //_ennemyGenerator = new EnnemyGenerator;
   //std::vector<Ennemy *> en = _ennemyGenerator->loadAllEnnemy();
   /*uint64_t	i;
   i = 0;
@@ -54,7 +54,7 @@ Game::Game(DataRoom *p) : _room(p), _timeline(0)
 
 Game::~Game()
 {
-  delete _ennemyGenerator;
+  //  delete _ennemyGenerator;
   uint64_t i;
 
   i = 0;
@@ -158,10 +158,10 @@ void		Game::movements()
 		i++;
 	    }
 	}
-      if (z != (uint64_t)clo.getTimeMilli() / 25)
+      if (z != (uint64_t)clo.getTimeMilli() / 50)
 	{
 	  std::vector<std::string> list = getAllName();
-	  z = clo.getTimeMilli() / 25;
+	  z = clo.getTimeMilli() / 50;
 	  i = 0;
 	  while (i < _background.size())
 	    {
@@ -183,11 +183,6 @@ void		Game::movements()
 		    i++;
 		}
 	    }
-	  IPacket	*pa;
-	  pa = _factory->getPacket("background", _background);
-	  pa->setTickId(_timeline);
-	  _udp->pushTo(list, pa->getPacketUnknown());
-	  delete pa;
 	}
     }
 }
@@ -213,6 +208,10 @@ void		Game::timeLine()
 	  _udp->pushTo(list, pa->getPacketUnknown());
 	  delete pa;
 	  pa = _factory->getPacket("ennemies", _ennemy);
+	  pa->setTickId(_timeline);
+	  _udp->pushTo(list, pa->getPacketUnknown());
+	  delete pa;
+	  pa = _factory->getPacket("background", _background);
 	  pa->setTickId(_timeline);
 	  _udp->pushTo(list, pa->getPacketUnknown());
 	  delete pa;
