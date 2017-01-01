@@ -90,7 +90,6 @@ void        Window::setBackground(const std::string &s)
       _loadBackground.setRepeated(false);
       _background.setTexture(_loadBackground);
       _background.setTextureRect({ 0, 0, _width, _height });
-      _background.setPosition(_width / 2, 0);
       _background2.setTexture(_loadBackground);
       _background2.setTextureRect({ 0, 0, _width, _height });
     }

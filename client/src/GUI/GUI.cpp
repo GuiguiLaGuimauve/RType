@@ -1051,11 +1051,12 @@ void	GUI::setEnvsPositions(const std::vector<Packet::DataBackground *> &de)
 	      Style	s = temp->getStyle();
 
 	      /* Ajout du Widget d'ennemi */
-	      s.image = "Env-" + std::to_string((elem->getType() + 1));
-	      //s.image = "Env-1";
+	      //s.image = "Env-" + std::to_string((elem->getType() + 1));
+	      s.image = "Env-1";
 	      temp->setStyle(s);
 	      _envsPos.push_back(temp);
 	    }
+	  i++;
 	}
     }
 }
