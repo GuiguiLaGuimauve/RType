@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Sun Jan  1 14:51:33 2017 Lecoq Maxime
+// Last update Sun Jan  1 15:12:39 2017 Lecoq Maxime
 //
 
 #include	"CoreClient.hh"
@@ -14,6 +14,7 @@ CoreClient::CoreClient()
 {
   _manager = new ManagerClient;
   _isInit = false;
+  _loop = true;
   _eventPtr[EventPart::Event::QUIT] = &CoreClient::quit;
   _eventPtr[EventPart::Event::TRY_CONNECT] = &CoreClient::tryConnect;
   _eventPtr[EventPart::Event::TRY_LOGIN] = &CoreClient::tryLogin;
@@ -60,14 +61,11 @@ CoreClient::~CoreClient()
 
 void	CoreClient::run()
 {
-  bool	loop;
-
-  loop = true;
   _gui->displayStart();
-  while (loop == true)
+  while (_loop == true)
     {
       if (manageGui() == false || manageNetwork() == false || managePackets() == false)
-	loop = false;
+	_loop = false;
     }
 }
 
@@ -504,7 +502,7 @@ bool		CoreClient::background(const IPacket *pa, IUserNetwork *u)
   (void)p;
   //_gameData->setMarge(pa->getTickId() - _gameData->getTick());
   //  if (pa->getTickId() == _gameData->getTick() || pa->getTickId() - _gameData->getTick() == 1)
-  _gui->setEnvsPositions(p->getBackgrounds());
+  //  _gui->setEnvsPositions(p->getBackgrounds());
   return (true);
 }
 
