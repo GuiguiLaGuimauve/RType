@@ -5,7 +5,7 @@
 // Login   <oger_a@epitech.net>
 // 
 // Started on  Fri Dec  2 15:23:46 2016 Antonin Oger
-// Last update Sun Jan  1 02:05:29 2017 root
+// Last update Sun Jan  1 20:04:57 2017 root
 //
 
 #ifndef _SPRITEMAP_HPP_
@@ -49,6 +49,7 @@ public:
     LoadSpriteFromTexture("Ships", "Ship2", 0, 17, 34, 20, 3, 3);
     LoadSpriteFromTexture("Ships", "Ship3", 0, 34, 34, 20, 3, 3);
     LoadSpriteFromTexture("Ships", "Ship4", 0, 51, 34, 20, 3, 3);
+    LoadSpriteFromTexture("Ships", "Ship5", 0, 68, 34, 20, 3, 3);
     LoadSpriteFromTexture("Shots", "Shot-1", 218, 133, 47, 18, 2, 2);
     /* Misc Sprites */
     LoadSpriteFromTexture("PowerUp1", "SpherePowerUp", 0, 0, 34, 20, 3, 3);

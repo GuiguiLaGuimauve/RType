@@ -452,7 +452,7 @@ void		GUI::displayMenu()
 					     + "/" + std::to_string(_profile->getStageSucceed()));
 	  if (_menuWidgets->chooseRoomName)
 	    if (_menuWidgets->chooseRoomName->getText() == "")
-	      _menuWidgets->chooseRoomName->setText(_profile->getName() + "'s room");
+	      _menuWidgets->chooseRoomName->setText(_profile->getName());
 	}
 	s = _menuWidgets->profileInfo->getStyle();
 	s.policeSize = 20;
@@ -1042,9 +1042,9 @@ void	GUI::setEnvsPositions(const std::vector<Data::DataBackground *> &de)
 	      IWidget	*temp = _win->addWidget(elem->getX(), LAYOUT_HEIGHT + elem->getY(), 0, 0);
 	      Style	s = temp->getStyle();
 
+	      std::cout << "J'essaye d'afficher un sprite du nom de " << elem->getSpriteName() << ", en " << elem->getX() << ":" << elem->getY() << std::endl;
 	      /* Ajout du Widget d'ennemi */
 	      s.image = elem->getSpriteName();
-	      //s.image = "Env-" + std::to_string((elem->getType() + 1));
 	      //s.image = "Env-1";
 
 	      temp->setStyle(s);
