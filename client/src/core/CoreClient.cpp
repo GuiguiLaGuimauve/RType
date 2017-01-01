@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Sun Jan  1 16:14:34 2017 root
+// Last update Sun Jan  1 17:35:24 2017 Lecoq Maxime
 //
 
 #include	"CoreClient.hh"
@@ -24,6 +24,7 @@ CoreClient::CoreClient()
   _eventPtr[EventPart::Event::WATCH_GAME] = &CoreClient::watchRoom;
   _eventPtr[EventPart::Event::START_GAME] = &CoreClient::startGame;
   _eventPtr[EventPart::Event::ATTACK] = &CoreClient::shoot;
+  _eventPtr[EventPart::Event::BACK] = &CoreClient::back;
   _packetPtr[IPacket::PacketType::WELCOME] = &CoreClient::welcome;
   _packetPtr[IPacket::PacketType::ACCEPT] = &CoreClient::accept;
   _packetPtr[IPacket::PacketType::ERROR_PACKET] = &CoreClient::errorPacket;
@@ -321,6 +322,13 @@ bool	CoreClient::startGame(EventPart::Event e)
 bool	CoreClient::shoot(EventPart::Event e)
 {
   _gameData->addShoot(e.dataInt["X"], e.dataInt["Y"]);
+  return (true);
+}
+
+bool	CoreClient::back(EventPart::Event e)
+{
+  (void)e;
+  std::cout << "plup" << std::endl;
   return (true);
 }
 
