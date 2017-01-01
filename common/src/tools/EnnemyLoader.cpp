@@ -5,14 +5,13 @@
 // Login   <rembur_g@epitech.eu>
 //
 // Started on  Wed Dec 28 09:24:15 2016 La Guimauve
-// Last update Sun Jan  1 17:22:25 2017 La Guimauve
+// Last update Sun Jan  1 17:32:07 2017 La Guimauve
 //
 
 #include "EnnemyLoader.hh"
 
 DataEnnemy *EnnemyLoader::LoadEnnemy(const std::string &lib)
 {
-	try {
 		#ifndef _WIN32
 			DLloaderUnix<DataEnnemy *()> dl_ui16;
 		#else
@@ -25,7 +24,4 @@ DataEnnemy *EnnemyLoader::LoadEnnemy(const std::string &lib)
 		dl_ui16.extractLib("entrypoint");
 		DataEnnemy *tmp = dl_ui16._func();
 		return (tmp);
-	} catch (std::exception &e) {
-		std::cerr << "Exception : " << e.what() << std::endl;
-	}
 }
