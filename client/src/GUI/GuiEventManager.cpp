@@ -24,7 +24,7 @@ void		GuiEventManager::callback()
   if (!_queue)
     return ;
   // gestions des touches
-  if (clock.getTimeMilli() > INTERVAL_CHECK_KEY)
+  if (_win->hasFocus() && clock.getTimeMilli() > INTERVAL_CHECK_KEY)
   {
 	  for (auto i : _keys)
 	  {
