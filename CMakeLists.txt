@@ -141,6 +141,7 @@ ENDIF (WIN32)
 
 
 # Make dynamic library
+FILE (GLOB ADATA "common/src/data/AData.cpp")
 set (CMAKE_CURRENT_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/ennemies_lib/)
 set(CMAKE_BUILD_TYPE Release)
 #set(EXECUTABLE_OUTPUT_PATH )

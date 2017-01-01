@@ -14,6 +14,7 @@
 #include <utility>
 #include <vector>
 #include "DataEnnemy.hpp"
+#include "DataShoot.hpp"
 
 #ifdef _WIN32
 # define ALF_API __declspec(dllexport)
@@ -25,6 +26,8 @@ private:
 
 public:
   Alf();
+  void Alf::move();
+  DataShoot *Alf::getShoot();
 };
 
 extern "C"

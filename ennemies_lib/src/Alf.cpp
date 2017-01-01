@@ -13,6 +13,7 @@
 #include <cmath>
 #include <cstdint>
 #include "Alf.hh"
+#include "AlfShoot.hpp"
 
 Alf::Alf()
 {
@@ -25,6 +26,16 @@ Alf::Alf()
 	this->setDeltaHitBoxX(0);
 	this->setDeltaHitBoxY(0);
 	this->setSpriteName("Vaisseau5");
+}
+
+void Alf::move()
+{
+	this->_x -= 1;
+}
+
+DataShoot *Alf::getShoot()
+{
+	return (new AlfShoot());
 }
 
 extern "C"
