@@ -25,9 +25,9 @@ PacketBackgrounds::PacketBackgrounds(const std::vector<DataBackground *> & backg
 		ps.add((uint16_t)(_backgrounds[i]->getY()));
 		dataPacketSize += 2;
 
-	        ps.add((uint16_t)_spriteName.size());
-	        ps.add(_spriteName);
-	        dataPacketSize += 2 + (uint32_t)_spriteName.size();
+	        ps.add((uint16_t)_spriteFileName.size());
+	        ps.add(_spriteFileName);
+	        dataPacketSize += 2 + (uint32_t)_spriteFileName.size();
 	}
 
 	_data = ps.getPacket();
