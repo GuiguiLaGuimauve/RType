@@ -5,7 +5,7 @@
 // Login   <rembur_g@epitech.eu>
 //
 // Started on  Tue Dec 27 13:13:44 2016 La Guimauve
-// Last update Sun Jan  1 22:55:56 2017 La Guimauve
+// Last update Sun Jan  1 23:29:38 2017 Lecoq Maxime
 //
 
 #ifndef _PIRATE_HH_
@@ -28,6 +28,7 @@ public:
   Pirate();
   void move();
   DataShoot *getShoot();
+  DataEnnemy *getNewEnnemy();
 };
 
 extern "C"

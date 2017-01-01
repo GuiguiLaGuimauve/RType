@@ -48,13 +48,18 @@ bool	Bydos::isBoss() const
   return (true);
 }
 
+DataEnnemy *Bydos::getNewEnnemy()
+{
+  return (new Bydos);
+}
+
 extern "C"
 
 #ifdef _WIN32
 	BYDOS_API
 #endif //_WIN32
 
- DataEnnemy *entrypoint()
+DataEnnemy *entrypoint()
 {
 	DataEnnemy *tmp = new Bydos();
 	return (tmp);
