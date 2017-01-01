@@ -24,6 +24,10 @@ PacketBackgrounds::PacketBackgrounds(const std::vector<DataBackground *> & backg
 
 		ps.add((uint16_t)(_backgrounds[i]->getY()));
 		dataPacketSize += 2;
+
+	        ps.add((uint16_t)backgrounds[i]->getSpriteName().size());
+	        ps.add(backgrounds[i]->getSpriteName());
+	        dataPacketSize += 2 + (uint32_t)backgrounds[i]->getSpriteName().size();
 	}
 
 	_data = ps.getPacket();
@@ -54,6 +58,10 @@ PacketBackgrounds::PacketBackgrounds(const uint8_t *data)
 
 		backgroundsTemp->setY((int16_t)pd.get16(posInPacket));
 		posInPacket += 2;
+
+		backgroundsTemp->setSpriteName(pd.getString(posInPacket + 2, pd.get16(posInPacket)));
+		posInPacket += 2 + (uint32_t)pd.get16(posInPacket); 
+		
 		_backgrounds.push_back(backgroundsTemp);
 	}
 }

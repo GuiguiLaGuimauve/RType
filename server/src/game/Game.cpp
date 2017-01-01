@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 15:45:57 2016 Maxime Lecoq
-// Last update Sun Jan  1 19:57:49 2017 Lecoq Maxime
+// Last update Sun Jan  1 20:06:46 2017 Lecoq Maxime
 //
 
 #include	"Game.hh"
@@ -262,7 +262,7 @@ void		Game::background()
 	  i = clo.getTimeMilli() / 5000;
 	  DataBackground *d = new DataBackground;
 	  d->setX(1920);
-	  uint16_t y = std::rand() % 1080;
+	  uint16_t y = std::rand() % 800;
 	  d->setY(y);
 	  d->setSpeed(-2);
 	  if (y % 2== 0)
