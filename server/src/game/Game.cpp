@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 15:45:57 2016 Maxime Lecoq
-// Last update Sun Jan  1 03:14:46 2017 Lecoq Maxime
+// Last update Sun Jan  1 04:37:44 2017 Lecoq Maxime
 //
 
 #include	"Game.hh"
@@ -14,9 +14,9 @@ Game::Game(DataRoom *p) : _room(p), _timeline(0)
 {
   _ptr[IPacket::PacketType::POSITION_PLAYER] = &IGame::updatePosPlayer;
   _ptr[IPacket::PacketType::SHOOTS_CLIENT] = &IGame::updatePlayerShoots;
-  _ennemyGenerator = new EnnemyGenerator;
-  std::vector<Ennemy *> en = _ennemyGenerator->loadAllEnnemy();
-  uint64_t	i;
+  //  _ennemyGenerator = new EnnemyGenerator;
+  //std::vector<Ennemy *> en = _ennemyGenerator->loadAllEnnemy();
+  /*uint64_t	i;
   i = 0;
   while (i < en.size())
     {
@@ -25,14 +25,21 @@ Game::Game(DataRoom *p) : _room(p), _timeline(0)
       //sethitbox
       _ennemyList.push_back(d);
       i++;
-    }
+1;2802;0c      }*/
   DataBackground *d = new DataBackground(0, 0);
   d->setSpeed(-1);
   _background.push_back(d);
   d = new DataBackground(1920, 0);
   d->setSpeed(-1);
   _background.push_back(d); 
-  DataEnnemy *e = new DataEnnemy;
+  /*  d = new DataBackground(195, 100);
+  d->setSpeed(-1);
+  _background.push_back(d);
+  d = new DataBackground(56, 700);
+  d->setSpeed(-1);
+  _background.push_back(d);
+*/
+  /*  DataEnnemy *e = new DataEnnemy;
   e->setX(400);
   e->setY(200);
   e->setName(_ennemyList[0]->getName());
@@ -42,7 +49,7 @@ Game::Game(DataRoom *p) : _room(p), _timeline(0)
   e->setX(1000);
   e->setY(400);
   e->setName(_ennemyList[0]->getName());
-  _ennemy.push_back(e);
+  _ennemy.push_back(e);*/
 }
 
 Game::~Game()
@@ -131,7 +138,7 @@ void		Game::movements()
   uint64_t	i;
   uint64_t	x;
   uint64_t	z;
-
+  std::vector<std::string> list = getAllName();
   x = 0;
   z = 0;
   while (_room->getPlayers().size() != 0)
@@ -176,6 +183,11 @@ void		Game::movements()
 		    i++;
 		}
 	    }
+	  IPacket	*pa;
+	  pa = _factory->getPacket("background", _background);
+	  pa->setTickId(_timeline);
+	  _udp->pushTo(list, pa->getPacketUnknown());
+	  delete pa;
 	}
     }
 }
@@ -187,7 +199,6 @@ void		Game::timeLine()
   std::vector<std::string> list = getAllName();
   IPacket	*pa;
   _timeline = 0;
-
   while (_room->getPlayers().size() != 0)
     {
       if (_timeline != (uint64_t)clo.getTimeMilli() / 50)
@@ -198,10 +209,6 @@ void		Game::timeLine()
 	  _udp->pushTo(list, pa->getPacketUnknown());
 	  delete pa;
 	  pa = _factory->getPacket("shoots", _shoots);
-	  pa->setTickId(_timeline);
-	  _udp->pushTo(list, pa->getPacketUnknown());
-	  delete pa;
-	  pa = _factory->getPacket("background", _background);
 	  pa->setTickId(_timeline);
 	  _udp->pushTo(list, pa->getPacketUnknown());
 	  delete pa;
@@ -288,4 +295,11 @@ void Game::updatePlayerShoots(const IPacket *pa, const std::string &m)
       pl->setShoots(tmpD);
       i++;
     }
+}
+
+void		Game::addViewer(DataPlayer *p)
+{
+  std::vector<DataPlayer *> v = _room->getWatchers();
+  v.push_back(p);
+  _room->setWatchers(v);
 }

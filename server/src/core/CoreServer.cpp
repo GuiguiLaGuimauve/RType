@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Sun Jan  1 03:14:36 2017 Lecoq Maxime
+// Last update Sun Jan  1 04:27:00 2017 Lecoq Maxime
 //
 
 #include	"CoreServer.hh"
@@ -248,7 +248,9 @@ bool		CoreServer::watchGame(const IPacket *pa, IUserNetwork *u)
 	      pd = _factory->getPacket("udpdata", ip, (uint16_t)4243, "watcher");
 	      _tcp->pushTo(s, pd->getPacketUnknown());
 	      delete pd;
-	    }	  
+	    }
+	  if (_data->getPlayer(u->getPseudo()) != NULL)
+	    _gameManager->updateRoom(p->getGameName(), _data->getPlayer(u->getPseudo()));
 	}
     }
   return (true);

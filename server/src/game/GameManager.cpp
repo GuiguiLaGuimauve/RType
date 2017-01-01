@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 15:44:47 2016 Maxime Lecoq
-// Last update Sat Dec 31 22:05:04 2016 Lecoq Maxime
+// Last update Sun Jan  1 04:34:20 2017 Lecoq Maxime
 //
 
 #include "GameManager.hh"
@@ -113,3 +113,16 @@ bool	GameManager::execPacket(const IPacket *pa, const std::string &pl)
   return (true);
 }
 
+void		GameManager::updateRoom(const std::string &r, DataPlayer *p)
+{
+  uint64_t	i;
+
+  i = 0;
+  std::cout << "ppppppp" << std::endl;
+  while (i < _gameList.size())
+    {
+      if (_gameList[i]->getName() == r)
+	_gameList[i]->addViewer(p);
+      i++;
+    }
+}

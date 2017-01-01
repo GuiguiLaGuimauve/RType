@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 11:52:02 2016 Maxime Lecoq
-// Last update Sat Dec 31 22:04:12 2016 Lecoq Maxime
+// Last update Sun Jan  1 04:27:23 2017 Lecoq Maxime
 //
 
 #ifndef GAMEMANAGER_HH_
@@ -32,6 +32,7 @@ public:
   void		runGame(IGame *);
   bool          gamesUpdate();
   bool          execPacket(const IPacket *, const std::string &);
+  void		updateRoom(const std::string &, DataPlayer *);
 private:
   std::vector<IGame *>	_gameList;
   PacketFactory	*_factory;

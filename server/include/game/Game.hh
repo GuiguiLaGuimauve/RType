@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 11:54:48 2016 Maxime Lecoq
-// Last update Sun Jan  1 00:32:50 2017 Lecoq Maxime
+// Last update Sun Jan  1 04:29:49 2017 Lecoq Maxime
 //
 
 #ifndef GAME_HH_
@@ -46,6 +46,7 @@ public:
   void                          execPacket(const IPacket *, const std::string &);
   void				updatePosPlayer(const IPacket *, const std::string &);
   void				updatePlayerShoots(const IPacket *, const std::string &);
+  void				addViewer(DataPlayer *);
 private:
   DataRoom			*_room;
   std::string			_name;
