@@ -954,7 +954,6 @@ void	GUI::setPlayersPositions(const std::vector<DataPlayer *> &dp)
 	IWidget	*temp;
 	Style	s;
 
-	std::cout << "Je demande un pseudo : '" << elem->getName() << std::endl;
 	/* Ajout du nom */
 	temp = _win->addWidget((_win->getWidth() / 4) * (int)(elem->getId()) + 150, 10, 0, 0);
 	temp->setText(elem->getName());
