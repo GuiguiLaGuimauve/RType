@@ -220,9 +220,7 @@ void		Game::timeLine()
 	  _udp->pushTo(list, pa->getPacketUnknown());
 	  delete pa;
 	}
-#ifndef _WIN32
 	  std::this_thread::sleep_for(std::chrono::milliseconds(25));
-#endif // !_WIN32
     }
 }
 

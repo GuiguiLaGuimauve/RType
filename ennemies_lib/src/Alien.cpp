@@ -16,7 +16,7 @@
 
 Alien::Alien() : Ennemy(0, 0)
 {
-	this->setSize(155);
+	this->setSizeX(155);
 	this->setSizeY(210);
 	this->setHitBoxSizeX(155);
 	this->setHitBoxSizeY(210);
