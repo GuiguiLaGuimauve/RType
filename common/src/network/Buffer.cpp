@@ -5,7 +5,7 @@
 // Login   <bertho_i@epitech.net>
 // 
 // Started on  Tue Jun 14 16:46:23 2016 Simon BERTHO
-// Last update Sat Dec 31 16:10:35 2016 Lecoq Maxime
+// Last update Sun Jan  1 06:20:39 2017 Lecoq Maxime
 //
 
 #include "Buffer.hh"
@@ -17,7 +17,8 @@ Buffer::~Buffer() {}
 
 void	Buffer::push(const PacketUnknown &pkt)
 {
-  listS.push(pkt);
+  if (pkt.getPacketData() != NULL)
+    listS.push(pkt);
 }
 
 PacketUnknown		Buffer::pop()
