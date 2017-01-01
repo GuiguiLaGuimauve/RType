@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 15:45:57 2016 Maxime Lecoq
-// Last update Sun Jan  1 19:53:33 2017 Lecoq Maxime
+// Last update Sun Jan  1 19:57:49 2017 Lecoq Maxime
 //
 
 #include	"Game.hh"
@@ -257,9 +257,9 @@ void		Game::background()
   (void)pa;
   while (_room->getStarted() == true && _room->getPlayers().size() != 0)
     {
-      if (i != (uint64_t)clo.getTimeMilli() / 200)
+      if (i != (uint64_t)clo.getTimeMilli() / 5000)
 	{
-	  i = clo.getTimeMilli() / 200;
+	  i = clo.getTimeMilli() / 5000;
 	  DataBackground *d = new DataBackground;
 	  d->setX(1920);
 	  uint16_t y = std::rand() % 1080;
@@ -271,7 +271,7 @@ void		Game::background()
 	    d->setSpriteName("Env-2");
 	  _background.push_back(d);
 	}
-      std::this_thread::sleep_for(std::chrono::milliseconds(100));
+      std::this_thread::sleep_for(std::chrono::milliseconds(2500));
     }
 }
 
