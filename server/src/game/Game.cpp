@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 15:45:57 2016 Maxime Lecoq
-// Last update Sun Jan  1 02:26:55 2017 Lecoq Maxime
+// Last update Sun Jan  1 03:14:46 2017 Lecoq Maxime
 //
 
 #include	"Game.hh"
@@ -229,7 +229,6 @@ bool		Game::playerPresent(const std::string &pl)
 
 void		Game::execPacket(const IPacket *pa, const std::string &m)
 {
-  std::cout << (int)pa->getType() << std::endl;
   if (_ptr.find(pa->getType()) != _ptr.end()
       /*&& ((int64_t)(pa->getTickId() - _timeline) == -1 || (uint64_t)pa->getTickId() - _timeline == 0)*/)
     (this->*_ptr[pa->getType()])(pa, m);
