@@ -5,7 +5,7 @@
 #include <iostream>
 #include "PacketPlayers.hh"
 
-PacketPlayers::PacketPlayers(const std::vector<DataPlayerPosition *> & players)
+PacketPlayers::PacketPlayers(const std::vector<DataPlayer *> & players)
 {
 	PacketSerializer ps;
 	uint32_t dataPacketSize = 0;
@@ -18,8 +18,13 @@ PacketPlayers::PacketPlayers(const std::vector<DataPlayerPosition *> & players)
 	dataPacketSize += 2;
 	for (uint64_t i = 0; i < _players.size(); i++)
 	{
-		ps.add(_players[i]->getId());
-		dataPacketSize += 1;
+
+	  ps.add((uint16_t)_players[i]->getName().size());
+	  ps.add(_players[i]->getName());
+	  dataPacketSize += 2 + (uint32_t)_players[i]->getName().size();
+	  
+	  ps.add(_players[i]->getId());
+	  dataPacketSize += 1;
 
 		ps.add(_players[i]->getX());
 		dataPacketSize += 2;
@@ -52,8 +57,11 @@ PacketPlayers::PacketPlayers(const uint8_t *data)
 	posInPacket += 2;
 	for (uint64_t i = 0; i < playersLength; i++)
 	{
-		DataPlayerPosition *playersTemp = new DataPlayerPosition();
+		DataPlayer *playersTemp = new DataPlayer();
 
+		playersTemp->setName(pd.getString(posInPacket + 2, pd.get16(posInPacket)));
+		posInPacket += 2 + (uint32_t)pd.get16(posInPacket);
+		
 		playersTemp->setId(pd.get8(posInPacket));
 		posInPacket += 1;
 
@@ -73,7 +81,7 @@ PacketPlayers::~PacketPlayers()
 {
 }
 
-std::vector<DataPlayerPosition *> PacketPlayers::getPlayers() const
+std::vector<DataPlayer *> PacketPlayers::getPlayers() const
 {
 	return (_players);
 }

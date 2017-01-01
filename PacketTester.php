@@ -49,12 +49,12 @@
 	$mask = "%-50.50s %10.10s\n";
 	printf($mask, 'Description', 'Status');
 	
-	foreach ($data as $class)
+	/*foreach ($data as $class)
 	{
 		$compile = shell_exec("g++ -W -Wall -Wextra -std=c++11 test-compile.cpp common/src/packet/Packet".ucfirst($class['name']).".cpp common/src/packet_tools/APacket.cpp common/src/packet_tools/PacketSerializer.cpp common/src/packet_tools/PacketDeserializer.cpp -I./common/include/packet/ -I./common/include/packet_tools/ -I./common/include/tools/ -I./common/include/packet_data/ && ./a.out\n");
 		show_test("Compilation of Packet".ucfirst($class['name']), $compile == "OK\n");
 	}
-	unlink('test-compile.cpp');
+	unlink('test-compile.cpp');*/
 	
 	foreach ($data as $class)
 	{
@@ -64,6 +64,7 @@
 		{
 			//show_test("Basic tests for Packet".ucfirst($class['name']), false);
 			continue;
+			
 		}
 		
 		$test = "		
@@ -77,6 +78,7 @@ if ($args != "")
 	Packet".ucfirst($class['name'])." * packet1 = new Packet".ucfirst($class['name'])."(".$args.");
 	Packet".ucfirst($class['name'])." * packet2 = new Packet".ucfirst($class['name'])."(packet1->generate());
 	Packet".ucfirst($class['name'])." * packet3 = new Packet".ucfirst($class['name'])."(packet2->generate());
+	delete packet2;
 	
 	";
 	
@@ -85,7 +87,7 @@ if ($args != "")
 $test .= "}";
 		
 		file_put_contents("test-basic.cpp", $test);
-		$compile = shell_exec("g++ -W -Wall -Wextra -std=c++11 test-basic.cpp common/src/packet/Packet".ucfirst($class['name']).".cpp common/src/packet_tools/APacket.cpp common/src/packet_tools/PacketSerializer.cpp common/src/packet_tools/PacketDeserializer.cpp -I./common/include/packet/ -I./common/include/packet_tools/ -I./common/include/tools/ -I./common/include/packet_data/ && ./a.out\n");
+		$compile = shell_exec("g++ -g -W -Wall -Wextra -std=c++11 test-basic.cpp common/src/packet/Packet".ucfirst($class['name']).".cpp common/src/packet_tools/APacket.cpp common/src/packet_tools/PacketSerializer.cpp common/src/packet_tools/PacketDeserializer.cpp -I./common/include/packet/ -I./common/include/packet_tools/ -I./common/include/tools/ -I./common/include/packet_data/ && valgrind ./a.out\n");
 		show_test("Basic tests for Packet".ucfirst($class['name']), strpos($compile, "NOK") === false);
 	}
 	

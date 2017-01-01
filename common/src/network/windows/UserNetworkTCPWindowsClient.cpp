@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Fri Oct 21 15:02:22 2016 julien dufrene
-// Last update Thu Dec 15 15:29:24 2016 julien dufrene
+// Last update Sat Dec 31 16:04:06 2016 Lecoq Maxime
 //
 
 #include "UserNetworkTCPWindowsClient.hh"
@@ -32,15 +32,16 @@ IUserNetwork		*UserNetworkTCPWindowsClient::readSocket(ISocket *net)
 	if (WSARecv(_fd, &DataBuf, 1, &RecvBytes, &Flags, NULL, NULL) != SOCKET_ERROR)
 	{
 		char			*res = new char[RecvBytes];
-		uint32_t		i = 0;
+		DWORD			i = 0;
 		while (i < RecvBytes)
 		{
 			res[i] = DataBuf.buf[i];
 			i++;
 		}
 		res[i] = 0;
-		std::string tmp(res);
-		buff_r.push(tmp);
+		cutRead((uint8_t *)res, i);
+		//		PacketUnknown pkt((uint8_t *)res, RecvBytes);
+		//buff_r.push(pkt);   
 	}
 	else
 	{
@@ -59,20 +60,21 @@ IUserNetwork		*UserNetworkTCPWindowsClient::readSocket(ISocket *net)
 
 void			UserNetworkTCPWindowsClient::writeSocket(ISocket *net)
 {
-  	WSABUF			DataBuf;
-	DWORD			SendBytes;
-	DWORD			Flags;
-	int				nb;
-	std::string		write = "";
+  WSABUF                  DataBuf;
+  DWORD                   SendBytes;
+  DWORD                   Flags;
+  int                             nb;
+  PacketUnknown           write;
 
-	std::cout << "Write: ";
-	write = buff_w.front();
-	std::cout << "[" << write << "]" << std::endl;
-	DataBuf.len = write.size();
-	DataBuf.buf = (char *)write.c_str();
-	Flags = 0;
-	if ((nb = WSASend(_fd, &DataBuf, 1, &SendBytes, 0, NULL, NULL)) == SOCKET_ERROR || write.size() != SendBytes)
-	  std::cerr << "Error on WSASend: " << WSAGetLastError() << std::endl;
-	else
-	  buff_w.pop();
+  write = buff_w.front();
+  if (write.packetIsValid() == false)
+    return;
+  DataBuf.len = write.getPacketSize();
+  DataBuf.buf = (char *)(write.getPacketData());
+  Flags = 0;
+  if ((nb = WSASend(_fd, &DataBuf, 1, &SendBytes, 0, NULL, NULL)) == SOCKET_ERROR || \
+      write.getPacketSize() != SendBytes)
+    std::cerr << "Error on write: " << WSAGetLastError() << std::endl;
+  else
+    buff_w.pop();
 }

@@ -5,25 +5,29 @@
 // Login   <rembur_g@epitech.eu>
 //
 // Started on  Wed Dec  7 16:13:01 2016 La Guimauve
-// Last update Fri Dec  9 10:11:10 2016 La Guimauve
+// Last update Mon Dec 26 11:29:04 2016 lecoq
 //
 
+#include <iostream>
 #include "Workers.hh"
 
 void Workers::operator()()
 {
-    std::function<void()> task;
+  /*    std::function<void()> task;
     while(true)
     {
       {
         std::unique_lock<std::mutex>lck(pool.mtx.mtx);
+        std::cerr << "Nb Thread => " << pool.workers.size() << " Nb tasks => " << pool.tasks.size() << std::endl;
         while(!pool.stop && pool.tasks.empty())
           pool.condition.wait(lck);
         if(pool.stop)
           return;
         task = pool.tasks.front();
         pool.tasks.pop_front();
+        if (pool.tasks.size() > pool.workers.size())
+          pool.workers.push_back(std::thread(Workers(pool)));
       }
       task();
-    }
+      }*/
 }

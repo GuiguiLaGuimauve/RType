@@ -9,19 +9,20 @@ PacketLogin::PacketLogin(const std::string & login, const std::string & password
 {
 	PacketSerializer ps;
 	uint32_t dataPacketSize = 0;
-
+	Crypt	cr;
+	
 	_type = IPacket::PacketType::LOGIN;
 	_tickId = 0;
 	_login = login;
-	_password = password;
+	_password = cr._sha1(password);
 
 	ps.add((uint16_t)_login.size());
 	ps.add(_login);
-	dataPacketSize += 2 + _login.size();
+	dataPacketSize += 2 + (uint32_t)_login.size();
 
 	ps.add((uint16_t)_password.size());
 	ps.add(_password);
-	dataPacketSize += 2 + _password.size();
+	dataPacketSize += 2 + (uint32_t)_password.size();
 
 	_data = ps.getPacket();
 	_size = dataPacketSize;
@@ -41,10 +42,10 @@ PacketLogin::PacketLogin(const uint8_t *data)
 		_data[a] = data[a + 9];
 
 	_login = pd.getString(posInPacket + 2, pd.get16(posInPacket));
-	posInPacket += 2 + pd.get16(posInPacket);
+	posInPacket += 2 + (uint32_t)pd.get16(posInPacket);
 
 	_password = pd.getString(posInPacket + 2, pd.get16(posInPacket));
-	posInPacket += 2 + pd.get16(posInPacket);
+	posInPacket += 2 + (uint32_t)pd.get16(posInPacket);
 }
 
 PacketLogin::~PacketLogin()

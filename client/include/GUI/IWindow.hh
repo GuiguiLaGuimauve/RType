@@ -2,6 +2,7 @@
 #define IWINDOW_HH
 
 #include <string>
+#include <SFML/Graphics.hpp>
 
 #include "IWidget.hh"
 
@@ -25,6 +26,11 @@ namespace Gui
     virtual void		setTitle(const std::string &) = 0;
     virtual std::string		getTitle() const = 0;
     virtual bool		isOpen() = 0;
+    virtual void		deleteAllWidgets() = 0;
+    virtual sf::Sprite		getBackground() const = 0;
+    virtual sf::Sprite		getBackground2() const = 0;
+    virtual void		setBg1Pos(float, float) = 0;
+    virtual void		setBg2Pos(float, float) = 0;
   };
 }
 

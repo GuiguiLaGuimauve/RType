@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Fri Oct 14 15:52:42 2016 julien dufrene
-// Last update Thu Dec 15 15:57:18 2016 julien dufrene
+// Last update Fri Dec 30 21:02:35 2016 Lecoq Maxime
 //
 
 #include "SocketTCPUnixClient.hh"
@@ -23,7 +23,6 @@ bool			SocketTCPUnixClient::connectIt(const std::string &ip, const uint32_t &por
   s_in.sin_port = htons(port);
   if ((connect(_sock, (struct sockaddr *)&s_in, sizeof (s_in))) == -1)
     return (false);
-  std::cout << "Connected!" << std::endl;
   return (true);
 }
 

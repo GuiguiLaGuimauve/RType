@@ -2,6 +2,7 @@
 #define WIDGET_HH
 
 #include <iostream>
+#include <cmath>
 
 #include <SFML/Graphics.hpp>
 
@@ -44,6 +45,7 @@ namespace Gui
     void                setStyle(const Style &);
     Style               getStyle() const;
     void	showPopup(const std::string &s, int tMilli);
+	int		getTextWidth();
   protected:
     sf::RenderWindow	       		*_win;
     int					_x;
@@ -68,6 +70,10 @@ namespace Gui
     //    sf::Texture				_loadBackground;
     Clock	clock;
     int		timeLimit = -1;
+    // animations
+    std::string											_direction = "RIGHT";
+    std::map<std::string, std::vector < sf::Sprite > >	_animations;
+    Clock												_anim_timer;
   };
 }
 

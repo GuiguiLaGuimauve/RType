@@ -7,6 +7,8 @@
 #include <iostream>
 #include <cctype>
 #include <cstdio>
+#include <utility>
+#include <sstream>
 
 #include "IGUI.hh"
 
@@ -16,9 +18,30 @@
 #include "GuiEventManager.hh"
 #include "EventQueue.hh"
 #include "Key.hh"
+#include "DataRoom.hpp"
+#include "Chat.hh"
+#include "DataShoot.hpp"
+#include "DataEnnemy.hpp"
+#include "DataBackground.hpp"
+
+#define GUI_WIDTH 1920
+#define GUI_HEIGHT 1080
+
+#define NB_GAME_SCROLL 4
+
+#define MOVE_SPEED 1
+
+#define LAYOUT_HEIGHT 100
+
+void	TextColorNoFocus(Gui::IWidget *w);
+void	TextColorFocus(Gui::IWidget *w);
+void	textEntered(Gui::IWidget *w, const std::string &c);
 
 namespace Gui
 {
+
+  
+
   class GUI: public IGUI
   {
   protected:
@@ -34,25 +57,46 @@ namespace Gui
     
     struct Start
     {
-      IWidget	*imput = NULL;
-      IWidget	*button = NULL;
       IWidget	*title = NULL;
+      IWidget	*texte = NULL;
+      IWidget	*input = NULL;
+      IWidget	*button = NULL;
+      IWidget	*chevron = NULL;
     };
 
     struct Login
     {
       IWidget	*login = NULL;
       IWidget	*password = NULL;
+      IWidget	*text1 = NULL;
+      IWidget	*text2 = NULL;
       IWidget	*confirm = NULL;
+      IWidget	*chevron1 = NULL;
+      IWidget	*chevron2 = NULL;
     };
 
     struct Menu
     {
-      IWidget	*GameContainer = NULL;
-      //std::vector<IWidget*>	Games = NULL;
-      IWidget	*profile = NULL;
-      IWidget	*createGame = NULL;
-      IWidget	*confirm = NULL;
+      IWidget	*GameText = NULL; // affiche le texte "GAME"
+      IWidget	*GameInfos = NULL; // affiche le texte "Info"
+      IWidget	*selectedGame = NULL; // va servir à affichier les infos de la game selectionnée
+      int		selectedRoom = -1; // id dans le vecteur de la game selectionnée
+      std::vector<IWidget *>	games; // affichage de toutes les games
+      IWidget	*profile = NULL; // affiche "PROFILE"
+      IWidget	*profileInfo = NULL; // affiches les informations liées au user
+      IWidget	*createGame = NULL; // bouton pour créer une gaùe
+      IWidget	*confirm = NULL; // bouton pour confirmier
+      IWidget	*leaveButton = NULL; // bouton pour regarder
+      IWidget	*watchButton = NULL; // bouton pour regarder
+      IWidget	*startButton = NULL; // bouton pour regarder
+      IWidget	*downScrollButton = NULL; // pour scroller les parties vers le bas
+      IWidget	*upScrollButton = NULL; // pour scroller les parties vers le haut
+      unsigned int		itScroll = 0;
+      IWidget	*chooseRoomName = NULL;
+      IWidget	*changeMaxPlayer = NULL;
+      Chat		*chat = NULL;
+
+	  ~Menu() { if (chat) delete chat; };
       /* Vecteur de joueurs connectés */
       /* Container des joueurs connectés */
     };
@@ -60,7 +104,8 @@ namespace Gui
     struct Game
     {
       uint8_t                   levelId;
-      IWidget                   *layout = NULL;
+      uint16_t			_x = 0;
+      uint16_t			_y = 0;
     };
   public:
     GUI();
@@ -75,30 +120,49 @@ namespace Gui
     void	setEventQueue(EventPart::IEventQueue *);
     void	setSoundManager(Audio::ISoundManager *);
     void	showPopup(const std::string &s, int tMilli = 2000);
+    void	loadSoundAssets();
+    void	setRooms(const std::vector<DataRoom *> &);
+    void	setProfile(DataPlayer *p);
+    void	setPlayersPositions(const std::vector<DataPlayer *> &);
+    void	setShootsPositions(const std::vector<Packet::DataShoot *> &);
+    void	setEnemyPositions(const std::vector<Packet::DataEnnemy *> &);
+    void	setEnvsPositions(const std::vector<Packet::DataBackground *> &);
+    void	addChatMessage(const std::string &);
+    bool	isInGame(std::vector<DataPlayer*>);
+    void	cleanGames();
+    uint64_t	getPosX();
+    uint64_t	getPosY();
+    void	setPosX(uint64_t);
+    void	setPosY(uint64_t);
   protected:
     void	deleteWidgets();
+    void	updateCurrentGame();
   protected:
     Audio::ISoundManager	*_audio;
     IWindow			*_win;
     IGuiEventManager		*_userEvents;
-    //    GameInfo			_gameInfo;
+	// pour gérer le menu
+    std::vector<DataRoom*>	_menuInfos;
+    DataRoom			*_currentGame = NULL;
+    DataPlayer			*_profile = NULL;
+	// les queues d'events
     EventPart::IEventQueue	*_coreQueue;
     EventPart::IEventQueue	*_guiQueue;
     // gestion effets graphiques
     IWidget			*_hoverWidget = NULL;
     IWidget			*_focusWidget = NULL;
     // liste des widgets dans les structures
-    Start	*_startWidgets = NULL;
-    Login	*_loginWidgets = NULL;
-    Menu	*_menuWidgets = NULL;
-    Game	*_gameWidgets = NULL;
+    Start			*_startWidgets = NULL;
+    Login			*_loginWidgets = NULL;
+    Menu			*_menuWidgets = NULL;
+    Game			*_gameWidgets = NULL;
     // popup
-    IWidget  *_fadedWidget = NULL;
-    /* temp pour test GUI */
-    std::vector<data>   players;
-    std::vector<data>   shots;
-    std::vector<data>   envs;
-    std::vector<data>   monsters;
+    IWidget			*_fadedWidget = NULL;
+    /* Widgets de games */
+    std::vector<IWidget *>	_playersPos;
+    std::vector<IWidget *>	_shotsPos;
+    std::vector<IWidget *>	_enemyPos;
+    std::vector<IWidget *>	_envsPos;
   };
 }
 

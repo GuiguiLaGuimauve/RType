@@ -2,6 +2,8 @@
 #define STYLE_HH
 
 #include <string>
+#include <map>
+#include <vector>
 
 #include "Color.hh"
 #include "Police.hh"
@@ -21,6 +23,12 @@ namespace Gui
     FORM	form = NO_FORM;
     Color	backgroundColor;
     int		opacity = 100;
+	bool	password = false;
+	bool	inputMode = false;
+	// animations
+	int		frequency = -1;
+	bool	move_animation = false;
+	std::map<std::string, std::vector<std::string> > anims; // string == NORMAL || RIGHT || LEFT || TOP || BOTTOM
   };
 }
 

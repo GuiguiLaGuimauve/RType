@@ -17,11 +17,14 @@ namespace Packet
     virtual ~APacket(){};
     IPacket::PacketType getType() const;
     uint32_t getSize() const;
-	uint32_t getTickId() const;
-	void setTickId(uint32_t tickId);
+    uint32_t getTickId() const;
+    void setTickId(uint32_t tickId);
     uint8_t *getData() const;
     uint8_t *generate() const;
     PacketUnknown getPacketUnknown() const;
+	virtual bool isTcp() const = 0;
+	virtual bool isUdp() const = 0;
+	
   protected:
     /*! Type of packet depend of the protocol */
     IPacket::PacketType _type;

@@ -3,14 +3,15 @@
 
 namespace Gui
 {
-  enum KEY
+  enum KEY : int
     {
-      KEY_UP,
-      KEY_LEFT,
-      KEY_RIGHT,
-      KEY_DOWN,
-      KEY_ATTACK,
-      KEY_CONFIRM
+      KEY_UP = 1,
+      KEY_LEFT = 2,
+      KEY_RIGHT = 3,
+      KEY_DOWN = 4,
+      KEY_ATTACK = 5,
+      KEY_CONFIRM = 6,
+	  KEY_QUIT = 7
     };
 }
 

@@ -35,6 +35,11 @@ namespace Gui
     std::string		getTitle() const;
     bool		isOpen();
     sf::RenderWindow	*getSfmlWinPtr();
+    void		deleteAllWidgets();
+    sf::Sprite		getBackground() const;
+    sf::Sprite		getBackground2() const;
+    void		setBg1Pos(float, float);
+    void		setBg2Pos(float, float);
   protected:
     int				_width;
     int				_height;
@@ -43,6 +48,7 @@ namespace Gui
     std::list<IWidget *>	_list;
     sf::RenderWindow   		*_win;
     sf::Sprite			_background;
+    sf::Sprite			_background2;
     sf::Texture			_loadBackground;
     EventPart::IEventQueue     	*_queue;
   };

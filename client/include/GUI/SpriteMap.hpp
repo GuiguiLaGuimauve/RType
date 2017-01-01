@@ -5,7 +5,7 @@
 // Login   <oger_a@epitech.net>
 // 
 // Started on  Fri Dec  2 15:23:46 2016 Antonin Oger
-// Last update Sat Dec 17 14:25:16 2016 root
+// Last update Sun Jan  1 02:05:29 2017 root
 //
 
 #ifndef _SPRITEMAP_HPP_
@@ -13,6 +13,7 @@
 
 #include <map>
 #include "SFML/Graphics.hpp"
+#include "Assets.hh"
 
 class		SpriteMap
 {
@@ -26,31 +27,51 @@ public:
     /********************************************/
     /*		LOAD	THE	TEXTURES	*/
     /********************************************/
-    LoadTexture("../client/Assets/r-typesheet42.gif", "Ships");
-    LoadTexture("../client/Assets/r-typesheet1.gif", "Shots");
-    LoadTexture("../client/Assets/r-typesheet3.gif", "PowerUp1");
-    LoadTexture("../client/Assets/r-typesheet30.gif", "Bydos");
-    LoadTexture("../client/Assets/r-typesheet20.gif", "Enemy7");
-    LoadTexture("../client/Assets/r-typesheet19.gif", "Enemy8");
-    LoadTexture("../client/Assets/r-typesheet38.gif", "Boss2");
-    LoadTexture("../client/Assets/r-typesheet37.gif", "SupBoss1");
-    LoadTexture("../client/Assets/r-type-logo.png", "Logo");
+    LoadTexture(PICTURE_SHIPS, "Ships");
+    LoadTexture(PICTURE_SHOTS, "Shots");
+    LoadTexture(PICTURE_POWERUP1, "PowerUp1");
+    LoadTexture(PICTURE_BYDOS, "Bydos");
+    LoadTexture(PICTURE_ENEMY7, "Enemy7");
+    LoadTexture(PICTURE_ENEMY8, "Enemy8");
+    LoadTexture(PICTURE_BOSS2, "Boss2");
+    LoadTexture(PICTURE_SUPBOSS1, "SupBoss1");
+    LoadTexture(PICTURE_LOGO, "Logo");
+    LoadTexture(PICTURE_HEARTS, "Hearts");
+    LoadTexture(PICTURE_ENV1, "Env1");
+    LoadTexture(PICTURE_ENV2, "Env2");
+	
     
     /********************************************/
     /*		LOAD	THE	SPRITES		*/
     /********************************************/
-    LoadSpriteFromTexture("Ships", "Ship1", 0, 0, 34, 20, 2, 2);
-    LoadSpriteFromTexture("Ships", "Ship2", 0, 17, 34, 20, 2, 2);
-    LoadSpriteFromTexture("Ships", "Ship3", 0, 34, 34, 20, 2, 2);
-    LoadSpriteFromTexture("Ships", "Ship4", 0, 51, 34, 20, 2, 2);
+    /* Spaceships Sprites */ 
+    LoadSpriteFromTexture("Ships", "Ship1", 0, 0, 34, 20, 3, 3);
+    LoadSpriteFromTexture("Ships", "Ship2", 0, 17, 34, 20, 3, 3);
+    LoadSpriteFromTexture("Ships", "Ship3", 0, 34, 34, 20, 3, 3);
+    LoadSpriteFromTexture("Ships", "Ship4", 0, 51, 34, 20, 3, 3);
     LoadSpriteFromTexture("Shots", "Shot-1", 218, 133, 47, 18, 2, 2);
-    LoadSpriteFromTexture("PowerUp1", "SpherePowerUp", 0, 0, 34, 20, 2, 2);
-    LoadSpriteFromTexture("Bydos", "Bydos", 20, 0, 160, 210, 2, 2);
-    LoadSpriteFromTexture("Enemy7", "Enemy7", 0, 0, 34, 20, 2, 2);
-    LoadSpriteFromTexture("Enemy8", "Enemy8", 0, 0, 34, 20, 2, 2);
-    LoadSpriteFromTexture("Boss2", "Boss2", 0, 0, 34, 20, 2, 2);
-    LoadSpriteFromTexture("SupBoss1", "SupBoss1", 0, 0, 34, 20, 2, 2);
-    LoadSpriteFromTexture("Logo", "Logo", 0, 0, 480, 100, 1, 1);
+    /* Misc Sprites */
+    LoadSpriteFromTexture("PowerUp1", "SpherePowerUp", 0, 0, 34, 20, 3, 3);
+    LoadSpriteFromTexture("Bydos", "Bydos", 20, 0, 160, 210, 3, 3);
+    LoadSpriteFromTexture("Enemy7", "Enemy7", 0, 0, 34, 20, 3, 3);
+    LoadSpriteFromTexture("Enemy8", "Enemy8", 0, 0, 34, 20, 3, 3);
+    LoadSpriteFromTexture("Boss2", "Boss2", 0, 0, 34, 20, 3, 3);
+    LoadSpriteFromTexture("SupBoss1", "SupBoss1", 0, 0, 34, 20, 3, 3);
+    /* Env Sprites */
+    LoadSpriteFromTexture("Env1", "Env-1", 0, 0, 128, 128, 2, 2);
+    LoadSpriteFromTexture("Env2", "Env-2", 0, 0, 128, 66, 2, 2);
+    /* Menus Sprites */
+    LoadSpriteFromTexture("Logo", "Logo", 0, 0, 445, 75, 1, 1);
+    LoadSpriteFromTexture("Logo", "Logo2", 0, 75, 445, 75, 1, 1);
+    LoadSpriteFromTexture("Logo", "Logo3", 0, 150, 445, 75, 1, 1);
+    LoadSpriteFromTexture("Logo", "Logo4", 0, 225, 445, 75, 1, 1);
+    /* HUD Sprites */
+    LoadSpriteFromTexture("Hearts", "Heart1", 0, 0, 128, 128, 1, 1);
+    LoadSpriteFromTexture("Hearts", "Heart2", 128, 0, 128, 128, 1, 1);
+    LoadSpriteFromTexture("Hearts", "Heart3", 0, 128, 128, 128, 1, 1);
+    LoadSpriteFromTexture("Hearts", "Heart4", 128, 128, 128, 128, 1, 1);
+    LoadSpriteFromTexture("Hearts", "Heart5", 0, 256, 128, 128, 1, 1);
+    LoadSpriteFromTexture("Hearts", "Dead", 128, 256, 128, 128, 1, 1);
   };
 
   ~SpriteMap()
@@ -77,7 +98,7 @@ public:
 
     sf::Sprite	sprite(_textureMap[tname], sf::IntRect(x, y, w, h));
 
-    sprite.setScale(xScale, yScale);
+    sprite.setScale((float) xScale, (float) yScale);
     _spriteMap[sname] = sprite;
   }
 
@@ -93,7 +114,7 @@ public:
   {
     if (name != "")
       if (_spriteMap.find(name) == _spriteMap.end())
-	std::cerr << "Sprite \"" << name << "\"not found." << std::endl;
+	std::cerr << "Sprite \"" << name << "\" not found." << std::endl;
     return (_spriteMap[name]);
   };
 

@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Sat Dec 17 00:47:42 2016 Maxime Lecoq
-// Last update Sat Dec 17 10:35:14 2016 lecoq
+// Last update Sat Dec 31 20:27:17 2016 Lecoq Maxime
 //
 
 #ifndef PACKETLIST_H_
@@ -24,5 +24,27 @@
 # include	"PacketUdpData.hh"
 # include	"PacketUdpDataFree.hh"
 # include	"PacketRoomData.hh"
+# include	"PacketWatchGame.hh"
+# include	"PacketLogin.hh"
+# include	"PacketRegister.hh"
+# include	"PacketLogout.hh"
+# include	"PacketDisconnect.hh"
+# include	"PacketPositionPlayer.hh"
+# include	"PacketShoot.hh"
+# include	"PacketMusic.hh"
+# include	"PacketSound.hh"
+# include	"PacketShoots.hh"
+# include	"PacketEnnemies.hh"
+# include	"PacketBackgrounds.hh"
+# include	"PacketPlayers.hh"
+# include	"PacketPing.hh"
+# include	"PacketPong.hh"
+# include	"PacketAskRoomData.hh"
+# include	"PacketAccept.hh"
+# include	"PacketProfile.hh"
+# include	"PacketChatMessage.hh"
+# include	"PacketGameEnded.hh"
+# include	"PacketAskRooms.hh"
+# include	"PacketShootsClient.hh"
 
 #endif /* !PACKETLIST_H_ */

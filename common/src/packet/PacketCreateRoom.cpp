@@ -5,7 +5,7 @@
 #include <iostream>
 #include "PacketCreateRoom.hh"
 
-PacketCreateRoom::PacketCreateRoom(const std::string & gameName, const uint8_t & maxPlayers, const uint8_t & level)
+PacketCreateRoom::PacketCreateRoom(const std::string & gameName, const uint8_t & maxPlayers)
 {
 	PacketSerializer ps;
 	uint32_t dataPacketSize = 0;
@@ -14,16 +14,12 @@ PacketCreateRoom::PacketCreateRoom(const std::string & gameName, const uint8_t &
 	_tickId = 0;
 	_gameName = gameName;
 	_maxPlayers = maxPlayers;
-	_level = level;
 
 	ps.add((uint16_t)_gameName.size());
 	ps.add(_gameName);
-	dataPacketSize += 2 + _gameName.size();
+	dataPacketSize += 2 + (uint32_t)_gameName.size();
 
 	ps.add(_maxPlayers);
-	dataPacketSize += 1;
-
-	ps.add(_level);
 	dataPacketSize += 1;
 
 	_data = ps.getPacket();
@@ -44,12 +40,9 @@ PacketCreateRoom::PacketCreateRoom(const uint8_t *data)
 		_data[a] = data[a + 9];
 
 	_gameName = pd.getString(posInPacket + 2, pd.get16(posInPacket));
-	posInPacket += 2 + pd.get16(posInPacket);
+	posInPacket += 2 + (uint32_t)pd.get16(posInPacket);
 
 	_maxPlayers = pd.get8(posInPacket);
-	posInPacket += 1;
-
-	_level = pd.get8(posInPacket);
 	posInPacket += 1;
 }
 
@@ -65,11 +58,6 @@ std::string PacketCreateRoom::getGameName() const
 uint8_t PacketCreateRoom::getMaxPlayers() const
 {
 	return (_maxPlayers);
-}
-
-uint8_t PacketCreateRoom::getLevel() const
-{
-	return (_level);
 }
 
 bool PacketCreateRoom::isTcp() const

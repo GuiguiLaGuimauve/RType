@@ -14,20 +14,20 @@ namespace Packet {
 
 	public:
 		DataShoot() {};
-		~DataShoot() {};
-
-		std::string getName() const { return (_name); };
+	  DataShoot(const uint16_t &x, const uint16_t &y) :  _x(x), _y(y), _damage(10) {};
+	  DataShoot(const DataShoot *c) : _x(c->_x), _y(c->_y), _damage(c->_damage) {};
+	  DataShoot(const DataShoot &c) : _x(c._x), _y(c._y), _damage(c._damage) {};
+	  ~DataShoot() {};
+	  
 		uint16_t getX() const { return (_x); };
 		uint16_t getY() const { return (_y); };
 		uint8_t getDamage() const { return (_damage); };
 
-		void setName(const std::string & name) { _name = name; };
 		void setX(const uint16_t & x) { _x = x; };
 		void setY(const uint16_t & y) { _y = y; };
 		void setDamage(const uint8_t & damage) { _damage = damage; };
 
-	protected:
-		std::string _name;
+	private:
 		uint16_t _x;
 		uint16_t _y;
 		uint8_t _damage;

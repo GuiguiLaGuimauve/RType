@@ -9,7 +9,10 @@ GuiEventManager::GuiEventManager(sf::Window *w):
   _keys[sf::Keyboard::Right] = KEY_RIGHT;
   _keys[sf::Keyboard::Down] = KEY_DOWN;
   _keys[sf::Keyboard::Up] = KEY_UP;
+  _keys[sf::Keyboard::LControl] = KEY_ATTACK;
   _keys[sf::Keyboard::Space] = KEY_ATTACK;
+  _keys[sf::Keyboard::Escape] = KEY_QUIT;
+  //_keys[sf::Keyboard::F1] = KEY_BACKE;
 }
 
 GuiEventManager::~GuiEventManager()
@@ -20,6 +23,25 @@ void		GuiEventManager::callback()
 {
   if (!_queue)
     return ;
+  // gestions des touches
+  if (clock.getTimeMilli() > INTERVAL_CHECK_KEY)
+  {
+	  for (auto i : _keys)
+	  {
+		  if (sf::Keyboard::isKeyPressed(i.first))
+		  {
+			  if (i.second != KEY_ATTACK)
+				_queue->push(EventPart::Event(_events[i.second]));
+			  else if (attackCd.getTimeMilli() > INTERVAL_CHECK_ATTACK)
+			  {
+				  _queue->push(EventPart::Event(_events[i.second]));
+				  attackCd.reset();
+			  }
+		  }
+	  }
+	  clock.reset();
+  }
+  // évènements classiques sfml
   sf::Event event;
   while (_win->pollEvent(event))
     {
@@ -51,16 +73,17 @@ void		GuiEventManager::callback()
 					    "Y", event.mouseMove.y));
 	    break;
 	  }
-	case sf::Event::KeyPressed :
+	  // deprécié maintenant géré autrement
+	/*case sf::Event::KeyPressed :
 	  {
 	    auto i = _keys.find(event.key.code);
 	    if (i != _keys.end())
 	      _queue->push(EventPart::Event(_events[_keys[event.key.code]]));
 	    break ;
-	  }
+	  }*/
 	case sf::Event::TextEntered:
 	  {
-	    if (_textTracking)
+	    if (_textTracking && event.text.unicode <= 127)
 	      {
 		std::string s;
 		s += (static_cast<char> (event.text.unicode));

@@ -1,3 +1,13 @@
+//
+// AManageNetwork.cpp for AManageNetwork.cpp in /home/dufren_b/teck3/rendu/CPP/RType/common/src/network
+// 
+// Made by julien dufrene
+// Login   <dufren_b@epitech.net>
+// 
+// Started on  Wed Dec 21 01:24:37 2016 julien dufrene
+// Last update Fri Dec 30 13:12:00 2016 lecoq
+//
+
 #include	"AManageNetwork.hh"
 
 using namespace Network;
@@ -17,7 +27,10 @@ uint32_t			AManageNetwork::getMaxFd() const
       i = 0;
       while (i < _user.size() && _user[i]->getStatus() == false)
 	i++;
-      res = _user[i]->getFd();
+      if (i < _user.size() && _user[i]->getStatus() != false)
+	res = _user[i]->getFd();
+      else
+	return (0);
       while (i < _user.size())
 	{
 	  if (_user[i]->getStatus() == true)
@@ -27,8 +40,7 @@ uint32_t			AManageNetwork::getMaxFd() const
 	}
       return (res + 1);
     }
-  else
-    return (0);
+  return (0);
 }
 
 ISocket		*AManageNetwork::getSocket() const
@@ -36,30 +48,19 @@ ISocket		*AManageNetwork::getSocket() const
   return (_net);
 }
 
-void			AManageNetwork::updateUsers(const std::vector<IUserNetwork *> &user)
+bool		AManageNetwork::inList(const std::string &n, const std::vector<std::string> &li)
 {
-  uint32_t	i = 0;
-
-  while (i < _user.size())
-    {
-      if (_user[i]->getStatus() == false)
-	{
-	  std::cout << "Erase client from list: " << _user[i]->getFd() << std::endl;
-	  delete (_user[i]);
-	  _user.erase(_user.begin() + i);
-	}
-      else
-	i++;
-    }
+  uint64_t		i;
+  StringCk		st;
+  
   i = 0;
-  while (i < user.size())
+  if (n.empty() == true)
+    return (false);
+  while (i < li.size())
     {
-      if (user[i]->getStatus() == true)
-	{
-	  std::cout << "New user in list: " << user[i]->getFd() << std::endl;
-	  _user.push_back(user[i]);
-	}
+      if (st.lower(n) == st.lower(li[i]))
+	return (true);
       i++;
     }
+  return (false);
 }
-

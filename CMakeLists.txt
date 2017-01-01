@@ -7,7 +7,7 @@ set(CMAKE_AUTOMOC ON)
 cmake_policy(SET CMP0015 NEW)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_SUPPRESS_REGENERATION true)
-
+set(EXECUTABLE_OUTPUT_PATH ${CMAKE_SOURCE_DIR})
 ############################################
 #                   SFML                   #
 ############################################
@@ -37,11 +37,17 @@ include_directories(common/include/packet)
 include_directories(common/include/core)
 include_directories(common/include/game)
 include_directories(common/include/network)
-include_directories(common/include/network/unix)
+IF (WIN32)
 include_directories(common/include/network/windows)
+ELSE ()
+include_directories(common/include/network/unix)
+ENDIF (WIN32)
 include_directories(common/include/packet_data)
 include_directories(common/include/packet_tools)
 include_directories(common/include/tools)
+include_directories(common/include/tools/dlloader)
+include_directories(common/include/elements_tools)
+include_directories(common/include/elements)
 
 include_directories(client/include/packet)
 include_directories(client/include/error)
@@ -60,6 +66,9 @@ FILE (GLOB COMMONCORE "common/src/core/*.cpp")
 FILE (GLOB COMMONPACKET "common/src/packet/*.cpp")
 FILE (GLOB COMMONPACKETT "common/src/packet_tools/*.cpp")
 FILE (GLOB COMMONTOOLS "common/src/tools/*.cpp")
+FILE (GLOB COMMONDLLOADER "common/src/tools/dlloader/*.cpp")
+FILE (GLOB COMMONELEMENTS "common/src/elements/*.cpp")
+FILE (GLOB COMMONELEMENTSTOOLS "common/src/elements_tools/*.cpp")
 FILE (GLOB COMMONNETWORK "common/src/network/*.cpp")
 FILE (GLOB COMMONNETWORKUNIX "common/src/network/unix/*.cpp")
 FILE (GLOB COMMONNETWORKWIN "common/src/network/windows/*.cpp")
@@ -73,6 +82,7 @@ FILE (GLOB_RECURSE client_src "client/src/*.cpp")
 # Flags Unix
 IF (UNIX)
 	add_definitions(-W -Wall -Wextra -Wshadow)
+	add_definitions(-g)
 ENDIF (UNIX)
 
 # Enable C++ 11
@@ -81,18 +91,18 @@ add_definitions(-std=c++11)
 
 # add_executable for WIN32
 IF (WIN32)
-  add_executable(RType_server WIN32 ${COMMONCORE} ${COMMONPACKET} ${COMMONPACKETT} ${COMMONTOOLS} ${COMMONNETWORK} ${COMMONNETWORKWIN} ${server_src})
+  add_executable(RType_server assets/rc/server.rc ${COMMONCORE} ${COMMONPACKET} ${COMMONPACKETT} ${COMMONTOOLS} ${COMMONDLLOADER} ${COMMONELEMENTS} ${COMMONELEMENTSTOOLS} ${COMMONNETWORK} ${COMMONNETWORKWIN} ${server_src})
   IF (SFML_FOUND AND ${SFML_VERSION_P} EQUAL "2")
-  add_executable(RType WIN32 ${COMMONCORE} ${COMMONPACKET} ${COMMONPACKETT} ${COMMONTOOLS} ${COMMONNETWORK} ${COMMONNETWORKWIN} ${client_src})
+  add_executable(RType assets/rc/client.rc ${COMMONCORE} ${COMMONPACKET} ${COMMONPACKETT} ${COMMONTOOLS} ${COMMONDLLOADER} ${COMMONELEMENTS} ${COMMONELEMENTSTOOLS} ${COMMONNETWORK} ${COMMONNETWORKWIN} ${client_src})
   ENDIF (SFML_FOUND AND ${SFML_VERSION_P} EQUAL "2")
 ENDIF (WIN32)
 
 # add_executable for UNIX
 IF (UNIX)
   IF (SFML_FOUND AND ${SFML_VERSION_P} EQUAL "2")
-  add_executable(RType ${COMMONCORE} ${COMMONPACKET} ${COMMONPACKETT} ${COMMONTOOLS} ${COMMONNETWORK} ${COMMONNETWORKUNIX} ${client_src})
+  add_executable(RType ${COMMONCORE} ${COMMONPACKET} ${COMMONPACKETT} ${COMMONTOOLS} ${COMMONELEMENTS} ${COMMONELEMENTSTOOLS} ${COMMONNETWORK} ${COMMONNETWORKUNIX} ${client_src})
   ENDIF (SFML_FOUND AND ${SFML_VERSION_P} EQUAL "2")
-add_executable(RType_server ${COMMONCORE} ${COMMONPACKET} ${COMMONPACKETT} ${COMMONTOOLS} ${COMMONNETWORK} ${COMMONNETWORKUNIX} ${server_src})
+add_executable(RType_server ${COMMONCORE} ${COMMONPACKET} ${COMMONPACKETT} ${COMMONTOOLS} ${COMMONELEMENTS} ${COMMONELEMENTSTOOLS} ${COMMONNETWORK} ${COMMONNETWORKUNIX} ${server_src})
 ENDIF (UNIX)
 
 # Set lib on Unix
@@ -113,8 +123,14 @@ IF (WIN32)
 ENDIF (WIN32)
 
 # Link librairies
+  IF (UNIX)
+  target_link_libraries(RType_server ${CMAKE_DL_LIBS})
+  ENDIF (UNIX)
   target_link_libraries(RType_server ${CMAKE_THREAD_LIBS_INIT})
   IF (SFML_FOUND AND ${SFML_VERSION_P} EQUAL "2")
     target_link_libraries(RType ${CMAKE_THREAD_LIBS_INIT})
     target_link_libraries(RType ${SFML_LIBRARIES})
+    IF (UNIX)
+      target_link_libraries(RType ${CMAKE_DL_LIBS})
+    ENDIF (UNIX)
   ENDIF (SFML_FOUND AND ${SFML_VERSION_P} EQUAL "2")

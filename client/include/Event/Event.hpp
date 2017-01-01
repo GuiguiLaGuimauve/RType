@@ -1,11 +1,11 @@
 //
 // Event.hh for babel in /home/bertho_i/tek3/cpp_babel/d_client
-// 
+//
 // Made by Simon BERTHO
 // Login   <bertho_i@epitech.net>
-// 
+//
 // Started on  Wed Oct 19 11:16:12 2016 Simon BERTHO
-// Last update Sat Nov 26 01:36:13 2016 Simon BERTHO
+// Last update Sun Jan  1 02:43:30 2017 root
 //
 
 #ifndef EVENT_HH
@@ -30,15 +30,24 @@ namespace EventPart
 	CLICK, // int["X"] int ["Y"] int["CLICK"]
 	MOUSE__MOVED, // int["X"] int ["Y"]
 	TEXT, // string["CHAR"]
-	BUTTON_CONNECT, // string["IP"] string["PORT"]
-	BUTTON_LOGIN, // string["LOGIN"] string["PWD"]
-	BUTTON_JOIN_GAME, // string["GAME_NAME"]
-	BUTTON_CREATE_GAME, // string["GAME_NAME"]
+	BUTTON_CONNECT,
+	BUTTON_LOGIN,
+	BUTTON_JOIN_GAME,
+	BUTTON_CREATE_GAME,
+	BUTTON_WATCH_GAME,
+	BUTTON_START_GAME,
+	BUTTON_LEAVE_GAME,
 	KEY_ATTACK,
 	KEY_UP,
 	KEY_DOWN,
 	KEY_RIGHT,
 	KEY_LEFT,
+	KEY_BACK,
+	LOGIN_SWITCH_IMPUT,
+	CLICK_SELECT_GAME,
+	BUTTON_SCROLL_UP,
+	BUTTON_SCROLL_DOWN,
+	CHAT_SEND_MESSAGE,
 	// events of the gui to the core
 	QUIT,
 	ATTACK,
@@ -48,16 +57,21 @@ namespace EventPart
 	MOVE_LEFT,
 	TRY_CONNECT, // string["IP"] string["PORT"]
 	TRY_LOGIN, // string["LOGIN"] string["PWD"]
-	CREATE_GAME, // string["GAME_NAME"]
-	JOIN_GAME // string["GAME_NAME"]
+	CREATE_GAME, // string["GAME_NAME"] int["MAX_PLAYER"]
+	JOIN_GAME, // string["GAME_NAME"]
+	LEAVE_GAME, // string["GAME_NAME"]
+	WATCH_GAME, // string["GAME_NAME"]
+	START_GAME, // string["GAME_NAME"]
+	NEW_CHAT_MESSAGE, // string["MSG"]
+	BACK
       };
-    
+
     // constructeur classique
     Event(TYPE t = DEFAULT)
     {
       type = t;
     };
-    
+
     // constructeur variadique
     template <typename ... Args>
     Event(TYPE t, const Args ... a)
@@ -80,13 +94,13 @@ namespace EventPart
       dataInt[s] = i;
       setArgs(a ...);
     }
-    
+
     // pour la map d'int à la fin
     void	setArgs(const std::string &s, int32_t i)
     {
       dataInt[s] = i;
     }
-    
+
     // pour quand y a plus de 2 arguments bonus pour string
     template <typename ... Args>
     void	setArgs(const std::string &s, const std::string &data,	\
@@ -95,13 +109,13 @@ namespace EventPart
       dataString[s] = data;
       setArgs(a ...);
     }
-    
+
     // pour la map d'string à la fin
     void	setArgs(const std::string &s, const std::string &data)
     {
       dataString[s] = data;
     }
-    
+
     // attributs
   public:
     TYPE					type;

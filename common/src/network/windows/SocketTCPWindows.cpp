@@ -19,13 +19,33 @@ SocketTCPWindows::SocketTCPWindows()
 	}
 }
 
+const std::string		SocketTCPWindows::getIpInfo() const
+{
+  struct sockaddr_in        s_in;
+  socklen_t                 len;
+
+  len = sizeof(struct sockaddr_in);
+  if (getsockname(_sock, (struct sockaddr*)&s_in, &len) < 0)
+    {
+      std::cerr << "Error on getsockname()" << std::endl;
+      return ("");
+    }
+  return (inet_ntoa(s_in.sin_addr));
+}
+
+
 bool				SocketTCPWindows::bindIt(const uint32_t &port)
 {
 	sockaddr_in			s_in;
 
 	s_in.sin_addr.s_addr = INADDR_ANY;
 	s_in.sin_family = AF_INET;
-	WSAHtons(_sock, port, &(s_in.sin_port));
+	if (WSAHtons(_sock, port, &(s_in.sin_port)) == SOCKET_ERROR)
+	{
+		std::cerr << "Error on WSAHtons(): " << WSAGetLastError() << std::endl;
+		closeIt();
+		return (false);
+	}
 	if (bind(_sock, (SOCKADDR *)&s_in, sizeof(s_in)) == SOCKET_ERROR)
 	  {
 		  std::cerr << "Error on Bind: " << WSAGetLastError() << std::endl;
@@ -51,8 +71,6 @@ bool			SocketTCPWindows::acceptClient(DataClient &data)
 	sockaddr_in		saClient;
 	SOCKET			fd;
 	int32_t			iClientSize;
-	//DWORD			len;
-	//LPWSTR			tmp_ip = new (wchar_t);
 	
 	iClientSize = sizeof(saClient);
 	fd = WSAAccept(_sock, (SOCKADDR *)&saClient, &iClientSize, NULL, NULL);
@@ -62,20 +80,8 @@ bool			SocketTCPWindows::acceptClient(DataClient &data)
 		return (false);
 	}
 	data.setFd(static_cast<int32_t>(fd));
-/*	len = 46;
-	if (WSAAddressToStringW((SOCKADDR *)&saClient, iClientSize, NULL, tmp_ip, &len) == SOCKET_ERROR)
-	{
-		std::cerr << "Error on WSAAddressToString: " << WSAGetLastError() << std::endl;
-		return (false);
-	}
-	std::wstring		wtmp_ip(tmp_ip);
-	std::string			ip;
-	char *ctmp_ip = new char[wtmp_ip.length() + 1];
-	ctmp_ip[wtmp_ip.size()] = '\0';
-	WideCharToMultiByte(CP_ACP, 0, wtmp_ip.c_str(), -1, ctmp_ip, (int)wtmp_ip.length(), NULL, NULL);
-	ip = ctmp_ip;
-	delete[] ctmp_ip;*/
 	std::string ip = inet_ntoa(saClient.sin_addr);
+	std::cout << "Accept client ip:" << ip << std::endl;
 	data.setIp(ip);
 	return (true);
 }

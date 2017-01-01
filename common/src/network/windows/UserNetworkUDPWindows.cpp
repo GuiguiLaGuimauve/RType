@@ -4,7 +4,7 @@
 // Login   <dufren_b@epitech.net>
 //
 // Started on  Fri Dec 02 15:02:22 2016 julien dufrene
-// Last update Thu Dec 15 15:45:53 2016 julien dufrene
+// Last update Sat Dec 31 16:03:28 2016 Lecoq Maxime
 //
 
 #include "UserNetworkUDPWindows.hh"
@@ -15,59 +15,13 @@ UserNetworkUDPWindows::UserNetworkUDPWindows() : UserNetworkUDP() {}
 
 UserNetworkUDPWindows::~UserNetworkUDPWindows() {}
 
-IUserNetwork		*UserNetworkUDPWindows::readSocket(ISocket *net)
-{
-	WSABUF				DataBuf;
-	DWORD				RecvBytes;
-	DWORD				Flags;
-	char				*buffer = new char[16384];
-	sockaddr_in			s_in;
-	int				s_inLen = sizeof(s_in);
-
-	s_in.sin_addr.s_addr = inet_addr(_ip.c_str());
-	s_in.sin_family = AF_INET;
-	if (WSAHtons(_fd, _port, &(s_in.sin_port)) == SOCKET_ERROR)
-	{
-		std::cerr << "Error on WSAHtons: " << WSAGetLastError() << std::endl;
-		IUserNetwork		*u = new UserNetworkUDPWindows(*this);
-		return (u);
-	}
-	DataBuf.len = 16384;
-	DataBuf.buf = buffer;
-	Flags = 0;
-	if (WSARecvFrom(_fd, &DataBuf, 1, &RecvBytes, &Flags, (sockaddr *)&s_in, &s_inLen, NULL, NULL) != SOCKET_ERROR)
-	{
-		char			*res = new char[RecvBytes];
-		uint32_t		i = 0;
-		while (i < RecvBytes)
-		{
-			res[i] = DataBuf.buf[i];
-			i++;
-		}
-		res[i] = 0;
-		std::string tmp(res);
-		buff_r.push(tmp);
-	}
-	else
-	{
-		std::cout << "error from WSARecvFrom: " << WSAGetLastError() << std::endl;
-		closeFd();
-	}
-	if (RecvBytes == 0 || RecvBytes == -1) {
-		closeFd();
-	}
-	(void)net;
-	IUserNetwork		*u = new UserNetworkUDPWindows(*this);
-	return (u);
-}
-
 void			UserNetworkUDPWindows::writeSocket(ISocket *net)
 {
 	WSABUF			DataBuf;
 	DWORD			SendBytes;
 	DWORD			Flags;
 	int			nb;
-	std::string		write;
+	PacketUnknown           write;
 	sockaddr_in		s_out;
 
 	if ((nb = inet_pton(AF_INET, _ip.c_str(), &s_out.sin_addr.s_addr)) <= 0)
@@ -77,15 +31,17 @@ void			UserNetworkUDPWindows::writeSocket(ISocket *net)
 	}
 	s_out.sin_family = AF_INET;
 	if (WSAHtons(_fd, _port, &(s_out.sin_port)) == SOCKET_ERROR)
-		std::cerr << "Error on WSAHtons: " << WSAGetLastError() << std::endl;
-	write = buff_w.front();
-	DataBuf.len = write.size();
-	DataBuf.buf = (char *)write.c_str();
+	{
+	  std::cerr << "UNUW Error on WSAHtons: " << WSAGetLastError() << std::endl;
+	}
+	write = buff_w.pop();
+	if (write.packetIsValid() == false)
+	  return;
+	DataBuf.len = write.getPacketSize();
+	DataBuf.buf = (char *)(write.getPacketData());
 	Flags = 0;
-	if ((nb = WSASendTo(_fd, &DataBuf, 1, &SendBytes, 0, (sockaddr *)&s_out, sizeof (s_out), NULL, NULL)) == SOCKET_ERROR || write.size() != SendBytes)
+	if ((nb = WSASendTo(_fd, &DataBuf, 1, &SendBytes, 0, (sockaddr *)&s_out, sizeof (s_out), NULL, NULL)) == SOCKET_ERROR || DataBuf.len != SendBytes)
 		std::cerr << "Error on WSASendTo: " << WSAGetLastError() << std::endl;
-	else
-	  buff_w.pop();
 }
 
 void			UserNetworkUDPWindows::closeFd()

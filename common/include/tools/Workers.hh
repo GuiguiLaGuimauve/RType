@@ -5,13 +5,13 @@
 // Login   <rembur_g@epitech.eu>
 //
 // Started on  Wed Dec  7 16:03:14 2016 La Guimauve
-// Last update Fri Dec  9 10:11:12 2016 La Guimauve
+// Last update Mon Dec 26 11:28:07 2016 lecoq
 //
 
 #ifndef WORKERS_HH_
 # define WORKERS_HH_
 
-#include "ThreadPool.hh"
+#include "ThreadPool.hpp"
 
 class ThreadPool;
 

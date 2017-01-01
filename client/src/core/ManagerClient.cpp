@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 15:53:17 2016 Maxime Lecoq
-// Last update Sat Dec 17 10:08:19 2016 lecoq
+// Last update Fri Dec 23 01:09:22 2016 julien dufrene
 //
 
 # include	"ManagerClient.hh"
@@ -19,13 +19,11 @@ void	ManagerClient::setManager()
   if (_isSet == false)
     {
       _isSet = true;
-      _man = new Manager;
-      _man->setManager();
-      _tcp = _man->getNetworkTCPManager();
-      if (_tcp->run() == false)
-	throw ErrorClient("Error to run client tcp network's");
-      _udp = _man->getNetworkUDPManager();
-      if (_udp->run(4242) == false)
+      _tcp = new ManageNetworkTCPClient();
+      if (_tcp->run(4243) == false)
+  	throw ErrorClient("Error to run client tcp network's");
+      _udp = new ManageNetworkUDPClient();
+      if (_udp->run(4243) == false)
 	throw ErrorClient("Error to run client udp network's");
       _gui = new GUI;
       _sound = new SoundManager;
@@ -49,10 +47,10 @@ void			ManagerClient::deleteManager()
   if (_isSet == true)
     {
       _isSet = false;
-      _man->deleteManager();
+      delete _tcp;
+      delete _udp;
       delete _eventQueue;
       delete _pkt;
-      delete _man;
       delete _sound;
       delete _gui;
     }

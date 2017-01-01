@@ -7,8 +7,11 @@ Window::Window(int w, int h, const std::string &s):
 {
   _hidden = false;
   _queue = NULL;
+  sf::VideoMode	vm = sf::VideoMode::getDesktopMode();
+  _width = vm.width;
+  _height = vm.height;
   _win = new sf::RenderWindow(sf::VideoMode(_width, _height), _title,
-			      sf::Style::Close | sf::Style::Titlebar);
+			      sf::Style::None);
   _win->setTitle("RType");
 }
 
@@ -57,6 +60,7 @@ void        Window::drawAll()
   if (_hidden)
     return ;
   _win->draw(_background);
+  _win->draw(_background2);
   for (auto i = _list.begin(); i != _list.end(); i++)
     (*i)->draw();
   _win->display();
@@ -71,9 +75,10 @@ void        Window::hide(bool b)
 
 void        Window::resize(int w, int h)
 {
+
   _width = w;
   _height = h;
-  _win->setSize(sf::Vector2u(_height, _width));
+  _win->setSize(sf::Vector2u(_width, _height));
 }
 
 
@@ -82,8 +87,11 @@ void        Window::setBackground(const std::string &s)
   if (_loadBackground.loadFromFile(s))
     {
       //_loadBackground.setRepeated(true);
+      _loadBackground.setRepeated(false);
       _background.setTexture(_loadBackground);
-      //_background.setTextureRect({ 0, 0, WINDOW_WIDTH, WINDOW_HEIGHT });
+      _background.setTextureRect({ 0, 0, _width, _height });
+      _background2.setTexture(_loadBackground);
+      _background2.setTextureRect({ 0, 0, _width, _height });
     }
 }
 
@@ -123,4 +131,31 @@ bool		Window::isOpen()
 sf::RenderWindow	*Window::getSfmlWinPtr()
 {
   return (_win);
+}
+
+void	Window::deleteAllWidgets()
+{
+  for (auto elem : _list)
+    delete elem;
+  _list.clear();
+}
+
+sf::Sprite	Window::getBackground() const
+{
+  return (_background);
+}
+
+sf::Sprite	Window::getBackground2() const
+{
+  return (_background2);
+}
+
+void	Window::setBg1Pos(float x, float y)
+{
+  _background.setPosition(x, y);
+}
+
+void	Window::setBg2Pos(float x, float y)
+{
+  _background2.setPosition(x, y);
 }

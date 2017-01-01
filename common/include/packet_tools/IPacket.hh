@@ -20,7 +20,12 @@ namespace Packet
   class	IPacket
   {
   public:
-     /*! PacketType contains all differents values in the packets for the common protocol */
+#define PACKET_GROUP 6
+#define PACKET_VERSION 2
+#define ERROR_CONNECT "Connection to the server failed"
+#define ACCEPT_MESSAGE "Hi, you are accepted by rembur_g server's"
+
+    /*! PacketType contains all differents values in the packets for the common protocol */
      enum class PacketType : uint8_t {
         ERROR_PACKET	= 0x00,
         WELCOME			= 0x01,
@@ -39,10 +44,14 @@ namespace Packet
         LOGIN			= 0x14,
         REGISTER		= 0x15,
         LOGOUT			= 0x16,
-
+        ASKROOMDATA 	= 0x17,
+		ACCEPT 			= 0x18,
+		PROFILE 		= 0x19,
+        
         DISCONNECT		= 0x20,
         SHOOT			= 0x21,
-        MOVE			= 0x22,
+        POSITION_PLAYER	= 0x22,
+        CHAT_MESSAGE	= 0x23,
 
         PLAYERS			= 0x81,
         SHOOTS			= 0x82,
@@ -51,30 +60,39 @@ namespace Packet
         MUSIC			= 0x85,
         SOUND			= 0x86,
 		PING			= 0x87,
-		PONG			= 0x88
+		PONG			= 0x88,
+		ASK_ROOMS		= 0x89,
+		GAMEENDED		= 0x90,
+		SHOOTS_CLIENT	= 0x99
     };
 
     /*! Clean all necessary data for packet management */
     virtual ~IPacket(){};
-	
+
     /*! Return the packet's type */
     virtual PacketType getType() const = 0;
-	
+
 	/*! Return the packet's timer ID */
 	virtual uint32_t getTickId() const = 0;
-	
+
 	/*! Change the packet's timer ID */
-	virtual void setTickId(uint32_t tickId) = 0;
+    virtual void setTickId(uint32_t tickId) = 0;
 
     /*! Return the packet's data size  */
     virtual uint32_t getSize() const = 0;
 
     /*! Return packet's data */
     virtual uint8_t* getData() const = 0;
-	
+
 	/*! Generate the packet for network transition */
     virtual uint8_t *generate() const = 0;
-	
+
+	/*! Return true if the packet is a TCP packet */
+	virtual bool isTcp() const = 0;
+
+	/*! Return true if the packet is a UDP packet */
+	virtual bool isUdp() const = 0;
+
 	/*! Instanciate a PacketUnknown from the current packet */
     virtual PacketUnknown getPacketUnknown() const = 0;
   };

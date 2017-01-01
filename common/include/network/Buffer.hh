@@ -5,7 +5,7 @@
 // Login   <bertho_i@epitech.net>
 // 
 // Started on  Tue Jun 14 16:46:40 2016 Simon BERTHO
-// Last update Sat Nov 12 14:06:10 2016 lecoq
+// Last update Sun Dec 18 19:37:40 2016 lecoq
 //
 
 #ifndef BUFFER_HH
@@ -17,27 +17,21 @@
 #include <stdint.h>
 #include <stdio.h>
 
-//# include	"PacketUnknown.hpp"
+# include	"PacketUnknown.hpp"
 
 class Buffer
 {
 public:
   Buffer();
   ~Buffer();
-  /*void			push(const PacketUnknown &);
+  void			push(const PacketUnknown &);
   PacketUnknown		pop();
-  size_t		len() const;
-  void			clear();
-  PacketUnknown		front();*/
+  PacketUnknown		front();
   bool			isEmpty() const;
-  void			push(const std::string &);
-  const std::string	pop();
   size_t		len() const;
   void			clear();
-  std::string	front();
 protected:
-  //std::queue<PacketUnknown>		list;
-  std::queue<std::string>		listS;
+  std::queue<PacketUnknown>		listS;
 };
 
 #endif

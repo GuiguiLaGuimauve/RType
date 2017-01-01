@@ -17,7 +17,7 @@ PacketError::PacketError(const std::string & message, const IPacket::PacketType 
 
 	ps.add((uint16_t)_message.size());
 	ps.add(_message);
-	dataPacketSize += 2 + _message.size();
+	dataPacketSize += 2 + (uint32_t)_message.size();
 
 	ps.add((uint8_t)_errorType);
 	dataPacketSize += 1;
@@ -40,7 +40,7 @@ PacketError::PacketError(const uint8_t *data)
 		_data[a] = data[a + 9];
 
 	_message = pd.getString(posInPacket + 2, pd.get16(posInPacket));
-	posInPacket += 2 + pd.get16(posInPacket);
+	posInPacket += 2 + (uint32_t)pd.get16(posInPacket);
 
 	_errorType = (IPacket::PacketType)pd.get8(posInPacket);
 	posInPacket += 1;

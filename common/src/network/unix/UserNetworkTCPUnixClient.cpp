@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 //
 // Started on  Fri Oct 21 15:02:22 2016 julien dufrene
-// Last update Thu Dec 15 16:41:14 2016 julien dufrene
+// Last update Sat Dec 31 16:02:40 2016 Lecoq Maxime
 //
 
 #include "UserNetworkTCPUnixClient.hh"
@@ -20,13 +20,23 @@ IUserNetwork		*UserNetworkTCPUnixClient::readSocket(ISocket *net)
 {
   (void)net;
   char			buff[16384];
+  uint8_t		*s;
   int32_t		nb;
 
   if ((nb = recv(_fd, buff, 16384, 0)) > 0)
     {
-      buff[nb] = 0;
-      std::string	tmp(buff);
-      buff_r.push(tmp);
+      s = new uint8_t[nb + 1];
+      int32_t i;
+      i = 0;
+      while (i < nb)
+	{
+	  s[i] = buff[i];
+	  i++;
+	}
+      s[nb] = 0;
+      cutRead((uint8_t *)s, nb);
+      //PacketUnknown pkt((uint8_t *)buff, nb);
+      //buff_r.push(pkt);
     }
   if (nb == 0 || nb == -1)
     {
@@ -40,11 +50,13 @@ IUserNetwork		*UserNetworkTCPUnixClient::readSocket(ISocket *net)
 void			UserNetworkTCPUnixClient::writeSocket(ISocket *net)
 {
   (void)net;
-  std::string		to_write;
+  PacketUnknown         to_write;
 
   to_write = buff_w.front();
-  if (send(_fd, to_write.c_str(), to_write.size(), 0) == -1)
+  if (to_write.packetIsValid() == false)
+    return;
+  if (send(_fd, to_write.getPacketData(), to_write.getPacketSize(), 0) != to_write.getPacketSize())
     std::cerr << "Error on write" << std::endl;
   else
-    buff_w.pop();
+    buff_w.pop();                                
 }

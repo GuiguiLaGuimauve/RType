@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:19:16 2016 Maxime Lecoq
-// Last update Fri Dec 16 18:30:32 2016 lecoq
+// Last update Sun Jan  1 00:45:18 2017 Lecoq Maxime
 //
 
 #ifndef CORECLIENT_HH_
@@ -15,6 +15,11 @@
 # include	"ACore.hh"
 # include	"ManagerClient.hh"
 # include	"EventQueue.hh"
+# include	"StringCk.hpp"
+# include	"Vector.hh"
+# include	"Thread.hpp"
+# include	"GameData.hpp"
+# include	"Clock.hpp"
 
 using namespace Gui;
 using namespace Gui::Audio;
@@ -24,7 +29,11 @@ using namespace EventPart;
 
 class CoreClient : public ACore
 {
-  public:
+# define IP_FORMAT_ERROR "The IP is not correct"
+# define PORT_FORMAT_ERROR "The port is not correct"
+# define LOGIN_ERROR	"Login or password is empty"
+  
+public:
   CoreClient();
   ~CoreClient();
   void		run();
@@ -32,18 +41,54 @@ class CoreClient : public ACore
   void		deleteManager();
 private:
   typedef bool (CoreClient::*fEvent)(EventPart::Event);
+  typedef bool (CoreClient::*fPkt)(const IPacket *, IUserNetwork *);
+  typedef bool (CoreClient::*fBack)();
   bool		manageGui();
   bool		manageNetwork();
+  bool		managePackets();
 
   bool                          quit(EventPart::Event);
   bool                          tryConnect(EventPart::Event);
+  bool                          tryLogin(EventPart::Event);
+  bool                          createGame(EventPart::Event);
+  bool				leaveRoom(EventPart::Event);
+  bool                          joinRoom(EventPart::Event);
+  bool                          watchRoom(EventPart::Event);
+  bool                          startGame(EventPart::Event);
+  bool                          shoot(EventPart::Event);
 
+  bool				welcome(const IPacket *, IUserNetwork *);
+  bool				accept(const IPacket *, IUserNetwork *);
+  bool				errorPacket(const IPacket *, IUserNetwork *);
+  bool				rooms(const IPacket *, IUserNetwork *);
+  bool				profile(const IPacket *, IUserNetwork *);
+  bool				udpData(const IPacket *, IUserNetwork *);
+  bool				ping(const IPacket *, IUserNetwork *);
+  bool				pong(const IPacket *, IUserNetwork *);
+  bool				positionPlayer(const IPacket *, IUserNetwork *);
+  bool				players(const IPacket *, IUserNetwork *);
+  bool				gameEnded(const IPacket *, IUserNetwork *);
+  bool				shoots(const IPacket *, IUserNetwork *);
+  bool				background(const IPacket *, IUserNetwork *);
+  bool				ennemies(const IPacket *, IUserNetwork *);
+
+  bool				exitClient();
+  bool				goConnect();
+  bool				goLogin();
+  bool				goRooms();
+  void				timeLine();
 private:
   IManagerClient	*_manager;
   IGUI			*_gui;
   ISoundManager		*_sound;
   IEventQueue		*_eventQueue;
   std::map<EventPart::Event::TYPE, fEvent>      _eventPtr;
+  std::map<IPacket::PacketType, fPkt>      _packetPtr;
+  std::map<std::string, fBack>      _backPtr;
+  std::string		_status;
+  GameData		*_gameData;
+  Thread		*_th;
+  std::string		_game;
 };
 
 #endif /* !CORECLIENT_HH_ */
