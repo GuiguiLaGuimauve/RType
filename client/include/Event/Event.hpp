@@ -5,7 +5,7 @@
 // Login   <bertho_i@epitech.net>
 //
 // Started on  Wed Oct 19 11:16:12 2016 Simon BERTHO
-// Last update Mon Dec 26 16:47:06 2016 La Guimauve
+// Last update Sun Jan  1 02:29:23 2017 root
 //
 
 #ifndef EVENT_HH
@@ -42,6 +42,7 @@ namespace EventPart
 	KEY_DOWN,
 	KEY_RIGHT,
 	KEY_LEFT,
+	KEY_BACK,
 	LOGIN_SWITCH_IMPUT,
 	CLICK_SELECT_GAME,
 	BUTTON_SCROLL_UP,
@@ -61,7 +62,8 @@ namespace EventPart
 	LEAVE_GAME, // string["GAME_NAME"]
 	WATCH_GAME, // string["GAME_NAME"]
 	START_GAME, // string["GAME_NAME"]
-	NEW_CHAT_MESSAGE // string["MSG"] 
+	NEW_CHAT_MESSAGE, // string["MSG"] 
+	BACK
       };
 
     // constructeur classique
