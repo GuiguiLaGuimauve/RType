@@ -1,13 +1,16 @@
 cmake_minimum_required(VERSION 2.8)
 
+message("Deuxième CMAKE")
+message(${CMAKE_CURRENT_SOURCE_DIR})
 project (LIB)
+set (CMAKE_CURRENT_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/ennemies_lib/)
 set(CMAKE_BUILD_TYPE Release)
-set(EXECUTABLE_OUTPUT_PATH ../)
+#set(EXECUTABLE_OUTPUT_PATH )
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
-file(GLOB lib_src "src/AElement.cpp" "src/Ennemy.cpp")
-file(GLOB alien_src "src/Alien.cpp")
-file(GLOB alf_src "src/Alf.cpp")
+file(GLOB lib_src ${CMAKE_CURRENT_SOURCE_DIR}src/AElement.cpp ${CMAKE_CURRENT_SOURCE_DIR}src/Ennemy.cpp)
+file(GLOB alien_src ${CMAKE_CURRENT_SOURCE_DIR}src/Alien.cpp)
+file(GLOB alf_src ${CMAKE_CURRENT_SOURCE_DIR}src/Alf.cpp)
 add_definitions(-std=c++11)
 
 IF (UNIX)

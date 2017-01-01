@@ -8,6 +8,7 @@ cmake_policy(SET CMP0015 NEW)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_SUPPRESS_REGENERATION true)
 set(EXECUTABLE_OUTPUT_PATH ${CMAKE_SOURCE_DIR})
+set(LIBRARY_OUTPUT_PATH ${CMAKE_SOURCE_DIR}/ennemies_lib/)
 ############################################
 #                   SFML                   #
 ############################################
@@ -134,3 +135,23 @@ ENDIF (WIN32)
       target_link_libraries(RType ${CMAKE_DL_LIBS})
     ENDIF (UNIX)
   ENDIF (SFML_FOUND AND ${SFML_VERSION_P} EQUAL "2")
+
+
+# Make dynamic library
+set (CMAKE_CURRENT_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/ennemies_lib/)
+set(CMAKE_BUILD_TYPE Release)
+#set(EXECUTABLE_OUTPUT_PATH )
+
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
+file(GLOB lib_src ${CMAKE_CURRENT_SOURCE_DIR}src/AElement.cpp ${CMAKE_CURRENT_SOURCE_DIR}src/Ennemy.cpp)
+file(GLOB alien_src ${CMAKE_CURRENT_SOURCE_DIR}src/Alien.cpp)
+file(GLOB alf_src ${CMAKE_CURRENT_SOURCE_DIR}src/Alf.cpp)
+add_definitions(-std=c++11)
+
+IF (UNIX)
+add_library(Alien SHARED ${lib_src} ${alien_src})
+add_library(Alf SHARED ${lib_src} ${alf_src})
+ELSEIF (WIN32)
+add_library(Alien SHARED ${lib_src} ${alien_src})
+add_library(Alf SHARED ${lib_src} ${alf_src})
+ENDIF ()
