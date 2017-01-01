@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 11:46:33 2016 Maxime Lecoq
-// Last update Sun Jan  1 04:27:35 2017 Lecoq Maxime
+// Last update Sun Jan  1 04:59:30 2017 Lecoq Maxime
 //
 
 #ifndef IGAMEMANAGER_HH_
@@ -32,7 +32,6 @@ public:
   virtual void		runGame(IGame *) = 0;
   virtual bool		gamesUpdate() = 0;
   virtual bool		execPacket(const IPacket *, const std::string &) = 0;
-  virtual void          updateRoom(const std::string &, DataPlayer *) = 0;
 };
 
 #endif /* !IGAMEMANAGER_HH_ */

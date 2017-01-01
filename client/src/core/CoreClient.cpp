@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Sun Jan  1 03:55:58 2017 Lecoq Maxime
+// Last update Sun Jan  1 04:54:22 2017 Lecoq Maxime
 //
 
 #include	"CoreClient.hh"
@@ -429,7 +429,6 @@ void		CoreClient::timeLine()
   
   while (_gameData->gameIsEnded() == false)
     {
-      std::cout << "pp" << std::endl;
       if (_game == "player" && _gameData->getTick() != (uint32_t)(clo.getTimeMilli() / 50))
 	{
 	  _gameData->setTick(clo.getTimeMilli() / 50);

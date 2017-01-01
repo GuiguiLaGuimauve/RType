@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 15:45:57 2016 Maxime Lecoq
-// Last update Sun Jan  1 04:37:44 2017 Lecoq Maxime
+// Last update Sun Jan  1 04:58:57 2017 Lecoq Maxime
 //
 
 #include	"Game.hh"
@@ -138,7 +138,6 @@ void		Game::movements()
   uint64_t	i;
   uint64_t	x;
   uint64_t	z;
-  std::vector<std::string> list = getAllName();
   x = 0;
   z = 0;
   while (_room->getPlayers().size() != 0)
@@ -161,6 +160,7 @@ void		Game::movements()
 	}
       if (z != (uint64_t)clo.getTimeMilli() / 25)
 	{
+	  std::vector<std::string> list = getAllName();
 	  z = clo.getTimeMilli() / 25;
 	  i = 0;
 	  while (i < _background.size())
@@ -196,13 +196,13 @@ void		Game::movements()
 void		Game::timeLine()
 {
   Clock         clo;
-  std::vector<std::string> list = getAllName();
   IPacket	*pa;
   _timeline = 0;
   while (_room->getPlayers().size() != 0)
     {
       if (_timeline != (uint64_t)clo.getTimeMilli() / 50)
 	{	  
+	  std::vector<std::string> list = getAllName();
 	  _timeline = clo.getTimeMilli() / 50;
 	  pa = _factory->getPacket("players", _room->getPlayers());
 	  pa->setTickId(_timeline);
@@ -297,9 +297,3 @@ void Game::updatePlayerShoots(const IPacket *pa, const std::string &m)
     }
 }
 
-void		Game::addViewer(DataPlayer *p)
-{
-  std::vector<DataPlayer *> v = _room->getWatchers();
-  v.push_back(p);
-  _room->setWatchers(v);
-}
