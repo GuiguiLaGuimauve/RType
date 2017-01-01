@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 15:45:57 2016 Maxime Lecoq
-// Last update Sun Jan  1 15:58:29 2017 Lecoq Maxime
+// Last update Sun Jan  1 17:13:16 2017 Lecoq Maxime
 //
 
 #include	"Game.hh"
@@ -149,8 +149,9 @@ void		Game::movements()
 	  i = 0;
 	  while (i < _shoots.size())
 	    {
-	      _shoots[i]->setX(_shoots[i]->getX() + 2);
-	      if (_shoots[i]->getX() > 1920)
+	      _shoots[i]->move();
+	      if (_shoots[i]->getX() > 1920 || _shoots[i]->getX() < 0
+		  || _shoots[i]->getY() < 0 || _shoots[i]->getY() > 1080)
 		{
 		  delete _shoots[i];
 		  _shoots.erase(_shoots.begin() + i);
@@ -282,7 +283,7 @@ void Game::updatePlayerShoots(const IPacket *pa, const std::string &m)
 		//		delete pl->getShoots()[x];
 		//else
 		{
-		  DataShoot *d = new DataShoot;
+		  DataShoot *d = new ShootPlayer;
 		    d->setX(p->getShoots()[x]->getX());
 		    d->setY(p->getShoots()[x]->getY());
 		    d->setDamage(p->getShoots()[x]->getDamage());

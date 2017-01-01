@@ -49,7 +49,7 @@ PacketShoots::PacketShoots(const uint8_t *data)
 	posInPacket += 2;
 	for (uint64_t i = 0; i < shootsLength; i++)
 	{
-		DataShoot *shootsTemp = new DataShoot();
+		DataShoot *shootsTemp = new DataShoot;
 
 		shootsTemp->setX(pd.get16(posInPacket));
 		posInPacket += 2;
