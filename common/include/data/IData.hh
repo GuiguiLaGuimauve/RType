@@ -61,6 +61,9 @@ namespace Data
 	
 	virtual void setX(const int16_t &) = 0;
 	virtual void setY(const int16_t &) = 0;
+	
+	virtual void setHealth(const int16_t &) = 0;
+	virtual int16_t getHealth() const = 0;
 
   };
 };

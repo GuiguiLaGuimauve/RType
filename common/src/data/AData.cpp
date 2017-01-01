@@ -105,3 +105,13 @@ void AData::setX(const int16_t &x)
 {
 	_x = x;
 }
+
+void AData::setHealth(const int16_t &h)
+{
+	_health = h;
+}
+
+int16_t AData::getHealth() const
+{
+	return (_health);
+}

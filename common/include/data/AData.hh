@@ -33,6 +33,8 @@ namespace Data
 	void setSizeX(const uint16_t &);
 	void setY(const int16_t &);
 	void setX(const int16_t &);
+	void setHealth(const int16_t &);
+	int16_t getHealth() const;
 
   protected:	
 	/*! The X position of the object in the window */
@@ -61,6 +63,9 @@ namespace Data
 	
 	/*! Filename of the sprite */
 	std::string _spriteFileName;
+	
+	/*! Health of the Data */
+	int16_t _health;
   };
 };
 

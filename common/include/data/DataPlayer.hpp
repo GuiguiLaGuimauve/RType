@@ -26,7 +26,6 @@ public:
   uint16_t getStageSucceed() const { return (_stageSucceed); };
   uint16_t getGamePlayed() const { return (_gamePlayed); };
   uint8_t getId() const { return (_id); };
-  uint8_t getHealth() const { return (_health); };
   bool getOnline() const { return (_online); };
   std::vector<DataShoot *> getShoots() const { return (_shoots); };
   
@@ -35,7 +34,6 @@ public:
   void setStageSucceed(const uint16_t & stageSucceed) { _stageSucceed = stageSucceed; };
   void setGamePlayed(const uint16_t & gamePlayed) { _gamePlayed = gamePlayed; };
   void setId(const uint8_t & id) { _id = id; };
-  void setHealth(const uint8_t & health) { _health = health; };
   void setOnline(const bool & status) { _online = status; }
   void setShoots(const std::vector<DataShoot *> &s) {
     _shoots = s;
@@ -49,7 +47,6 @@ private:
   uint16_t _stageSucceed;
   uint16_t _gamePlayed;
   uint8_t _id;
-  uint8_t _health;
   bool _online;
   std::vector<DataShoot *> _shoots;
 };
