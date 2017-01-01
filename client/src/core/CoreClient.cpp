@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Sun Jan  1 15:12:39 2017 Lecoq Maxime
+// Last update Sun Jan  1 16:14:34 2017 root
 //
 
 #include	"CoreClient.hh"
@@ -502,7 +502,7 @@ bool		CoreClient::background(const IPacket *pa, IUserNetwork *u)
   (void)p;
   //_gameData->setMarge(pa->getTickId() - _gameData->getTick());
   //  if (pa->getTickId() == _gameData->getTick() || pa->getTickId() - _gameData->getTick() == 1)
-  //  _gui->setEnvsPositions(p->getBackgrounds());
+  _gui->setEnvsPositions(p->getBackgrounds());
   return (true);
 }
 

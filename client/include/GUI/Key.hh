@@ -11,8 +11,9 @@ namespace Gui
       KEY_DOWN = 4,
       KEY_ATTACK = 5,
       KEY_CONFIRM = 6,
-	  KEY_QUIT = 7
-    };
+	KEY_QUIT = 7,
+	KEY_BACK = 8
+	};
 }
 
 #endif

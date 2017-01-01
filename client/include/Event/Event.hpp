@@ -5,7 +5,7 @@
 // Login   <bertho_i@epitech.net>
 //
 // Started on  Wed Oct 19 11:16:12 2016 Simon BERTHO
-// Last update Sun Jan  1 02:43:30 2017 root
+// Last update Sun Jan  1 16:42:30 2017 root
 //
 
 #ifndef EVENT_HH
@@ -42,7 +42,7 @@ namespace EventPart
 	KEY_DOWN,
 	KEY_RIGHT,
 	KEY_LEFT,
-	KEY_BACK,
+	//KEY_BACK,
 	LOGIN_SWITCH_IMPUT,
 	CLICK_SELECT_GAME,
 	BUTTON_SCROLL_UP,

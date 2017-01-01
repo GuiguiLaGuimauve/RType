@@ -12,7 +12,7 @@ GuiEventManager::GuiEventManager(sf::Window *w):
   _keys[sf::Keyboard::LControl] = KEY_ATTACK;
   _keys[sf::Keyboard::Space] = KEY_ATTACK;
   _keys[sf::Keyboard::Escape] = KEY_QUIT;
-  //_keys[sf::Keyboard::F1] = KEY_BACKE;
+  _keys[sf::Keyboard::F1] = KEY_BACK;
 }
 
 GuiEventManager::~GuiEventManager()
