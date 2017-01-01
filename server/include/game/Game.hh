@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 11:54:48 2016 Maxime Lecoq
-// Last update Sun Jan  1 19:25:57 2017 Lecoq Maxime
+// Last update Sun Jan  1 19:50:23 2017 Lecoq Maxime
 //
 
 #ifndef GAME_HH_
@@ -15,6 +15,7 @@
 # include	<string>
 # include	<vector>
 # include	<map>
+# include	<ctime>
 # include	"IElement.hh"
 # include	"IGame.hh"
 # include	"DataRoom.hpp"

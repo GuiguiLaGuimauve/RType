@@ -5,13 +5,14 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 15:45:57 2016 Maxime Lecoq
-// Last update Sun Jan  1 19:29:42 2017 Lecoq Maxime
+// Last update Sun Jan  1 19:53:33 2017 Lecoq Maxime
 //
 
 #include	"Game.hh"
 
 Game::Game(DataRoom *p) : _room(p), _timeline(0)
 {
+  std::srand(std::time(0));
   _ptr[IPacket::PacketType::POSITION_PLAYER] = &IGame::updatePosPlayer;
   _ptr[IPacket::PacketType::SHOOTS_CLIENT] = &IGame::updatePlayerShoots;
 
@@ -258,8 +259,17 @@ void		Game::background()
     {
       if (i != (uint64_t)clo.getTimeMilli() / 200)
 	{
-	  std::vector<std::string> list = getAllName();
 	  i = clo.getTimeMilli() / 200;
+	  DataBackground *d = new DataBackground;
+	  d->setX(1920);
+	  uint16_t y = std::rand() % 1080;
+	  d->setY(y);
+	  d->setSpeed(-2);
+	  if (y % 2== 0)
+	    d->setSpriteName("Env-1");
+	  else
+	    d->setSpriteName("Env-2");
+	  _background.push_back(d);
 	}
       std::this_thread::sleep_for(std::chrono::milliseconds(100));
     }
