@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 15:45:57 2016 Maxime Lecoq
-// Last update Sun Jan  1 17:33:56 2017 Lecoq Maxime
+// Last update Sun Jan  1 18:13:14 2017 Lecoq Maxime
 //
 
 #include	"Game.hh"
@@ -29,6 +29,7 @@ Game::Game(DataRoom *p) : _room(p), _timeline(0)
   d->setY(0);
   d->setSpeed(-1);
   _background.push_back(d); 
+
   /*  d = new DataBackground(195, 100);
   d->setSpeed(-1);
   _background.push_back(d);
@@ -64,6 +65,31 @@ Game::~Game()
   while (i < _ennemyList.size())
     {
       delete _ennemyList[i];
+      i++;
+    }
+}
+
+void			Game::refreshEnnemy()
+{
+  std::vector<DataEnnemy *>	en;
+  uint64_t			i;
+  uint64_t			x;
+  bool				find;
+  
+  i = 0;
+  en = _ennemyGenerator->loadAllEnnemy();
+  while (i < _ennemyList.size())
+    {
+      x = 0;
+      find = false;
+      while (x < en.size())
+	{
+	  if (_ennemyList[i]->getSpriteName() == en[x]->getSpriteName())
+	    find = true;
+	  x++;
+	}
+      if (find == false)
+	_ennemyList.push_back(en[x]);
       i++;
     }
 }
@@ -296,8 +322,4 @@ void Game::updatePlayerShoots(const IPacket *pa, const std::string &m)
       pl->setShoots(tmpD);
       i++;
     }
-}
-
-void			Game::refreshEnnemy()
-{
 }
