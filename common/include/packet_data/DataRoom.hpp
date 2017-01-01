@@ -8,6 +8,7 @@
 #include <stdint.h>
 #include <string>
 #include <vector>
+#include "AData.hh"
 #include "DataPlayer.hpp"
 
 class DataRoom {

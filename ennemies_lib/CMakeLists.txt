@@ -5,7 +5,7 @@ set(CMAKE_BUILD_TYPE Release)
 set(EXECUTABLE_OUTPUT_PATH ../)
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
-file(GLOB lib_src "src/AElement.cpp" "src/Ennemy.cpp")
+file(GLOB lib_src "src/AData.cpp" "src/DataEnnemy.cpp")
 file(GLOB alien_src "src/Alien.cpp")
 file(GLOB alf_src "src/Alf.cpp")
 add_definitions(-std=c++11)
