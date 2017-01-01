@@ -19,7 +19,7 @@ PacketPlayers::PacketPlayers(const std::vector<DataPlayer *> & players)
 	for (uint64_t i = 0; i < _players.size(); i++)
 	{
 
-	  ps.add((uint16_t)__players[i]->getName().size());
+	  ps.add((uint16_t)_players[i]->getName().size());
 	  ps.add(_players[i]->getName());
 	  dataPacketSize += 2 + (uint32_t)_players[i]->getName().size();
 	  
