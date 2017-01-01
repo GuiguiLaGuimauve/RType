@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 15:45:57 2016 Maxime Lecoq
-// Last update Sun Jan  1 05:52:03 2017 Lecoq Maxime
+// Last update Sun Jan  1 13:38:20 2017 Lecoq Maxime
 //
 
 #include	"Game.hh"
@@ -135,6 +135,7 @@ void		Game::movements()
   uint64_t	i;
   uint64_t	x;
   uint64_t	z;
+  IPacket	*pa;
   x = 0;
   z = 0;
   while (_room->getPlayers().size() != 0)
@@ -180,6 +181,10 @@ void		Game::movements()
 		    i++;
 		}
 	    }
+	  pa = _factory->getPacket("background", _background);
+	  pa->setTickId(_timeline);
+	  _udp->pushTo(list, pa->getPacketUnknown());
+	  delete pa;
 	}
     }
 }
@@ -208,14 +213,8 @@ void		Game::timeLine()
 	  pa->setTickId(_timeline);
 	  _udp->pushTo(list, pa->getPacketUnknown());
 	  delete pa;
-	  pa = _factory->getPacket("background", _background);
-	  pa->setTickId(_timeline);
-	  _udp->pushTo(list, pa->getPacketUnknown());
-	  delete pa;
 	}
-#ifndef _WIN32
       std::this_thread::sleep_for(std::chrono::milliseconds(25));
-#endif //_WIN32
     }
 }
 
