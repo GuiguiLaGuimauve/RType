@@ -26,10 +26,10 @@ PacketPlayers::PacketPlayers(const std::vector<DataPlayer *> & players)
 	  ps.add(_players[i]->getId());
 	  dataPacketSize += 1;
 
-		ps.add(_players[i]->getX());
+		ps.add((uint16_t)(_players[i]->getX()));
 		dataPacketSize += 2;
 
-		ps.add(_players[i]->getY());
+		ps.add((uint16_t)(_players[i]->getY()));
 		dataPacketSize += 2;
 
 		ps.add(_players[i]->getHealth());

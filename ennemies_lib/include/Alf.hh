@@ -13,40 +13,24 @@
 
 #include <utility>
 #include <vector>
-#include "IElement.hh"
-#include "Ennemy.hh"
+#include "DataEnnemy.hpp"
 
 #ifdef _WIN32
 # define ALF_API __declspec(dllexport)
 #endif //_WIN32
 
-class Alf : public Ennemy
+class Alf : public DataEnnemy
 {
 private:
-  /*uint16_t _sizeX;
-  uint16_t _sizeY;
-  int32_t _hitboxDeltaX;
-  int32_t _hitboxDeltaY;
-  uint32_t _hitboxSizeX;
-  uint32_t _hitboxSizeY;
-  std::string _spriteName;
-  std::vector<std::pair<uint16_t, uint16_t>> _posititions;*/
+
 public:
-	Alf();
-  virtual uint16_t getSizeX();
-  virtual uint16_t getSizeY();
-  virtual int32_t  getHitboxDeltaX();
-  virtual int32_t  getHitboxDeltaY();
-  virtual uint32_t getHitboxSizeX();
-  virtual uint32_t getHitboxSizeY();
-  virtual std::string getSpriteName();
-  virtual std::vector<std::pair<int16_t, int16_t>> getPositions();
+  Alf();
 };
 
 extern "C"
 #ifdef _WIN32
 ALF_API
 #endif //_WIN32
- Ennemy	*entrypoint();
+DataEnnemy	*entrypoint();
 
 #endif //_ALF_HH_

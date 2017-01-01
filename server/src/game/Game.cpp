@@ -14,22 +14,19 @@ Game::Game(DataRoom *p) : _room(p), _timeline(0)
 {
   _ptr[IPacket::PacketType::POSITION_PLAYER] = &IGame::updatePosPlayer;
   _ptr[IPacket::PacketType::SHOOTS_CLIENT] = &IGame::updatePlayerShoots;
+
   //_ennemyGenerator = new EnnemyGenerator;
-  //std::vector<Ennemy *> en = _ennemyGenerator->loadAllEnnemy();
-  /*uint64_t	i;
-  i = 0;
-  while (i < en.size())
-    {
-      DataEnnemy *d = new DataEnnemy;
-      d->setName(en[i]->getSpriteName());
-      //sethitbox
-      _ennemyList.push_back(d);
-      i++;
-1;2802;0c      }*/
-  DataBackground *d = new DataBackground(0, 0);
+  //_ennemyList = _ennemyGenerator->loadAllEnnemy();
+
+  DataBackground *d = new DataBackground;
+  d->setX(0);
+  d->setY(0);
+
   d->setSpeed(-1);
   _background.push_back(d);
-  d = new DataBackground(1920, 0);
+  d = new DataBackground;
+  d->setX(1920);
+  d->setY(0);
   d->setSpeed(-1);
   _background.push_back(d); 
   /*  d = new DataBackground(195, 100);
@@ -42,13 +39,13 @@ Game::Game(DataRoom *p) : _room(p), _timeline(0)
   /*  DataEnnemy *e = new DataEnnemy;
   e->setX(400);
   e->setY(200);
-  e->setName(_ennemyList[0]->getName());
+  e->setSpriteName(_ennemyList[0]->getSpriteName());
   _ennemy.push_back(e);
   
   e = new DataEnnemy;  
   e->setX(1000);
   e->setY(400);
-  e->setName(_ennemyList[0]->getName());
+   e->setName(_ennemyList[0]->getName());
   _ennemy.push_back(e);*/
 }
 

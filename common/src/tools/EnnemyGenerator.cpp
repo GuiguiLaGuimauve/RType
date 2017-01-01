@@ -9,15 +9,16 @@
 //
 
 #include <vector>
+#include "DataEnnemy.hpp"
 #include "EnnemyGenerator.hh"
 
-std::vector<Ennemy *> EnnemyGenerator::loadAllEnnemy()
+std::vector<DataEnnemy *> EnnemyGenerator::loadAllEnnemy()
 {
 	EnnemyLoader el;
-	std::vector<Ennemy *> tmp;
+	std::vector<DataEnnemy *> tmp;
 #ifdef _WIN32
-	tmp.push_back(el.LoadEnnemy("Alienlib.dll"));
-	tmp.push_back(el.LoadEnnemy("Alflib.dll"));
+	tmp.push_back(el.LoadEnnemy("Alien.dll"));
+	tmp.push_back(el.LoadEnnemy("Alf.dll"));
 #else
 	tmp.push_back(el.LoadEnnemy("libAlien.so"));
 	tmp.push_back(el.LoadEnnemy("libAlf.so"));

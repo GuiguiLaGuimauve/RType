@@ -38,6 +38,7 @@ include_directories(common/include/packet)
 include_directories(common/include/core)
 include_directories(common/include/game)
 include_directories(common/include/network)
+include_directories(common/include/data)
 IF (WIN32)
 include_directories(common/include/network/windows)
 ELSE ()
@@ -63,6 +64,7 @@ include_directories(server/include/core)
 include_directories(server/include/game)
 
 # Files Common
+FILE (GLOB COMMONDATA "common/src/data/*.cpp")
 FILE (GLOB COMMONCORE "common/src/core/*.cpp")
 FILE (GLOB COMMONPACKET "common/src/packet/*.cpp")
 FILE (GLOB COMMONPACKETT "common/src/packet_tools/*.cpp")
@@ -92,18 +94,18 @@ add_definitions(-std=c++11)
 
 # add_executable for WIN32
 IF (WIN32)
-  add_executable(RType_server assets/rc/server.rc ${COMMONCORE} ${COMMONPACKET} ${COMMONPACKETT} ${COMMONTOOLS} ${COMMONDLLOADER} ${COMMONELEMENTS} ${COMMONELEMENTSTOOLS} ${COMMONNETWORK} ${COMMONNETWORKWIN} ${server_src})
+  add_executable(RType_server assets/rc/server.rc ${COMMONDATA} ${COMMONCORE} ${COMMONPACKET} ${COMMONPACKETT} ${COMMONTOOLS} ${COMMONDLLOADER} ${COMMONELEMENTS} ${COMMONELEMENTSTOOLS} ${COMMONNETWORK} ${COMMONNETWORKWIN} ${server_src})
   IF (SFML_FOUND AND ${SFML_VERSION_P} EQUAL "2")
-  add_executable(RType assets/rc/client.rc ${COMMONCORE} ${COMMONPACKET} ${COMMONPACKETT} ${COMMONTOOLS} ${COMMONDLLOADER} ${COMMONELEMENTS} ${COMMONELEMENTSTOOLS} ${COMMONNETWORK} ${COMMONNETWORKWIN} ${client_src})
+  add_executable(RType assets/rc/client.rc ${COMMONDATA} ${COMMONCORE} ${COMMONPACKET} ${COMMONPACKETT} ${COMMONTOOLS} ${COMMONDLLOADER} ${COMMONELEMENTS} ${COMMONELEMENTSTOOLS} ${COMMONNETWORK} ${COMMONNETWORKWIN} ${client_src})
   ENDIF (SFML_FOUND AND ${SFML_VERSION_P} EQUAL "2")
 ENDIF (WIN32)
 
 # add_executable for UNIX
 IF (UNIX)
   IF (SFML_FOUND AND ${SFML_VERSION_P} EQUAL "2")
-  add_executable(RType ${COMMONCORE} ${COMMONPACKET} ${COMMONPACKETT} ${COMMONTOOLS} ${COMMONELEMENTS} ${COMMONELEMENTSTOOLS} ${COMMONNETWORK} ${COMMONNETWORKUNIX} ${client_src})
+  add_executable(RType ${COMMONDATA} ${COMMONCORE} ${COMMONPACKET} ${COMMONPACKETT} ${COMMONTOOLS} ${COMMONELEMENTS} ${COMMONELEMENTSTOOLS} ${COMMONNETWORK} ${COMMONNETWORKUNIX} ${client_src})
   ENDIF (SFML_FOUND AND ${SFML_VERSION_P} EQUAL "2")
-add_executable(RType_server ${COMMONCORE} ${COMMONPACKET} ${COMMONPACKETT} ${COMMONTOOLS} ${COMMONELEMENTS} ${COMMONELEMENTSTOOLS} ${COMMONNETWORK} ${COMMONNETWORKUNIX} ${server_src})
+add_executable(RType_server ${COMMONDATA} ${COMMONCORE} ${COMMONPACKET} ${COMMONPACKETT} ${COMMONTOOLS} ${COMMONELEMENTS} ${COMMONELEMENTSTOOLS} ${COMMONNETWORK} ${COMMONNETWORKUNIX} ${server_src})
 ENDIF (UNIX)
 
 # Set lib on Unix
@@ -143,7 +145,7 @@ set(CMAKE_BUILD_TYPE Release)
 #set(EXECUTABLE_OUTPUT_PATH )
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
-file(GLOB lib_src ${CMAKE_CURRENT_SOURCE_DIR}src/AElement.cpp ${CMAKE_CURRENT_SOURCE_DIR}src/Ennemy.cpp)
+file(GLOB lib_src ${CMAKE_CURRENT_SOURCE_DIR}src/AData.cpp)
 file(GLOB alien_src ${CMAKE_CURRENT_SOURCE_DIR}src/Alien.cpp)
 file(GLOB alf_src ${CMAKE_CURRENT_SOURCE_DIR}src/Alf.cpp)
 add_definitions(-std=c++11)
