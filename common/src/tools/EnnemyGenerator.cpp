@@ -5,7 +5,7 @@
 // Login   <rembur_g@epitech.eu>
 //
 // Started on  Sat Dec 31 11:54:26 2016 La Guimauve
-// Last update Sun Jan  1 19:33:25 2017 La Guimauve
+// Last update Sun Jan  1 23:12:33 2017 La Guimauve
 //
 
 #include <vector>
@@ -21,10 +21,12 @@ std::vector<DataEnnemy *> EnnemyGenerator::loadAllEnnemy()
 listlib.push_back("Bydos.dll");
 listlib.push_back("Alf.dll");
 listlib.push_back("Pirate.dll");
+listlib.push_back("Monster.dll");
 #else
 listlib.push_back("libAlf.so");
 listlib.push_back("libBydos.so");
 listlib.push_back("libPirate.so");
+listlib.push_back("libMonster.so");
 #endif // _WIN32
 
 for (uint64_t i = 0; i < listlib.size(); i++)
