@@ -23,7 +23,7 @@ Bydos::Bydos()
 
 void Bydos::move()
 {
-	static state = -1;
+	static int state = -1;
 	
 	if (_x > 1200)
 		_x += -5;
@@ -36,7 +36,7 @@ void Bydos::move()
 
 DataShoot *Bydos::getShoot()
 {
-	return (new ShootBydos);
+	return (new BydosShoot);
 }
 
 extern "C"
