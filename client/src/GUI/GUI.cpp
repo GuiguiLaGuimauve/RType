@@ -156,7 +156,7 @@ void		GUI::callback()
 	  case EventPart::Event::KEY_ATTACK:
 	  {
 		  if (_gameWidgets)
-			  ep = EventPart::Event(EventPart::Event::ATTACK, "X", _gameWidgets->_x, "Y", _gameWidgets->_y);
+			  ep = EventPart::Event(EventPart::Event::ATTACK, "X", _gameWidgets->_x + 80, "Y", _gameWidgets->_y + 10);
 		  break;
 	  }
 	  case EventPart::Event::KEY_UP:
