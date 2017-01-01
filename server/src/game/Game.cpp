@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 15:45:57 2016 Maxime Lecoq
-// Last update Sun Jan  1 18:13:14 2017 Lecoq Maxime
+// Last update Sun Jan  1 18:16:46 2017 Lecoq Maxime
 //
 
 #include	"Game.hh"
@@ -186,10 +186,10 @@ void		Game::movements()
 		i++;
 	    }
 	}
-      if (z != (uint64_t)clo.getTimeMilli() / 100)
+      if (z != (uint64_t)clo.getTimeMilli() / 200)
 	{
 	  std::vector<std::string> list = getAllName();
-	  z = clo.getTimeMilli() / 100;
+	  z = clo.getTimeMilli() / 200;
 	  i = 0;
 	  while (i < _background.size())
 	    {

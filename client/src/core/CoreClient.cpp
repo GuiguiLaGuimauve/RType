@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Sun Jan  1 17:35:24 2017 Lecoq Maxime
+// Last update Sun Jan  1 18:19:26 2017 Lecoq Maxime
 //
 
 #include	"CoreClient.hh"
@@ -328,7 +328,6 @@ bool	CoreClient::shoot(EventPart::Event e)
 bool	CoreClient::back(EventPart::Event e)
 {
   (void)e;
-  std::cout << "plup" << std::endl;
   return (true);
 }
 
