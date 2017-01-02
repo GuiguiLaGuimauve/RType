@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 15:45:57 2016 Maxime Lecoq
-// Last update Mon Jan  2 06:46:27 2017 Lecoq Maxime
+// Last update Mon Jan  2 10:06:09 2017 Lecoq Maxime
 //
 
 #include	"Game.hh"
@@ -152,6 +152,15 @@ void		Game::run()
 void		Game::end()
 {
   _room->setStarted(false);
+  uint64_t	i;
+
+  i = 0;
+  while (i < _th.size())
+    {
+      if (_th[i]->joinable())
+	_th[i]->join();
+      i++;
+    }
 }
 
 void		Game::movements()
@@ -179,6 +188,19 @@ void		Game::movements()
 		{
 		  delete _shoots[i];
 		  _shoots.erase(_shoots.begin() + i);
+		}
+	      else
+		i++;
+	    }
+	  i = 0;
+	  while (i < _shootsEn.size())
+	    {
+	      _shootsEn[i]->move();
+	      if (_shootsEn[i]->getX() > 1920 || _shootsEn[i]->getX() + _shootsEn[i]->getSizeX() < 0
+		  || _shootsEn[i]->getY() + _shootsEn[i]->getSizeY() < 0 || _shootsEn[i]->getY() > 1080)
+		{
+		  delete _shootsEn[i];
+		  _shootsEn.erase(_shootsEn.begin() + i);
 		}
 	      else
 		i++;
@@ -359,6 +381,8 @@ void		Game::monster()
 	  while (x < _ennemy.size())
 	    {
 	      DataShoot *d = _ennemy[x]->getShoot();
+	      d->setX(_ennemy[x]->getX());
+	      d->setY(_ennemy[x]->getY() + (d->getSizeY() / 2));
 	      _shootsEn.push_back(d);
 	      x++;
 	    }
@@ -486,4 +510,9 @@ void		Game::updatePlayer(const IPacket *pa, const std::string &m)
   updatePlayerShoots(pa2, m);
   delete pa1;
   delete pa2;
+}
+
+void		Game::addThread(mythrd::Thread *t)
+{
+  _th.push_back(t);
 }

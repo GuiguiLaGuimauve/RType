@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 15:44:47 2016 Maxime Lecoq
-// Last update Mon Jan  2 06:01:38 2017 Lecoq Maxime
+// Last update Mon Jan  2 09:52:57 2017 Lecoq Maxime
 //
 
 #include "GameManager.hh"
@@ -46,11 +46,11 @@ void	GameManager::createGame(DataRoom *room, const uint8_t *ip)
       delete pb;
       i++;
     }
-  _threadPool->launchTask(&GameManager::runGame, this, newGame);
-  _threadPool->launchTask(&GameManager::runTimeline, this, newGame);
-  _threadPool->launchTask(&GameManager::runMovements, this, newGame);
-  _threadPool->launchTask(&GameManager::popMonster, this, newGame);
-  _threadPool->launchTask(&GameManager::popBackground, this, newGame);
+  newGame->addThread(_threadPool->launchTask(&GameManager::runGame, this, newGame));
+  newGame->addThread(_threadPool->launchTask(&GameManager::runTimeline, this, newGame));
+  newGame->addThread(_threadPool->launchTask(&GameManager::runMovements, this, newGame));
+  newGame->addThread(_threadPool->launchTask(&GameManager::popMonster, this, newGame));
+  newGame->addThread(_threadPool->launchTask(&GameManager::popBackground, this, newGame));
 }
 
 bool          GameManager::gamesUpdate()

@@ -5,7 +5,7 @@
 // Login   <rembur_g@epitech.eu>
 //
 // Started on  Tue Dec 27 13:34:43 2016 La Guimauve
-// Last update Mon Jan  2 06:42:30 2017 Lecoq Maxime
+// Last update Mon Jan  2 09:32:29 2017 Lecoq Maxime
 //
 
 #include <utility>
@@ -17,8 +17,8 @@
 
 Alf::Alf()
 {
-  _x = 0;
-  _y = 0;
+  this->setX(0);
+  this->setY(0);
   this->setSizeX(24 * 3);
 	this->setSizeY(21 * 3);
 	this->setHitBoxSizeX(24 * 3);
@@ -31,7 +31,7 @@ Alf::Alf()
 
 void Alf::move()
 {
-	this->_x -= 4;
+	this->_x -= 1;
 }
 
 DataShoot *Alf::getShoot()

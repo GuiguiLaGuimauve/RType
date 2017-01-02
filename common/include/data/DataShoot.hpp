@@ -24,7 +24,7 @@ namespace Data {
 	  uint8_t getDamage() const { return (_damage); };
 
 	  void setDamage(const uint8_t & damage) { _damage = damage; };
-	  void move()
+	  virtual void move()
 	  {
 	    _x += _pattern[_patternPos].first;
 	    _y += _pattern[_patternPos].second;

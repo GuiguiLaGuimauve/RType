@@ -28,7 +28,7 @@ void Bydos::move()
 	static int wait = 0;
 	
 	if (_x > 1200)
-		_x += -5;
+		_x += -3;
 	_y += state * 2;
 	wait++;
 	if (wait == 10)
