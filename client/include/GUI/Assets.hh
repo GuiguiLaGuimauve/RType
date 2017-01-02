@@ -8,6 +8,7 @@
 #define FONT_PTSTART 			"assets/fonts/PrStart.ttf"
 
 #define PICTURE_BACKGROUND 		"assets/pictures/background.png"
+#define PICTURE_BACKGROUND_GAME		"assets/pictures/background-game.png"
 #define PICTURE_SHIPS 			"assets/pictures/ships.png"
 #define PICTURE_SHOTS 			"assets/pictures/shots.png"
 #define PICTURE_POWERUP1 		"assets/pictures/powerup1.png"
