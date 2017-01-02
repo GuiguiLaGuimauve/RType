@@ -922,7 +922,7 @@ void		GUI::updateCurrentGame()
 		ss << "\n\nPlayers :\n";
 		for (unsigned int i = 0; i < _currentGame->getPlayers().size(); i++)
 		  {
-		    ss << "\n - ";
+		    ss << "\n\n - ";
 		    if (_currentGame->getPlayers()[i]->getName().size() > 10)
 		      ss << _currentGame->getPlayers()[i]->getName().substr(0, 10) + "...  ";
 		    else
