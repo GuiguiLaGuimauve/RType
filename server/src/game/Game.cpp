@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 15:45:57 2016 Maxime Lecoq
-// Last update Mon Jan  2 04:28:48 2017 Lecoq Maxime
+// Last update Mon Jan  2 05:02:00 2017 Lecoq Maxime
 //
 
 #include	"Game.hh"
@@ -191,8 +191,8 @@ void		Game::movements()
 	  while (i < _ennemy.size())
 	    {
 	      _ennemy[i]->move();
-	      if (_ennemy[i]->getX() > 1920 || _ennemy[i]->getX() < 0
-		  || _ennemy[i]->getY() < 0 || _ennemy[i]->getY() > 1080)
+	      if (_ennemy[i]->getX() > 1920 || _ennemy[i]->getX() + _ennemy[i]->getSizeX() < 0
+		  || _ennemy[i]->getY()  + _ennemy[i]->getSizeY() < 0 || _ennemy[i]->getY() > 1080)
 		_ennemy.erase(_ennemy.begin() + i);
 	      else
 		i++;
@@ -213,8 +213,8 @@ void		Game::movements()
 		}
 	      else
 		{
-		  if (_background[i]->getX() > 1920 || _background[i]->getX() < 0
-		      || _background[i]->getY() < 0 || _background[i]->getY() > 1080)
+		  if (_background[i]->getX() > 1920 || _background[i]->getX() + _background[i]->getSizeX() < 0
+		      || _background[i]->getY() + _background[i]->getSizeY() < 0 || _background[i]->getY() > 1080)
 		    _background.erase(_background.begin() + i);
 		  else
 		    i++;
