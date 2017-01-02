@@ -44,16 +44,19 @@ GUI::~GUI()
 
 void		GUI::callback()
 {
-	std::stringstream ss;
-	static Clock c;
-	static int	fps = 0;
+	// limitation
+	if (timerLastCallback.getTimeMilli() < 1000 / FPS_MAX)
+		return ;
+	timerLastCallback.reset();
+	// fps
 	fps++;
-	if (c.getTimeMilli() >= 1000)
+	if (timerFps.getTimeMilli() >= 1000)
 	{
 		logFile << "FPS = " << fps << std::endl;
 		fps = 0;
-		c.reset();
+		timerFps.reset();
 	}
+	// callback
   _userEvents->callback();
   _win->drawAll();
   while (!_guiQueue->empty())
