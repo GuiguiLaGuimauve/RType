@@ -45,13 +45,11 @@ GUI::~GUI()
 void		GUI::callback()
 {
 	Clock timeInCallback;
-#ifndef _WIN32
 	// limitation
 	if (timerLastCallback.getTimeMilli() < 1000 / FPS_MAX)
 		return ;
 	timerLastCallback.reset();
 	// fps
-#endif // !WIN_32
 
 	fps++;
 	if (timerFps.getTimeMilli() >= 1000)
