@@ -46,9 +46,12 @@ void		GUI::callback()
 {
 	Clock timeInCallback;
 	// limitation
+#ifndef _WIN32
 	if (timerLastCallback.getTimeMilli() < 1000 / FPS_MAX)
 		return ;
 	timerLastCallback.reset();
+#endif // !1
+
 	// fps
 
 	fps++;
@@ -301,7 +304,14 @@ void		GUI::displayGame()
   _envsPos.clear();
   
   _audio->stopMusic();
-  _audio->playMusic("Stage1");
+  _audio->playMusic("Stage3");
+  //Style s;
+  //_gameWidgets->scoreWidget = _win->addWidget(GUI_WIDTH - 200, GUI_HEIGHT - 100, 0, 0);
+  //s.policeSize = 30;
+  //s.textColor = Color(TEXT_COLOR_R, TEXT_COLOR_G, TEXT_COLOR_B);
+  //_gameWidgets->scoreWidget->setText("");
+  //_gameWidgets->scoreWidget->setStyle(s);
+  
   //this->_gameWidgets->levelId = ...
   _win->setBackground(PICTURE_BACKGROUND_GAME);
   //_win->setBackground(this->backgroundMap[this->_gameWidgets->levelId]);// Ou on pourrait set le levelId ?
@@ -405,6 +415,9 @@ void		GUI::displayMenu()
 	_win->setBackground(PICTURE_BACKGROUND);
 	_menuWidgets = new Menu;
 	_menuWidgets->itScroll = 0;
+	// Launch music
+	_audio->playMusic("TitleScreen");
+	
 	//_menuWidgets->chat = new Chat(_win, _guiQueue, 1200, 700);
 
 	updateGameInfo();
@@ -434,7 +447,6 @@ void		GUI::displayMenu()
 	_menuWidgets->createGame->setStyle(s);
 	_menuWidgets->createGame->setOnClick([](IWidget *widget, CLICK)
 	{
-		std::cout << "Let's try to create a game !" << std::endl;
 		auto eq = widget->getEventQueue();
 		eq->push(EventPart::Event(EventPart::Event::BUTTON_CREATE_GAME));
 	});
@@ -517,7 +529,6 @@ void		GUI::displayMenu()
 	_menuWidgets->confirm->setStyle(s);
 	_menuWidgets->confirm->setOnClick([](IWidget *widget, CLICK)
 	{
-		std::cout << "Let's join !" << std::endl;
 		auto eq = widget->getEventQueue();
 		eq->push(EventPart::Event(EventPart::Event::BUTTON_JOIN_GAME));
 	});
@@ -533,7 +544,6 @@ void		GUI::displayMenu()
 	_menuWidgets->leaveButton->setStyle(s);
 	_menuWidgets->leaveButton->setOnClick([](IWidget *widget, CLICK)
 	{
-		std::cout << "Let's leave !" << std::endl;
 		auto eq = widget->getEventQueue();
 		eq->push(EventPart::Event(EventPart::Event::BUTTON_LEAVE_GAME));
 	});
@@ -549,7 +559,6 @@ void		GUI::displayMenu()
 	_menuWidgets->watchButton->setStyle(s);
 	_menuWidgets->watchButton->setOnClick([](IWidget *widget, CLICK)
 	{
-		std::cout << "Let's watch !" << std::endl;
 		auto eq = widget->getEventQueue();
 		eq->push(EventPart::Event(EventPart::Event::BUTTON_WATCH_GAME));
 	});
@@ -565,7 +574,6 @@ void		GUI::displayMenu()
 	_menuWidgets->startButton->setStyle(s);
 	_menuWidgets->startButton->setOnClick([](IWidget *widget, CLICK)
 	{
-		std::cout << "Let's begin !" << std::endl;
 		auto eq = widget->getEventQueue();
 		eq->push(EventPart::Event(EventPart::Event::BUTTON_START_GAME));
 	});
@@ -691,7 +699,6 @@ void		GUI::displayLogin()
   {
 	  auto eq = w->getEventQueue();
 	  eq->push(EventPart::Event(EventPart::Event::BUTTON_LOGIN));
-	  std::cout << "Let's connect !" << std::endl;
   });
   _loginWidgets->confirm->setOnHover(TextColorFocus);
   _loginWidgets->confirm->setOnLeaveHover(TextColorNoFocus);
@@ -729,7 +736,7 @@ void		GUI::displayEnd(bool win, uint32_t score)
   s.policeSize = 50;
   
   _audio->stopMusic();
-  _audio->playMusic("TitleScreen");
+  _audio->playMusic("Stage1");
   _win->setBackground(PICTURE_BACKGROUND);
   //_win->setBackground(this->backgroundMap[this->_gameWidgets->levelId]);// Ou on pourrait set le levelId ?
 
@@ -767,7 +774,6 @@ void		GUI::updateGameInfo(/*const GameInfo &*/)
   if (!_menuWidgets)
     return;
   cleanGames();
-  std::cout << "scroll iterator = " << _menuWidgets->itScroll << std::endl;
   if (_menuWidgets->itScroll >= _menuInfos.size())
 	  _menuWidgets->itScroll = (unsigned int) _menuInfos.size() - 1;
   _menuWidgets->itScroll = ((int)_menuWidgets->itScroll < 0) ? 0 : _menuWidgets->itScroll;
@@ -828,6 +834,7 @@ void		GUI::deleteWidgets()
   _loginWidgets = NULL;
   _menuWidgets = NULL;
   _gameWidgets = NULL;
+  //_endWidgets = NULL;
 }
 
 void			GUI::setSoundManager(Audio::ISoundManager *sound)
@@ -877,7 +884,6 @@ void			GUI::loadSoundAssets()
 
 void			GUI::setRooms(const std::vector<DataRoom *> &d)
 {
-  std::cout << "Je recois un setRoom " << std::endl;
   if (_menuWidgets == NULL)
     return;
   _menuInfos = d;
@@ -1088,7 +1094,7 @@ void	GUI::setPlayersPositions(const std::vector<DataPlayer *> &dp)
 	    s.anims["NORMAL"].push_back(s.image + "-4");
 	    s.anims["NORMAL"].push_back(s.image + "-3");
 	    s.anims["NORMAL"].push_back(s.image + "-2");
-	    s.frequency = 150;
+	    s.frequency = 250;
 	    temp->setStyle(s);
 	    _playersPos.push_back(temp);
 	  }
@@ -1158,7 +1164,6 @@ void	GUI::setEnemyPositions(const std::vector<Data::DataEnnemy *> &de)
 		      s.anims["NORMAL"].push_back("Enemy7-3");
 		      s.frequency = 250;
 		    }
-		  //std::cout << "On me demande un ennemi du nom de : " << elem->getName() << std::endl;
 		  temp->setStyle(s);
 		  _enemyPos.push_back(temp);
 	  }
@@ -1266,8 +1271,16 @@ void	GUI::setStagePopup(uint8_t nStage)
 	// Show Popup
 	std::stringstream ss;
 	ss << "Level : " << (int) nStage << " !";
-	_levelWidget->showPopup(ss.str(), 3);
+	_levelWidget->showPopup(ss.str(), 3000);
 
 	// Define position
 	_levelWidget->move((_win->getWidth() - _levelWidget->getTextWidth()) / 2, 200);
+}
+
+void	GUI::setGameScore(uint32_t score)
+{
+  if (_gameWidgets == NULL)
+    return;
+  if (_gameWidgets->scoreWidget)
+    _gameWidgets->scoreWidget->setText(std::to_string(score));
 }

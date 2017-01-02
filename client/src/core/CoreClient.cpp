@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Mon Jan  2 21:47:38 2017 Lecoq Maxime
+// Last update Mon Jan  2 22:04:58 2017 Lecoq Maxime
 //
 
 #include	"CoreClient.hh"
@@ -50,6 +50,7 @@ CoreClient::CoreClient()
   _backPtr["end"] = &CoreClient::goRooms;
   _gameData = new GameData;
   _th = new Thread;
+  _lvl = 1;
 }
 
 CoreClient::~CoreClient()
@@ -462,6 +463,7 @@ void		CoreClient::timeLine()
   std::vector<std::string> empty;
   
   _tickIdServ = 0;
+  _lvl = 1;
   while (_gameData->gameIsEnded() == false)
     {
       if (_game == "player" && _gameData->getTick() != (uint32_t)(clo.getTimeMilli() / 50))
@@ -568,7 +570,7 @@ bool		CoreClient::gameData(const IPacket *pa, IUserNetwork *u)
 	  _lvl = p->getLevel();
 	  _gui->setStagePopup(p->getLevel());
 	}
-      //_gui->setGameScore(p->getScore());
+      _gui->setGameScore(p->getScore());
       _gui->setPlayersPositions(p->getPlayers());
       _gui->setShootsPositions(p->getShoots());
       _gui->setEnemyPositions(p->getEnnemies());
