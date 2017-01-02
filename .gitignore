@@ -9,9 +9,9 @@
 *.pch
 
 # Compiled Dynamic libraries
-*.so
 *.dylib
 *.dll
+*.so
 
 # Fortran module files
 *.mod
@@ -27,3 +27,17 @@
 *.exe
 *.out
 *.app
+
+**/b/
+**/build/
+**/CMakeCache.txt
+**/cmake_install.cmake
+**/CMakeFiles
+**/Makefile
+**/lib/
+**/test/
+**/Debug/
+RType_server
+RType
+.conf
+benchmarkCallback.txt

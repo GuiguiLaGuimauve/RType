@@ -1,0 +1,219 @@
+[{
+		"name": "Error",
+		"type": "ERROR_PACKET",
+		"network": "tcp",
+		"arguments": [{
+			"type": "std::string",
+			"name": "message"
+		}, {
+			"type": "IPacket::PacketType",
+			"name": "errorType"
+		}]
+	}, {
+		"name": "Welcome",
+		"type": "WELCOME",
+		"network": "tcp",
+		"arguments": [{
+			"type": "std::string",
+			"name": "message"
+		}]
+	}, {
+		"name": "Accept",
+		"type": "ACCEPT",
+		"network": "tcp",
+		"arguments": [{
+			"type": "std::string",
+			"name": "message"
+		}]
+	}, {
+		"name": "CreateRoom",
+		"type": "CREATE_ROOM",
+		"network": "tcp",
+		"arguments": [{
+			"type": "std::string",
+			"name": "gameName"
+		}, {
+			"type": "uint8_t",
+			"name": "maxPlayers"
+		}]
+	}, {
+		"name": "JoinRoom",
+		"type": "JOIN_ROOM",
+		"network": "tcp",
+		"arguments": [{
+			"type": "std::string",
+			"name": "gameName"
+		}]
+	}, {
+		"name": "JoinError",
+		"type": "JOIN_ERROR",
+		"network": "tcp",
+		"arguments": [{
+			"type": "std::string",
+			"name": "gameName"
+		}]
+	}, {
+		"name": "StartGame",
+		"type": "START_GAME",
+		"network": "tcp",
+		"arguments": [{
+			"type": "std::string",
+			"name": "gameName"
+		}]
+	}, {
+		"name": "StartError",
+		"type": "START_ERROR",
+		"network": "tcp",
+		"arguments": [{
+			"type": "std::string",
+			"name": "gameName"
+		}]
+	}, {
+		"name": "LeaveRoom",
+		"type": "LEAVE_ROOM",
+		"network": "tcp",
+		"arguments": [{
+			"type": "std::string",
+			"name": "gameName"
+		}]
+	}, {
+		"name": "udpData",
+		"type": "UDP_DATA",
+		"network": "tcp",
+		"arguments": [{
+			"type": "uint8_t[4]",
+			"name": "ip"
+		}, {
+			"type": "uint16_t",
+			"name": "port"
+		}]
+	}, {
+		"name": "udpDataFree",
+		"type": "UDP_DATA_FREE",
+		"network": "tcp",
+		"arguments": []
+	}, {
+		"name": "watchGame",
+		"type": "WATCH_GAME",
+		"network": "tcp",
+		"arguments": [{
+			"type": "std::string",
+			"name": "gameName"
+		}]
+	}, {
+		"name": "register",
+		"type": "REGISTER",
+		"network": "tcp",
+		"arguments": [{
+			"type": "std::string",
+			"name": "login"
+		}, {
+			"type": "std::string",
+			"name": "password"
+		}]
+	}, {
+		"name": "logout",
+		"type": "LOGOUT",
+		"network": "tcp",
+		"arguments": []
+	}, {
+		"name": "disconnect",
+		"type": "DISCONNECT",
+		"network": "udp",
+		"arguments": []
+	}, {
+		"name": "shoot",
+		"type": "SHOOT",
+		"network": "udp",
+		"arguments": [{
+			"type": "uint16_t",
+			"name": "x"
+		}, {
+			"type": "uint16_t",
+			"name": "y"
+		}]
+	}, {
+		"name": "shoots",
+		"type": "SHOOTS",
+		"network": "udp",
+		"arguments": [{
+			"type": "std::vector<DataShoot *>",
+			"name": "shoots",
+			"vector": [{
+				"type": "std::string",
+				"name": "name"
+			}, {
+				"type": "uint16_t",
+				"name": "x"
+			}, {
+				"type": "uint16_t",
+				"name": "y"
+			}, {
+				"type": "uint8_t",
+				"name": "damage"
+			}]
+		}]
+	}, {
+		"name": "ennemies",
+		"type": "ENNEMIES",
+		"network": "udp",
+		"arguments": [{
+			"type": "std::vector<DataEnnemy *>",
+			"name": "ennemies",
+			"vector": [{
+				"type": "uint8_t",
+				"name": "type"
+			}, {
+				"type": "uint16_t",
+				"name": "x"
+			}, {
+				"type": "uint16_t",
+				"name": "y"
+			}]
+		}]
+	}, {
+		"name": "backgrounds",
+		"type": "BACKGROUNDS",
+		"network": "udp",
+		"arguments": [{
+			"type": "std::vector<DataBackground *>",
+			"name": "backgrounds",
+			"vector": [{
+				"type": "uint8_t",
+				"name": "type"
+			}, {
+				"type": "uint16_t",
+				"name": "x"
+			}, {
+				"type": "uint16_t",
+				"name": "y"
+			}]
+		}]
+	}, {
+		"name": "music",
+		"type": "MUSIC",
+		"network": "udp",
+		"arguments": [{
+			"type": "std::string",
+			"name": "music"
+		}]
+	}, {
+		"name": "sound",
+		"type": "SOUND",
+		"network": "udp",
+		"arguments": [{
+			"type": "std::string",
+			"name": "sound"
+		}]
+	}, {
+		"name": "ping",
+		"type": "PING",
+		"network": "udp",
+		"arguments": []
+	}, {
+		"name": "pong",
+		"type": "PONG",
+		"network": "udp",
+		"arguments": []
+	}
+]
