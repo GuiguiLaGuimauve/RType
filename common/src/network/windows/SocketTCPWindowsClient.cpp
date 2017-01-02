@@ -27,7 +27,7 @@ bool			SocketTCPWindowsClient::connectIt(const std::string &ip, const uint32_t &
 	struct sockaddr_in	s_in;
 	FD_SET	write;
 	struct  timeval tv;
-	tv.tv_sec = 10;
+	tv.tv_sec = 3;
 	tv.tv_usec = 0;
 	DWORD		len;
 	Clock		c;
