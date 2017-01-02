@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Fri Oct 14 15:52:42 2016 julien dufrene
-// Last update Mon Jan  2 17:37:17 2017 julien dufrene
+// Last update Mon Jan  2 18:29:42 2017 julien dufrene
 //
 
 #include "SocketTCPUnixClient.hh"
@@ -67,7 +67,7 @@ bool			SocketTCPUnixClient::connectIt(const std::string &ip, const uint32_t &por
   tv.tv_usec = 0;
   if ((connect(_sock, (struct sockaddr *)&s_in, sizeof (s_in))) == -1)
     {
-      if (errno == EALREADY)
+      if (errno == EALREADY || errno == EBADF)
 	{
 	  std::cout << "Reseting connection.." << std::endl;
 	  closeIt();
@@ -83,7 +83,10 @@ bool			SocketTCPUnixClient::connectIt(const std::string &ip, const uint32_t &por
       	    {
 	      len = sizeof (s_in);
 	      if (getpeername(_sock, (struct sockaddr *)&s_in, &len) == ENOTCONN)
-		return (false);
+		{
+		  std::cerr << "Error on getpeername()" << std::endl;
+		  return (false);
+		}
 	      else
 		{
 		  std::cout << "timeout: " << c.getTimeMilli() << "ms" << std::endl;
@@ -92,6 +95,7 @@ bool			SocketTCPUnixClient::connectIt(const std::string &ip, const uint32_t &por
 		}
 	    }
 	}
+      std::cerr << "Error on connect: " << errno << std::endl;
       return (false);
     }
   return (true);

@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 //
 // Started on  Fri Oct 21 15:02:22 2016 julien dufrene
-// Last update Sat Dec 31 16:02:40 2016 Lecoq Maxime
+// Last update Mon Jan  2 18:12:47 2017 julien dufrene
 //
 
 #include "UserNetworkTCPUnixClient.hh"
@@ -40,7 +40,7 @@ IUserNetwork		*UserNetworkTCPUnixClient::readSocket(ISocket *net)
     }
   if (nb == 0 || nb == -1)
     {
-      std::cerr << "Error from recv()" << std::endl;
+      std::cerr << "Error from recv(): " << errno << std::endl;
       closeFd();
     }
   IUserNetwork		*u = new UserNetworkTCPUnixClient(*this);
