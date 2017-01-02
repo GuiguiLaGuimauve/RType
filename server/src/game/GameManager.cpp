@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 15:44:47 2016 Maxime Lecoq
-// Last update Sun Jan  1 19:24:49 2017 Lecoq Maxime
+// Last update Mon Jan  2 03:26:31 2017 Lecoq Maxime
 //
 
 #include "GameManager.hh"
@@ -66,9 +66,7 @@ bool          GameManager::gamesUpdate()
 	  _tcp->pushTo(_gameList[i]->getAllName(), p->getPacketUnknown());
 	  delete p;
 	  _gameList[i]->end();
-	  //	  delete _gameList[i];
 	  _gameList.erase(_gameList.begin() + i);
-	  std::cout << "la game est finis ca mere" << std::endl;
 	}
       else
 	i++;

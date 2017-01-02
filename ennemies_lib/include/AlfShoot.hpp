@@ -5,7 +5,7 @@
 // Login   <rembur_g@epitech.eu>
 //
 // Started on  Sun Jan  1 18:57:24 2017 La Guimauve
-// Last update Sun Jan  1 22:57:46 2017 La Guimauve
+// Last update Mon Jan  2 02:43:02 2017 Lecoq Maxime
 //
 
 #ifndef _ALFSHOOT_HPP_
@@ -16,10 +16,13 @@
 class AlfShoot : public DataShoot
 {
 public:
-	AlfShoot() { this->_spriteFileName = "Shot-1"; this->_damage = 5; };
+  AlfShoot() {
+    this->_spriteFileName = "Shot-1"; this->_damage = 5;
+    _pattern.clear();
+    std::pair<int8_t, int8_t> a(-3, 0);
+    _pattern.push_back(a);
+  };
   ~AlfShoot() {};
-
-  void move() { this->_x -= 3; };
 };
 
 #endif //_ALFSHOOT_HPP_
