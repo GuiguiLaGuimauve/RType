@@ -305,12 +305,12 @@ void		GUI::displayGame()
   
   _audio->stopMusic();
   _audio->playMusic("Stage3");
-  //Style s;
-  //_gameWidgets->scoreWidget = _win->addWidget(GUI_WIDTH - 200, GUI_HEIGHT - 100, 0, 0);
-  //s.policeSize = 30;
-  //s.textColor = Color(TEXT_COLOR_R, TEXT_COLOR_G, TEXT_COLOR_B);
-  //_gameWidgets->scoreWidget->setText("");
-  //_gameWidgets->scoreWidget->setStyle(s);
+  Style s;
+  _gameWidgets->scoreWidget = _win->addWidget(GUI_WIDTH - 200, GUI_HEIGHT - 100, 0, 0);
+  s.policeSize = 30;
+  s.textColor = Color(TEXT_COLOR_R, TEXT_COLOR_G, TEXT_COLOR_B);
+  _gameWidgets->scoreWidget->setText("");
+  _gameWidgets->scoreWidget->setStyle(s);
   
   //this->_gameWidgets->levelId = ...
   _win->setBackground(PICTURE_BACKGROUND_GAME);
