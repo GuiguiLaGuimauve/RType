@@ -306,7 +306,7 @@ void		GUI::displayGame()
   _audio->stopMusic();
   _audio->playMusic("Stage3");
   Style s;
-  _gameWidgets->scoreWidget = _win->addWidget(GUI_WIDTH - 200, GUI_HEIGHT - 100, 0, 0);
+  _gameWidgets->scoreWidget = _win->addWidget(GUI_WIDTH - 250, GUI_HEIGHT - 100, 0, 0);
   s.policeSize = 30;
   s.textColor = Color(TEXT_COLOR_R, TEXT_COLOR_G, TEXT_COLOR_B);
   _gameWidgets->scoreWidget->setText("");
@@ -1282,5 +1282,8 @@ void	GUI::setGameScore(uint32_t score)
   if (_gameWidgets == NULL)
     return;
   if (_gameWidgets->scoreWidget)
-    _gameWidgets->scoreWidget->setText(std::to_string(score));
+    {
+      _gameWidgets->scoreWidget->setText(std::to_string(score));
+      _gameWidgets->scoreWidget->move(GUI_WIDTH - (250 - _gameWidgets->scoreWidget->getTextWidth() / 2), GUI_HEIGHT - 100);
+    }
 }
