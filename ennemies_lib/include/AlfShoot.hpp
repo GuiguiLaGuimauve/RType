@@ -26,10 +26,11 @@ public:
 		
 		this->_damage = 5;
 		
-		_pattern.clear();
-		std::pair<int8_t, int8_t> a(-2, 0);
-		_pattern.push_back(a);
+		//_pattern.clear();
+		//std::pair<int8_t, int8_t> a(-2, 0);
+		//_pattern.push_back(a);
   };
+  void move() { this->_x += -1; };
   ~AlfShoot() {};
 };
 
