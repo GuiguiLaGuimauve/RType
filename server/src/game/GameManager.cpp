@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 15:44:47 2016 Maxime Lecoq
-// Last update Mon Jan  2 19:10:18 2017 Lecoq Maxime
+// Last update Mon Jan  2 19:29:36 2017 Lecoq Maxime
 //
 
 #include "GameManager.hh"
@@ -70,6 +70,7 @@ bool          GameManager::gamesUpdate()
 	  uint8_t c;
 	  std::vector<std::string> list = _gameList[i]->getAllName();
 	  c = 0;
+	  _gameList[i]->getRoom()->update();
 	  if (_gameList[i]->getPlayersName().size() == 0)
 	    p = _factory->getPacket("gameended", c, 0);
 	  if (_gameList[i]->isLoose() == true)

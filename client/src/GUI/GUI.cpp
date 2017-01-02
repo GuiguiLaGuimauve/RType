@@ -775,7 +775,9 @@ void		GUI::updateGameInfo(/*const GameInfo &*/)
   _menuWidgets->itScroll = ((int)_menuWidgets->itScroll < 0) ? 0 : _menuWidgets->itScroll;
   for (auto elem : _menuInfos)
     {
-	  if (nb >= NB_GAME_SCROLL + (int)_menuWidgets->itScroll || (int)_menuWidgets->itScroll > nb)
+      if (elem->getPlayers().size() == 0)
+	continue;
+      if (nb >= NB_GAME_SCROLL + (int)_menuWidgets->itScroll || (int)_menuWidgets->itScroll > nb)
 	  {
 		  nb++;
 		  continue;
@@ -909,35 +911,40 @@ void		GUI::updateCurrentGame()
   if (!_currentGame)
     if (_menuInfos.size() != 0)
       _currentGame = _menuInfos[0];
+  if (_currentGame && _currentGame->getPlayers().size() == 0)
+    {
+      _currentGame = NULL;
+      return;
+    }
 
   // affichage du texte
-	if (_currentGame)
+  if (_currentGame)
+    {
+      std::stringstream ss;
+      //ss << "Name : " << _currentGame->getName();
+      ss << _currentGame->getName();
+      if (_currentGame->getWatchers().size() != 0)
+	ss << "\n\nViewers : " << _currentGame->getWatchers().size();
+      ss << "\n\nScore : " << _currentGame->getScore() << " pts";
+      ss << "\n\nPlayers :\n";
+      for (unsigned int i = 0; i < _currentGame->getPlayers().size(); i++)
 	{
-		std::stringstream ss;
-		//ss << "Name : " << _currentGame->getName();
-		ss << _currentGame->getName();
-		if (_currentGame->getWatchers().size() != 0)
-		  ss << "\n\nViewers : " << _currentGame->getWatchers().size();
-		ss << "\n\nScore : " << _currentGame->getScore() << " pts";
-		ss << "\n\nPlayers :\n";
-		for (unsigned int i = 0; i < _currentGame->getPlayers().size(); i++)
-		  {
-		    ss << "\n\n - ";
-		    if (_currentGame->getPlayers()[i]->getName().size() > 10)
-		      ss << _currentGame->getPlayers()[i]->getName().substr(0, 10) + "...  ";
-		    else
-		      ss << _currentGame->getPlayers()[i]->getName() << "  ";
-		    ss << _currentGame->getPlayers()[i]->getStageSucceed() << "/";
-		    ss << _currentGame->getPlayers()[i]->getGamePlayed();
-		  }
-		_menuWidgets->selectedGame->setText(ss.str());
+	  ss << "\n\n - ";
+	  if (_currentGame->getPlayers()[i]->getName().size() > 10)
+	    ss << _currentGame->getPlayers()[i]->getName().substr(0, 10) + "...  ";
+	  else
+	    ss << _currentGame->getPlayers()[i]->getName() << "  ";
+	  ss << _currentGame->getPlayers()[i]->getStageSucceed() << "/";
+	  ss << _currentGame->getPlayers()[i]->getGamePlayed();
 	}
-	else
-	{
-		_menuWidgets->selectedGame->setText("");
-	}
-	// affichage du bouton join
-	if (_currentGame && _currentGame->getNbPlayers() < _currentGame->getMaxPlayers() && _currentGame->getStarted() == false
+      _menuWidgets->selectedGame->setText(ss.str());
+    }
+  else
+    {
+      _menuWidgets->selectedGame->setText("");
+    }
+  // affichage du bouton join
+  if (_currentGame && _currentGame->getNbPlayers() < _currentGame->getMaxPlayers() && _currentGame->getStarted() == false
 	    && (isInGame(_currentGame->getPlayers()) == false && isInGame(_currentGame->getWatchers()) == false))
 	{
 	  _menuWidgets->confirm->setText("JOIN");
