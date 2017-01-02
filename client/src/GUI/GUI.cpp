@@ -303,7 +303,7 @@ void		GUI::displayGame()
   _envsPos.clear();
   
   _audio->stopMusic();
-  _audio->playMusic("Stage1");
+  _audio->playMusic("Stage3");
   //this->_gameWidgets->levelId = ...
   _win->setBackground(PICTURE_BACKGROUND_GAME);
   //_win->setBackground(this->backgroundMap[this->_gameWidgets->levelId]);// Ou on pourrait set le levelId ?
@@ -731,7 +731,7 @@ void		GUI::displayEnd(bool win, uint32_t score)
   s.policeSize = 50;
   
   _audio->stopMusic();
-  _audio->playMusic("TitleScreen");
+  _audio->playMusic("Stage1");
   _win->setBackground(PICTURE_BACKGROUND);
   //_win->setBackground(this->backgroundMap[this->_gameWidgets->levelId]);// Ou on pourrait set le levelId ?
 
