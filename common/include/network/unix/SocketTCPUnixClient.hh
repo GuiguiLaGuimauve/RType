@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Fri Oct 14 11:25:14 2016 julien dufrene
-// Last update Mon Jan  2 04:30:06 2017 julien dufrene
+// Last update Mon Jan  2 17:26:01 2017 julien dufrene
 //
 
 #ifndef _SocketTCPUnixClient_HH_
@@ -23,6 +23,8 @@ namespace Network
     virtual ~SocketTCPUnixClient();
     /* La méthode connectIt(const std::string &, const uint32_t &) permet de se connecter sur une socket TCP. */
     bool		connectIt(const std::string &ip, const uint32_t &port);
+  private:
+    bool		createIt();
   };
 };
 

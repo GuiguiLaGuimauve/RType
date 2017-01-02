@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Fri Oct 14 11:25:14 2016 julien dufrene
-// Last update Wed Dec 21 06:39:26 2016 julien dufrene
+// Last update Mon Jan  2 17:39:08 2017 julien dufrene
 //
 
 #ifndef _SocketTCPUnix_HH_
@@ -20,8 +20,6 @@ namespace Network
   public:
     SocketTCPUnix();
     virtual ~SocketTCPUnix();
-    /* La méthode createIt() permet de créé une socket */
-    bool		createIt();
     /* La méthode bindIt(const uint32_t &) permet de bind le port de la socket. */
     bool		bindIt(const uint32_t &);
     /* La méthode listenIt(const uint32_t &) permet d'écouter sur la socket. */
