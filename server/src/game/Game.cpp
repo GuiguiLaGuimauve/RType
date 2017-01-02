@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 15:45:57 2016 Maxime Lecoq
-// Last update Mon Jan  2 19:11:53 2017 Lecoq Maxime
+// Last update Mon Jan  2 19:19:57 2017 Lecoq Maxime
 //
 
 #include	"Game.hh"
@@ -180,7 +180,6 @@ void		Game::run()
 void		Game::end()
 {
   _room->setStarted(false);
-  _room->kickAll();
 }
 
 void		Game::checkShootCollisions()
