@@ -1119,6 +1119,32 @@ void	GUI::setEnemyPositions(const std::vector<Data::DataEnnemy *> &de)
 
 		  /* Ajout du Widget d'ennemi */
 		  s.image = elem->getSpriteName();
+		  if (s.image == "Bydos")
+		    {
+		      s.anims["NORMAL"].push_back("Bydos");
+		      s.anims["NORMAL"].push_back("Bydos-2");
+		      s.anims["NORMAL"].push_back("Bydos-3");
+		      s.frequency = 250;
+		    }
+		  if (s.image == "Enemy1")
+		    {
+		      s.anims["NORMAL"].push_back("Enemy1");
+		      s.anims["NORMAL"].push_back("Enemy1-2");
+		      s.anims["NORMAL"].push_back("Enemy1-3");
+		      s.anims["NORMAL"].push_back("Enemy1-4");
+		      s.anims["NORMAL"].push_back("Enemy1-5");
+		      s.anims["NORMAL"].push_back("Enemy1-6");
+		      s.anims["NORMAL"].push_back("Enemy1-7");
+		      s.anims["NORMAL"].push_back("Enemy1-8");
+		      s.frequency = 250;
+		    }
+		  if (s.image == "Enemy7")
+		    {
+		      s.anims["NORMAL"].push_back("Enemy7");
+		      s.anims["NORMAL"].push_back("Enemy7-2");
+		      s.anims["NORMAL"].push_back("Enemy7-3");
+		      s.frequency = 250;
+		    }
 		  //std::cout << "On me demande un ennemi du nom de : " << elem->getName() << std::endl;
 		  temp->setStyle(s);
 		  _enemyPos.push_back(temp);

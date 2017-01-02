@@ -5,7 +5,7 @@
 // Login   <oger_a@epitech.net>
 // 
 // Started on  Fri Dec  2 15:23:46 2016 Antonin Oger
-// Last update Mon Jan  2 18:06:05 2017 root
+// Last update Mon Jan  2 18:24:06 2017 root
 //
 
 #ifndef _SPRITEMAP_HPP_
@@ -62,8 +62,19 @@ public:
     LoadSpriteFromTexture("YouWin", "Win-3", 0, 64, 128, 32, 6, 6);
     /* Enemy Sprites*/
     LoadSpriteFromTexture("Bydos", "Bydos", 27, 217, 155, 204, 3, 3);
+    LoadSpriteFromTexture("Bydos", "Bydos-2", 188, 217, 155, 204, 3, 3);
+    LoadSpriteFromTexture("Bydos", "Bydos-3", 350, 217, 155, 204, 3, 3);
     LoadSpriteFromTexture("Enemy1", "Enemy1", 5, 6, 21, 24, 3, 3);/* Multiples de 33 pour les anims */
+    LoadSpriteFromTexture("Enemy1", "Enemy1-2", 38, 6, 21, 24, 3, 3);
+    LoadSpriteFromTexture("Enemy1", "Enemy1-3", 71, 6, 21, 24, 3, 3);
+    LoadSpriteFromTexture("Enemy1", "Enemy1-4", 104, 6, 21, 24, 3, 3);
+    LoadSpriteFromTexture("Enemy1", "Enemy1-5", 137, 6, 21, 24, 3, 3);
+    LoadSpriteFromTexture("Enemy1", "Enemy1-6", 170, 6, 21, 24, 3, 3);
+    LoadSpriteFromTexture("Enemy1", "Enemy1-7", 203, 6, 21, 24, 3, 3);
+    LoadSpriteFromTexture("Enemy1", "Enemy1-8", 236, 6, 21, 24, 3, 3);
     LoadSpriteFromTexture("Enemy7", "Enemy7", 18, 3, 31, 28, 3, 3);
+    LoadSpriteFromTexture("Enemy7", "Enemy7-2", 51, 3, 31, 28, 3, 3);
+    LoadSpriteFromTexture("Enemy7", "Enemy7-3", 83, 3, 31, 28, 3, 3);
     LoadSpriteFromTexture("Enemy8", "Enemy8", 103, 38, 24, 21, 3, 3);
     /* Enemy Shots */
     LoadSpriteFromTexture("Enemy8", "Shot-Enemy1", 91, 88, 8, 8, 3, 3);
