@@ -13,7 +13,7 @@
 
 #include	"CoreClient.hh"
 
-std::fstream logTime = std::fstream("logTime.txt");
+std::fstream logTime;;
 
 CoreClient::CoreClient()
 {
@@ -55,10 +55,12 @@ CoreClient::CoreClient()
   _backPtr["end"] = &CoreClient::goRooms;
   _gameData = new GameData;
   _th = new Thread;
+  logTime.open("logTime.txt");
 }
 
 CoreClient::~CoreClient()
 {
+	logTime.close();
   _gameData->endGame();
   if (_th->joinable())
     _th->join();
