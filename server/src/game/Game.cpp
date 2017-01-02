@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 15:45:57 2016 Maxime Lecoq
-// Last update Mon Jan  2 01:15:26 2017 Lecoq Maxime
+// Last update Mon Jan  2 01:40:38 2017 Lecoq Maxime
 //
 
 #include	"Game.hh"
@@ -242,10 +242,10 @@ void		Game::timeLine()
 	  ckLvl = clo.getTimeMilli() / 50000;
 	  _lvl++;
 	}
-      if (_timeline != (uint64_t)clo.getTimeMilli() / 50)
+      if (_timeline != (uint64_t)clo.getTimeMilli() / 25)
 	{	  
 	  std::vector<std::string> list = getAllName();
-	  _timeline = clo.getTimeMilli() / 50;
+	  _timeline = clo.getTimeMilli() / 25;
 	  pa = _factory->getPacket("gamedata", _room->getPlayers(), _shoots, _ennemy, _background);
 	  pa->setTickId(_timeline);
 	  _udp->pushTo(list, pa->getPacketUnknown());
