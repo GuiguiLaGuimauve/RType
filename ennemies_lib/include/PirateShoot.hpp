@@ -16,7 +16,17 @@
 class PirateShoot : public DataShoot
 {
 public:
-	PirateShoot() { this->_spriteFileName = "Shot-1"; this->_damage = 2; };
+	PirateShoot() { 
+	
+		this->_spriteFileName = "Shot-Enemy1";
+		this->setSizeX(8 * 2);
+		this->setSizeY(8 * 2);
+		this->setHitBoxSizeX(8 * 2);
+		this->setHitBoxSizeY(8 * 2);
+	
+		this->_damage = 2;
+		
+	};
   ~PirateShoot() {};
 
   void move() { this->_x -= 2; };

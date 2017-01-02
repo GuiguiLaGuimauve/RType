@@ -19,10 +19,10 @@ Pirate::Pirate()
 {
 	this->setX(0);
 	this->setY(0);
-	this->setSizeX(34);
-	this->setSizeY(36);
-	this->setHitBoxSizeX(34);
-	this->setHitBoxSizeY(36);
+	this->setSizeX(21 * 3);
+	this->setSizeY(24 * 3);
+	this->setHitBoxSizeX(21 * 3);
+	this->setHitBoxSizeY(24 * 3);
 	this->setDeltaHitBoxX(0);
 	this->setDeltaHitBoxY(0);
 	this->setSpriteName("Enemy1");

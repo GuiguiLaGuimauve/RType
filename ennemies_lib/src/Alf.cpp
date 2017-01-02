@@ -17,12 +17,10 @@
 
 Alf::Alf()
 {
-	this->setX(0);
-	this->setY(0);
-	this->setSizeX(33);
-	this->setSizeY(17);
-	this->setHitBoxSizeX(33);
-	this->setHitBoxSizeY(17);
+	this->setSizeX(24 * 3);
+	this->setSizeY(21 * 3);
+	this->setHitBoxSizeX(24 * 3);
+	this->setHitBoxSizeY(21 * 3);
 	this->setDeltaHitBoxX(0);
 	this->setDeltaHitBoxY(0);
 	this->setSpriteName("Enemy8");

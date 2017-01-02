@@ -10,7 +10,14 @@
 class BydosShoot : public DataShoot {
 
 public:
-	BydosShoot() : DataShoot() { _damage = 30; _spriteFileName = "ShootBydos"; };
+	BydosShoot() : DataShoot() {
+		this->_spriteFileName = "Shot-Bydos";
+		this->setSizeX(8 * 2);
+		this->setSizeY(8 * 2);
+		this->setHitBoxSizeX(8 * 2);
+		this->setHitBoxSizeY(8 * 2);
+		_damage = 30;
+	};
 	void move() { _x += -4; };
 protected:
 	uint8_t _damage;

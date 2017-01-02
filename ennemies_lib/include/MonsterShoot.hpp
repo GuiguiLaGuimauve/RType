@@ -16,7 +16,14 @@
 class MonsterShoot : public DataShoot
 {
 public:
-	MonsterShoot() { this->_spriteFileName = "Shot-1"; this->_damage = 3; };
+	MonsterShoot() { 
+		this->_spriteFileName = "Shot-Enemy7";
+		this->setSizeX(8 * 2);
+		this->setSizeY(8 * 2);
+		this->setHitBoxSizeX(8 * 2);
+		this->setHitBoxSizeY(8 * 2);
+		this->_damage = 3;
+		};
   ~MonsterShoot() {};
 
   void move() { this->_x -= 2; };

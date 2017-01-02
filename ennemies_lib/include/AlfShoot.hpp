@@ -16,7 +16,16 @@
 class AlfShoot : public DataShoot
 {
 public:
-	AlfShoot() { this->_spriteFileName = "Shot-1"; this->_damage = 5; };
+	AlfShoot()
+	{
+		this->_spriteFileName = "Shot-Enemy8";
+		this->setSizeX(8 * 2);
+		this->setSizeY(8 * 2);
+		this->setHitBoxSizeX(8 * 2);
+		this->setHitBoxSizeY(8 * 2);
+		
+		this->_damage = 5;
+	};
   ~AlfShoot() {};
 
   void move() { this->_x -= 3; };
