@@ -304,6 +304,13 @@ void		GUI::displayGame()
   
   _audio->stopMusic();
   _audio->playMusic("Stage3");
+  Style s;
+  _gameWidgets->scoreWidget = addWidget(GUI_WIDTH - 200, GUI_HEIGHT - 100);
+  s.policeSize = 30;
+  s.textColor = Color(TEXT_COLOR_R, TEXT_COLOR_G, TEXT_COLOR_B);
+  _gameWidgets->scoreWidget.setText("");
+  _gameWidgets->scoreWidget.setStyle(s);
+  
   //this->_gameWidgets->levelId = ...
   _win->setBackground(PICTURE_BACKGROUND_GAME);
   //_win->setBackground(this->backgroundMap[this->_gameWidgets->levelId]);// Ou on pourrait set le levelId ?
@@ -826,6 +833,7 @@ void		GUI::deleteWidgets()
   _loginWidgets = NULL;
   _menuWidgets = NULL;
   _gameWidgets = NULL;
+  _endWidgets = NULL;
 }
 
 void			GUI::setSoundManager(Audio::ISoundManager *sound)
@@ -1266,4 +1274,12 @@ void	GUI::setStagePopup(uint8_t nStage)
 
 	// Define position
 	_levelWidget->move((_win->getWidth() - _levelWidget->getTextWidth()) / 2, 200);
+}
+
+void	GUI::setGameScore(uint32_t score)
+{
+  if (_gameWidgets == NULL)
+    return;
+  if (_gameWidgets->scoreWidget)
+    _gameWidgets->scoreWidget->setText(score);
 }
