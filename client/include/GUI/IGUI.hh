@@ -35,6 +35,7 @@ namespace Gui
     virtual void	setShootsPositions(const std::vector<Data::DataShoot *> &) = 0;
     virtual void	setEnemyPositions(const std::vector<Data::DataEnnemy *> &) = 0;
     virtual void	setEnvsPositions(const std::vector<Data::DataBackground *> &) = 0;
+    virtual void	setStagePopup(uint8_t) = 0;
     virtual void	addChatMessage(const std::string &) = 0;
   };
 }

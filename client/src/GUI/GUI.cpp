@@ -1138,3 +1138,8 @@ void	GUI::addChatMessage(const std::string &s)
 	if (_menuWidgets && _menuWidgets->chat)
 		_menuWidgets->chat->post(s);
 }
+
+void	GUI::setStagePopup(uint8_t nStage)
+{
+  
+}

@@ -136,6 +136,8 @@ namespace Gui
     uint64_t	getPosY();
     void	setPosX(uint64_t);
     void	setPosY(uint64_t);
+    void	setStagePopup(uint8_t);
+
   protected:
     void	deleteWidgets();
     void	updateCurrentGame();
