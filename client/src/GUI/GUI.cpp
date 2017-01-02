@@ -319,6 +319,7 @@ void		GUI::displayStart()
   inputStyle.textColor = Color(TEXT_COLOR_R, TEXT_COLOR_G, TEXT_COLOR_B);
   inputStyle.policeSize = 35;
   inputStyle.inputMode = true;
+  inputStyle.allLineFocus = true;
 
   // Sprite : Logo
   _startWidgets->title = _win->addWidget((GUI_WIDTH - 445) / 2, GUI_HEIGHT / 6, 0, 0);
@@ -622,6 +623,7 @@ void		GUI::displayLogin()
   in.textColor = Color(TEXT_COLOR_R, TEXT_COLOR_G, TEXT_COLOR_B);
   in.policeSize = 35;
   in.inputMode = true;
+  in.allLineFocus = true;
 
   // Default input password style
   Style p;
@@ -630,6 +632,7 @@ void		GUI::displayLogin()
   p.policeSize = 35;
   p.password = true;
   p.inputMode = true;
+  p.allLineFocus = true;
     
   // Input : Login
   _loginWidgets->login = _win->addWidget(0, 280, 1920, 40);
