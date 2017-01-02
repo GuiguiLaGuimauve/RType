@@ -13,7 +13,7 @@
 
 #include	"CoreClient.hh"
 
-std::fstream logTime;;
+std::ofstream logTime;;
 
 CoreClient::CoreClient()
 {
@@ -80,15 +80,15 @@ void	CoreClient::run()
 	  c.reset();
 	  if (manageGui() == false)
 		  _loop = false;
-	  logTime << "Temps dans la gui" << c.getTimeMilli() << std::endl;
+	  logTime << "Temps dans la gui = " << c.getTimeMilli() << std::endl;
 	  c.reset();
 	  if (manageNetwork() == false)
 		  _loop = false;
-	  logTime << "Temps dans le network" << c.getTimeMilli() << std::endl;
+	  logTime << "Temps dans le network = " << c.getTimeMilli() << std::endl;
 	  c.reset();
 	  if (managePackets() == false)
 		  _loop = false;
-	  logTime << "Temps dans les packets" << c.getTimeMilli() << std::endl;
+	  logTime << "Temps dans les packets = " << c.getTimeMilli() << std::endl;
   }
 }
 
