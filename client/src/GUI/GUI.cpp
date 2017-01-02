@@ -970,17 +970,17 @@ void	GUI::setPlayersPositions(const std::vector<DataPlayer *> &dp)
 	Style	s;
 
 	/* Ajout du nom */
-	temp = _win->addWidget((_win->getWidth() / 4) * (int)(elem->getId()) + 133, 8, 0, 0);
+	temp = _win->addWidget((_win->getWidth() / 4) * (int)(elem->getId()) + 110, 8, 0, 0);
 	temp->setText(elem->getName());
 	s = temp->getStyle();
 	s.textColor = Color(red[elem->getId()], green[elem->getId()], blue[elem->getId()]);
-	s.policeSize = 35;
+	s.policeSize = 30;
 	temp->setStyle(s);
 	_playersPos.push_back(temp);
 
 	/* Ajout du Widget d'HUD pour le joueur i */
 	temp = _win->addWidget((_win->getWidth() / 4) * (int)(elem->getId()) + 10, 0, 0, 0);
-	temp->setText("\n\n     " + std::to_string(elem->getHealth()) + "%");
+	temp->setText("\n\n    " + std::to_string(elem->getHealth()) + "%");
 	s = temp->getStyle();
 	s.textColor = Color(red[elem->getId()], green[elem->getId()], blue[elem->getId()]);
 	s.policeSize = 25;
