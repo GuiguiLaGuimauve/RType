@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 15:45:57 2016 Maxime Lecoq
-// Last update Mon Jan  2 15:04:22 2017 Lecoq Maxime
+// Last update Mon Jan  2 15:11:18 2017 Lecoq Maxime
 //
 
 #include	"Game.hh"
@@ -257,7 +257,7 @@ void		Game::checkShootCollisions()
 	i++;
     }
   i = 0;
-  while (_room->getPlayers().size())
+  while (i < _room->getPlayers().size())
     {
       x = 2;
       while (x < _background.size() && _room->getPlayers()[i]->getHealth() > 0)
