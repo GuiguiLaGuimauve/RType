@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 11:43:18 2016 Maxime Lecoq
-// Last update Mon Jan  2 16:35:28 2017 Lecoq Maxime
+// Last update Mon Jan  2 17:08:18 2017 Lecoq Maxime
 //
 
 #include	"PacketFactory.hh"
@@ -29,7 +29,7 @@ PacketFactory::PacketFactory()
   _pkt15 = new PacketContener<const std::vector<DataPlayer *> &, const std::vector<DataShoot *> &,
 			      const std::vector<DataEnnemy *> &, const std::vector<DataBackground *> &, const uint8_t &>(this);
   _pkt16 = new PacketContener<const uint16_t &, const uint16_t &, const std::vector<DataShoot *> &>(this);
-  _pkt17 = new PacketContener<const uint8_t &>(this);
+  _pkt17 = new PacketContener<const uint8_t &, const uint32_t &>(this);
   _pktDeserialiser = new PacketContener<const uint8_t *>(this);
 }
 
@@ -234,14 +234,14 @@ IPacket		*PacketFactory::getPacket(const IPacket::PacketType &p, const uint16_t 
 }
 
 
-IPacket		*PacketFactory::getPacket(const std::string &p, const uint8_t &t) 
+IPacket		*PacketFactory::getPacket(const std::string &p, const uint8_t &t, const uint32_t &s) 
 {
-  return (_pkt17->getPacket(p, t));
+  return (_pkt17->getPacket(p, t, s));
 }
 
-IPacket		*PacketFactory::getPacket(const IPacket::PacketType &p, const uint8_t &t) 
+IPacket		*PacketFactory::getPacket(const IPacket::PacketType &p, const uint8_t &t, const uint32_t &s) 
 {
-  return (_pkt17->getPacket(p, t));
+  return (_pkt17->getPacket(p, t, s));
 }
 
 
@@ -395,9 +395,9 @@ IPacket		*PacketFactory::pong()
   return (ret);
 }
 
-IPacket		*PacketFactory::gameEnded(const uint8_t &t) 
+IPacket		*PacketFactory::gameEnded(const uint8_t &t, const uint32_t &s) 
 {
-  IPacket	*ret = new PacketGameEnded(t);
+  IPacket	*ret = new PacketGameEnded(t, s);
 
   return (ret);
 }

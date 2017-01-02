@@ -125,7 +125,7 @@ namespace Gui
     void        displayStart();
     void        displayMenu();
     void	displayLogin();
-    void	displayEnd(bool, uint64_t);
+    void	displayEnd(bool, uint32_t);
     void        updateGameInfo(/*const GameInfo &*/);
     void	setEventQueue(EventPart::IEventQueue *);
     void	setSoundManager(Audio::ISoundManager *);
