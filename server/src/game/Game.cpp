@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 15:45:57 2016 Maxime Lecoq
-// Last update Mon Jan  2 10:28:54 2017 Lecoq Maxime
+// Last update Mon Jan  2 10:41:49 2017 Lecoq Maxime
 //
 
 #include	"Game.hh"
@@ -55,6 +55,13 @@ Game::~Game()
   while (i < _ennemyList.size())
     {
       delete _ennemyList[i];
+      i++;
+    }
+  i = 0;
+  while (i < _th.size())
+    {
+      if (_th[i]->joinable())
+	_th[i]->join();
       i++;
     }
 }
@@ -152,15 +159,6 @@ void		Game::run()
 void		Game::end()
 {
   _room->setStarted(false);
-  uint64_t	i;
-
-  i = 0;
-  while (i < _th.size())
-    {
-      if (_th[i]->joinable())
-	_th[i]->join();
-      i++;
-    }
 }
 
 void		Game::movements()
