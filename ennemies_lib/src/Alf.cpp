@@ -31,8 +31,6 @@ Alf::Alf()
 
 void Alf::move()
 {
-	static uint8_t mo = 0;
-
 	if (_x > 500)
 		_y -= 1;
 	else
