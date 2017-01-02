@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 15:45:57 2016 Maxime Lecoq
-// Last update Mon Jan  2 11:00:16 2017 Lecoq Maxime
+// Last update Mon Jan  2 11:27:27 2017 Lecoq Maxime
 //
 
 #include	"Game.hh"
@@ -185,10 +185,7 @@ void		Game::movements()
 	      _shoots[i]->move();
 	      if (_shoots[i]->getX() > 1920 || _shoots[i]->getX() < 0
 		  || _shoots[i]->getY() < 0 || _shoots[i]->getY() > 1080)
-		{
-		  delete _shoots[i];
-		  _shoots.erase(_shoots.begin() + i);
-		}
+		_shoots.erase(_shoots.begin() + i);
 	      else
 		i++;
 	    }
@@ -198,10 +195,7 @@ void		Game::movements()
 	      _shootsEn[i]->move();
 	      if (_shootsEn[i]->getX() > 1920 || _shootsEn[i]->getX() + _shootsEn[i]->getSizeX() < 0
 		  || _shootsEn[i]->getY() + _shootsEn[i]->getSizeY() < 0 || _shootsEn[i]->getY() > 1080)
-		{
-		  delete _shootsEn[i];
-		  _shootsEn.erase(_shootsEn.begin() + i);
-		}
+		_shootsEn.erase(_shootsEn.begin() + i);
 	      else
 		i++;
 	    }
@@ -273,7 +267,7 @@ void		Game::timeLine()
 	    shoot.push_back(_shoots[i]);
 	  for (uint64_t i = 0; i < _shootsEn.size(); i++)
 	    shoot.push_back(_shootsEn[i]);
-	  pa = _factory->getPacket("gamedata", _room->getPlayers(), shoot, _ennemy, _background);
+	  pa = _factory->getPacket("gamedata", _room->getPlayers(), shoot, _ennemy, _background, _lvl);
 	  pa->setTickId(_timeline);
 	  _udp->pushTo(list, pa->getPacketUnknown());
 	  delete pa;

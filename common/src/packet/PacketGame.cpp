@@ -5,12 +5,12 @@
 // Login   <lecoq@lecoq-epitechHP>
 // 
 // Started on  Mon Jan  2 00:03:04 2017 Lecoq Maxime
-// Last update Mon Jan  2 05:52:34 2017 Lecoq Maxime
+// Last update Mon Jan  2 11:18:23 2017 Lecoq Maxime
 //
 
 #include "PacketGame.hh"
 
-PacketGame::PacketGame(const std::vector<DataPlayer *> &p, const std::vector<DataShoot *> &s, const std::vector<DataEnnemy *> &e, const std::vector<DataBackground *> &b)
+PacketGame::PacketGame(const std::vector<DataPlayer *> &p, const std::vector<DataShoot *> &s, const std::vector<DataEnnemy *> &e, const std::vector<DataBackground *> &b, const uint8_t &l)
 {
   PacketSerializer ps;
   uint32_t	dataPacketSize = 0;
@@ -21,6 +21,7 @@ PacketGame::PacketGame(const std::vector<DataPlayer *> &p, const std::vector<Dat
   _ennemies = e;
   _shoots = s;
   _back = b;
+  _lvl = l;
 
   ps.add((uint16_t)_players.size());
   dataPacketSize += 2;
@@ -90,6 +91,9 @@ PacketGame::PacketGame(const std::vector<DataPlayer *> &p, const std::vector<Dat
       ps.add(_back[i]->getSpriteName());
       dataPacketSize += 2 + (uint32_t)_back[i]->getSpriteName().size();
     }
+  ps.add((uint8_t)_lvl);
+  dataPacketSize++;
+
   _data = ps.getPacket();
   _size = dataPacketSize; 
 }
@@ -183,7 +187,9 @@ PacketGame::PacketGame(const uint8_t *data)
       posInPacket += 2 + (uint32_t)pd.get16(posInPacket);
 
       _back.push_back(backTemp);
-    }   
+    }
+  _lvl = pd.get8(posInPacket);
+  posInPacket += 1; 
 }
 
 PacketGame::~PacketGame() {}
@@ -211,3 +217,5 @@ std::vector<DataPlayer *> PacketGame::getPlayers() const
 {
   return (_players);
 }
+
+uint8_t		PacketGame::getLevel() const { return (_lvl); }

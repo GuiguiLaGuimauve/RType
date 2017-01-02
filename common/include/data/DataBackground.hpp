@@ -13,8 +13,8 @@ namespace Data {
 	class DataBackground : public AData {
 
 	public:
-	  DataBackground() {};
-	  DataBackground(const uint16_t &x, const uint16_t &y) { _x = x; _y = y; _speed = -1; };
+	  DataBackground() : AData() {};
+	  DataBackground(const uint16_t &x, const uint16_t &y) : AData() { _x = x; _y = y; _speed = -1; };
 	  ~DataBackground() {};
 
 	  int8_t getSpeed() const { return (_speed); };

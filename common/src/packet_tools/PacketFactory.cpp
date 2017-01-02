@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 11:43:18 2016 Maxime Lecoq
-// Last update Mon Jan  2 03:53:32 2017 Lecoq Maxime
+// Last update Mon Jan  2 11:11:22 2017 Lecoq Maxime
 //
 
 #include	"PacketFactory.hh"
@@ -27,7 +27,7 @@ PacketFactory::PacketFactory()
   _pkt13 = new PacketContener<const std::vector<DataPlayer *> &>(this);
   _pkt14 = new PacketContener<const DataPlayer *>(this);
   _pkt15 = new PacketContener<const std::vector<DataPlayer *> &, const std::vector<DataShoot *> &,
-			      const std::vector<DataEnnemy *> &, const std::vector<DataBackground *> &>(this);
+			      const std::vector<DataEnnemy *> &, const std::vector<DataBackground *> &, const uint8_t &>(this);
   _pkt16 = new PacketContener<const uint16_t &, const uint16_t &, const std::vector<DataShoot *> &>(this);
   _pktDeserialiser = new PacketContener<const uint8_t *>(this);
 }
@@ -211,14 +211,14 @@ IPacket		*PacketFactory::getPacket(const IPacket::PacketType &p, const DataPlaye
   return (_pkt14->getPacket(p, m));
 }
 
-IPacket		*PacketFactory::getPacket(const IPacket::PacketType &p, const std::vector<DataPlayer *> &pl, const std::vector<DataShoot *> &s, const std::vector<DataEnnemy *> &e, const std::vector<DataBackground *> &b) 
+IPacket		*PacketFactory::getPacket(const IPacket::PacketType &p, const std::vector<DataPlayer *> &pl, const std::vector<DataShoot *> &s, const std::vector<DataEnnemy *> &e, const std::vector<DataBackground *> &b, const uint8_t &l) 
 {
-  return (_pkt15->getPacket(p, pl, s, e, b));
+  return (_pkt15->getPacket(p, pl, s, e, b, l));
 }
 
-IPacket		*PacketFactory::getPacket(const std::string &p, const std::vector<DataPlayer *> &pl, const std::vector<DataShoot *> &s, const std::vector<DataEnnemy *> &e, const std::vector<DataBackground *> &b) 
+IPacket		*PacketFactory::getPacket(const std::string &p, const std::vector<DataPlayer *> &pl, const std::vector<DataShoot *> &s, const std::vector<DataEnnemy *> &e, const std::vector<DataBackground *> &b, const uint8_t &l) 
 {
-  return (_pkt15->getPacket(p, pl, s, e, b));
+  return (_pkt15->getPacket(p, pl, s, e, b, l));
 }
 
 IPacket		*PacketFactory::getPacket(const std::string &p, const uint16_t &m, const uint16_t &t, const std::vector<DataShoot *> &s) 
@@ -499,9 +499,9 @@ IPacket		*PacketFactory::getProfile(const DataPlayer *m)
   return (ret);  
 }
 
-IPacket		*PacketFactory::getGameData(const std::vector<DataPlayer *> &p, const std::vector<DataShoot *> &s, const std::vector<DataEnnemy *> &e, const std::vector<DataBackground *> &b)
+IPacket		*PacketFactory::getGameData(const std::vector<DataPlayer *> &p, const std::vector<DataShoot *> &s, const std::vector<DataEnnemy *> &e, const std::vector<DataBackground *> &b, const uint8_t &l)
 {
-  IPacket	*ret= new PacketGame(p, s, e, b);
+  IPacket	*ret= new PacketGame(p, s, e, b, l);
 
   return (ret);  
 }

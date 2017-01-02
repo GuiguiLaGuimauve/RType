@@ -17,7 +17,7 @@ namespace Data {
 	class DataEnnemy : public AData {
 
 	public:
-	  DataEnnemy() {_health = 100; _patternPos = 0; };
+	  DataEnnemy() : AData() {_health = 100; _patternPos = 0; };
 	  ~DataEnnemy() {};
 	  virtual void move()
 	  {
