@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 //
 // Started on  Fri Oct 21 15:02:22 2016 julien dufrene
-// Last update Fri Dec 23 07:27:51 2016 julien dufrene
+// Last update Mon Jan  2 20:20:59 2017 julien dufrene
 //
 
 #include "UserNetworkTCPUnixServer.hh"
@@ -21,19 +21,17 @@ IUserNetwork            *UserNetworkTCPUnixServer::readSocket(ISocket *net)
   IUserNetwork          *u = new UserNetworkTCPUnixClient();
   DataClient            data;
 
-  std::cout << "Accepting client..." << std::endl;
   if (net->acceptClient(data) == false)
     return (NULL);
   u->setFd(data.getFd());
   u->setIp(data.getIp());
-  std::cout << "New client ip: " << u->getIp() << std::endl;
   u->setStatus(true);
   return (u);
 }
 
 void                    UserNetworkTCPUnixServer::writeSocket(ISocket *net)
 {
-  std::cerr << "ERROR: Write in UserNetworkTCPUnixServer" << std::endl;
+  std::cerr << "[TCP ERROR] Write in UserNetworkTCPUnixServer" << std::endl;
   (void)net;
 }
 

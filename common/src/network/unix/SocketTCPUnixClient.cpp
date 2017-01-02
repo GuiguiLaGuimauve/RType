@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Fri Oct 14 15:52:42 2016 julien dufrene
-// Last update Mon Jan  2 18:29:42 2017 julien dufrene
+// Last update Mon Jan  2 20:16:49 2017 julien dufrene
 //
 
 #include "SocketTCPUnixClient.hh"
@@ -69,7 +69,6 @@ bool			SocketTCPUnixClient::connectIt(const std::string &ip, const uint32_t &por
     {
       if (errno == EALREADY || errno == EBADF)
 	{
-	  std::cout << "Reseting connection.." << std::endl;
 	  closeIt();
 	  if (createIt() == false)
 	    return (false);
@@ -88,11 +87,8 @@ bool			SocketTCPUnixClient::connectIt(const std::string &ip, const uint32_t &por
 		  return (false);
 		}
 	      else
-		{
-		  std::cout << "timeout: " << c.getTimeMilli() << "ms" << std::endl;
-		  if (c.getTimeMilli() < 4000)
-		    return (true);
-		}
+		if (c.getTimeMilli() < 4000)
+		  return (true);
 	    }
 	}
       std::cerr << "Error on connect: " << errno << std::endl;

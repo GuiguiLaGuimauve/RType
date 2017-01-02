@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Fri Dec 16 11:37:09 2016 julien dufrene
-// Last update Mon Jan  2 10:21:26 2017 julien dufrene
+// Last update Mon Jan  2 20:16:00 2017 julien dufrene
 //
 
 #include	"ManageNetworkUDPClient.hh"
@@ -115,7 +115,6 @@ bool			ManageNetworkUDPClient::tryConnectClient(const uint32_t &port, const std:
   u->setPseudo("Accept");
   _serv = u;
   _initServ = true;
-  std::cout << "Client UDP connected, IP: " << _serv->getIp() << " port: " << _serv->getPort() << std::endl;
   return (true);
 }
 

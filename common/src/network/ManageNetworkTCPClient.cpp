@@ -132,7 +132,7 @@ std::vector<IUserNetwork *>	ManageNetworkTCPClient::exec()
     }
   if (_serv->getStatus() == false)
     {
-      std::cerr << "[Error] Server Down" << std::endl;
+      std::cerr << "[TCP ERROR] closing socket server." << std::endl;
       _initServ = false;
     }
   return (newuser);
@@ -173,7 +173,7 @@ bool			ManageNetworkTCPClient::tryConnectClient(const uint32_t &port, const std:
   _serv = u;
   _user.push_back(u);
   _initServ = true;
-  std::cout << "Client TCP connected, IP connect: " << _serv->getIp() << std::endl;
+  std::cout << "Client TCP connected: " << _serv->getIp() << std::endl;
   return (true);
 }
 
@@ -191,7 +191,7 @@ void		ManageNetworkTCPClient::pushTo(const std::vector<std::string> &s, const Pa
 	}
     }
   else
-    std::cout << "Not connected to server!" << std::endl;
+    std::cerr << "[TCP ERROR] Not connected to server!" << std::endl;
 }
 
 bool		ManageNetworkTCPClient::hasServerRunning() const

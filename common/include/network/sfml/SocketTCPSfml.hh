@@ -1,0 +1,53 @@
+//
+// SocketTCPSfml.hh for SocketTCPSfml.hh in /home/dufren_b/teck3/rendu/CPP/RType
+// 
+// Made by julien dufrene
+// Login   <dufren_b@epitech.net>
+// 
+// Started on  Fri Oct 14 11:25:14 2016 julien dufrene
+// Last update Sat Dec 24 16:47:43 2016 julien dufrene
+//
+
+#ifndef _SocketTCPSFML_HH_
+#define _SocketTCPSFML_HH_
+
+#include "ASocketTCP.hh"
+
+#include <SFML/Network.hpp>
+
+namespace Network
+{
+  /* La classe SocketTCPSfml définit les méthodes des classes Socket TCP spécifiques à Sfml. */
+  class		SocketTCPSfml : public ASocketTCP {
+  public:
+    SocketTCPSfml();
+    virtual ~SocketTCPSfml();
+    /* La méthode createIt() permet de créé une socket */
+    bool		createIt();
+    /* La méthode bindIt(const uint32_t &) permet de bind le port de la socket. */
+    bool		bindIt(const uint32_t &);
+    /* La méthode listenIt(const uint32_t &) permet d'écouter sur la socket. */
+    bool		listenIt(const uint32_t &);
+    /* La méthode acceptClient(DataClient &) permet d'accepter une connexion */
+    bool		acceptClient(DataClient &d);
+    /* La méthode connectIt(const std::string &, const uint32_t &) permet de se connecter sur une socket TCP. */
+    virtual bool		connectIt(const std::string &ip, const uint32_t &port)
+    {
+      (void)ip; (void)port;
+      return (false);
+    }
+    /* La méthode getIpInfo() permet de récupérer l'ip de la socket */
+    const std::string   getIpInfo() const;
+    /* La méthode getFdSocket() permet de récupérer le descripteur de la socket. */
+    int32_t		getFdSocket() const;
+    /* La méthode closeIt() permet de fermer la socket */
+    bool		closeIt();
+  protected:
+    sf::TcpSocket	_sock;
+  private:
+    sf::TcpListener	_listen;
+    uint32_t		_port;
+  };
+};
+
+#endif
