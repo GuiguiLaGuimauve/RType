@@ -5,7 +5,7 @@
 // Login   <lecoq@lecoq-epitechHP>
 // 
 // Started on  Mon Jan  2 00:03:04 2017 Lecoq Maxime
-// Last update Mon Jan  2 04:15:12 2017 Lecoq Maxime
+// Last update Mon Jan  2 04:27:23 2017 Lecoq Maxime
 //
 
 #include "PacketGame.hh"
@@ -82,7 +82,6 @@ PacketGame::PacketGame(const std::vector<DataPlayer *> &p, const std::vector<Dat
 
       ps.add((uint16_t)(_back[i]->getY()));
       dataPacketSize += 2;
-      std::cout << _back[i]->getY() << " : " << i << std::endl;
       ps.add((uint16_t)_back[i]->getSpriteName().size());
       ps.add(_back[i]->getSpriteName());
       dataPacketSize += 2 + (uint32_t)_back[i]->getSpriteName().size();

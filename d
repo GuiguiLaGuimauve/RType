@@ -1,5 +1,3 @@
-backgrond y != 0
-
 depop monstre a recheck
 
 depop background aussi

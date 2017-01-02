@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 15:45:57 2016 Maxime Lecoq
-// Last update Mon Jan  2 04:22:53 2017 Lecoq Maxime
+// Last update Mon Jan  2 04:24:23 2017 Lecoq Maxime
 //
 
 #include	"Game.hh"
@@ -193,10 +193,7 @@ void		Game::movements()
 	      _ennemy[i]->move();
 	      if (_ennemy[i]->getX() > 1920 || _ennemy[i]->getX() < 0
 		  || _ennemy[i]->getY() < 0 || _ennemy[i]->getY() > 1080)
-		{
-		  delete _ennemy[i];
-		  _ennemy.erase(_ennemy.begin() + i);
-		}
+		_ennemy.erase(_ennemy.begin() + i);
 	      else
 		i++;
 	      i++;
