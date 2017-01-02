@@ -5,7 +5,7 @@
 // Login   <rembur_g@epitech.eu>
 //
 // Started on  Tue Dec 27 13:34:43 2016 La Guimauve
-// Last update Sun Jan  1 23:33:09 2017 Lecoq Maxime
+// Last update Mon Jan  2 06:32:14 2017 Lecoq Maxime
 //
 
 #include <utility>
@@ -19,24 +19,34 @@ Monster::Monster()
 {
 	this->setX(0);
 	this->setY(0);
-	this->setSizeX(34);
-	this->setSizeY(36);
-	this->setHitBoxSizeX(34);
-	this->setHitBoxSizeY(36);
+	this->setSizeX(31 * 3);
+	this->setSizeY(28 * 3);
+	this->setHitBoxSizeX(31 * 3);
+	this->setHitBoxSizeY(28 * 3);
 	this->setDeltaHitBoxX(0);
 	this->setDeltaHitBoxY(0);
 	this->setSpriteName("Enemy7");
 	this->setHealth(15);
-}
-
-void Monster::move()
-{
-	this->_x -= 3;
-}
+	std::pair<int8_t, int8_t> a(-3, -4);
+	std::pair<int8_t, int8_t> b(-2, 0);
+	std::pair<int8_t, int8_t> c(-3, 4);
+	for (uint64_t i = 0; i < 20; i++)
+	  _pattern.push_back(a);
+	for (uint64_t i = 0; i < 10; i++)
+	  _pattern.push_back(b);
+	for (uint64_t i = 0; i < 20; i++)
+	  _pattern.push_back(c);
+	for (uint64_t i = 0; i < 10; i++)
+	  _pattern.push_back(b);
+	}
 
 DataShoot *Monster::getShoot()
 {
-	return (new MonsterShoot());
+  DataShoot *d = new MonsterShoot;
+
+  d->setX(_x);
+  d->setY(_y + 42);
+  return (d);
 }
 
 DataEnnemy *Monster::getNewEnnemy()

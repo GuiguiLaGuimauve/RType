@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Fri Dec 16 11:37:09 2016 julien dufrene
-// Last update Sun Jan  1 13:44:22 2017 Lecoq Maxime
+// Last update Mon Jan  2 11:32:12 2017 Lecoq Maxime
 //
 
 #include	"ManageNetworkUDPServer.hh"
@@ -90,9 +90,9 @@ bool			ManageNetworkUDPServer::selectIt()
 std::vector<IUserNetwork *>	ManageNetworkUDPServer::exec()
 {
   std::vector<IUserNetwork *>	newuser;
-  IUserNetwork					*u;
-  uint64_t						i;
-  bool							ok;
+  IUserNetwork			*u;
+  uint64_t			i;
+  bool				ok;
 
   i = 0;
   while (i < _user.size())
@@ -107,11 +107,11 @@ std::vector<IUserNetwork *>	ManageNetworkUDPServer::exec()
   if (_user.size() > 0)
     {
 #ifdef _WIN32
-	  u = new UserNetworkUDPWindowsServer();
-	#else
-	  u = new UserNetworkUDPUnixServer();
-	#endif
-	  u->setIp("0.0.0.0");
+      u = new UserNetworkUDPWindowsServer();
+#else
+      u = new UserNetworkUDPUnixServer();
+#endif
+      u->setIp("0.0.0.0");
       u->setFd(_net->getFdSocket());
       u->setPseudo("Accept");
       u = u->readSocket(_net);
@@ -125,10 +125,6 @@ std::vector<IUserNetwork *>	ManageNetworkUDPServer::exec()
 	    {
 	      if (_user[i]->getIp() == u->getIp())
 		{
-		  if (_user[i]->getPseudo().compare("Accept") != 0 && u->getPseudo().compare("Accept") == 0)
-		    u->setPseudo(_user[i]->getPseudo());
-		  //		  while (_user[i]->haveSomethingToWrite() == true)
-		  //u->pushBufferWrite(_user[i]->popBufferWrite());
 		  u->setPseudo(_user[i]->getPseudo());
 		  _user[i] = u;
 		  ok = true;
@@ -157,24 +153,6 @@ bool		ManageNetworkUDPServer::run(const uint32_t &port, const uint32_t &maxCl)
   if (maxCl != 0 && _net->bindIt(port) == false)
     return (false);
   std::cout << "Server UDP prepared, IP: " << _net->getIpInfo() << " port: " << port << std::endl;
-  return (true);
-}
-
-bool			ManageNetworkUDPServer::tryConnectClient(const uint32_t &port, const std::string &ip)
-{
-#ifdef _WIN32
-  IUserNetwork *u = new UserNetworkUDPWindowsServer();
-#else
-  IUserNetwork *u = new UserNetworkUDPUnixServer();
-#endif
-  u->setFd(_net->getFdSocket());
-  u->setIp(ip);
-  u->setPort(port);
-  u->setStatus(true);
-  _serv = u;
-  _user.push_back(u);
-  _initServ = true;
-  std::cout << "Server UDP connected, IP: " << _serv->getIp() << "port: " << port << std::endl;
   return (true);
 }
 

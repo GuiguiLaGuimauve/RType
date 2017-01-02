@@ -7,6 +7,8 @@
 
 #include <string>
 #include <stdint.h>
+#include <vector>
+#include <utility>
 #include "AData.hh"
 #include "DataShoot.hpp"
 
@@ -15,12 +17,22 @@ namespace Data {
 	class DataEnnemy : public AData {
 
 	public:
-		DataEnnemy() {_health = 100; };
+	  DataEnnemy() : AData() {_health = 100; _patternPos = 0; };
 	  ~DataEnnemy() {};
-	  virtual void move() {};
+	  virtual void move()
+	  {
+	    _x += _pattern[_patternPos].first;
+	    _y += _pattern[_patternPos].second;
+	    _patternPos++;
+	    if (_patternPos >= _pattern.size())
+	      _patternPos = 0;
+	  };
 	  virtual DataShoot *getShoot() { return (new DataShoot); };
 	  virtual bool isBoss() const { return (false); };
 	  virtual DataEnnemy *getNewEnnemy() { return (new DataEnnemy); }
+	protected:
+	  std::vector<std::pair<int8_t, int8_t> > _pattern; 
+	  uint64_t                              _patternPos;
 	};
 };
 

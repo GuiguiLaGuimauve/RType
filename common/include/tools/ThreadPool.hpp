@@ -37,9 +37,10 @@ public:
       }
   }
   template <typename T, typename ... A>
-  void launchTask(T&& func, A&&... args)
+  mythrd::Thread *launchTask(T&& func, A&&... args)
   {
     uint64_t i;
+	uint64_t x;
 
     i = 0;
     _mutex.lock();
@@ -48,16 +49,16 @@ public:
 	if (_th[i] && _th[i]->isRunning() == false)
 	  {
 	    _th[i]->launch(func, args...);
-	    i = 0;
-	    while (i < _th.size())
+	    x = 0;
+	    while (x < _th.size())
 	      {
-		if (_th[i] == NULL)
-		  _th.erase(_th.begin() + i);
+		if (_th[x] == NULL)
+		  _th.erase(_th.begin() + x);
 		else
-		  i++;
+		  x++;
 	      }
 	    _mutex.unlock();
-	    return;
+	    return (_th[i]);
 	  }
 	i++;
       }
@@ -74,6 +75,7 @@ public:
 	  i++;
       }
     _mutex.unlock();
+	return (th);
   };
   /*  template <typename C>
   void launchTask(C&& f)

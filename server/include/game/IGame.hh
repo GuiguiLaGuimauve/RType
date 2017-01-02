@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 11:54:14 2016 Maxime Lecoq
-// Last update Sun Jan  1 19:26:26 2017 Lecoq Maxime
+// Last update Mon Jan  2 09:58:36 2017 Lecoq Maxime
 //
 
 #ifndef IGAME_HH_
@@ -17,6 +17,7 @@
 # include	<thread>
 # include       "IManageNetwork.hh"
 # include       "PacketFactory.hh"
+# include	"Thread.hpp"
 
 class IGame {
 public:
@@ -37,6 +38,8 @@ public:
   virtual void				execPacket(const IPacket *, const std::string &) = 0;
   virtual void                          updatePosPlayer(const IPacket *, const std::string &) = 0;
   virtual void                          updatePlayerShoots(const IPacket *, const std::string &) = 0;
+  virtual void                          updatePlayer(const IPacket *, const std::string &) = 0;
+  virtual void				addThread(mythrd::Thread *) = 0;
 };
 
 #endif /* !IGAME_HH_ */

@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 15:44:47 2016 Maxime Lecoq
-// Last update Sun Jan  1 19:24:49 2017 Lecoq Maxime
+// Last update Mon Jan  2 10:38:24 2017 Lecoq Maxime
 //
 
 #include "GameManager.hh"
@@ -39,6 +39,7 @@ void	GameManager::createGame(DataRoom *room, const uint8_t *ip)
       room->getPlayers()[i]->setX(100);
       room->getPlayers()[i]->setY(200 + (i * 200));
       room->getPlayers()[i]->setShoots(reset);
+      room->getPlayers()[i]->setTick(0);
       pb = _factory->getPacket("positionplayer", 200, 200 + (i * 200));
       tmp.push_back(room->getPlayers()[i]->getName());
       _tcp->pushTo(tmp, pb->getPacketUnknown());
@@ -46,11 +47,11 @@ void	GameManager::createGame(DataRoom *room, const uint8_t *ip)
       delete pb;
       i++;
     }
-  _threadPool->launchTask(&GameManager::runGame, this, newGame);
-  _threadPool->launchTask(&GameManager::runTimeline, this, newGame);
-  _threadPool->launchTask(&GameManager::runMovements, this, newGame);
-  _threadPool->launchTask(&GameManager::popMonster, this, newGame);
-  _threadPool->launchTask(&GameManager::popBackground, this, newGame);
+  newGame->addThread(_threadPool->launchTask(&GameManager::runGame, this, newGame));
+  newGame->addThread(_threadPool->launchTask(&GameManager::runTimeline, this, newGame));
+  newGame->addThread(_threadPool->launchTask(&GameManager::runMovements, this, newGame));
+  newGame->addThread(_threadPool->launchTask(&GameManager::popMonster, this, newGame));
+  newGame->addThread(_threadPool->launchTask(&GameManager::popBackground, this, newGame));
 }
 
 bool          GameManager::gamesUpdate()
@@ -66,9 +67,7 @@ bool          GameManager::gamesUpdate()
 	  _tcp->pushTo(_gameList[i]->getAllName(), p->getPacketUnknown());
 	  delete p;
 	  _gameList[i]->end();
-	  //	  delete _gameList[i];
 	  _gameList.erase(_gameList.begin() + i);
-	  std::cout << "la game est finis ca mere" << std::endl;
 	}
       else
 	i++;

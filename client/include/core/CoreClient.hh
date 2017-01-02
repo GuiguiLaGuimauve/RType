@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:19:16 2016 Maxime Lecoq
-// Last update Mon Jan  2 00:51:54 2017 Lecoq Maxime
+// Last update Mon Jan  2 05:50:12 2017 Lecoq Maxime
 //
 
 #ifndef CORECLIENT_HH_
@@ -92,6 +92,7 @@ private:
   Thread		*_th;
   std::string		_game;
   bool			_loop;
+  uint64_t		_tickIdServ;
 };
 
 #endif /* !CORECLIENT_HH_ */

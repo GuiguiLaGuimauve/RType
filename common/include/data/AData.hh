@@ -12,7 +12,7 @@ namespace Data
   class	AData : public IData
   {
   public:
-    AData(){};
+    AData() : _x(0), _y(0), _sizeX(0), _sizeY(0), _hitboxDeltaX(0), _hitboxDeltaY(0), _hitboxSizeX(0), _hitboxSizeY(), _spriteFileName(""), _health(0) {};
     virtual ~AData(){};
     int16_t getX() const;
     int16_t getY() const;
@@ -24,7 +24,7 @@ namespace Data
 	uint16_t getHitBoxSizeY() const;
 	int16_t getHitBoxX() const;
 	int16_t getHitBoxY() const;
-	void setSpriteName(const std::string &);
+    virtual void setSpriteName(const std::string &);
 	void setHitBoxSizeX(const uint16_t &);
 	void setHitBoxSizeY(const uint16_t &);
 	void setDeltaHitBoxX(const int16_t &);

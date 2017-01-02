@@ -10,6 +10,7 @@
 #include <vector>
 #include "AData.hh"
 #include "DataPlayer.hpp"
+#include "StringCk.hpp"
 
 class DataRoom {
   
@@ -28,6 +29,7 @@ public:
   uint8_t getLevel() const { return (_level); };
   uint16_t getNbPlayers() const { return ((uint16_t)_players.size()); };
   bool getStarted() const { return _started; }
+  DataPlayer *getPlayer(const std::string &m) { StringCk st; uint64_t i; i = 0; while (i < _players.size()) { if (st.lower(_players[i]->getName()) == st.lower(m)) return (_players[i]); i++; } return (NULL); }
   
   void setName(const std::string & name) { _name = name; };
   void setPlayers(const std::vector<DataPlayer *> & players) { _players = players; };

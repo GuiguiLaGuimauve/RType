@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 10:58:37 2016 Maxime Lecoq
-// Last update Mon Jan  2 00:48:55 2017 Lecoq Maxime
+// Last update Mon Jan  2 03:41:50 2017 Lecoq Maxime
 //
 
 #include "ManagePacketServer.hh"
@@ -50,7 +50,8 @@ ManagePacketServer::ManagePacketServer()
   _factory->enableDeserialiser("ping");
   _factory->enableDeserialiser("pong");
   _factory->enableDeserialiser("askroomdata");
-  _factory->enableDeserialiser("askrooms"); 
+  _factory->enableDeserialiser("askrooms");
+  _factory->enableDeserialiser("playerdata"); 
 }
 
 ManagePacketServer::~ManagePacketServer()

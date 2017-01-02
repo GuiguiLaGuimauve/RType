@@ -5,13 +5,14 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Fri Oct 14 11:25:14 2016 julien dufrene
-// Last update Wed Dec 21 06:33:36 2016 julien dufrene
+// Last update Mon Jan  2 04:30:27 2017 julien dufrene
 //
 
 #ifndef _ASOCKETTCP_HH_
 #define _ASOCKETTCP_HH_
 
 #include "ISocket.hh"
+#include "Clock.hpp"
 
 namespace Network
 {

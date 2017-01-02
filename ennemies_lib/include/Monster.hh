@@ -5,7 +5,7 @@
 // Login   <rembur_g@epitech.eu>
 //
 // Started on  Tue Dec 27 13:13:44 2016 La Guimauve
-// Last update Sun Jan  1 23:29:56 2017 Lecoq Maxime
+// Last update Mon Jan  2 02:18:25 2017 Lecoq Maxime
 //
 
 #ifndef _MONSTER_HH_
@@ -26,7 +26,6 @@ private:
 
 public:
   Monster();
-  void move();
   DataShoot *getShoot();
   DataEnnemy *getNewEnnemy();
 };

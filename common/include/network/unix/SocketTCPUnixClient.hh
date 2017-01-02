@@ -5,13 +5,14 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Fri Oct 14 11:25:14 2016 julien dufrene
-// Last update Thu Dec 15 15:58:18 2016 julien dufrene
+// Last update Mon Jan  2 04:30:06 2017 julien dufrene
 //
 
 #ifndef _SocketTCPUnixClient_HH_
 #define _SocketTCPUnixClient_HH_
 
 #include "SocketTCPUnix.hh"
+#include <fcntl.h>
 
 namespace Network
 {

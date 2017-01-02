@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 10:58:37 2016 Maxime Lecoq
-// Last update Mon Jan  2 00:49:14 2017 Lecoq Maxime
+// Last update Mon Jan  2 03:41:38 2017 Lecoq Maxime
 //
 
 #include "ManagerPacketClient.hh"
@@ -30,6 +30,7 @@ ManagerPacketClient::ManagerPacketClient()
   _factory->enableSerialiser("pong");
   _factory->enableSerialiser("askroomdata");
   _factory->enableSerialiser("askrooms");
+  _factory->enableSerialiser("playerdata");
   _factory->enableDeserialiser("error");
   _factory->enableDeserialiser("welcome");
   _factory->enableDeserialiser("rooms");

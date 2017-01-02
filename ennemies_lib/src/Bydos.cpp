@@ -12,12 +12,12 @@ Bydos::Bydos()
 {
 	this->setX(0);
 	this->setY(0);
-	this->setSizeX(160);
-	this->setSizeY(210);
-	this->setHitBoxSizeX(140);
-	this->setHitBoxSizeY(190);
-	this->setDeltaHitBoxX(10);
-	this->setDeltaHitBoxY(10);
+	this->setSizeX(155 * 3);
+	this->setSizeY(204 * 3);
+	this->setHitBoxSizeX(155 * 3);
+	this->setHitBoxSizeY(204 * 3);
+	this->setDeltaHitBoxX(0);
+	this->setDeltaHitBoxY(0);
 	this->setSpriteName("Bydos");
 	this->setHealth(400);
 }
@@ -28,7 +28,7 @@ void Bydos::move()
 	static int wait = 0;
 	
 	if (_x > 1200)
-		_x += -5;
+		_x += -3;
 	_y += state * 2;
 	wait++;
 	if (wait == 10)
@@ -40,7 +40,10 @@ void Bydos::move()
 
 DataShoot *Bydos::getShoot()
 {
-	return (new BydosShoot);
+  DataShoot *d = new BydosShoot;
+  d->setX(_x);
+  d->setY(_y + 306);
+  return (d);
 }
 
 bool	Bydos::isBoss() const

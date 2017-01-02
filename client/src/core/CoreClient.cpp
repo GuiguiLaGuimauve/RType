@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Mon Jan  2 00:54:20 2017 Lecoq Maxime
+// Last update Mon Jan  2 11:20:09 2017 Lecoq Maxime
 //
 
 #include	"CoreClient.hh"
@@ -188,7 +188,13 @@ bool	CoreClient::exitClient()
 bool	CoreClient::goConnect()
 {
   _gui->displayStart();
-  _tcp->run(4242);
+  delete _tcp;
+  _tcp = new ManageNetworkTCPClient();
+  if (_tcp->run(4242) == false)
+    exit(0);
+  _tcp->setPacketQueueRead(_read);
+  _tcp->setPacketQueueWrite(_write);
+  _tcp->setPacketFactory(_factory);
   _status = "connect";
   _gameData->endGame();
   if (_th->joinable())
@@ -454,20 +460,18 @@ void		CoreClient::timeLine()
   Clock		clo;
   std::vector<std::string> empty;
   
+  _tickIdServ = 0;
   while (_gameData->gameIsEnded() == false)
     {
       if (_game == "player" && _gameData->getTick() != (uint32_t)(clo.getTimeMilli() / 50))
 	{
 	  _gameData->setTick(clo.getTimeMilli() / 50);
 	  IPacket *p;
-	  p = _factory->getPacket("positionplayer", _gui->getPosX(), _gui->getPosY());
+	  p = _factory->getPacket("playerdata", _gui->getPosX(), _gui->getPosY(), _gameData->getShoots());
 	  p->setTickId(_gameData->getTick());
 	  _udp->pushTo(empty, p->getPacketUnknown());
 	  delete p;
-	  p = _factory->getPacket("shootsclient", _gameData->getShoots());
-	  p->setTickId(_gameData->getTick());
-	  _udp->pushTo(empty, p->getPacketUnknown());
-	  delete p;
+
 	}
       std::this_thread::sleep_for(std::chrono::milliseconds(25));
     }
@@ -495,7 +499,6 @@ bool		CoreClient::positionPlayer(const IPacket *pa, IUserNetwork *u)
   PacketPositionPlayer *p = (PacketPositionPlayer *)pa;
 
   (void)u;
-  (void)p;
   _gui->setPosX(p->getX());
   _gui->setPosY(p->getY());
   return (true);
@@ -505,10 +508,11 @@ bool		CoreClient::players(const IPacket *pa, IUserNetwork *u)
 {
   PacketPlayers	*p = (PacketPlayers *)pa;
   (void)u;
-  (void)p;
-  //  _gameData->setMarge(pa->getTickId() - _gameData->getTick());
-  //if (pa->getTickId() == _gameData->getTick() || pa->getTickId() - _gameData->getTick() == 1)
-  _gui->setPlayersPositions(p->getPlayers());
+  if (_tickIdServ < pa->getTickId())
+    {
+      _tickIdServ = pa->getTickId();
+      _gui->setPlayersPositions(p->getPlayers());
+    }
   return (true);
 }
 
@@ -516,10 +520,11 @@ bool		CoreClient::shoots(const IPacket *pa, IUserNetwork *u)
 {
   PacketShoots	*p = (PacketShoots *)pa;
   (void)u;
-  (void)p;
-  //_gameData->setMarge(pa->getTickId() - _gameData->getTick());
-  //  if (pa->getTickId() == _gameData->getTick() || pa->getTickId() - _gameData->getTick() == 1)
-  _gui->setShootsPositions(p->getShoots());
+  if (_tickIdServ < pa->getTickId())
+    {
+      _tickIdServ = pa->getTickId();
+      _gui->setShootsPositions(p->getShoots());
+    }
   return (true);
 }
 
@@ -527,10 +532,12 @@ bool		CoreClient::background(const IPacket *pa, IUserNetwork *u)
 {
   PacketBackgrounds	*p = (PacketBackgrounds *)pa;
   (void)u;
-  (void)p;
-  //_gameData->setMarge(pa->getTickId() - _gameData->getTick());
-  //  if (pa->getTickId() == _gameData->getTick() || pa->getTickId() - _gameData->getTick() == 1)
-  _gui->setEnvsPositions(p->getBackgrounds());
+  
+  if (_tickIdServ < pa->getTickId())
+    {
+      _tickIdServ = pa->getTickId();
+      _gui->setEnvsPositions(p->getBackgrounds());
+    }
   return (true);
 }
 
@@ -538,10 +545,12 @@ bool		CoreClient::ennemies(const IPacket *pa, IUserNetwork *u)
 {
   PacketEnnemies	*p = (PacketEnnemies *)pa;
   (void)u;
-  (void)p;
-  //_gameData->setMarge(pa->getTickId() - _gameData->getTick());
-  //  if (pa->getTickId() == _gameData->getTick() || pa->getTickId() - _gameData->getTick() == 1)
-  _gui->setEnemyPositions(p->getEnnemies());
+  
+  if (_tickIdServ < pa->getTickId())
+    {
+      _tickIdServ = pa->getTickId();
+      _gui->setEnemyPositions(p->getEnnemies());
+    }
   return (true);
 }
 
@@ -549,13 +558,16 @@ bool		CoreClient::gameData(const IPacket *pa, IUserNetwork *u)
 {
   PacketGame	*p = (PacketGame *)pa;
   (void)u;
-  (void)p;
-  //_gameData->setMarge(pa->getTickId() - _gameData->getTick());
-  //  if (pa->getTickId() == _gameData->getTick() || pa->getTickId() - _gameData->getTick() == 1)
-  _gui->setPlayersPositions(p->getPlayers());
-  _gui->setShootsPositions(p->getShoots());
-  _gui->setEnemyPositions(p->getEnnemies());
-  _gui->setEnvsPositions(p->getBackgrounds());
+  
+  if (_tickIdServ < pa->getTickId())
+    {
+      std::cout << (int)p->getLevel() << std::endl;
+      _tickIdServ = pa->getTickId();
+      _gui->setPlayersPositions(p->getPlayers());
+      _gui->setShootsPositions(p->getShoots());
+      _gui->setEnemyPositions(p->getEnnemies());
+      _gui->setEnvsPositions(p->getBackgrounds());
+    }
   return (true);
 }
 

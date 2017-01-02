@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Fri Dec 16 11:37:09 2016 julien dufrene
-// Last update Sun Jan  1 13:34:08 2017 Lecoq Maxime
+// Last update Mon Jan  2 10:21:26 2017 julien dufrene
 //
 
 #include	"ManageNetworkUDPClient.hh"
@@ -69,15 +69,14 @@ std::vector<IUserNetwork *>	ManageNetworkUDPClient::exec()
 
   if (_initServ == false || _serv->getStatus() == false)
     return (newuser);
-  while (_serv->haveSomethingToWrite() == true)
-    _serv->writeSocket(_net);
   _serv->readSocket(_net);
   while (_serv->getStatus() == true && _serv->haveSomethingToRead())
     {
       PacketUnknown pk = _serv->popBufferRead();
       _read->push(PacketC(pk, _serv));
-      _serv->pushBufferWrite(pk);
     }
+  while (_serv->haveSomethingToWrite() == true)
+    _serv->writeSocket(_net);
   return (newuser);
 }
 

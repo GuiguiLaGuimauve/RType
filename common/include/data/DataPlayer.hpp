@@ -19,7 +19,8 @@ public:
   DataPlayer() : AData() {_online = false;
     _stageSucceed = 0;
     _gamePlayed = 0;
-	_health = 100;};
+	_health = 100;
+	_tick = 0; };
   ~DataPlayer() {};
   
   std::string getName() const { return (_name); };
@@ -29,7 +30,9 @@ public:
   uint8_t getId() const { return (_id); };
   bool getOnline() const { return (_online); };
   std::vector<DataShoot *> getShoots() const { return (_shoots); };
-  
+  uint64_t	getTick() const { return (_tick); };
+
+  void setTick(const uint64_t &i) { _tick = i; };
   void setName(const std::string & name) { _name = name; };
   void setPassword(const std::string & pw) { _pw = pw; };
   void setStageSucceed(const uint16_t & stageSucceed) { _stageSucceed = stageSucceed; };
@@ -50,6 +53,7 @@ private:
   uint8_t _id;
   bool _online;
   std::vector<DataShoot *> _shoots;
+  uint64_t	_tick;
 };
 
 #endif

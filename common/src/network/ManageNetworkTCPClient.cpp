@@ -94,7 +94,7 @@ bool			ManageNetworkTCPClient::selectIt()
       err = select(getMaxFd(), &fd_read, &fd_write, NULL, &timeout);
       if ((uint32_t)err == (uint32_t)-1)
 	{
-	  std::cerr << "Error on select(): " << err << std::endl;
+	  std::cerr << "Error on select(): " << errno << std::endl;
 	  return (false);
 	}
     }
@@ -114,15 +114,17 @@ std::vector<IUserNetwork *>	ManageNetworkTCPClient::exec()
   while (i < (int32_t)_user.size() - add)
     {
       if (_user[i]->getStatus() == true)
-	if (FD_ISSET(_user[i]->getFd(), &fd_read))
-	  {
-	    _user[i]->readSocket(_net);
-	    while (_user[i]->getStatus() == true && _user[i]->haveSomethingToRead() == true)
-	      {
-		PacketUnknown pk = _user[i]->popBufferRead();
-		_read->push(PacketC(pk, _user[i]));
-	      }
-	  }
+	{
+	  if (FD_ISSET(_user[i]->getFd(), &fd_read))
+	    {
+	      _user[i]->readSocket(_net);
+	      while (_user[i]->getStatus() == true && _user[i]->haveSomethingToRead() == true)
+		{
+		  PacketUnknown pk = _user[i]->popBufferRead();
+		  _read->push(PacketC(pk, _user[i]));
+		}
+	    }
+	}
       if (_user[i]->getStatus() == true)
 	if (FD_ISSET(_user[i]->getFd(), &fd_write))
 	  _user[i]->writeSocket(_net);
@@ -130,7 +132,7 @@ std::vector<IUserNetwork *>	ManageNetworkTCPClient::exec()
     }
   if (_serv->getStatus() == false)
     {
-      std::cout << "[Error] Server Down" << std::endl;
+      std::cerr << "[Error] Server Down" << std::endl;
       _initServ = false;
     }
   return (newuser);

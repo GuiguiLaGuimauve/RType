@@ -5,7 +5,7 @@
 // Login   <rembur_g@epitech.eu>
 //
 // Started on  Tue Dec 27 13:34:43 2016 La Guimauve
-// Last update Sun Jan  1 23:31:31 2017 Lecoq Maxime
+// Last update Mon Jan  2 09:32:29 2017 Lecoq Maxime
 //
 
 #include <utility>
@@ -17,15 +17,15 @@
 
 Alf::Alf()
 {
-	this->setX(0);
-	this->setY(0);
-	this->setSizeX(33);
-	this->setSizeY(17);
-	this->setHitBoxSizeX(33);
-	this->setHitBoxSizeY(17);
+  this->setX(0);
+  this->setY(0);
+  this->setSizeX(24 * 3);
+	this->setSizeY(21 * 3);
+	this->setHitBoxSizeX(24 * 3);
+	this->setHitBoxSizeY(21 * 3);
 	this->setDeltaHitBoxX(0);
 	this->setDeltaHitBoxY(0);
-	this->setSpriteName("Vaisseau5");
+	this->setSpriteName("Enemy8");
 	this->setHealth(50);
 }
 
@@ -36,7 +36,10 @@ void Alf::move()
 
 DataShoot *Alf::getShoot()
 {
-	return (new AlfShoot());
+  DataShoot *d = new AlfShoot;
+  d->setX(_x);
+  d->setX(_y + 31);
+  return (d);
 }
 
 DataEnnemy *Alf::getNewEnnemy()
