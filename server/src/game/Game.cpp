@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 15:45:57 2016 Maxime Lecoq
-// Last update Mon Jan  2 19:19:57 2017 Lecoq Maxime
+// Last update Mon Jan  2 19:32:06 2017 Lecoq Maxime
 //
 
 #include	"Game.hh"
@@ -536,10 +536,11 @@ void		Game::monster()
 	    if (_lvl >= 5)
 	      boss();
 	}
-      if (shoot != (uint64_t)clo.getTimeMilli() / 1000)
+      if (shoot != (uint64_t)clo.getTimeMilli() / 2000)
 	{
 	  uint64_t x;
-	  shoot = clo.getTimeMilli() / 1000;
+	  _room->update();
+	  shoot = clo.getTimeMilli() / 2000;
 	  x = 0;
 	  while (x < _ennemy.size())
 	    {
@@ -565,7 +566,7 @@ void		Game::background()
 
   i = 0;
   (void)pa;
-  while (_room->getStarted() == true && _room->getPlayers().size() != 0 && _lvl < 7 && _win == false)
+  while (_room->getStarted() == true && _room->getPlayers().size() != 0 && _lvl < 4 && _win == false)
     {
       if (i != (uint64_t)clo.getTimeMilli() / 30000)
 	{

@@ -33,6 +33,7 @@ public:
   DataPlayer *getPlayer(const std::string &m) { StringCk st; uint64_t i; i = 0; while (i < _players.size()) { if (st.lower(_players[i]->getName()) == st.lower(m)) return (_players[i]); i++; } return (NULL); }
   uint32_t getScore() const { return (_score); }
 
+  void update() { _isUpdate = true; }
   bool isUpdate() { if (_isUpdate == true) { _isUpdate = false; return (true); } else return (false); };
   void setName(const std::string & name) { _name = name; };
   void setPlayers(const std::vector<DataPlayer *> & players) { _players = players; };
@@ -42,14 +43,6 @@ public:
   void setStarted(const bool & started) { _started = started; };  
   void setScore(const uint32_t &s) { _score = s; }
 
-  void kickAll()
-  {
-    while (_players.size() != 0)
-      _players.erase(_players.begin());
-    while (_watchers.size() != 0)
-      _watchers.erase(_watchers.begin());
-    _isUpdate = true;
-  }
 private:
   std::string			_name;
   std::vector<DataPlayer *>	_players;
