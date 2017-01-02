@@ -34,10 +34,10 @@ namespace Data {
 		}
 		if (_spriteFileName == "Env-2")
 		{
-			this->setSizeX(128 * 2);
-			this->setSizeY(66 * 2);
-			this->setHitBoxSizeX(128 * 2);
-			this->setHitBoxSizeY(66 * 2);
+			this->setSizeX(118 * 2);
+			this->setSizeY(61 * 2);
+			this->setHitBoxSizeX(118 * 2);
+			this->setHitBoxSizeY(61 * 2);
 			this->setDeltaHitBoxX(0);
 			this->setDeltaHitBoxY(0);
 		}
