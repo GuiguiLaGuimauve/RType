@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 11:54:48 2016 Maxime Lecoq
-// Last update Mon Jan  2 09:56:55 2017 Lecoq Maxime
+// Last update Mon Jan  2 13:36:42 2017 Lecoq Maxime
 //
 
 #ifndef GAME_HH_
@@ -53,7 +53,10 @@ public:
   void				updatePlayerShoots(const IPacket *, const std::string &);
   void				updatePlayer(const IPacket *, const std::string &);
   void				addThread(mythrd::Thread *);
+  bool				isWin() const;
+  bool				isLoose() const;
 private:
+  void				checkShootCollisions();
   void				refreshEnnemy();
   void				lvl1();
   void				lvl2();
@@ -78,6 +81,7 @@ private:
   bool				_bossMod;
   bool				_bossSet;
   std::vector<mythrd::Thread *>	_th;
+  bool				_win;
 };
 
 #endif /* !GAME_HH_ */

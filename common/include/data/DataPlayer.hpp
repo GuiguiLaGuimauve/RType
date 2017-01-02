@@ -19,8 +19,8 @@ public:
   DataPlayer() : AData() {_online = false;
     _stageSucceed = 0;
     _gamePlayed = 0;
-	_health = 100;
-	_tick = 0; };
+    _health = 100;
+    _tick = 0; };
   ~DataPlayer() {};
   
   std::string getName() const { return (_name); };

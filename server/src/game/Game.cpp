@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 15:45:57 2016 Maxime Lecoq
-// Last update Mon Jan  2 12:43:28 2017 Lecoq Maxime
+// Last update Mon Jan  2 13:37:16 2017 Lecoq Maxime
 //
 
 #include	"Game.hh"
@@ -40,6 +40,7 @@ Game::Game(DataRoom *p) : _room(p), _timeline(0)
   _ptrM[4] = &Game::lvl2;
   _ptrM[5] = &Game::lvl3;
   _ptrM[6] = &Game::boss;
+  _win = false;
 }
 
 Game::~Game()
@@ -66,6 +67,21 @@ Game::~Game()
 	_th[i]->join();
       i++;
     }
+}
+
+bool			Game::isWin() const { return (_win); }
+
+bool			Game::isLoose() const
+{
+  uint64_t i = 0;
+
+  while (i < _room->getPlayers().size())
+    {
+      if (_room->getPlayers()[i]->getHealth() > 0)
+	return (false);
+      i++;
+    }
+  return (true);
 }
 
 void			Game::refreshEnnemy()
@@ -163,6 +179,58 @@ void		Game::end()
   _room->setStarted(false);
 }
 
+void		Game::checkShootCollisions()
+{
+  uint64_t	i;
+  uint64_t	x;
+
+  i = 0;
+  while (i < _shoots.size())
+    {
+      x = 0;
+      while (x < _shootsEn.size() && _shoots[i]->getHealth() > 0)
+	{
+	  if (_shoots[i]->collisionWith(_shootsEn[x]) == true)
+	    {
+	      _shoots[i]->setHealth(_shoots[i]->getHealth() - _shootsEn[x]->getDamage());
+	      _shootsEn[x]->setHealth(_shootsEn[x]->getHealth() - _shoots[i]->getDamage());
+	    }
+	  if (_shootsEn[x]->getHealth() <= 0)
+	    _shootsEn.erase(_shootsEn.begin() + x);
+	  else
+	    x++;
+	}
+      x = 0;
+      while (x < _ennemy.size() && _shoots[i]->getHealth() > 0)
+	{
+	  if (_shoots[i]->collisionWith(_ennemy[x]) == true)
+	    {
+	      _shoots[i]->setHealth(_shoots[i]->getHealth() - 100);
+	      _ennemy[x]->setHealth(_ennemy[x]->getHealth() - _shoots[i]->getDamage());
+	    }
+	  if (_ennemy[x]->getHealth() <= 0)
+	    {
+	      if (_ennemy[x]->isBoss() == true)
+		_win = true;
+	      _ennemy.erase(_ennemy.begin() + x);
+	    }
+	  else
+	    x++;
+	}
+      x = 2;
+      while (x < _background.size() && _shoots[i]->getHealth() > 0)
+	{
+	  if (_shoots[i]->collisionWith(_background[x]) == true)
+	    _shoots[i]->setHealth(_shoots[i]->getHealth() - 90);
+	  x++;
+	}
+      if (_shoots[i]->getHealth() <= 0)
+	_shoots.erase(_shoots.begin() + i);
+      else
+	i++;
+    }
+}
+
 void		Game::movements()
 {
   Clock         clo;
@@ -174,7 +242,7 @@ void		Game::movements()
   m = 0;
   x = 0;
   z = 0;
-  while (_room->getStarted() == true && _room->getPlayers().size() != 0)
+  while (_room->getStarted() == true && _room->getPlayers().size() != 0 && _win == false)
     {
       if (x != (uint64_t)clo.getTimeMilli() / 2)
 	{
@@ -199,6 +267,7 @@ void		Game::movements()
 	      else
 		i++;
 	    }
+	  checkShootCollisions();
 	}
       if (m != (uint64_t)clo.getTimeMilli() / 50)
 	{
@@ -248,7 +317,7 @@ void		Game::timeLine()
   
   _timeline = 0;
   ckLvl = 0;
-  while (_room->getStarted() == true && _room->getPlayers().size() != 0)
+  while (_room->getStarted() == true && _room->getPlayers().size() != 0 && _win == false)
     {
       if (ckLvl != (uint64_t)clo.getTimeMilli() / 50000)
 	{
@@ -362,7 +431,7 @@ void		Game::monster()
   (void)pa;
   i = 0;
   shoot = 0;
-  while (_room->getStarted() == true && _room->getPlayers().size() != 0)
+  while (_room->getStarted() == true && _room->getPlayers().size() != 0 && _win == false)
     {
       if (i != (uint64_t)clo.getTimeMilli() / 7000)
 	{
@@ -397,7 +466,7 @@ void		Game::background()
 
   i = 0;
   (void)pa;
-  while (_room->getStarted() == true && _room->getPlayers().size() != 0 && _lvl < 7)
+  while (_room->getStarted() == true && _room->getPlayers().size() != 0 && _lvl < 7 && _win == false)
     {
       if (i != (uint64_t)clo.getTimeMilli() / 30000)
 	{

@@ -14,7 +14,7 @@ namespace Data {
 
 	public:
 	  DataBackground() : AData() {};
-	  DataBackground(const uint16_t &x, const uint16_t &y) : AData() { _x = x; _y = y; _speed = -1; };
+	  DataBackground(const uint16_t &x, const uint16_t &y) : AData() { _x = x; _y = y; _speed = -1;};
 	  ~DataBackground() {};
 
 	  int8_t getSpeed() const { return (_speed); };
