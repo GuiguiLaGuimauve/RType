@@ -32,7 +32,8 @@ IUserNetwork		*UserNetworkUDPWindowsClient::readSocket(ISocket *net)
   if (WSAHtons(_fd, _port, &(s_in.sin_port)) == SOCKET_ERROR)
   {
   	  std::cerr << "UNUWC Error on WSAHtons: " << WSAGetLastError() << std::endl;
-	  return (this);
+	  IUserNetwork		*u = new UserNetworkUDPWindowsClient(*this);
+	  return (u);
   }
   DataBuf.len = 16384;
   DataBuf.buf = buffer;
@@ -49,10 +50,11 @@ IUserNetwork		*UserNetworkUDPWindowsClient::readSocket(ISocket *net)
       res[i] = 0;
       PacketUnknown pkt((uint8_t *)res, RecvBytes);
       buff_r.push(pkt);
+	  if (WSANtohs(_fd, s_in.sin_port, &port) == SOCKET_ERROR)
+		  std::cerr << "Error from Wsatohs(): " << WSAGetLastError() << std::endl;
     }
   else
-    if (WSAGetLastError() != 10035 && WSAGetLastError() != 10060 // && WSAGetLastError() != 10022
-	)
+    if (WSAGetLastError() != 10035 && WSAGetLastError() != 10060 && WSAGetLastError() != 10022)
       {
 	std::cout << "error from WSARecvFrom: " << WSAGetLastError() << std::endl;
 	closeFd();
