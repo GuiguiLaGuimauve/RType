@@ -774,6 +774,8 @@ void		GUI::updateGameInfo(/*const GameInfo &*/)
   if (!_menuWidgets)
     return;
   cleanGames();
+  if (_menuInfos.size() < NB_GAME_SCROLL)
+	  _menuWidgets->itScroll = 0;
   if (_menuWidgets->itScroll >= _menuInfos.size())
 	  _menuWidgets->itScroll = (unsigned int) _menuInfos.size() - 1;
   _menuWidgets->itScroll = ((int)_menuWidgets->itScroll < 0) ? 0 : _menuWidgets->itScroll;
