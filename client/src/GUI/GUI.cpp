@@ -30,7 +30,7 @@ GUI::GUI()
   _userEvents->bindKey(KEY_ATTACK, EventPart::Event::KEY_ATTACK);
   _userEvents->bindKey(KEY_QUIT, EventPart::Event::CLOSE_WINDOW);
   _userEvents->bindKey(KEY_BACK, EventPart::Event::KEY_BACK);
-  logFile.open("benchmarkCallback.txt");
+  //logFile.open("benchmarkCallback.txt");
 }
 
 GUI::~GUI()
