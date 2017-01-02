@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Fri Dec 16 11:37:09 2016 julien dufrene
-// Last update Sun Jan  1 13:34:08 2017 Lecoq Maxime
+// Last update Mon Jan  2 10:17:46 2017 Lecoq Maxime
 //
 
 #include	"ManageNetworkUDPClient.hh"
@@ -76,7 +76,6 @@ std::vector<IUserNetwork *>	ManageNetworkUDPClient::exec()
     {
       PacketUnknown pk = _serv->popBufferRead();
       _read->push(PacketC(pk, _serv));
-      _serv->pushBufferWrite(pk);
     }
   return (newuser);
 }
