@@ -275,7 +275,7 @@ void		GUI::displayGame()
   _audio->stopMusic();
   _audio->playMusic("Stage1");
   //this->_gameWidgets->levelId = ...
-  _win->setBackground(PICTURE_BACKGROUND);
+  _win->setBackground(PICTURE_BACKGROUND_GAME);
   //_win->setBackground(this->backgroundMap[this->_gameWidgets->levelId]);// Ou on pourrait set le levelId ?
 }
 
