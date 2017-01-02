@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 //
 // Started on  Fri Oct 14 11:10:10 2016 julien dufrene
-// Last update Fri Dec 23 01:36:13 2016 julien dufrene
+// Last update Mon Jan  2 22:18:02 2017 Lecoq Maxime
 //
 
 #include "SocketUDPUnix.hh"
@@ -27,8 +27,6 @@ SocketUDPUnix::SocketUDPUnix()
     throw ErrorSocket("Error on Socket()");
   if(setsockopt(_sock, SOL_SOCKET, SO_RCVTIMEO, &tv, sizeof(tv)) < 0)
     throw ErrorSocket("Error on setsockopt(SO_RCVTIMEO)");
-  // if (fcntl(_sock, F_SETFL, O_NONBLOCK) == -1)
-  //   throw ErrorSocket("Error on fcntl(O_NONBLOCK)");
 }
 
 const std::string   SocketUDPUnix::getIpInfo() const

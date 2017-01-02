@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Fri Oct 14 15:52:42 2016 julien dufrene
-// Last update Mon Jan  2 18:29:42 2017 julien dufrene
+// Last update Mon Jan  2 22:18:29 2017 Lecoq Maxime
 //
 
 #include "SocketTCPUnixClient.hh"
@@ -89,7 +89,6 @@ bool			SocketTCPUnixClient::connectIt(const std::string &ip, const uint32_t &por
 		}
 	      else
 		{
-		  std::cout << "timeout: " << c.getTimeMilli() << "ms" << std::endl;
 		  if (c.getTimeMilli() < 4000)
 		    return (true);
 		}

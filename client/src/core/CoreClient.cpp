@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Mon Jan  2 22:04:58 2017 Lecoq Maxime
+// Last update Mon Jan  2 22:21:11 2017 Lecoq Maxime
 //
 
 #include	"CoreClient.hh"
@@ -302,7 +302,6 @@ bool	CoreClient::createGame(EventPart::Event e)
   _tcp->pushTo(p, pa->getPacketUnknown());
   delete pa;
   (void)e;
-  std::cout << "create room : " << e.dataString["GAME_NAME"] << " | " << e.dataInt["MAX_PLAYER"] << std::endl;
   return (true);
 }
 
@@ -485,7 +484,6 @@ bool		CoreClient::ping(const IPacket *pa, IUserNetwork *u)
   IPacket	*p = new PacketPong;
   _write->push(PacketC(p->getPacketUnknown(), u));
   delete p;
-  std::cout << "ping recu et pong envoyé" << std::endl;
   (void)pa;
   return (true);
 }
@@ -493,7 +491,6 @@ bool		CoreClient::ping(const IPacket *pa, IUserNetwork *u)
 bool		CoreClient::pong(const IPacket *pa, IUserNetwork *u)
 {
   (void)pa; (void)u;
-  std::cout << "pong recu" << std::endl;
   return (true);
 }
 
