@@ -5,7 +5,7 @@
 // Login   <rembur_g@epitech.eu>
 //
 // Started on  Wed Dec 28 09:24:15 2016 La Guimauve
-// Last update Sun Jan  1 17:32:07 2017 La Guimauve
+// Last update Mon Jan  2 22:10:52 2017 Lecoq Maxime
 //
 
 #include "EnnemyLoader.hh"
@@ -18,7 +18,6 @@ DataEnnemy *EnnemyLoader::LoadEnnemy(const std::string &lib)
 			DLloaderWin<DataEnnemy *()> dl_ui16;
 		#endif //_WIN32
 
-		std::cout << "We looking for " << ENNEMY_LIB_PATH + lib << std::endl;
 		dl_ui16.loadLib(ENNEMY_LIB_PATH + lib);
 
 		dl_ui16.extractLib("entrypoint");
