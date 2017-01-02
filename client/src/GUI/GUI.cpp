@@ -734,12 +734,13 @@ void		GUI::displayEnd(bool win, uint32_t score)
   //_win->setBackground(this->backgroundMap[this->_gameWidgets->levelId]);// Ou on pourrait set le levelId ?
 
   // End : Score Widget
-  _endWidgets->score = _win->addWidget(_win->getWidth() / 3, (_win->getHeight() / 4) * 3, 0, 0);
-  _endWidgets->score->setText("SCORE :\n" + std::to_string(score));
+  _endWidgets->score = _win->addWidget(_win->getWidth() / 2, (_win->getHeight() / 4) * 3, 0, 0);
+  _endWidgets->score->setText("SCORE : " + std::to_string(score));
   _endWidgets->score->setStyle(s);
+  _endWidgets->score->move((GUI_WIDTH - _endWidgets->score->getTextWidth()) / 2, (_win->getHeight() / 4) * 3);
 
   // End : Win / Loose widget
-  _endWidgets->win = _win->addWidget(_win->getWidth() / 3, _win->getHeight() / 3, 0, 0);
+  _endWidgets->win = _win->addWidget((_win->getWidth() / 2) - 384, _win->getHeight() / 3, 0, 0);
   if (win)
     {
       s.image = "Win-1";
