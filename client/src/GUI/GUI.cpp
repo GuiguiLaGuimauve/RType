@@ -715,7 +715,7 @@ void		GUI::displayLogin()
   _focusWidget->onFocus();
 }
 
-void		GUI::displayEnd(bool win, uint64_t score)
+void		GUI::displayEnd(bool win, uint32_t score)
 {
   deleteWidgets();
   _userEvents->setMouseTracking(false);
