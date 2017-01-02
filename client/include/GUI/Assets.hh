@@ -13,6 +13,7 @@
 #define PICTURE_SHOTS 			"assets/pictures/shots.png"
 #define PICTURE_POWERUP1 		"assets/pictures/powerup1.png"
 #define PICTURE_BYDOS 			"assets/pictures/bydos.png"
+#define PICTURE_ENEMY1 			"assets/pictures/enemy1.png"
 #define PICTURE_ENEMY7 			"assets/pictures/enemy7.png"
 #define PICTURE_ENEMY8 			"assets/pictures/enemy8.png"
 #define PICTURE_BOSS2 			"assets/pictures/boss2.png"
