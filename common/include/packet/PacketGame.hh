@@ -5,7 +5,7 @@
 // Login   <lecoq@lecoq-epitechHP>
 // 
 // Started on  Mon Jan  2 00:03:18 2017 Lecoq Maxime
-// Last update Mon Jan  2 11:12:28 2017 Lecoq Maxime
+// Last update Mon Jan  2 20:52:39 2017 Lecoq Maxime
 //
 
 #ifndef PACKETGAME_HH_
@@ -24,7 +24,7 @@ namespace Packet
   class PacketGame : public APacket
   {
   public:
-    PacketGame(const std::vector<DataPlayer *> &, const std::vector<DataShoot *> &, const std::vector<DataEnnemy *> &, const std::vector<DataBackground *> &, const uint8_t &);
+    PacketGame(const std::vector<DataPlayer *> &, const std::vector<DataShoot *> &, const std::vector<DataEnnemy *> &, const std::vector<DataBackground *> &, const uint8_t &, const uint32_t &);
     PacketGame(const uint8_t *);
     ~PacketGame();
     bool isTcp() const;
@@ -34,12 +34,14 @@ namespace Packet
     std::vector<DataEnnemy *> getEnnemies() const;
     std::vector<DataBackground *> getBackgrounds() const;
     uint8_t			getLevel() const;
+    uint32_t			getScore() const;
   private:
     std::vector<DataBackground *> _back;
     std::vector<DataEnnemy *>	_ennemies;
     std::vector<DataShoot *>	_shoots;
     std::vector<DataPlayer *>	_players;
     uint8_t			_lvl;
+    uint32_t			_score;
   };
 };
 

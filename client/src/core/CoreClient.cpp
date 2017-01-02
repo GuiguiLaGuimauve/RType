@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Mon Jan  2 20:23:03 2017 Lecoq Maxime
+// Last update Mon Jan  2 21:00:40 2017 Lecoq Maxime
 //
 
 #include	"CoreClient.hh"
@@ -570,6 +570,7 @@ bool		CoreClient::gameData(const IPacket *pa, IUserNetwork *u)
 	  _lvl = p->getLevel();
 	  _gui->setStagePopup(p->getLevel());
 	}
+      //_gui->setGameScore(p->getScore());
       _gui->setPlayersPositions(p->getPlayers());
       _gui->setShootsPositions(p->getShoots());
       _gui->setEnemyPositions(p->getEnnemies());
