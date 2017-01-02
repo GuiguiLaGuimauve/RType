@@ -15,7 +15,20 @@ namespace Data {
 	class DataShoot : public AData {
 
 	public:
-	  DataShoot() : AData() {_patternPos = 0; std::pair<int8_t, int8_t> a(1, 0); _pattern.push_back(a); _health = 1; _patternPos = 0; _spriteFileName = "Shot-1";  };
+	  DataShoot() : AData() {
+		  _patternPos = 0; 
+		  std::pair<int8_t, int8_t> a(1, 0); 
+		  _pattern.push_back(a); 
+		  _health = 1; 
+		  _patternPos = 0; 
+		  _spriteFileName = "Shot-1"; 
+		  this->setSizeX(48 * 2);
+		  this->setSizeY(14 * 2);
+		  this->setHitBoxSizeX(48 * 2);
+		  this->setHitBoxSizeY(14 * 2);
+		  this->setDeltaHitBoxX(0);
+		  this->setDeltaHitBoxY(0);
+	};
 	  DataShoot(const uint16_t &x, const uint16_t &y) : AData() { _x = x; _y = y; _damage = 10; _health = 1; _patternPos = 0;};
 	  DataShoot(const DataShoot *c) : AData() { _x = c->_x; _y = c->_y; _damage = c->_damage; _health = 1; _patternPos = c->_patternPos; _pattern = c->_pattern; };
 	  DataShoot(const DataShoot &c) : AData() { _x = c._x; _y = c._y, _damage = c._damage; _health = 1; _patternPos = c._patternPos; _pattern = c._pattern; };
