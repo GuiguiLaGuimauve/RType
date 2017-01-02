@@ -3,6 +3,8 @@
 
 using namespace Gui;
 
+Clock		Widget::_anim_timer;
+
 Widget::Widget(sf::RenderWindow *w, int x, int y, int width, int height, const std::string &text):
   _win(w), _x(x), _y(y), _width(width), _height(height), _text(text),
   _ptrClick(NULL), _ptrFocus(NULL), _ptrLeaveFocus(NULL),
@@ -32,9 +34,9 @@ void                Widget::draw()
 	  if (_style.move_animation == false)
 	  {
 		  auto sprites = _animations["NORMAL"];
-		  if (_anim_timer.getTimeMilli() > _style.frequency * (int)sprites.size())
-			  _anim_timer.reset();
-		  int i = _anim_timer.getTimeMilli() / _style.frequency;
+		  //if (_anim_timer.getTimeMilli() > _style.frequency * (int)sprites.size())
+			//  _anim_timer.reset();
+		  int i = (_anim_timer.getTimeMilli() % (_style.frequency * (int)sprites.size())) / _style.frequency;
 		  if (i < (int)sprites.size())
 			  _win->draw(sprites[i]);
 		  else
@@ -42,6 +44,7 @@ void                Widget::draw()
 	  }
 	  else
 	  {
+		  // partie dépréciée car non utilisée et n'est plus mis à jour.
 		  auto sprites = _animations[_direction];
 		  if (_anim_timer.getTimeMilli() > _style.frequency * (int)sprites.size())
 			  _anim_timer.reset();

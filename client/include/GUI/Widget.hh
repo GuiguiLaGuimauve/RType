@@ -73,7 +73,7 @@ namespace Gui
     // animations
     std::string											_direction = "RIGHT";
     std::map<std::string, std::vector < sf::Sprite > >	_animations;
-    Clock												_anim_timer;
+    static Clock												_anim_timer;
   };
 }
 
