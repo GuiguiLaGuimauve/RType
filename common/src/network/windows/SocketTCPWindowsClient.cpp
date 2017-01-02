@@ -18,14 +18,19 @@ SocketTCPWindowsClient::SocketTCPWindowsClient() : SocketTCPWindows()
   u_long	iMode;
 
   iMode = 1;
-  if ((ret = ioctlsocket(m_socket, FIONBIO, &iMode)) != NO_ERROR)
+  if ((ret = ioctlsocket(_sock, FIONBIO, &iMode)) != NO_ERROR)
     throw ErrorSocket("Error on ioctlsocket(): " + ret);
 }
 
 bool			SocketTCPWindowsClient::connectIt(const std::string &ip, const uint32_t &port)
 {
 	struct sockaddr_in	s_in;
-
+	FD_SET	write;
+	struct  timeval tv;
+	tv.tv_sec = 10;
+	tv.tv_usec = 0;
+	DWORD		len;
+	Clock		c;
 	s_in.sin_family = AF_INET;
 	if (inet_pton(AF_INET, ip.c_str(), &s_in.sin_addr.s_addr) <= 0)
 	{
@@ -39,26 +44,29 @@ bool			SocketTCPWindowsClient::connectIt(const std::string &ip, const uint32_t &
 	}
 	if (WSAConnect(_sock, (struct sockaddr *)&s_in, sizeof(s_in), NULL, NULL, NULL, NULL) == SOCKET_ERROR)
 	{
-		// std::cerr << "Error on WSASocket(): " << WSAGetLastError() << std::endl;
-		// return (false);
-	  if (WSAGetLastError() == WSAEINPROGRESS)
-	    {
-	      FD_ZERO(&write);
-	      FD_SET(_sock, &write);
-	      if (select(_sock + 1, NULL, &write, NULL, &tv) != -1)
+		if (WSAGetLastError() == WSAEINPROGRESS || WSAGetLastError() == WSAEWOULDBLOCK)
 		{
-		  len = sizeof (s_in);
-		  if (getpeername(_sock, (struct sockaddr *)&s_in, &len) == WSAENOTCONN)
-		    return (false);
-		  else
-		    {
-		      std::cout << "timeout: " << c.getTimeMilli() << "ms" << std::endl;
-		      if (c.getTimeMilli() < 100)
-			return (true);
-		    }
+			FD_ZERO(&write);
+			FD_SET(_sock, &write);
+			if (select((int)_sock + 1, NULL, &write, NULL, &tv) != -1)
+			{
+				len = sizeof (s_in);
+				if (getpeername(_sock, (struct sockaddr *)&s_in, (int *)&len) == WSAENOTCONN)
+				{
+					std::cout << "Error on getpeername(): " << WSAGetLastError() << std::endl;
+					return (false);
+				}
+				else
+				{
+					std::cout << "timeout: " << c.getTimeMilli() << "ms" << std::endl;
+					if (c.getTimeMilli() < 100)
+						return (true);
+				}
+			}
+			else
+				std::cerr << "Error on select: " << WSAGetLastError() << std::endl;
 		}
-	    }
-	  return (false);
+		return (false);
 	}
 	return (true);
 }

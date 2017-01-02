@@ -12,6 +12,7 @@
 #define _SocketTCPWindowsClient_HH_
 
 #include "SocketTCPWindows.hh"
+#include "Clock.hpp"
 
 namespace Network
 {
