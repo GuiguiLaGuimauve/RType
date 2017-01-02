@@ -37,11 +37,12 @@ void Alf::move()
 std::vector<DataShoot *> Alf::getShoot()
 {
 	std::vector<DataShoot*> tmp;
-  DataShoot *d = new AlfShoot;
-  d->setX(_x);
-  d->setX(_y + 31);
-  tmp.push_back(d);
-  return (tmp);
+	DataShoot *d = new AlfShoot;
+	d->setX(_x);
+	d->setY(_y + 31);
+	std::cout << "J'envoi _x = " << _x << "et _y = " << _y + 31 << std::endl;
+	tmp.push_back(d);
+	return (tmp);
 }
 
 DataEnnemy *Alf::getNewEnnemy()

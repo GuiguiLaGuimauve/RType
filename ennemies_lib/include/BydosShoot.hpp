@@ -16,11 +16,9 @@ public:
 		this->setSizeY(8 * 3);
 		this->setHitBoxSizeX(8 * 3);
 		this->setHitBoxSizeY(8 * 3);
-		_damage = 30;
+		this->_damage = 30;
 	};
 	void move() { _x += -1; };
-protected:
-	uint8_t _damage;
 };
 
 #endif
