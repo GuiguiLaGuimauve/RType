@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 11:41:19 2016 Maxime Lecoq
-// Last update Mon Jan  2 11:08:56 2017 Lecoq Maxime
+// Last update Mon Jan  2 15:56:53 2017 Lecoq Maxime
 //
 
 #ifndef PACKETFACTORY_HH_
@@ -63,10 +63,14 @@ public:
   IPacket	*getPacket(const std::string &, const uint16_t &, const uint16_t &, const std::vector<DataShoot *> &);
   IPacket	*getPacket(const IPacket::PacketType &, const uint16_t &, const uint16_t &, const std::vector<DataShoot *> &);
 
+  IPacket	*getPacket(const std::string &, const uint8_t &);
+  IPacket	*getPacket(const IPacket::PacketType &, const uint8_t &);
   
   IPacket *	getPacket(const uint8_t *) const;
   void		enableSerialiser(const std::string &);
   void		enableDeserialiser(const std::string &);
+
+  IPacket	*gameEnded(const uint8_t &);
 
   IPacket	*getConnect();
   IPacket	*udpDataFree();
@@ -74,7 +78,6 @@ public:
   IPacket	*disconnect();
   IPacket	*ping();
   IPacket	*pong();
-  IPacket	*gameEnded();
   IPacket	*askRooms();
   
   IPacket	*getError(const std::string &, const IPacket::PacketType &);
@@ -173,6 +176,7 @@ private:
   PacketContener<const DataPlayer *>								*_pkt14;
   PacketContener<const std::vector<DataPlayer *> &, const std::vector<DataShoot *> &, const std::vector<DataEnnemy *> &, const std::vector<DataBackground *> &, const uint8_t &>					*_pkt15;
   PacketContener<const uint16_t &, const uint16_t &, const std::vector<DataShoot *> &>		*_pkt16;
+  PacketContener<const uint8_t &>								*_pkt17;
   PacketContener<const uint8_t *>								*_pktDeserialiser;
 };
 
@@ -282,6 +286,48 @@ private:
   std::map<IPacket::PacketType, ptr>    _map;
   std::map<std::string, IPacket::PacketType>    _converter;
   std::map<IPacket::PacketType, ptr>    _enableMap;
+  PacketFactory                 *_p;
+};
+
+template<>
+class PacketContener<const uint8_t &>
+{
+public:
+  typedef IPacket *(PacketFactory::*ptr)(const uint8_t &);
+  PacketContener(PacketFactory *p) : _p(p)
+  {
+    _map["gameended"] = &PacketFactory::gameEnded;
+    _converter[IPacket::PacketType::GAMEENDED] = "gameended";
+  };
+  ~PacketContener() {};
+  void	enable(const std::string &s)
+  {
+    if (_map.find(s) != _map.end())
+      _enableMap[s] = _map[s]; 
+  }
+  IPacket	*getPacket(const std::string &s, const uint8_t &t)
+  {
+    if (_enableMap.find(s) != _enableMap.end())
+      return ((_p->*_enableMap[s])(t));
+    return (NULL);
+  }
+  IPacket	*getPacket(const IPacket::PacketType &s, const uint8_t &t)
+  {
+  if (_converter.find(s) != _converter.end() && _enableMap.find(_converter[s]) != _enableMap.end())
+    return ((_p->*_enableMap[_converter[s]])(t));
+  return (NULL);
+  }
+  bool	isEnable(const std::string &s)
+  {
+    if (_enableMap.find(s) != _enableMap.end())
+      return (true);
+    else
+      return (false);
+  }
+private:
+  std::map<std::string, ptr>    _map;
+  std::map<IPacket::PacketType, std::string>    _converter;
+  std::map<std::string, ptr>    _enableMap;
   PacketFactory                 *_p;
 };
 
@@ -982,7 +1028,6 @@ public:
   _map["disconnect"] = &PacketFactory::disconnect;
   _map["ping"] = &PacketFactory::ping;
   _map["pong"] = &PacketFactory::pong;
-  _map["gameended"] = &PacketFactory::gameEnded;
   _map["askrooms"] = &PacketFactory::askRooms;
   _converter[IPacket::PacketType::CONNECT] = "connect";
   _converter[IPacket::PacketType::UDP_DATA_FREE] = "udpdatafree";
@@ -990,7 +1035,6 @@ public:
   _converter[IPacket::PacketType::DISCONNECT] = "disconnect";
   _converter[IPacket::PacketType::PING] = "ping";
   _converter[IPacket::PacketType::PONG] = "pong";
-  _converter[IPacket::PacketType::GAMEENDED] = "gameended";
   _converter[IPacket::PacketType::ASK_ROOMS] = "askrooms";
 };
   ~PacketContener() {};
