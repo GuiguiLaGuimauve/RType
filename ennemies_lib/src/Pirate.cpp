@@ -5,7 +5,7 @@
 // Login   <rembur_g@epitech.eu>
 //
 // Started on  Tue Dec 27 13:34:43 2016 La Guimauve
-// Last update Mon Jan  2 02:54:43 2017 Lecoq Maxime
+// Last update Mon Jan  2 04:52:20 2017 Lecoq Maxime
 //
 
 #include <utility>
@@ -28,9 +28,9 @@ Pirate::Pirate()
 	this->setSpriteName("Enemy1");
 	this->setHealth(10);
 	uint32_t i;
-	std::pair<int8_t, int8_t> a(-1, -1);
-	std::pair<int8_t, int8_t> b(-1, 0);
-	std::pair<int8_t, int8_t> c(-1, 1);
+	std::pair<int8_t, int8_t> a(-2, -2);
+	std::pair<int8_t, int8_t> b(-2, 0);
+	std::pair<int8_t, int8_t> c(-2, 2);
 
 	std::srand(std::time(0));
 	if ((i = std::rand() % 3) == 0)
