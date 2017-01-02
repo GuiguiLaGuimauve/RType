@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 15:45:57 2016 Maxime Lecoq
-// Last update Mon Jan  2 14:28:06 2017 Lecoq Maxime
+// Last update Mon Jan  2 14:44:22 2017 Lecoq Maxime
 //
 
 #include	"Game.hh"
@@ -481,9 +481,6 @@ void		Game::monster()
 		  _shootsEn.push_back(d[z]);
 		  z++;
 		}
-	      //d->setX(_ennemy[x]->getX());
-	      //d->setY(_ennemy[x]->getY() + (d->getSizeY() / 2));
-	      //	      _shootsEn.push_back(d);
 	      x++;
 	    }
 	}
