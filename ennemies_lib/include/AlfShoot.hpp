@@ -16,7 +16,7 @@
 class AlfShoot : public DataShoot
 {
 public:
-	AlfShoot()
+	AlfShoot() : DataShoot()
 	{
 		this->_spriteFileName = "Shot-Enemy8";
 		this->setSizeX(8 * 2);

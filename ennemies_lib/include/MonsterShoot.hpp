@@ -16,7 +16,7 @@
 class MonsterShoot : public DataShoot
 {
 public:
-	MonsterShoot() { 
+	MonsterShoot() : DataShoot() { 
 		this->_spriteFileName = "Shot-Enemy7";
 		this->setSizeX(8 * 2);
 		this->setSizeY(8 * 2);
