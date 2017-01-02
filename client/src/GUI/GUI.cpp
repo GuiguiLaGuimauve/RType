@@ -30,7 +30,7 @@ GUI::GUI()
   _userEvents->bindKey(KEY_ATTACK, EventPart::Event::KEY_ATTACK);
   _userEvents->bindKey(KEY_QUIT, EventPart::Event::CLOSE_WINDOW);
   _userEvents->bindKey(KEY_BACK, EventPart::Event::KEY_BACK);
-  //logFile.open("benchmarkCallback.txt");
+  logFile.open("benchmarkCallback.txt");
 }
 
 GUI::~GUI()
@@ -44,6 +44,7 @@ GUI::~GUI()
 
 void		GUI::callback()
 {
+	Clock timeInCallback;
 #ifndef _WIN32
 	// limitation
 	if (timerLastCallback.getTimeMilli() < 1000 / FPS_MAX)
@@ -55,7 +56,6 @@ void		GUI::callback()
 	fps++;
 	if (timerFps.getTimeMilli() >= 1000)
 	{
-		logFile << "FPS = " << fps << std::endl;
 		// show fps
 		if (_gameWidgets)
 		{
@@ -285,6 +285,8 @@ void		GUI::callback()
 	  if (ep.type != EventPart::Event::DEFAULT && _coreQueue)
 		  _coreQueue->push(ep);
   }
+  if (_gameWidgets)
+	logFile << "Temps dans la callback gui = " << timeInCallback.getTimeMilli() << std::endl;
 }
 
 void		GUI::displayGame()
@@ -734,12 +736,13 @@ void		GUI::displayEnd(bool win, uint32_t score)
   //_win->setBackground(this->backgroundMap[this->_gameWidgets->levelId]);// Ou on pourrait set le levelId ?
 
   // End : Score Widget
-  _endWidgets->score = _win->addWidget(_win->getWidth() / 3, (_win->getHeight() / 4) * 3, 0, 0);
-  _endWidgets->score->setText("SCORE :\n" + std::to_string(score));
+  _endWidgets->score = _win->addWidget(_win->getWidth() / 2, (_win->getHeight() / 4) * 3, 0, 0);
+  _endWidgets->score->setText("SCORE : " + std::to_string(score));
   _endWidgets->score->setStyle(s);
+  _endWidgets->score->move((GUI_WIDTH - _endWidgets->score->getTextWidth()) / 2, (_win->getHeight() / 4) * 3);
 
   // End : Win / Loose widget
-  _endWidgets->win = _win->addWidget(_win->getWidth() / 3, _win->getHeight() / 3, 0, 0);
+  _endWidgets->win = _win->addWidget((_win->getWidth() / 2) - 384, _win->getHeight() / 3, 0, 0);
   if (win)
     {
       s.image = "Win-1";
