@@ -16,7 +16,7 @@
 class PirateShoot : public DataShoot
 {
 public:
-	PirateShoot() { 
+	PirateShoot() : DataShoot() { 
 	
 		this->_spriteFileName = "Shot-Enemy1";
 		this->setSizeX(8 * 2);
