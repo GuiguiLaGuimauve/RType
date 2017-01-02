@@ -14,9 +14,9 @@ Bydos::Bydos()
 	this->setY(0);
 	this->setSizeX(155 * 3);
 	this->setSizeY(204 * 3);
-	this->setHitBoxSizeX(155 * 3);
+	this->setHitBoxSizeX(130 * 3);
 	this->setHitBoxSizeY(204 * 3);
-	this->setDeltaHitBoxX(0);
+	this->setDeltaHitBoxX(75);
 	this->setDeltaHitBoxY(0);
 	this->setSpriteName("Bydos");
 	this->setHealth(5000);
