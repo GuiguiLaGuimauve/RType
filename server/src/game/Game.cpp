@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 15:45:57 2016 Maxime Lecoq
-// Last update Mon Jan  2 17:09:58 2017 Lecoq Maxime
+// Last update Mon Jan  2 17:32:06 2017 Lecoq Maxime
 //
 
 #include	"Game.hh"
@@ -106,11 +106,16 @@ void			Game::refreshEnnemy()
 	      {
 		_bossSet = true;
 		_boss = en[i]->getNewEnnemy();
+		_boss->setHealth(1000 * _room->getPlayers().size());
+		std::cout << en[i]->getSpriteName() << " boss just load to monster's list" << std::endl;
 	      }
 	  x++;
 	}
       if (find == false && en[i]->isBoss() == false)
-	_ennemyList.push_back(en[i]);
+	{
+	  _ennemyList.push_back(en[i]);
+	  std::cout << en[i]->getSpriteName() << " just load to monster's list" << std::endl;
+	}
       i++;
     }
 }
@@ -196,7 +201,10 @@ void		Game::checkShootCollisions()
 	      _shootsEn[x]->setHealth(_shootsEn[x]->getHealth() - _shoots[i]->getDamage());
 	    }
 	  if (_shootsEn[x]->getHealth() <= 0)
-	    _shootsEn.erase(_shootsEn.begin() + x);
+	    {
+	      _shootsEn.erase(_shootsEn.begin() + x);
+	      _room->setScore(_room->getScore() + 10);
+	    }
 	  else
 	    x++;
 	}
@@ -211,8 +219,15 @@ void		Game::checkShootCollisions()
 	  if (_ennemy[x]->getHealth() <= 0)
 	    {
 	      if (_ennemy[x]->isBoss() == true)
-		_win = true;
-	      _ennemy.erase(_ennemy.begin() + x);
+		{
+		  _win = true;
+		  _room->setScore(_room->getScore() + 1000);
+		}
+	      else
+		{
+		  _ennemy.erase(_ennemy.begin() + x);
+		  _room->setScore(_room->getScore() + 100);
+		}
 	    }
 	  else
 	    x++;
