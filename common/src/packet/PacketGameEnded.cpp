@@ -18,7 +18,7 @@ PacketGameEnded::PacketGameEnded(const uint8_t &t, const uint32_t &s)
 
 	ps.add((uint8_t)_value);
 	dataPacketSize += 1;
-	ps.add((uint8_t)_score);
+	ps.add((uint32_t)_score);
 	dataPacketSize += 4;
 	
 	_data = ps.getPacket();
