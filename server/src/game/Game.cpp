@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 15:45:57 2016 Maxime Lecoq
-// Last update Mon Jan  2 19:32:06 2017 Lecoq Maxime
+// Last update Mon Jan  2 20:47:25 2017 Lecoq Maxime
 //
 
 #include	"Game.hh"
@@ -426,7 +426,7 @@ void		Game::timeLine()
 	    shoot.push_back(_shoots[i]);
 	  for (uint64_t i = 0; i < _shootsEn.size(); i++)
 	    shoot.push_back(_shootsEn[i]);
-	  pa = _factory->getPacket("gamedata", _room->getPlayers(), shoot, _ennemy, _background, _lvl);
+	  pa = _factory->getPacket("gamedata", _room->getPlayers(), shoot, _ennemy, _background, _lvl, _room->getScore());
 	  pa->setTickId(_timeline);
 	  _udp->pushTo(list, pa->getPacketUnknown());
 	  delete pa;
@@ -445,7 +445,7 @@ void		Game::lvl1()
 	{
 	  en = _ennemyList[std::rand() % _ennemyList.size()]->getNewEnnemy();
 	  en->setX(1920);
-	  en->setY((std::rand() % 900) + 100);
+	  en->setY((std::rand() % 800) + 100);
 	  _ennemy.push_back(en);
 	  i++;
 	}
@@ -463,14 +463,14 @@ void		Game::lvl2()
 	{
 	  en = _ennemyList[std::rand() % _ennemyList.size()]->getNewEnnemy();
 	  en->setX(1920);
-	  en->setY((std::rand() % 900) + 100);
+	  en->setY((std::rand() % 800) + 100);
 	  _ennemy.push_back(en);
 	  if (go == true)
 	    {
 	      go = false;
 	      en = _ennemyList[std::rand() % _ennemyList.size()]->getNewEnnemy();
 	      en->setX(1920);
-	      en->setY((std::rand() % 900) + 100);
+	      en->setY((std::rand() % 800) + 100);
 	      _ennemy.push_back(en);
 	    }
 	  else
@@ -491,7 +491,7 @@ void		Game::lvl3()
 	{
 	  en = _ennemyList[std::rand() % _ennemyList.size()]->getNewEnnemy();
 	  en->setX(1920);
-	  en->setY((std::rand() % 900) + 100);
+	  en->setY((std::rand() % 800) + 100);
 	  _ennemy.push_back(en);
 	  i++;
 	}
