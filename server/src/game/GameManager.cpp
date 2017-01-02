@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 15:44:47 2016 Maxime Lecoq
-// Last update Mon Jan  2 19:29:36 2017 Lecoq Maxime
+// Last update Mon Jan  2 19:51:54 2017 Lecoq Maxime
 //
 
 #include "GameManager.hh"
@@ -77,6 +77,7 @@ bool          GameManager::gamesUpdate()
 	    {
 	      c++;
 	      p = _factory->getPacket("gameended", c, _gameList[i]->getRoom()->getScore());
+	      _data->deleteRoom(_gameList[i]->getRoom()->getName());
 	    }
 	  else
 	    {
@@ -88,6 +89,7 @@ bool          GameManager::gamesUpdate()
 		  x++;
 		}
 	      p = _factory->getPacket("gameended", c, _gameList[i]->getRoom()->getScore());
+	      _data->deleteRoom(_gameList[i]->getRoom()->getName());
 	    }
 	  _tcp->pushTo(list, p->getPacketUnknown());
 	  delete p;
@@ -148,4 +150,9 @@ bool	GameManager::execPacket(const IPacket *pa, const std::string &pl)
       i++;
     }
   return (true);
+}
+
+void	GameManager::setData(ServerData *d)
+{
+  _data = d;
 }

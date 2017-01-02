@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 11:52:02 2016 Maxime Lecoq
-// Last update Sun Jan  1 19:25:07 2017 Lecoq Maxime
+// Last update Mon Jan  2 19:50:25 2017 Lecoq Maxime
 //
 
 #ifndef GAMEMANAGER_HH_
@@ -16,6 +16,7 @@
 # include	"DataRoom.hpp"
 # include	"ThreadPool.hpp"
 # include	"Printer.hpp"
+# include	"ServerData.hh"
 
 class GameManager : public IGameManager
 {
@@ -34,12 +35,14 @@ public:
   bool          execPacket(const IPacket *, const std::string &);
   void		popMonster(IGame *);
   void		popBackground(IGame *);
+  void		setData(ServerData *);
 private:
   std::vector<IGame *>	_gameList;
   PacketFactory	*_factory;
   IManageNetwork	*_tcp;
   IManageNetwork	*_udp;
   ThreadPool		*_threadPool;
+  ServerData		*_data;
 };
 
 #endif /* !GAMEMANAGER_HH_ */

@@ -31,7 +31,11 @@ Alf::Alf()
 
 void Alf::move()
 {
-	this->_x -= 1;
+	if (_x > 500)
+		_y -= 1;
+	else
+		_y += 1;
+	_x -= 1;
 }
 
 std::vector<DataShoot *> Alf::getShoot()
@@ -40,7 +44,6 @@ std::vector<DataShoot *> Alf::getShoot()
 	DataShoot *d = new AlfShoot;
 	d->setX(_x);
 	d->setY(_y + 31);
-	std::cout << "J'envoi _x = " << _x << "et _y = " << _y + 31 << std::endl;
 	tmp.push_back(d);
 	return (tmp);
 }
