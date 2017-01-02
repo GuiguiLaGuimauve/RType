@@ -75,7 +75,7 @@ EventPart::IEventQueue	*Widget::getEventQueue() const
 
 bool                Widget::collision(int x, int y) const
 {
-  if ((x > _x && x < _x + _width || _style.allLineFocus) &&
+  if (((x > _x && x < _x + _width) || _style.allLineFocus) &&
       y > _y && y < _y + _height)
     return (true);
   return (false);
@@ -231,7 +231,7 @@ void                Widget::setStyle(const Style &s)
   _style = s;
   _sfmlText.setFont(_font);
   setText(_text);
-  _sfmlText.setColor(sf::Color(_style.textColor.red,
+  _sfmlText.setFillColor(sf::Color(_style.textColor.red,
 			       _style.textColor.green,
 			       _style.textColor.blue));
   _sfmlText.setCharacterSize(_style.policeSize);

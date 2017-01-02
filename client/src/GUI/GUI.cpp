@@ -56,6 +56,22 @@ void		GUI::callback()
 	if (timerFps.getTimeMilli() >= 1000)
 	{
 		logFile << "FPS = " << fps << std::endl;
+		// show fps
+		if (_gameWidgets)
+		{
+			if (showFps)
+				_win->deleteWidget(showFps);
+			showFps = _win->addWidget(5, 1060, 100, 100);
+			std::stringstream ss;
+			ss << fps << " fps";
+			showFps->setText(ss.str());
+			Style sFps;
+			sFps.form = NO_FORM;
+			sFps.textColor = Color(TEXT_COLOR_R, TEXT_COLOR_G, TEXT_COLOR_B);
+			sFps.policeSize = 20;
+			showFps->setStyle(sFps);
+		}
+		// reset
 		fps = 0;
 		timerFps.reset();
 	}

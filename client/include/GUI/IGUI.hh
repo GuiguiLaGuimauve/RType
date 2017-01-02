@@ -21,7 +21,6 @@ namespace Gui
     virtual void	displayStart() = 0;
     virtual void	displayMenu() = 0;
     virtual void	displayLogin() = 0;
-    virtual void	displayEnd(bool, uint64_t) = 0;
     virtual void	updateGameInfo(/*const GameInfo &*/) = 0;
     virtual void	setEventQueue(EventPart::IEventQueue *) = 0;
     virtual void	setSoundManager(Audio::ISoundManager *) = 0;
