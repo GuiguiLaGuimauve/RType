@@ -108,7 +108,7 @@ namespace Gui
       uint8_t                   levelId;
       uint16_t			_x = 0;
       uint16_t			_y = 0;
-      IWidget			*scoreWidget = NULL;
+      //IWidget			*scoreWidget = NULL;
     };
 
     struct End
@@ -146,7 +146,7 @@ namespace Gui
     void	setPosX(uint64_t);
     void	setPosY(uint64_t);
     void	setStagePopup(uint8_t);
-    void	setGameScore(uint32_t);
+    //void	setGameScore(uint32_t);
 
   protected:
     void	deleteWidgets();
