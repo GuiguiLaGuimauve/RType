@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 15:45:57 2016 Maxime Lecoq
-// Last update Mon Jan  2 11:27:27 2017 Lecoq Maxime
+// Last update Mon Jan  2 12:43:28 2017 Lecoq Maxime
 //
 
 #include	"Game.hh"
@@ -13,6 +13,8 @@
 Game::Game(DataRoom *p) : _room(p), _timeline(0)
 {
   _bossSet = false;
+  _bossMod = false;
+  _boss = NULL;
   _ptr[IPacket::PacketType::POSITION_PLAYER] = &IGame::updatePosPlayer;
   _ptr[IPacket::PacketType::SHOOTS_CLIENT] = &IGame::updatePlayerShoots;
   _ptr[IPacket::PacketType::PLAYERDATA] = &IGame::updatePlayer;
@@ -24,22 +26,20 @@ Game::Game(DataRoom *p) : _room(p), _timeline(0)
   d->setX(0);
   d->setY(0);
 
-  d->setSpeed(-1);
+  d->setSpeed(-2);
   _background.push_back(d);
   d = new DataBackground;
   d->setX(1920);
   d->setY(0);
-  d->setSpeed(-1);
+  d->setSpeed(-2);
   _background.push_back(d); 
   _lvl = 1;
-  _ptrM[1] = &Game::lvl1;
+  _ptrM[1] = &Game::boss;
   _ptrM[2] = &Game::lvl1;
   _ptrM[3] = &Game::lvl2;
   _ptrM[4] = &Game::lvl2;
   _ptrM[5] = &Game::lvl3;
   _ptrM[6] = &Game::boss;
-  _bossMod = false;
-  _boss = NULL;
 }
 
 Game::~Game()
@@ -89,7 +89,7 @@ void			Game::refreshEnnemy()
 	    if (en[i]->isBoss() == true && _bossSet == false)
 	      {
 		_bossSet = true;
-		_boss = en[i];
+		_boss = en[i]->getNewEnnemy();
 	      }
 	  x++;
 	}
@@ -342,10 +342,14 @@ void		Game::lvl3()
 
 void		Game::boss()
 {
-  if (_ennemyList.size() != 0)
+  lvl1();
+  if (_bossSet == true && _bossMod == false && _boss)
     {
+      _boss->setX(1920);
+      _boss->setY(200);
+      _ennemy.push_back(_boss);
+      _bossMod = true;	
     }
-  _bossMod = true;
 }
 
 void		Game::monster()
@@ -395,9 +399,9 @@ void		Game::background()
   (void)pa;
   while (_room->getStarted() == true && _room->getPlayers().size() != 0 && _lvl < 7)
     {
-      if (i != (uint64_t)clo.getTimeMilli() / 50000)
+      if (i != (uint64_t)clo.getTimeMilli() / 30000)
 	{
-	  i = clo.getTimeMilli() / 50000;
+	  i = clo.getTimeMilli() / 30000;
 	  DataBackground *d = new DataBackground;
 	  d->setX(1920);
 	  uint16_t y = (std::rand() % 800) + 100;

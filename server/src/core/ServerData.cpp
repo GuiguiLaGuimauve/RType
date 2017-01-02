@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Mon Dec 19 23:24:16 2016 Maxime Lecoq
-// Last update Sun Jan  1 19:12:59 2017 Lecoq Maxime
+// Last update Mon Jan  2 12:48:39 2017 Lecoq Maxime
 */
 
 #include	"ServerData.hh"
@@ -402,7 +402,18 @@ void			ServerData::deletePlayerOfRoom(const std::string &player)
 
 bool			ServerData::roomAreUpdate() const
 {
-  return (_isUpdate);
+  if (_isUpdate == true)
+    return (_isUpdate);
+  uint64_t		i;
+
+  i = 0;
+  while (i < _room.size())
+    {
+      if (_room[i]->isUpdate() == true)
+	return (true);
+      i++;
+    }
+  return (false);
 }
 
 std::vector<DataRoom *>	ServerData::getRooms()
