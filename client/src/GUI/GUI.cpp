@@ -407,6 +407,9 @@ void		GUI::displayMenu()
 	_win->setBackground(PICTURE_BACKGROUND);
 	_menuWidgets = new Menu;
 	_menuWidgets->itScroll = 0;
+	// Launch music
+	_audio->playMusic("TitleScreen");
+	
 	//_menuWidgets->chat = new Chat(_win, _guiQueue, 1200, 700);
 
 	updateGameInfo();
