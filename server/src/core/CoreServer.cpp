@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Mon Jan  2 19:49:19 2017 Lecoq Maxime
+// Last update Mon Jan  2 22:25:33 2017 Lecoq Maxime
 //
 
 #include	"CoreServer.hh"
@@ -334,7 +334,6 @@ bool		CoreServer::ping(const IPacket *pa, IUserNetwork *u)
   IPacket       *p = new PacketPong;
   _write->push(PacketC(p->getPacketUnknown(), u));
   delete p;
-  std::cout << "ping recu et pong envoyé" << std::endl; 
   (void)u;
   (void)pa;
   return (true);
@@ -343,7 +342,6 @@ bool		CoreServer::ping(const IPacket *pa, IUserNetwork *u)
 bool            CoreServer::pong(const IPacket *pa, IUserNetwork *u)
 {
   (void)pa; (void)u;
-  std::cout << "pong recu" << std::endl;
   return (true);
 }
 
