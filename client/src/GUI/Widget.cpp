@@ -75,7 +75,7 @@ EventPart::IEventQueue	*Widget::getEventQueue() const
 
 bool                Widget::collision(int x, int y) const
 {
-  if (x > _x && x < _x + _width &&
+  if ((x > _x && x < _x + _width || _style.allLineFocus) &&
       y > _y && y < _y + _height)
     return (true);
   return (false);

@@ -25,6 +25,7 @@ namespace Gui
     int		opacity = 100;
 	bool	password = false;
 	bool	inputMode = false;
+	bool	allLineFocus = false;
 	// animations
 	int		frequency = -1;
 	bool	move_animation = false;

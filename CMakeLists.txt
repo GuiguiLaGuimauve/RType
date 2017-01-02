@@ -24,7 +24,7 @@ if(SFML_FOUND AND ${SFML_VERSION_P} EQUAL "2")
   message("SFML found")
   include_directories(${SFML_INCLUDE_DIR})
 else(SFML_FOUND AND ${SFML_VERSION_P} EQUAL "2")
-  message(WARNING "SFML not found, you compile the client")
+  message(WARNING "SFML not found, you can't compile the client")
 endif()
 
 ############################################
