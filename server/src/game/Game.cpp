@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 15:45:57 2016 Maxime Lecoq
-// Last update Mon Jan  2 14:02:48 2017 Lecoq Maxime
+// Last update Mon Jan  2 14:44:22 2017 Lecoq Maxime
 //
 
 #include	"Game.hh"
@@ -248,7 +248,7 @@ void		Game::checkShootCollisions()
 	      _room->getPlayers()[x]->setHealth(_room->getPlayers()[x]->getHealth() - _shootsEn[i]->getDamage());
 	    }
 	  if (_room->getPlayers()[x]->getHealth() <= 0)
-	    _room->getPlayers()[x]->setHealth() == 0;
+	    _room->getPlayers()[x]->setHealth(0);
 	  x++;
 	}
       if (_shootsEn[i]->getHealth() <= 0)
@@ -474,10 +474,13 @@ void		Game::monster()
 	  x = 0;
 	  while (x < _ennemy.size())
 	    {
-	      DataShoot *d = _ennemy[x]->getShoot();
-	      d->setX(_ennemy[x]->getX());
-	      d->setY(_ennemy[x]->getY() + (d->getSizeY() / 2));
-	      _shootsEn.push_back(d);
+	      std::vector<DataShoot *>d = _ennemy[x]->getShoot();
+	      uint64_t z = 0;
+	      while (z < d.size())
+		{
+		  _shootsEn.push_back(d[z]);
+		  z++;
+		}
 	      x++;
 	    }
 	}

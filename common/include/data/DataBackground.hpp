@@ -23,6 +23,24 @@ namespace Data {
 	  void setSpriteName(const std::string &s)
 	  {
 	    _spriteFileName = s;
+		if (_spriteFileName == "Env-1")
+		{
+			this->setSizeX(128 * 2);
+			this->setSizeY(128 * 2);
+			this->setHitBoxSizeX(128 * 2);
+			this->setHitBoxSizeY(128 * 2);
+			this->setDeltaHitBoxX(0);
+			this->setDeltaHitBoxY(0);
+		}
+		if (_spriteFileName == "Env-2")
+		{
+			this->setSizeX(128 * 2);
+			this->setSizeY(66 * 2);
+			this->setHitBoxSizeX(128 * 2);
+			this->setHitBoxSizeY(66 * 2);
+			this->setDeltaHitBoxX(0);
+			this->setDeltaHitBoxY(0);
+		}
 	  }
 	private:
 	  int8_t _speed;

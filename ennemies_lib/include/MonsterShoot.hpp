@@ -18,10 +18,10 @@ class MonsterShoot : public DataShoot
 public:
 	MonsterShoot() : DataShoot() { 
 		this->_spriteFileName = "Shot-Enemy7";
-		this->setSizeX(8 * 2);
-		this->setSizeY(8 * 2);
-		this->setHitBoxSizeX(8 * 2);
-		this->setHitBoxSizeY(8 * 2);
+		this->setSizeX(8 * 3);
+		this->setSizeY(8 * 3);
+		this->setHitBoxSizeX(8 * 3);
+		this->setHitBoxSizeY(8 * 3);
 		this->_damage = 3;
 		};
   ~MonsterShoot() {};
