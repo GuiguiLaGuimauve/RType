@@ -5,7 +5,7 @@
 // Login   <oger_a@epitech.net>
 // 
 // Started on  Fri Dec  2 15:23:46 2016 Antonin Oger
-// Last update Mon Jan  2 14:50:52 2017 root
+// Last update Mon Jan  2 16:23:23 2017 root
 //
 
 #ifndef _SPRITEMAP_HPP_
@@ -40,6 +40,8 @@ public:
     LoadTexture(PICTURE_HEARTS, "Hearts");
     LoadTexture(PICTURE_ENV1, "Env1");
     LoadTexture(PICTURE_ENV2, "Env2");
+    LoadTexture(PICTURE_YOUWIN, "YouWin");
+    LoadTexture(PICTURE_GAMEOVER, "GameOver");
 
     /********************************************/
     /*		LOAD	THE	SPRITES		*/
@@ -53,6 +55,11 @@ public:
     LoadSpriteFromTexture("Shots", "Shot-1", 217, 136, 48, 14, 2, 2);
     /* Misc Sprites */
     LoadSpriteFromTexture("PowerUp1", "SpherePowerUp", 0, 0, 34, 20, 3, 3);
+    LoadSpriteFromTexture("GameOver", "Loose-1", 0, 0, 128, 32, 3, 3);
+    LoadSpriteFromTexture("GameOver", "Loose-2", 0, 32, 128, 32, 3, 3);
+    LoadSpriteFromTexture("YouWin", "Win-1", 0, 0, 128, 32, 3, 3);
+    LoadSpriteFromTexture("YouWin", "Win-2", 0, 32, 128, 32, 3, 3);
+    LoadSpriteFromTexture("YouWin", "Win-3", 0, 64, 128, 32, 3, 3);
     /* Enemy Sprites*/
     LoadSpriteFromTexture("Bydos", "Bydos", 27, 217, 155, 204, 3, 3);
     LoadSpriteFromTexture("Enemy1", "Enemy1", 5, 6, 21, 24, 3, 3);/* Multiples de 33 pour les anims */
@@ -71,10 +78,10 @@ public:
     LoadSpriteFromTexture("Env1", "Env-1-2", 128, 0, 128, 128, 2, 2);
     LoadSpriteFromTexture("Env1", "Env-1-3", 0, 128, 128, 128, 2, 2);
     LoadSpriteFromTexture("Env1", "Env-1-4", 128, 128, 128, 128, 2, 2);
-    LoadSpriteFromTexture("Env2", "Env-2", 0, 0, 128, 66, 2, 2);
-    LoadSpriteFromTexture("Env2", "Env-2-2", 0, 66, 128, 66, 2, 2);
-    LoadSpriteFromTexture("Env2", "Env-2-3", 0, 122, 128, 66, 2, 2);
-    LoadSpriteFromTexture("Env2", "Env-2-4", 0, 188, 128, 66, 2, 2);
+    LoadSpriteFromTexture("Env2", "Env-2", 0, 0, 128, 61, 2, 2);
+    LoadSpriteFromTexture("Env2", "Env-2-2", 0, 61, 128, 61, 2, 2);
+    LoadSpriteFromTexture("Env2", "Env-2-3", 0, 122, 128, 61, 2, 2);
+    LoadSpriteFromTexture("Env2", "Env-2-4", 0, 183, 128, 61, 2, 2);
     /* Menus Sprites */
     LoadSpriteFromTexture("Logo", "Logo", 0, 0, 445, 75, 1, 1);
     LoadSpriteFromTexture("Logo", "Logo2", 0, 75, 445, 75, 1, 1);

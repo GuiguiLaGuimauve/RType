@@ -319,6 +319,7 @@ void		GUI::displayStart()
   inputStyle.textColor = Color(TEXT_COLOR_R, TEXT_COLOR_G, TEXT_COLOR_B);
   inputStyle.policeSize = 35;
   inputStyle.inputMode = true;
+  inputStyle.allLineFocus = true;
 
   // Sprite : Logo
   _startWidgets->title = _win->addWidget((GUI_WIDTH - 445) / 2, GUI_HEIGHT / 6, 0, 0);
@@ -622,6 +623,7 @@ void		GUI::displayLogin()
   in.textColor = Color(TEXT_COLOR_R, TEXT_COLOR_G, TEXT_COLOR_B);
   in.policeSize = 35;
   in.inputMode = true;
+  in.allLineFocus = true;
 
   // Default input password style
   Style p;
@@ -630,6 +632,7 @@ void		GUI::displayLogin()
   p.policeSize = 35;
   p.password = true;
   p.inputMode = true;
+  p.allLineFocus = true;
     
   // Input : Login
   _loginWidgets->login = _win->addWidget(0, 280, 1920, 40);
@@ -694,6 +697,48 @@ void		GUI::displayLogin()
   // Default focus
   _focusWidget = _loginWidgets->login;
   _focusWidget->onFocus();
+}
+
+void		GUI::displayEnd(bool win, uint64_t score)
+{
+  deleteWidgets();
+  _userEvents->setMouseTracking(false);
+  _userEvents->setTextTracking(false);
+  /* Load le bon background en fonction du stage séléctionné */
+  _endWidgets = new End;
+
+  /* Default style */
+  Style		s;
+  s.textColor = Color(TEXT_COLOR_R, TEXT_COLOR_G, TEXT_COLOR_B);
+  s.policeSize = 50;
+  
+  _audio->stopMusic();
+  _audio->playMusic("TitleScreen");
+  _win->setBackground(PICTURE_BACKGROUND);
+  //_win->setBackground(this->backgroundMap[this->_gameWidgets->levelId]);// Ou on pourrait set le levelId ?
+
+  // End : Score Widget
+  _endWidgets->score = _win->addWidget(_win->getWidth() / 3, (_win->getHeight() / 4) * 3, 0, 0);
+  _endWidgets->score->setText("SCORE :\n" + std::to_string(score));
+  _endWidgets->score->setStyle(s);
+
+  // End : Win / Loose widget
+  _endWidgets->win = _win->addWidget(_win->getWidth() / 3, _win->getHeight() / 3, 0, 0);
+  if (win)
+    {
+      s.image = "Win-1";
+      s.anims["NORMAL"].push_back("Win-1");
+      s.anims["NORMAL"].push_back("Win-2");
+      s.anims["NORMAL"].push_back("Win-3");
+    }
+  else
+    {
+      s.image = "Loose-1";
+      s.anims["NORMAL"].push_back("Loose-1");
+      s.anims["NORMAL"].push_back("Loose-2");
+    }
+  s.frequency = 250;
+  _endWidgets->win->setStyle(s);
 }
 
 void		GUI::updateGameInfo(/*const GameInfo &*/)
