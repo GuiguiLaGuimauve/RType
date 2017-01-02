@@ -45,11 +45,9 @@ GUI::~GUI()
 void		GUI::callback()
 {
 	// limitation
-#ifndef _WIN32
 	if (timerLastCallback.getTimeMilli() < 1000 / FPS_MAX)
 		return ;
 	timerLastCallback.reset();
-#endif
 	// fps
 	fps++;
 	if (timerFps.getTimeMilli() >= 1000)
@@ -1030,7 +1028,8 @@ void	GUI::setShootsPositions(const std::vector<Data::DataShoot *> &ds)
 
 		  /* Ajout du Widget de tir */
 		  //s.image = "Shot-" + elem->getName();
-		  s.image = "Shot-1";
+		  s.image = elem->getSpriteName();
+		  //s.image = "Shot-1";
 		  temp->setStyle(s);
 		  _shotsPos.push_back(temp);
 	  }
