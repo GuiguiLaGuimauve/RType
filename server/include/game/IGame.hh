@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 11:54:14 2016 Maxime Lecoq
-// Last update Mon Jan  2 13:34:39 2017 Lecoq Maxime
+// Last update Mon Jan  2 16:23:02 2017 Lecoq Maxime
 //
 
 #ifndef IGAME_HH_
@@ -42,6 +42,7 @@ public:
   virtual void				addThread(mythrd::Thread *) = 0;
   virtual bool				isWin() const = 0;
   virtual bool				isLoose() const = 0;
+  virtual DataRoom                      *getRoom() const = 0;
 };
 
 #endif /* !IGAME_HH_ */

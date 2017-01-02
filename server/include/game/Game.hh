@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 11:54:48 2016 Maxime Lecoq
-// Last update Mon Jan  2 13:36:42 2017 Lecoq Maxime
+// Last update Mon Jan  2 16:22:47 2017 Lecoq Maxime
 //
 
 #ifndef GAME_HH_
@@ -55,6 +55,7 @@ public:
   void				addThread(mythrd::Thread *);
   bool				isWin() const;
   bool				isLoose() const;
+  DataRoom			*getRoom() const;
 private:
   void				checkShootCollisions();
   void				refreshEnnemy();

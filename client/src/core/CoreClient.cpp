@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Mon Jan  2 13:04:50 2017 Lecoq Maxime
+// Last update Mon Jan  2 16:38:27 2017 Lecoq Maxime
 //
 
 #include	"CoreClient.hh"
@@ -47,6 +47,7 @@ CoreClient::CoreClient()
   _backPtr["waitingRooms"] = &CoreClient::goConnect;
   _backPtr["rooms"] = &CoreClient::goLogin;
   _backPtr["game"] = &CoreClient::goRooms;
+  _backPtr["end"] = &CoreClient::goRooms;
   _gameData = new GameData;
   _th = new Thread;
 }
@@ -573,14 +574,26 @@ bool		CoreClient::gameData(const IPacket *pa, IUserNetwork *u)
 bool		CoreClient::gameEnded(const IPacket *pa, IUserNetwork *u)
 {
   (void)pa; (void)u;
+  PacketGameEnded *pd = (PacketGameEnded *)pa;
   IPacket *p;
 
-  p = _factory->getPacket("askrooms");
-  _write->push(PacketC(p->getPacketUnknown(), u));
-  delete p;
+  if (pd->getValue() == 0)
+    {
+      p = _factory->getPacket("askrooms");
+      _write->push(PacketC(p->getPacketUnknown(), u));
+      delete p;
+      _status = "waitingRooms";
+    }
+  else
+    {
+      _status = "end";
+      if (pd->getValue() == 1)
+	_gui->displayEnd(false, 0);
+      else
+	_gui->displayEnd(true, 0);
+    }
   _gameData->reset();
   _udp->run(4243);
-  _status = "waitingRooms";
   _game = "";
   if (_th->joinable())
     _th->join();

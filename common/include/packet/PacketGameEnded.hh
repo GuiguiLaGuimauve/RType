@@ -20,7 +20,7 @@ namespace Packet {
 		* \fn PacketGameEnded()
 		* \brief Constructeur du packet utilisé pour la serialization.
 		*/
-		PacketGameEnded();
+		PacketGameEnded(const uint8_t &);
 		/**
 		* \fn PacketGameEnded(const uint8_t *)
 		* \brief Constructeur du packet utilisé pour la déserialization.
@@ -48,8 +48,9 @@ namespace Packet {
 		* \return True si le paquet en envoyé en UDP, sinon false
 		*/
 		bool isUdp() const;
-
+	  uint8_t getValue() const;
 	private:
+	  uint8_t _value;
 	};
 };
 

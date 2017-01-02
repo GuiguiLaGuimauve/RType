@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 15:44:47 2016 Maxime Lecoq
-// Last update Mon Jan  2 13:34:40 2017 Lecoq Maxime
+// Last update Mon Jan  2 16:40:05 2017 Lecoq Maxime
 //
 
 #include "GameManager.hh"
@@ -64,16 +64,30 @@ bool          GameManager::gamesUpdate()
       if (_gameList[i]->getPlayersName().size() == 0
 	  || _gameList[i]->isWin() == true || _gameList[i]->isLoose() == true)
 	{
-	  IPacket	*p = _factory->getPacket("gameended");
+	  IPacket *p;
+	  uint8_t c;
+
+	  c = 0;
+	  if (_gameList[i]->getPlayersName().size() == 0)
+	    p = _factory->getPacket("gameended", c);
+	  if (_gameList[i]->isLoose() == true)
+	    {
+	      c++;
+	      p = _factory->getPacket("gameended", c);
+	    }
+	  else
+	    {
+	      c +=2;
+	      uint64_t x = 0;
+	      while (x < _gameList[i]->getRoom()->getPlayers().size())
+		{
+		  _gameList[i]->getRoom()->getPlayers()[x]->setStageSucceed(_gameList[i]->getRoom()->getPlayers()[x]->getStageSucceed() + 1);
+		  x++;
+		}
+	      p = _factory->getPacket("gameended", c);
+	    }
 	  _tcp->pushTo(_gameList[i]->getAllName(), p->getPacketUnknown());
 	  delete p;
-
-	  /*if (_gameList[i]->isWin() == true)
-	  tous les players dedans on leur envoie un packet winnnnnnnnn
-	  else
-if (_gameList[i]->isLoose() == true)
-//tous les players dedans 
-edit gameended avec un 1/0 pour un */
 	  _gameList[i]->end();
 	  _gameList.erase(_gameList.begin() + i);
 	}
