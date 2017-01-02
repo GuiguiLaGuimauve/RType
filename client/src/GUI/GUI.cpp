@@ -30,7 +30,7 @@ GUI::GUI()
   _userEvents->bindKey(KEY_ATTACK, EventPart::Event::KEY_ATTACK);
   _userEvents->bindKey(KEY_QUIT, EventPart::Event::CLOSE_WINDOW);
   _userEvents->bindKey(KEY_BACK, EventPart::Event::KEY_BACK);
-  //logFile.open("benchmarkCallback.txt");
+  logFile.open("benchmarkCallback.txt");
 }
 
 GUI::~GUI()
@@ -44,6 +44,7 @@ GUI::~GUI()
 
 void		GUI::callback()
 {
+	Clock timeInCallback;
 #ifndef _WIN32
 	// limitation
 	if (timerLastCallback.getTimeMilli() < 1000 / FPS_MAX)
@@ -55,7 +56,6 @@ void		GUI::callback()
 	fps++;
 	if (timerFps.getTimeMilli() >= 1000)
 	{
-		logFile << "FPS = " << fps << std::endl;
 		// show fps
 		if (_gameWidgets)
 		{
@@ -285,6 +285,8 @@ void		GUI::callback()
 	  if (ep.type != EventPart::Event::DEFAULT && _coreQueue)
 		  _coreQueue->push(ep);
   }
+  if (_gameWidgets)
+	logFile << "Temps dans la callback gui = " << timeInCallback.getTimeMilli() << std::endl;
 }
 
 void		GUI::displayGame()
