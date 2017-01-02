@@ -34,12 +34,14 @@ void Alf::move()
 	this->_x -= 1;
 }
 
-DataShoot *Alf::getShoot()
+std::vector<DataShoot *> Alf::getShoot()
 {
+	std::vector<DataShoot*> tmp;
   DataShoot *d = new AlfShoot;
   d->setX(_x);
   d->setX(_y + 31);
-  return (d);
+  tmp.push_back(d);
+  return (tmp);
 }
 
 DataEnnemy *Alf::getNewEnnemy()

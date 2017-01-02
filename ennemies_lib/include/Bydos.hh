@@ -19,7 +19,7 @@ class Bydos : public DataEnnemy
 public:
 	Bydos();
 	void move();
-	DataShoot *getShoot();
+	std::vector<DataShoot *> getShoot();
   bool isBoss() const;
   DataEnnemy *getNewEnnemy();
 };

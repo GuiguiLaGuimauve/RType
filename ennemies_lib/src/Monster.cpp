@@ -40,13 +40,18 @@ Monster::Monster()
 	  _pattern.push_back(b);
 	}
 
-DataShoot *Monster::getShoot()
+std::vector<DataShoot *> Monster::getShoot()
 {
-  DataShoot *d = new MonsterShoot;
+	std::vector<DataShoot *> tmp;
+	DataShoot *d = new MonsterShoot;
+	DataShoot *d2 = new MonsterShoot;
 
-  d->setX(_x);
-  d->setY(_y + 42);
-  return (d);
+	d->setX(_x);
+	d->setY(_y + 42);
+	tmp.push_back(d);
+	d2->setX(_x);
+	d2->setY(_y);
+	return (tmp);
 }
 
 DataEnnemy *Monster::getNewEnnemy()
