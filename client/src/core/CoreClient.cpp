@@ -8,7 +8,12 @@
 // Last update Mon Jan  2 17:19:12 2017 Lecoq Maxime
 //
 
+#include <fstream>
+#include "Clock.hpp"
+
 #include	"CoreClient.hh"
+
+std::fstream logTime = std::fstream("logTime.txt");
 
 CoreClient::CoreClient()
 {
@@ -65,11 +70,24 @@ CoreClient::~CoreClient()
 void	CoreClient::run()
 {
   _gui->displayStart();
+  Clock c;
   while (_loop == true)
-    {
-      if (manageGui() == false || manageNetwork() == false || managePackets() == false)
-	_loop = false;
-    }
+  {
+	  // if (manageGui() == false || manageNetwork() == false || managePackets() == false)
+	   //_loop = false;
+	  c.reset();
+	  if (manageGui() == false)
+		  _loop = false;
+	  logTime << "Temps dans la gui" << c.getTimeMilli() << std::endl;
+	  c.reset();
+	  if (manageNetwork() == false)
+		  _loop = false;
+	  logTime << "Temps dans le network" << c.getTimeMilli() << std::endl;
+	  c.reset();
+	  if (managePackets() == false)
+		  _loop = false;
+	  logTime << "Temps dans les packets" << c.getTimeMilli() << std::endl;
+  }
 }
 
 bool	CoreClient::manageGui()
