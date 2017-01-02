@@ -64,6 +64,7 @@ namespace Packet
 		ASK_ROOMS		= 0x89,
 		GAMEENDED		= 0x90,
 	  GAMEDATA	= 0x91,
+	  PLAYERDATA	= 0x92,
 		SHOOTS_CLIENT	= 0x99
     };
 

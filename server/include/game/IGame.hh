@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 11:54:14 2016 Maxime Lecoq
-// Last update Sun Jan  1 19:26:26 2017 Lecoq Maxime
+// Last update Mon Jan  2 03:57:40 2017 Lecoq Maxime
 //
 
 #ifndef IGAME_HH_
@@ -37,6 +37,7 @@ public:
   virtual void				execPacket(const IPacket *, const std::string &) = 0;
   virtual void                          updatePosPlayer(const IPacket *, const std::string &) = 0;
   virtual void                          updatePlayerShoots(const IPacket *, const std::string &) = 0;
+  virtual void                          updatePlayer(const IPacket *, const std::string &) = 0;
 };
 
 #endif /* !IGAME_HH_ */

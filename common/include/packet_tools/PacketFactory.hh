@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 11:41:19 2016 Maxime Lecoq
-// Last update Mon Jan  2 00:47:44 2017 Lecoq Maxime
+// Last update Mon Jan  2 03:48:03 2017 Lecoq Maxime
 //
 
 #ifndef PACKETFACTORY_HH_
@@ -60,6 +60,9 @@ public:
   IPacket	*getPacket(const IPacket::PacketType &, const uint8_t *, const uint16_t &, const std::string & = "client");
   IPacket	*getPacket(const std::string &, const std::vector<DataPlayer *> &, const std::vector<DataShoot *> &, const std::vector<DataEnnemy *> &, const std::vector<DataBackground *> &);
   IPacket	*getPacket(const IPacket::PacketType &, const std::vector<DataPlayer *> &, const std::vector<DataShoot *> &, const std::vector<DataEnnemy *> &, const std::vector<DataBackground *> &);
+  IPacket	*getPacket(const std::string &, const uint16_t &, const uint16_t &, const std::vector<DataShoot *> &);
+  IPacket	*getPacket(const IPacket::PacketType &, const uint16_t &, const uint16_t &, const std::vector<DataShoot *> &);
+
   
   IPacket *	getPacket(const uint8_t *) const;
   void		enableSerialiser(const std::string &);
@@ -114,6 +117,8 @@ public:
   IPacket	*getProfile(const DataPlayer *);
 
   IPacket	*getGameData(const std::vector<DataPlayer *> &, const std::vector<DataShoot *> &, const std::vector<DataEnnemy *> &, const std::vector<DataBackground *> &);
+
+  IPacket	*playerData(const uint16_t &, const uint16_t &, const std::vector<DataShoot *> &);
   
   IPacket		*revErrorPacket(const uint8_t *);
   IPacket		*revWelcome(const uint8_t *);
@@ -150,6 +155,7 @@ public:
   IPacket		*revAskRooms(const uint8_t *);
   IPacket		*revShootsClient(const uint8_t *);
   IPacket		*revGameData(const uint8_t *);
+  IPacket		*revPlayerData(const uint8_t *);
 private:
   PacketContener<void>										*_pkt1;
   PacketContener<const std::string &, const IPacket::PacketType &>				*_pkt2;
@@ -165,7 +171,8 @@ private:
   PacketContener<const std::vector<DataBackground *> &>						*_pkt12;
   PacketContener<const std::vector<DataPlayer *> &>						*_pkt13;
   PacketContener<const DataPlayer *>								*_pkt14;
-  PacketContener<const std::vector<DataPlayer *> &, const std::vector<DataShoot *> &, const std::vector<DataEnnemy *> &, const std::vector<DataBackground *> &>								*_pkt15;
+  PacketContener<const std::vector<DataPlayer *> &, const std::vector<DataShoot *> &, const std::vector<DataEnnemy *> &, const std::vector<DataBackground *> &>							*_pkt15;
+  PacketContener<const uint16_t &, const uint16_t &, const std::vector<DataShoot *> &>		*_pkt16;
   PacketContener<const uint8_t *>								*_pktDeserialiser;
 };
 
@@ -212,6 +219,7 @@ public:
     _map[IPacket::PacketType::ASK_ROOMS] = &PacketFactory::revAskRooms;
     _map[IPacket::PacketType::SHOOTS_CLIENT] = &PacketFactory::revShootsClient;
     _map[IPacket::PacketType::GAMEDATA] = &PacketFactory::revGameData;
+    _map[IPacket::PacketType::PLAYERDATA] = &PacketFactory::revPlayerData;
     _converter["error"] = IPacket::PacketType::ERROR_PACKET;
     _converter["welcome"] = IPacket::PacketType::WELCOME;
     _converter["connect"] = IPacket::PacketType::CONNECT;
@@ -247,6 +255,7 @@ public:
     _converter["askrooms"] = IPacket::PacketType::ASK_ROOMS;
     _converter["shootsclient"] = IPacket::PacketType::SHOOTS_CLIENT;
     _converter["gamedata"] = IPacket::PacketType::GAMEDATA;
+    _converter["playerdata"] = IPacket::PacketType::PLAYERDATA;
 };
   ~PacketContener() {};
   void	enable(const std::string &s)
@@ -273,6 +282,48 @@ private:
   std::map<IPacket::PacketType, ptr>    _map;
   std::map<std::string, IPacket::PacketType>    _converter;
   std::map<IPacket::PacketType, ptr>    _enableMap;
+  PacketFactory                 *_p;
+};
+
+template<>
+class PacketContener<const uint16_t &, const uint16_t &, const std::vector<DataShoot *> &>
+{
+public:
+  typedef IPacket *(PacketFactory::*ptr)(const uint16_t &, const uint16_t &, const std::vector<DataShoot *> &);
+  PacketContener(PacketFactory *p) : _p(p)
+  {
+    _map["playerdata"] = &PacketFactory::playerData;
+    _converter[IPacket::PacketType::PLAYERDATA] = "playerdata";
+  };
+  ~PacketContener() {};
+  void	enable(const std::string &s)
+  {
+    if (_map.find(s) != _map.end())
+      _enableMap[s] = _map[s]; 
+  }
+  IPacket	*getPacket(const std::string &s, const uint16_t &m, const uint16_t &t, const std::vector<DataShoot *> &sh)
+  {
+    if (_enableMap.find(s) != _enableMap.end())
+      return ((_p->*_enableMap[s])(m, t, sh));
+    return (NULL);
+  }
+  IPacket	*getPacket(const IPacket::PacketType &s, const uint16_t &m, const uint16_t &t, const std::vector<DataShoot *> &sh)
+  {
+  if (_converter.find(s) != _converter.end() && _enableMap.find(_converter[s]) != _enableMap.end())
+    return ((_p->*_enableMap[_converter[s]])(m, t, sh));
+  return (NULL);
+  }
+  bool	isEnable(const std::string &s)
+  {
+    if (_enableMap.find(s) != _enableMap.end())
+      return (true);
+    else
+      return (false);
+  }
+private:
+  std::map<std::string, ptr>    _map;
+  std::map<IPacket::PacketType, std::string>    _converter;
+  std::map<std::string, ptr>    _enableMap;
   PacketFactory                 *_p;
 };
 

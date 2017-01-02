@@ -26,7 +26,6 @@ namespace Data {
 	    _patternPos++;
 	    if (_patternPos >= _pattern.size())
 	      _patternPos = 0;
-	    std::cout << _patternPos << " " << _spriteFileName << std::endl;
 	  };
 	  virtual DataShoot *getShoot() { return (new DataShoot); };
 	  virtual bool isBoss() const { return (false); };

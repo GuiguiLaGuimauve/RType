@@ -1,0 +1,32 @@
+//
+// PacketPlayerData.cpp for PacketPlayerData in /home/lecoq/RType
+// 
+// Made by Lecoq Maxime
+// Login   <lecoq@lecoq-epitechHP>
+// 
+// Started on  Mon Jan  2 03:36:12 2017 Lecoq Maxime
+// Last update Mon Jan  2 03:37:18 2017 Lecoq Maxime
+//
+
+#include "PacketPlayerData.hh"
+
+PacketPlayerData::PacketPlayerData(const uint16_t &x, const uint16_t &y, const std::vector<DataShoot *> &s)
+{
+  PacketSerializer ps;
+  uint32_t dataPacketSize = 0;
+
+  _type = IPacket::PacketType::POSITION_PLAYER;
+  _tickId = 0;
+  _x = x;
+  _y = y;
+  _shoots = s;
+
+  ps.add(_x);
+  dataPacketSize += 2;
+
+  ps.add(_y);
+  dataPacketSize += 2;
+
+  _data = ps.getPacket();
+  _size = dataPacketSize;
+}

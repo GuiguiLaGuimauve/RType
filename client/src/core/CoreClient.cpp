@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Mon Jan  2 00:54:20 2017 Lecoq Maxime
+// Last update Mon Jan  2 04:04:49 2017 Lecoq Maxime
 //
 
 #include	"CoreClient.hh"
@@ -460,14 +460,11 @@ void		CoreClient::timeLine()
 	{
 	  _gameData->setTick(clo.getTimeMilli() / 50);
 	  IPacket *p;
-	  p = _factory->getPacket("positionplayer", _gui->getPosX(), _gui->getPosY());
+	  p = _factory->getPacket("playerdata", _gui->getPosX(), _gui->getPosY(), _gameData->getShoots());
 	  p->setTickId(_gameData->getTick());
 	  _udp->pushTo(empty, p->getPacketUnknown());
 	  delete p;
-	  p = _factory->getPacket("shootsclient", _gameData->getShoots());
-	  p->setTickId(_gameData->getTick());
-	  _udp->pushTo(empty, p->getPacketUnknown());
-	  delete p;
+
 	}
       std::this_thread::sleep_for(std::chrono::milliseconds(25));
     }

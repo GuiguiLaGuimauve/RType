@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 15:45:57 2016 Maxime Lecoq
-// Last update Mon Jan  2 02:00:49 2017 Lecoq Maxime
+// Last update Mon Jan  2 04:01:14 2017 Lecoq Maxime
 //
 
 #include	"Game.hh"
@@ -15,6 +15,7 @@ Game::Game(DataRoom *p) : _room(p), _timeline(0)
   _bossSet = false;
   _ptr[IPacket::PacketType::POSITION_PLAYER] = &IGame::updatePosPlayer;
   _ptr[IPacket::PacketType::SHOOTS_CLIENT] = &IGame::updatePlayerShoots;
+  _ptr[IPacket::PacketType::PLAYERDATA] = &IGame::updatePlayer;
 
   _ennemyGenerator = new EnnemyGenerator;
   refreshEnnemy();
@@ -418,4 +419,16 @@ void Game::updatePlayerShoots(const IPacket *pa, const std::string &m)
       pl->setShoots(tmpD);
       i++;
     }
+}
+
+void		Game::updatePlayer(const IPacket *pa, const std::string &m)
+{
+  PacketPlayerData *p = (PacketPlayerData *)pa;
+  IPacket	*pa1 = new PacketPositionPlayer(p->getX(), p->getY());
+  IPacket	*pa2 = new PacketShootsClient(p->getShoots());
+
+  updatePosPlayer(pa1, m);
+  updatePlayerShoots(pa2, m);
+  delete pa1;
+  delete pa2;
 }
