@@ -23,8 +23,7 @@ public:
 		this->setSizeY(8 * 3);
 		this->setHitBoxSizeX(8 * 3);
 		this->setHitBoxSizeY(8 * 3);
-	
-		this->_damage = 2;
+		this->_damage = 10;
 		
 	};
   ~PirateShoot() {};

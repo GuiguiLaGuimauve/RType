@@ -18,7 +18,6 @@ DataEnnemy *EnnemyLoader::LoadEnnemy(const std::string &lib)
 			DLloaderWin<DataEnnemy *()> dl_ui16;
 		#endif //_WIN32
 
-		std::cout << "We looking for " << ENNEMY_LIB_PATH + lib << std::endl;
 		dl_ui16.loadLib(ENNEMY_LIB_PATH + lib);
 
 		dl_ui16.extractLib("entrypoint");
