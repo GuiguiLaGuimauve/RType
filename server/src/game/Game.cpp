@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 15:45:57 2016 Maxime Lecoq
-// Last update Mon Jan  2 16:24:17 2017 Lecoq Maxime
+// Last update Mon Jan  2 17:09:58 2017 Lecoq Maxime
 //
 
 #include	"Game.hh"
@@ -404,10 +404,10 @@ void		Game::timeLine()
 	    _room->setLevel(_lvl);
 	  refreshEnnemy();
 	}
-      if (_timeline != (uint64_t)clo.getTimeMilli() / 15)
+      if (_timeline != (uint64_t)clo.getTimeMilli() / 25)
 	{
 	  std::vector<std::string> list = getAllName();
-	  _timeline = clo.getTimeMilli() / 15;
+	  _timeline = clo.getTimeMilli() / 25;
 	  std::vector<DataShoot *> shoot;
 	  for (uint64_t i = 0; i < _shoots.size(); i++)
 	    shoot.push_back(_shoots[i]);

@@ -5,12 +5,13 @@
 #include <iostream>
 #include "PacketGameEnded.hh"
 
-PacketGameEnded::PacketGameEnded(const uint8_t &t)
+PacketGameEnded::PacketGameEnded(const uint8_t &t, const uint32_t &s)
 {
 	PacketSerializer ps;
 	uint32_t dataPacketSize = 0;
 
 	_value = t;
+	_score = s;
 
 	_type = IPacket::PacketType::GAMEENDED;
 	_tickId = 0;
