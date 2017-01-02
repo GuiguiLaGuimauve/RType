@@ -10,6 +10,15 @@ set(CMAKE_SUPPRESS_REGENERATION true)
 set(EXECUTABLE_OUTPUT_PATH ${CMAKE_SOURCE_DIR})
 set(LIBRARY_OUTPUT_PATH ${CMAKE_SOURCE_DIR})
 
+message("-D CMAKE_BUILD_TYPE = CMAKE_BUILD_TYPE (Debug ou Release)")
+
+IF(CMAKE_BUILD_TYPE MATCHES Debug)
+  message("Debug build.")
+ELSE ()
+  set(CMAKE_BUILD_TYPE Release)
+  message("Release build.")
+ENDIF()
+
 ############################################
 #                   SFML                   #
 ############################################
@@ -86,7 +95,6 @@ FILE (GLOB_RECURSE client_src "client/src/*.cpp")
 # Flags Unix
 IF (UNIX)
 	add_definitions(-W -Wall -Wextra -Wshadow)
-	add_definitions(-g)
 ENDIF (UNIX)
 
 # Enable C++ 11
