@@ -45,8 +45,9 @@ GUI::~GUI()
 void		GUI::callback()
 {
 	std::stringstream ss;
-	Clock c;
-	//
+	static Clock c;
+	logFile << "TEMPS entre chaque callback = " << c.getTimeMilli() << std::endl;
+	c.reset();
   _userEvents->callback();
   _win->drawAll();
   while (!_guiQueue->empty())
@@ -256,7 +257,6 @@ void		GUI::callback()
 	  if (ep.type != EventPart::Event::DEFAULT && _coreQueue)
 		  _coreQueue->push(ep);
   }
-  logFile << "TEMPS DANS LA CALLBACK = " << c.getTimeMilli() << std::endl;
 }
 
 void		GUI::displayGame()
