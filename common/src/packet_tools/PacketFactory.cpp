@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 11:43:18 2016 Maxime Lecoq
-// Last update Mon Jan  2 11:11:22 2017 Lecoq Maxime
+// Last update Mon Jan  2 17:08:18 2017 Lecoq Maxime
 //
 
 #include	"PacketFactory.hh"
@@ -29,6 +29,7 @@ PacketFactory::PacketFactory()
   _pkt15 = new PacketContener<const std::vector<DataPlayer *> &, const std::vector<DataShoot *> &,
 			      const std::vector<DataEnnemy *> &, const std::vector<DataBackground *> &, const uint8_t &>(this);
   _pkt16 = new PacketContener<const uint16_t &, const uint16_t &, const std::vector<DataShoot *> &>(this);
+  _pkt17 = new PacketContener<const uint8_t &, const uint32_t &>(this);
   _pktDeserialiser = new PacketContener<const uint8_t *>(this);
 }
 
@@ -50,6 +51,7 @@ PacketFactory::~PacketFactory()
   delete _pkt14;
   delete _pkt15;
   delete _pkt16;
+  delete _pkt17;
   delete _pktDeserialiser;
 }
 
@@ -60,7 +62,7 @@ bool		PacketFactory::isEnableSerialise(const std::string &s)
       || _pkt7->isEnable(s) == true || _pkt8->isEnable(s) == true || _pkt9->isEnable(s) == true
       || _pkt10->isEnable(s) == true || _pkt11->isEnable(s) == true || _pkt12->isEnable(s) == true
       || _pkt13->isEnable(s) == true || _pkt14->isEnable(s) == true || _pkt15->isEnable(s) == true
-      || _pkt16->isEnable(s) == true)
+      || _pkt16->isEnable(s) == true || _pkt16->isEnable(s) == true)
     return (true);
   else
     return (false);
@@ -231,6 +233,18 @@ IPacket		*PacketFactory::getPacket(const IPacket::PacketType &p, const uint16_t 
   return (_pkt16->getPacket(p, m, t, s));
 }
 
+
+IPacket		*PacketFactory::getPacket(const std::string &p, const uint8_t &t, const uint32_t &s) 
+{
+  return (_pkt17->getPacket(p, t, s));
+}
+
+IPacket		*PacketFactory::getPacket(const IPacket::PacketType &p, const uint8_t &t, const uint32_t &s) 
+{
+  return (_pkt17->getPacket(p, t, s));
+}
+
+
 IPacket		*PacketFactory::getPacket(const uint8_t *p) const
 {
   return (_pktDeserialiser->getPacket(p));
@@ -254,6 +268,7 @@ void		PacketFactory::enableSerialiser(const std::string &packet)
   _pkt14->enable(packet);
   _pkt15->enable(packet);
   _pkt16->enable(packet);
+  _pkt17->enable(packet);
 }
 
 void		PacketFactory::enableDeserialiser(const std::string &packet)
@@ -380,9 +395,9 @@ IPacket		*PacketFactory::pong()
   return (ret);
 }
 
-IPacket		*PacketFactory::gameEnded() 
+IPacket		*PacketFactory::gameEnded(const uint8_t &t, const uint32_t &s) 
 {
-  IPacket	*ret = new PacketGameEnded;
+  IPacket	*ret = new PacketGameEnded(t, s);
 
   return (ret);
 }

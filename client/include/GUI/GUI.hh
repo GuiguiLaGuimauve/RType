@@ -125,7 +125,7 @@ namespace Gui
     void        displayStart();
     void        displayMenu();
     void	displayLogin();
-    void	displayEnd(bool, uint64_t);
+    void	displayEnd(bool, uint32_t);
     void        updateGameInfo(/*const GameInfo &*/);
     void	setEventQueue(EventPart::IEventQueue *);
     void	setSoundManager(Audio::ISoundManager *);
@@ -177,10 +177,11 @@ namespace Gui
     std::vector<IWidget *>	_shotsPos;
     std::vector<IWidget *>	_enemyPos;
     std::vector<IWidget *>	_envsPos;
-    // fps
-    Clock					timerFps;
-    int						fps = 0;
-    Clock					timerLastCallback;
+	// fps
+	Clock					timerFps;
+	int						fps = 0;
+	Clock					timerLastCallback;
+	IWidget	*showFps = NULL;
   };
 }
 
