@@ -303,7 +303,7 @@ void		GUI::displayGame()
   _envsPos.clear();
   
   _audio->stopMusic();
-  _audio->playMusic("Stage1");
+  _audio->playMusic("Stage3");
   //this->_gameWidgets->levelId = ...
   _win->setBackground(PICTURE_BACKGROUND_GAME);
   //_win->setBackground(this->backgroundMap[this->_gameWidgets->levelId]);// Ou on pourrait set le levelId ?
@@ -407,6 +407,9 @@ void		GUI::displayMenu()
 	_win->setBackground(PICTURE_BACKGROUND);
 	_menuWidgets = new Menu;
 	_menuWidgets->itScroll = 0;
+	// Launch music
+	_audio->playMusic("TitleScreen");
+	
 	//_menuWidgets->chat = new Chat(_win, _guiQueue, 1200, 700);
 
 	updateGameInfo();
@@ -731,7 +734,7 @@ void		GUI::displayEnd(bool win, uint32_t score)
   s.policeSize = 50;
   
   _audio->stopMusic();
-  _audio->playMusic("TitleScreen");
+  _audio->playMusic("Stage1");
   _win->setBackground(PICTURE_BACKGROUND);
   //_win->setBackground(this->backgroundMap[this->_gameWidgets->levelId]);// Ou on pourrait set le levelId ?
 
@@ -1090,7 +1093,7 @@ void	GUI::setPlayersPositions(const std::vector<DataPlayer *> &dp)
 	    s.anims["NORMAL"].push_back(s.image + "-4");
 	    s.anims["NORMAL"].push_back(s.image + "-3");
 	    s.anims["NORMAL"].push_back(s.image + "-2");
-	    s.frequency = 150;
+	    s.frequency = 250;
 	    temp->setStyle(s);
 	    _playersPos.push_back(temp);
 	  }
