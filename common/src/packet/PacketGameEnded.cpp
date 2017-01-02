@@ -18,6 +18,8 @@ PacketGameEnded::PacketGameEnded(const uint8_t &t, const uint32_t &s)
 
 	ps.add((uint8_t)_value);
 	dataPacketSize += 1;
+	ps.add((uint8_t)_score);
+	dataPacketSize += 4;
 	
 	_data = ps.getPacket();
 	_size = dataPacketSize;
@@ -37,6 +39,7 @@ PacketGameEnded::PacketGameEnded(const uint8_t *data)
 
 
 	_value = pd.get8(0);
+	_score = pd.get32(1);
 }
 
 PacketGameEnded::~PacketGameEnded()
@@ -54,3 +57,5 @@ bool PacketGameEnded::isUdp() const
 }
 
 uint8_t PacketGameEnded::getValue() const { return (_value); }
+
+uint32_t PacketGameEnded::getScore() const { return (_score); }

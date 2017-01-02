@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 11:41:19 2016 Maxime Lecoq
-// Last update Mon Jan  2 17:08:30 2017 Lecoq Maxime
+// Last update Mon Jan  2 17:14:52 2017 Lecoq Maxime
 //
 
 #ifndef PACKETFACTORY_HH_
@@ -176,7 +176,7 @@ private:
   PacketContener<const DataPlayer *>								*_pkt14;
   PacketContener<const std::vector<DataPlayer *> &, const std::vector<DataShoot *> &, const std::vector<DataEnnemy *> &, const std::vector<DataBackground *> &, const uint8_t &>					*_pkt15;
   PacketContener<const uint16_t &, const uint16_t &, const std::vector<DataShoot *> &>		*_pkt16;
-  PacketContener<const uint8_t &>								*_pkt17;
+  PacketContener<const uint8_t &, const uint32_t &>								*_pkt17;
   PacketContener<const uint8_t *>								*_pktDeserialiser;
 };
 

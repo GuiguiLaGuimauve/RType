@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Mon Jan  2 16:38:27 2017 Lecoq Maxime
+// Last update Mon Jan  2 17:19:12 2017 Lecoq Maxime
 //
 
 #include	"CoreClient.hh"
@@ -588,9 +588,9 @@ bool		CoreClient::gameEnded(const IPacket *pa, IUserNetwork *u)
     {
       _status = "end";
       if (pd->getValue() == 1)
-	_gui->displayEnd(false, 0);
+	_gui->displayEnd(false, pd->getScore());
       else
-	_gui->displayEnd(true, 0);
+	_gui->displayEnd(true, pd->getScore());
     }
   _gameData->reset();
   _udp->run(4243);

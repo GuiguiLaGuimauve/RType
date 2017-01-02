@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 15:44:47 2016 Maxime Lecoq
-// Last update Mon Jan  2 16:40:05 2017 Lecoq Maxime
+// Last update Mon Jan  2 17:17:58 2017 Lecoq Maxime
 //
 
 #include "GameManager.hh"
@@ -31,6 +31,7 @@ void	GameManager::createGame(DataRoom *room, const uint8_t *ip)
   _tcp->pushTo(newGame->getViewersName(), pb->getPacketUnknown());
   delete pb;
   i = 0;
+  room->setScore(50);
   while (i < room->getPlayers().size())
     {
       room->getPlayers()[i]->setGamePlayed(room->getPlayers()[i]->getGamePlayed() + 1);
@@ -40,7 +41,8 @@ void	GameManager::createGame(DataRoom *room, const uint8_t *ip)
       room->getPlayers()[i]->setY(200 + (i * 200));
       room->getPlayers()[i]->setShoots(reset);
       room->getPlayers()[i]->setTick(0);
-      pb = _factory->getPacket("positionplayer", 200, 200 + (i * 200));
+      uint16_t tmpI = 200;
+      pb = _factory->getPacket("positionplayer", tmpI, tmpI + (i * tmpI));
       tmp.push_back(room->getPlayers()[i]->getName());
       _tcp->pushTo(tmp, pb->getPacketUnknown());
       tmp.clear();
@@ -69,11 +71,11 @@ bool          GameManager::gamesUpdate()
 
 	  c = 0;
 	  if (_gameList[i]->getPlayersName().size() == 0)
-	    p = _factory->getPacket("gameended", c);
+	    p = _factory->getPacket("gameended", c, 0);
 	  if (_gameList[i]->isLoose() == true)
 	    {
 	      c++;
-	      p = _factory->getPacket("gameended", c);
+	      p = _factory->getPacket("gameended", c, _gameList[i]->getRoom()->getScore());
 	    }
 	  else
 	    {
@@ -84,7 +86,7 @@ bool          GameManager::gamesUpdate()
 		  _gameList[i]->getRoom()->getPlayers()[x]->setStageSucceed(_gameList[i]->getRoom()->getPlayers()[x]->getStageSucceed() + 1);
 		  x++;
 		}
-	      p = _factory->getPacket("gameended", c);
+	      p = _factory->getPacket("gameended", c, _gameList[i]->getRoom()->getScore());
 	    }
 	  _tcp->pushTo(_gameList[i]->getAllName(), p->getPacketUnknown());
 	  delete p;
