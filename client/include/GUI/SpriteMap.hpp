@@ -5,7 +5,7 @@
 // Login   <oger_a@epitech.net>
 // 
 // Started on  Fri Dec  2 15:23:46 2016 Antonin Oger
-// Last update Mon Jan  2 17:12:27 2017 root
+// Last update Mon Jan  2 17:56:46 2017 root
 //
 
 #ifndef _SPRITEMAP_HPP_
@@ -57,9 +57,9 @@ public:
     LoadSpriteFromTexture("PowerUp1", "SpherePowerUp", 0, 0, 34, 20, 3, 3);
     LoadSpriteFromTexture("GameOver", "Loose-1", 0, 0, 128, 32, 6, 6);
     LoadSpriteFromTexture("GameOver", "Loose-2", 0, 32, 128, 32, 6, 6);
-    LoadSpriteFromTexture("YouWin", "Win-1", 0, 0, 128, 32, 3, 6);
-    LoadSpriteFromTexture("YouWin", "Win-2", 0, 32, 128, 32, 3, 6);
-    LoadSpriteFromTexture("YouWin", "Win-3", 0, 64, 128, 32, 3, 6);
+    LoadSpriteFromTexture("YouWin", "Win-1", 0, 0, 128, 32, 6, 6);
+    LoadSpriteFromTexture("YouWin", "Win-2", 0, 32, 128, 32, 6, 6);
+    LoadSpriteFromTexture("YouWin", "Win-3", 0, 64, 128, 32, 6, 6);
     /* Enemy Sprites*/
     LoadSpriteFromTexture("Bydos", "Bydos", 27, 217, 155, 204, 3, 3);
     LoadSpriteFromTexture("Enemy1", "Enemy1", 5, 6, 21, 24, 3, 3);/* Multiples de 33 pour les anims */
