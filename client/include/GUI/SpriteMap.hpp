@@ -5,7 +5,7 @@
 // Login   <oger_a@epitech.net>
 // 
 // Started on  Fri Dec  2 15:23:46 2016 Antonin Oger
-// Last update Mon Jan  2 18:24:06 2017 root
+// Last update Mon Jan  2 19:08:09 2017 root
 //
 
 #ifndef _SPRITEMAP_HPP_
@@ -46,11 +46,32 @@ public:
     /********************************************/
     /*		LOAD	THE	SPRITES		*/
     /********************************************/
-    /* Spaceships Sprites */ 
+    /* Spaceships Sprites */
+    /* Ship 1 */
     LoadSpriteFromTexture("Ships", "Ship1", 1, 3, 32, 14, 3, 3);
+    LoadSpriteFromTexture("Ships", "Ship1-2", 34, 3, 32, 14, 3, 3);
+    LoadSpriteFromTexture("Ships", "Ship1-3", 67, 3, 32, 14, 3, 3);
+    LoadSpriteFromTexture("Ships", "Ship1-4", 100, 3, 32, 14, 3, 3);
+    LoadSpriteFromTexture("Ships", "Ship1-5", 133, 2, 32, 14, 3, 3);
+    /* Ship 2 */
     LoadSpriteFromTexture("Ships", "Ship2", 1, 20, 32, 14, 3, 3);
+    LoadSpriteFromTexture("Ships", "Ship2-2", 34, 20, 32, 14, 3, 3);
+    LoadSpriteFromTexture("Ships", "Ship2-3", 67, 20, 32, 14, 3, 3);
+    LoadSpriteFromTexture("Ships", "Ship2-4", 100, 20, 32, 14, 3, 3);
+    LoadSpriteFromTexture("Ships", "Ship2-5", 133, 19, 32, 14, 3, 3);
+    /* Ship 3 */
     LoadSpriteFromTexture("Ships", "Ship3", 1, 37, 32, 14, 3, 3);
+    LoadSpriteFromTexture("Ships", "Ship3-2", 34, 37, 32, 14, 3, 3);
+    LoadSpriteFromTexture("Ships", "Ship3-3", 67, 37, 32, 14, 3, 3);
+    LoadSpriteFromTexture("Ships", "Ship3-4", 100, 37, 32, 14, 3, 3);
+    LoadSpriteFromTexture("Ships", "Ship3-5", 133, 36, 32, 14, 3, 3);
+    /* Ship 4 */
     LoadSpriteFromTexture("Ships", "Ship4", 1, 54, 32, 14, 3, 3);
+    LoadSpriteFromTexture("Ships", "Ship4-2", 34, 54, 32, 14, 3, 3);
+    LoadSpriteFromTexture("Ships", "Ship4-3", 67, 54, 32, 14, 3, 3);
+    LoadSpriteFromTexture("Ships", "Ship4-4", 100, 54, 32, 14, 3, 3);
+    LoadSpriteFromTexture("Ships", "Ship4-5", 133, 53, 32, 14, 3, 3);
+    /* Ship 5 */
     LoadSpriteFromTexture("Ships", "Ship5", 1, 71, 32, 14, 3, 3);
     LoadSpriteFromTexture("Shots", "Shot-1", 217, 136, 48, 14, 2, 2);
     /* Misc Sprites */

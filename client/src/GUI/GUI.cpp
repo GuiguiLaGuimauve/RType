@@ -1076,6 +1076,14 @@ void	GUI::setPlayersPositions(const std::vector<DataPlayer *> &dp)
 	  {
 	    temp = _win->addWidget(elem->getX(), LAYOUT_HEIGHT + elem->getY(), 0, 0);
 	    s.image = "Ship" + std::to_string((elem->getId() + 1));
+	    s.anims["NORMAL"].push_back(s.image + "-2");
+	    s.anims["NORMAL"].push_back(s.image + "-3");
+	    s.anims["NORMAL"].push_back(s.image + "-4");
+	    s.anims["NORMAL"].push_back(s.image + "-5");
+	    s.anims["NORMAL"].push_back(s.image + "-4");
+	    s.anims["NORMAL"].push_back(s.image + "-3");
+	    s.anims["NORMAL"].push_back(s.image + "-2");
+	    s.frequency = 150;
 	    temp->setStyle(s);
 	    _playersPos.push_back(temp);
 	  }
