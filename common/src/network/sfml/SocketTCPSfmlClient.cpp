@@ -1,30 +1,29 @@
 //
-// SocketUnixClient.cpp for SocketUnixClient.cpp in /home/dufren_b/teck3/rendu/CPP/cpp_babel/network
+// SocketSfmlClient.cpp for SocketSfmlClient.cpp in /home/dufren_b/teck3/rendu/CPP/cpp_babel/network
 // 
 // Made by julien dufrene
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Fri Oct 14 15:52:42 2016 julien dufrene
-// Last update Thu Dec 15 15:57:18 2016 julien dufrene
+// Last update Sat Dec 24 16:48:19 2016 julien dufrene
 //
 
-#include "SocketTCPUnixClient.hh"
+#include "SocketTCPSfmlClient.hh"
 
 using namespace Network;
 
-SocketTCPUnixClient::SocketTCPUnixClient() : SocketTCPUnix() {}
+SocketTCPSfmlClient::SocketTCPSfmlClient() : SocketTCPSfml() {}
 
-bool			SocketTCPUnixClient::connectIt(const std::string &ip, const uint32_t &port)
+bool			SocketTCPSfmlClient::connectIt(const std::string &ip, const uint32_t &port)
 {
-  struct sockaddr_in	s_in;
-
-  s_in.sin_family = AF_INET;
-  s_in.sin_addr.s_addr = inet_addr(ip.c_str());
-  s_in.sin_port = htons(port);
-  if ((connect(_sock, (struct sockaddr *)&s_in, sizeof (s_in))) == -1)
-    return (false);
+  if (_sock.connect(ip.c_str(), port) != sf::Socket::Done)
+    {
+      std::cerr << "Error on Connect()" << std::endl;
+      closeIt();
+      return (false);
+    }
   std::cout << "Connected!" << std::endl;
   return (true);
 }
 
-SocketTCPUnixClient::~SocketTCPUnixClient() {}
+SocketTCPSfmlClient::~SocketTCPSfmlClient() {}

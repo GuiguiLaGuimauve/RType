@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 //
 // Started on  Thu Dec 15 15:33:48 2016 julien dufrene
-// Last update Mon Jan  2 10:27:48 2017 julien dufrene
+// Last update Mon Jan  2 20:23:09 2017 julien dufrene
 //
 
 #include "UserNetworkUDPWindowsServer.hh"
@@ -30,7 +30,7 @@ IUserNetwork		*UserNetworkUDPWindowsServer::readSocket(ISocket *net)
   s_in.sin_family = AF_INET;
   if (WSAHtons(_fd, _port, &(s_in.sin_port)) == SOCKET_ERROR)
   {
-	  std::cerr << "UNUWS Error on WSAHtons: " << WSAGetLastError() << std::endl;
+	  std::cerr << "Error on WSAHtons: " << WSAGetLastError() << std::endl;
 	  IUserNetwork		*u = new UserNetworkUDPWindowsServer(*this);
 	  return (u);
   }
@@ -57,12 +57,12 @@ IUserNetwork		*UserNetworkUDPWindowsServer::readSocket(ISocket *net)
   else
     if (WSAGetLastError() != 10035 && WSAGetLastError() != 10060 && WSAGetLastError() != 10054)
       {
-		std::cout << "NB error from WSARecvFrom: " << WSAGetLastError() << std::endl;
+		std::cerr << "Error on WSARecvFrom: " << WSAGetLastError() << std::endl;
 		closeFd();
       }
   if (RecvBytes == -1)
     {
-      std::cout << "LENGTH error from WSARecvFrom: " << WSAGetLastError() << std::endl;
+      std::cerr << "Error on WSARecvFrom: " << WSAGetLastError() << std::endl;
       closeFd();
     }
   return (this);

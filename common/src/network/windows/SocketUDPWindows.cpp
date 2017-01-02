@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 //
 // Started on  Thu Dec 15 15:13:57 2016 julien dufrene
-// Last update Thu Dec 22 11:44:06 2016 La Guimauve
+// Last update Mon Jan  2 20:27:26 2017 julien dufrene
 //
 
 #include "SocketUDPWindows.hh"
@@ -47,16 +47,15 @@ bool				SocketUDPWindows::bindIt(const uint32_t &port)
 
 	s_in.sin_addr.s_addr = htonl(INADDR_ANY);
 	s_in.sin_family = AF_INET;
-	//std::cout << "\t\t\tLe port donné est : " << port << std::endl;
 	if (WSAHtons(_sock, port, &(s_in.sin_port)) == SOCKET_ERROR)
 	{
-		std::cerr << "SUW Error on WSAHtons(): " << WSAGetLastError() << std::endl;
+		std::cerr << "Error on WSAHtons(): " << WSAGetLastError() << std::endl;
 		closeIt();
 		return (false);
 	}
 	if (bind(_sock, (SOCKADDR *)&s_in, sizeof(s_in)) == SOCKET_ERROR)
 	{
-		std::cerr << "Error on Bind: " << WSAGetLastError() << std::endl;
+		std::cerr << "Error on Bind(): " << WSAGetLastError() << std::endl;
 		closeIt();
 		return (false);
 	}

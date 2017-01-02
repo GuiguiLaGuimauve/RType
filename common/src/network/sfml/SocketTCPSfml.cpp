@@ -5,92 +5,73 @@
 // Login   <dufren_b@epitech.net>
 //
 // Started on  Fri Oct 14 11:10:10 2016 julien dufrene
-// Last update Fri Dec 16 16:22:30 2016 julien dufrene
+// Last update Sat Dec 24 17:06:58 2016 julien dufrene
 //
 
-#include "SocketTCPUnix.hh"
+#include "SocketTCPSfml.hh"
 
 using namespace Network;
 
-SocketTCPUnix::SocketTCPUnix()
+SocketTCPSfml::SocketTCPSfml()
 {
-  struct protoent	*proto;
-  int			reuse;
+  // bool		reuse;
 
-  _sock = -1;
-  reuse = 1;
-  proto = getprotobyname("TCP");
-  if (!proto)
-    throw ErrorSocket("Error on Getprotobyname()");
-  if ((_sock = socket(AF_INET, SOCK_STREAM, proto->p_proto)) == -1)
-    throw ErrorSocket("Error on Socket()");
-  if (setsockopt(_sock, SOL_SOCKET, SO_REUSEADDR, &reuse, sizeof(reuse)) == -1)
-    {
-      closeIt();
-      throw ErrorSocket("Error on Setsockopt()");
-    }
+  // reuse = true;
+  // if (setsockopt(_sock, SOL_SOCKET, SO_REUSEADDR, &reuse, sizeof(reuse)) == -1)
+  //   {
+  //     closeIt();
+  //     throw ErrorSocket("[SFML] Error on Setsockopt()");
+  //   }
 }
 
-int32_t			SocketTCPUnix::getFdSocket() const
+int32_t			SocketTCPSfml::getFdSocket() const
 {
-  return (_sock);
+  std::cout << "[SFML] get fd socket on SFML Socket" << std::endl;
+  return (0);
 }
 
-bool			SocketTCPUnix::bindIt(const uint32_t &port)
+bool			SocketTCPSfml::bindIt(const uint32_t &port)
 {
-  struct sockaddr_in	s_in;
-
-  s_in.sin_family = AF_INET;
-  s_in.sin_port = htons(port);
-  s_in.sin_addr.s_addr = htonl(INADDR_ANY);
-  if ((bind(_sock, (const struct sockaddr *)&s_in, sizeof (s_in))) == -1)
-    {
-      std::cerr << "Error on Bind()" << std::endl;
-      closeIt();
-      return (false);
-    }
+  // if (_sock.bind(port) != sf::Socket::Done)
+  //   {
+  //     std::cerr << "[SFML]Error on Bind()" << std::endl;
+  //     closeIt();
+  //     return (false);
+  //   }
+  _port = port;
   return (true);
 }
 
-bool			SocketTCPUnix::listenIt(const uint32_t &nbClient)
+bool			SocketTCPSfml::listenIt(const uint32_t &nbClient)
 {
-  if (listen(_sock, nbClient) == -1)
+  if (_listen.listen(_port) != sf::Socket::Done)
     {
-      std::cerr << "Error on Listen()" << std::endl;
-      closeIt();
-      return (false);
+      std::cerr << "[SFML]Error on listen()" << std::endl;
     }
+  (void)nbClient;
   return (true);
 }
 
-bool			SocketTCPUnix::acceptClient(DataClient &data)
+bool			SocketTCPSfml::acceptClient(DataClient &data)
 {
-  struct sockaddr_in	s_client;
-  socklen_t		s_len;
-  uint32_t		fd;
+  sf::TcpSocket		client;
 
-  if ((fd = accept(_sock, (struct sockaddr *)&s_client, &s_len)) == (unsigned int)-1)
+  if (_listen.accept(client) != sf::Socket::Done)
     {
-      std::cerr << "Error on Accept()" << std::endl;
+      std::cerr << "[SFML]Error on Accept()" << std::endl;
       closeIt();
-      return (false);
+      return (false);      
     }
-  data.setFd(fd);
-  std::string tmp(inet_ntoa(s_client.sin_addr));
+  data.setFd(0);
+  std::string tmp(client.getRemoteAddress().toString());
   data.setIp(tmp);
+  data.setSfmlSock(client);
   return (true);
 }
 
-bool		SocketTCPUnix::closeIt()
+bool		SocketTCPSfml::closeIt()
 {
-  if ((int32_t)_sock != -1)
-    if (close(_sock) == -1)
-      {
-	std::cerr << "Error on close()" << std::endl;
-	return (false);
-      }
-  _sock = -1;
   return (true);
 }
 
-SocketTCPUnix::~SocketTCPUnix() {}
+SocketTCPSfml::~SocketTCPSfml() {}

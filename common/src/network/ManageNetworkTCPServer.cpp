@@ -173,7 +173,6 @@ bool		ManageNetworkTCPServer::run(const uint32_t &port, const uint32_t &maxCl)
   u->setPort(port);
   u->setIp(_net->getIpInfo());
   u->setStatus(true);
-  std::cout << "Server TCP prepared, IP serveur: " << u->getIp() << std::endl;
   _user.push_back(u);
   return (true);
 }
