@@ -19,17 +19,18 @@ public:
 	AlfShoot() : DataShoot()
 	{
 		this->_spriteFileName = "Shot-Enemy8";
-		this->setSizeX(8 * 2);
-		this->setSizeY(8 * 2);
-		this->setHitBoxSizeX(8 * 2);
-		this->setHitBoxSizeY(8 * 2);
+		this->setSizeX(8 * 3);
+		this->setSizeY(8 * 3);
+		this->setHitBoxSizeX(8 * 3);
+		this->setHitBoxSizeY(8 * 3);
 		
 		this->_damage = 5;
 		
-		_pattern.clear();
-		std::pair<int8_t, int8_t> a(-2, 0);
-		_pattern.push_back(a);
+		//_pattern.clear();
+		//std::pair<int8_t, int8_t> a(-2, 0);
+		//_pattern.push_back(a);
   };
+  void move() { this->_x += -1; };
   ~AlfShoot() {};
 };
 

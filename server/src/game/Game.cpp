@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 15:45:57 2016 Maxime Lecoq
-// Last update Mon Jan  2 13:37:16 2017 Lecoq Maxime
+// Last update Mon Jan  2 15:04:22 2017 Lecoq Maxime
 //
 
 #include	"Game.hh"
@@ -221,11 +221,88 @@ void		Game::checkShootCollisions()
       while (x < _background.size() && _shoots[i]->getHealth() > 0)
 	{
 	  if (_shoots[i]->collisionWith(_background[x]) == true)
-	    _shoots[i]->setHealth(_shoots[i]->getHealth() - 90);
+	    _shoots[i]->setHealth(_shoots[i]->getHealth() - 100);
 	  x++;
 	}
       if (_shoots[i]->getHealth() <= 0)
 	_shoots.erase(_shoots.begin() + i);
+      else
+	i++;
+    }
+  i = 0;
+  while (i < _shootsEn.size())
+    {
+      x = 2;
+      while (x < _background.size() && _shootsEn[i]->getHealth() > 0)
+	{
+	  if (_shootsEn[i]->collisionWith(_background[x]) == true)
+	    _shootsEn[i]->setHealth(_shootsEn[i]->getHealth() - 100);
+	  x++;
+	}
+      x = 0;
+      while (x < _room->getPlayers().size() && _shootsEn[i]->getHealth() > 0)
+	{
+	  if (_shootsEn[i]->collisionWith(_room->getPlayers()[x]) == true)
+	    {
+	      _shootsEn[i]->setHealth(_shootsEn[i]->getHealth() - 100);
+	      _room->getPlayers()[x]->setHealth(_room->getPlayers()[x]->getHealth() - _shootsEn[i]->getDamage());
+	    }
+	  if (_room->getPlayers()[x]->getHealth() <= 0)
+	    _room->getPlayers()[x]->setHealth(0);
+	  x++;
+	}
+      if (_shootsEn[i]->getHealth() <= 0)
+	_shootsEn.erase(_shootsEn.begin() + i);
+      else
+	i++;
+    }
+  i = 0;
+  while (_room->getPlayers().size())
+    {
+      x = 2;
+      while (x < _background.size() && _room->getPlayers()[i]->getHealth() > 0)
+	{
+	  if (_room->getPlayers()[i]->collisionWith(_background[x]) == true)
+	    _room->getPlayers()[i]->setHealth(_room->getPlayers()[i]->getHealth() - 100);
+	  x++;
+	}
+      x = 0;
+      while (x < _ennemy.size() && _room->getPlayers()[i]->getHealth() > 0)
+	{
+	  if (_room->getPlayers()[i]->collisionWith(_ennemy[x]) == true)
+	    {
+	      _room->getPlayers()[i]->setHealth(_room->getPlayers()[i]->getHealth() - 100);
+	      _ennemy[x]->setHealth(_ennemy[x]->getHealth() - 100);
+	    }
+	  if (_ennemy[x]->getHealth() <= 0)
+	    {
+	      if (_ennemy[x]->isBoss() == true)
+		_win = true;
+	      _ennemy.erase(_ennemy.begin() + x);
+	    }
+	  else
+	    x++;
+	}
+      if (_room->getPlayers()[i]->getHealth() <= 0)
+	_room->getPlayers()[i]->setHealth(0);
+      i++;
+    }
+  i = 0;
+  while (i < _ennemy.size())
+    {
+      x = 2;
+      while (x < _background.size() && _ennemy[i]->getHealth() > 0)
+	{
+	  if (_ennemy[i]->collisionWith(_background[x]) == true && _ennemy[i]->isBoss() == false)
+	    _ennemy[i]->setHealth(_ennemy[i]->getHealth() - 100);
+	  x++;
+	}
+      if (_ennemy[i]->getHealth() <= 0)
+	{
+	  if (_ennemy[i]->isBoss() == true)
+	    _win = true;
+	  _ennemy.erase(_ennemy.begin() + i);
+	}
       else
 	i++;
     }
@@ -447,10 +524,13 @@ void		Game::monster()
 	  x = 0;
 	  while (x < _ennemy.size())
 	    {
-	      DataShoot *d = _ennemy[x]->getShoot();
-	      d->setX(_ennemy[x]->getX());
-	      d->setY(_ennemy[x]->getY() + (d->getSizeY() / 2));
-	      _shootsEn.push_back(d);
+	      std::vector<DataShoot *>d = _ennemy[x]->getShoot();
+	      uint64_t z = 0;
+	      while (z < d.size())
+		{
+		  _shootsEn.push_back(d[z]);
+		  z++;
+		}
 	      x++;
 	    }
 	}

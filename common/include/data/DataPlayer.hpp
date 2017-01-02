@@ -20,7 +20,14 @@ public:
     _stageSucceed = 0;
     _gamePlayed = 0;
     _health = 100;
-    _tick = 0; };
+    _tick = 0; 
+	this->setDeltaHitBoxX(0);
+	this->setDeltaHitBoxY(0);
+	this->setSizeX(32 * 3);
+	this->setSizeY(14 * 3);
+	this->setHitBoxSizeX(32 * 3);
+	this->setHitBoxSizeY(14 * 3);
+  };
   ~DataPlayer() {};
   
   std::string getName() const { return (_name); };
