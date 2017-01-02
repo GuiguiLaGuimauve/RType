@@ -51,6 +51,7 @@ std::vector<DataShoot *> Monster::getShoot()
 	tmp.push_back(d);
 	d2->setX(_x);
 	d2->setY(_y);
+	tmp.push_back(d2);
 	return (tmp);
 }
 
