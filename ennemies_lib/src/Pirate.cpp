@@ -5,7 +5,7 @@
 // Login   <rembur_g@epitech.eu>
 //
 // Started on  Tue Dec 27 13:34:43 2016 La Guimauve
-// Last update Sun Jan  1 23:33:35 2017 Lecoq Maxime
+// Last update Mon Jan  2 02:34:15 2017 Lecoq Maxime
 //
 
 #include <utility>
@@ -25,13 +25,50 @@ Pirate::Pirate()
 	this->setHitBoxSizeY(36);
 	this->setDeltaHitBoxX(0);
 	this->setDeltaHitBoxY(0);
-	this->setSpriteName("Enemy7");
+	this->setSpriteName("Enemy1");
 	this->setHealth(10);
-}
-
-void Pirate::move()
-{
-	this->_x -= 1;
+	uint32_t i;
+	std::pair<uint8_t, uint8_t> a(-1, -1);
+	std::pair<uint8_t, uint8_t> b(-1, 0);
+	std::pair<uint8_t, uint8_t> c(-1, 1);
+	if ((i = std::rand() % 3) == 0)
+	  {
+	    _pattern.push_back(a);
+	    _pattern.push_back(b);
+	    _pattern.push_back(b);
+	    _pattern.push_back(a);
+	    _pattern.push_back(b);
+	    _pattern.push_back(b);
+	    _pattern.push_back(b);
+	  }
+	else
+	  if (i == 1)
+	    {
+	      _pattern.push_back(c);
+	      _pattern.push_back(b);
+	      _pattern.push_back(b);
+	      _pattern.push_back(c);
+	      _pattern.push_back(b);
+	      _pattern.push_back(b);
+	      _pattern.push_back(b);
+	    }
+	  else
+	    {
+	      _pattern.push_back(a);
+	      _pattern.push_back(b);
+	      _pattern.push_back(b);
+	      _pattern.push_back(a);
+	      _pattern.push_back(b);
+	      _pattern.push_back(b);
+	      _pattern.push_back(b);
+	      _pattern.push_back(c);
+	      _pattern.push_back(b);
+	      _pattern.push_back(b);
+	      _pattern.push_back(c);
+	      _pattern.push_back(b);
+	      _pattern.push_back(b);
+	      _pattern.push_back(b);
+	    }
 }
 
 DataShoot *Pirate::getShoot()

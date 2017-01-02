@@ -5,7 +5,7 @@
 // Login   <rembur_g@epitech.eu>
 //
 // Started on  Tue Dec 27 13:13:44 2016 La Guimauve
-// Last update Sun Jan  1 23:29:38 2017 Lecoq Maxime
+// Last update Mon Jan  2 02:19:18 2017 Lecoq Maxime
 //
 
 #ifndef _PIRATE_HH_
@@ -13,6 +13,7 @@
 
 #include <utility>
 #include <vector>
+#include <ctime>
 #include "DataEnnemy.hpp"
 #include "DataShoot.hpp"
 
@@ -26,7 +27,6 @@ private:
 
 public:
   Pirate();
-  void move();
   DataShoot *getShoot();
   DataEnnemy *getNewEnnemy();
 };

@@ -5,7 +5,7 @@
 // Login   <rembur_g@epitech.eu>
 //
 // Started on  Tue Dec 27 13:34:43 2016 La Guimauve
-// Last update Sun Jan  1 23:33:09 2017 Lecoq Maxime
+// Last update Mon Jan  2 02:32:32 2017 Lecoq Maxime
 //
 
 #include <utility>
@@ -27,11 +27,17 @@ Monster::Monster()
 	this->setDeltaHitBoxY(0);
 	this->setSpriteName("Enemy7");
 	this->setHealth(15);
-}
-
-void Monster::move()
-{
-	this->_x -= 3;
+	std::pair<uint8_t, uint8_t> a(-1, -1);
+	std::pair<uint8_t, uint8_t> b(-1, 0);
+	std::pair<uint8_t, uint8_t> c(-1, 1);
+	_pattern.push_back(a);
+	_pattern.push_back(b);
+	_pattern.push_back(a);
+	_pattern.push_back(b);
+	_pattern.push_back(c);
+	_pattern.push_back(b);
+	_pattern.push_back(c);
+	_pattern.push_back(b);
 }
 
 DataShoot *Monster::getShoot()

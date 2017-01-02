@@ -5,7 +5,7 @@
 // Login   <rembur_g@epitech.eu>
 //
 // Started on  Tue Dec 27 13:34:43 2016 La Guimauve
-// Last update Sun Jan  1 23:31:31 2017 Lecoq Maxime
+// Last update Mon Jan  2 02:01:50 2017 Lecoq Maxime
 //
 
 #include <utility>
@@ -25,7 +25,7 @@ Alf::Alf()
 	this->setHitBoxSizeY(17);
 	this->setDeltaHitBoxX(0);
 	this->setDeltaHitBoxY(0);
-	this->setSpriteName("Vaisseau5");
+	this->setSpriteName("Enemy8");
 	this->setHealth(50);
 }
 
