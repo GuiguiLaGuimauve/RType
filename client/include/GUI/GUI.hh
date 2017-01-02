@@ -31,7 +31,7 @@
 
 #define NB_GAME_SCROLL 4
 
-#define MOVE_SPEED 1
+#define MOVE_SPEED 3
 
 #define LAYOUT_HEIGHT 100
 
