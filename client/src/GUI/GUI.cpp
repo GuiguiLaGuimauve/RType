@@ -1251,28 +1251,22 @@ void	GUI::addChatMessage(const std::string &s)
 
 void	GUI::setStagePopup(uint8_t nStage)
 {
-	// Delete old popup
-	if (_levelWidget)
-		_win->deleteWidget(_levelWidget);
-
-	// Create widget
-	_levelWidget = _win->addWidget(0, 0, 1920, 40);
-
-	// Get style
-	auto style = _levelWidget->getStyle();
-
-	// Edit style
-	style.textColor = Color(TEXT_COLOR_R, TEXT_COLOR_G, TEXT_COLOR_B);
-	style.policeSize = 24;
-
-	// Set style
-	_levelWidget->setStyle(style);
-
-	// Show Popup
-	std::stringstream ss;
-	ss << "Level : " << nStage << " !";
-	_levelWidget->showPopup(ss.str(), 3);
-
-	// Define position
-	_levelWidget->move((_win->getWidth() - _fadedWidget->getTextWidth()) / 2, 200);
+  // Delete old popup
+  if (_levelWidget)
+    _win->deleteWidget(_levelWidget);
+  // Create widget
+  _levelWidget = _win->addWidget(0, 0, 1920, 40);
+  // Get style
+  auto style = _levelWidget->getStyle();
+  // Edit style
+  style.textColor = Color(TEXT_COLOR_R, TEXT_COLOR_G, TEXT_COLOR_B);
+  style.policeSize = 24;
+  // Set style
+  _levelWidget->setStyle(style);
+  // Show Popup
+  std::stringstream ss;
+  ss << "Level : " << nStage << " !";
+  _levelWidget->showPopup(ss.str(), 3);
+  // Define position
+  _levelWidget->move((_win->getWidth() - _fadedWidget->getTextWidth()) / 2, 200);
 }
