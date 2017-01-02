@@ -1269,8 +1269,8 @@ void	GUI::setStagePopup(uint8_t nStage)
 
 	// Show Popup
 	std::stringstream ss;
-	ss << "Level : " << nStage << " !";
-	_levelWidget->showPopup(ss.str(), 3);
+	ss << "Level : " << (int) nStage << " !";
+	_levelWidget->showPopup(ss.str(), 3000);
 
 	// Define position
 	_levelWidget->move((_win->getWidth() - _levelWidget->getTextWidth()) / 2, 200);
