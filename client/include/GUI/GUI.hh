@@ -24,6 +24,8 @@
 #include "DataEnnemy.hpp"
 #include "DataBackground.hpp"
 
+#define FPS_MAX 65
+
 #define GUI_WIDTH 1920
 #define GUI_HEIGHT 1080
 
@@ -163,6 +165,10 @@ namespace Gui
     std::vector<IWidget *>	_shotsPos;
     std::vector<IWidget *>	_enemyPos;
     std::vector<IWidget *>	_envsPos;
+	// fps
+	Clock					timerFps;
+	int						fps = 0;
+	Clock					timerLastCallback;
   };
 }
 
