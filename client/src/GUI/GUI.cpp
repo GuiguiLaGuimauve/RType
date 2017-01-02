@@ -1090,7 +1090,7 @@ void	GUI::setPlayersPositions(const std::vector<DataPlayer *> &dp)
 	    s.anims["NORMAL"].push_back(s.image + "-4");
 	    s.anims["NORMAL"].push_back(s.image + "-3");
 	    s.anims["NORMAL"].push_back(s.image + "-2");
-	    s.frequency = 150;
+	    s.frequency = 250;
 	    temp->setStyle(s);
 	    _playersPos.push_back(temp);
 	  }
