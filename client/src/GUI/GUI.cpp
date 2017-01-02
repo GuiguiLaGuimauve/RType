@@ -62,7 +62,7 @@ void		GUI::callback()
 		{
 			if (showFps)
 				_win->deleteWidget(showFps);
-			showFps = _win->addWidget(5, 1060, 100, 100);
+			showFps = _win->addWidget(5, 980, 100, 100);
 			std::stringstream ss;
 			ss << fps << " fps";
 			showFps->setText(ss.str());
@@ -580,7 +580,7 @@ void		GUI::displayMenu()
 	_menuWidgets->startButton->setOnHover(TextColorFocus);
 	_menuWidgets->startButton->setOnLeaveHover(TextColorNoFocus);
 	// bouton pour monter dans la "scrollbar"
-	_menuWidgets->upScrollButton = _win->addWidget(1100, 400, 40, 40);
+	_menuWidgets->upScrollButton = _win->addWidget(60, 400, 40, 40);
 	_menuWidgets->upScrollButton->setText("UP");
 	s = _menuWidgets->upScrollButton->getStyle();
 	s.policeSize = 20;
@@ -593,7 +593,7 @@ void		GUI::displayMenu()
 	_menuWidgets->upScrollButton->setOnHover(TextColorFocus);
 	_menuWidgets->upScrollButton->setOnLeaveHover(TextColorNoFocus);
 	// bouton pour descendre dans la "scrollbar"
-	_menuWidgets->downScrollButton = _win->addWidget(1100, 300, 100, 40);
+	_menuWidgets->downScrollButton = _win->addWidget(60, 300, 100, 40);
 	_menuWidgets->downScrollButton->setText("DOWN");
 	s = _menuWidgets->downScrollButton->getStyle();
 	s.policeSize = 20;
