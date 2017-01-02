@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 15:44:47 2016 Maxime Lecoq
-// Last update Mon Jan  2 17:23:33 2017 Lecoq Maxime
+// Last update Mon Jan  2 19:10:18 2017 Lecoq Maxime
 //
 
 #include "GameManager.hh"
@@ -68,7 +68,7 @@ bool          GameManager::gamesUpdate()
 	{
 	  IPacket *p;
 	  uint8_t c;
-
+	  std::vector<std::string> list = _gameList[i]->getAllName();
 	  c = 0;
 	  if (_gameList[i]->getPlayersName().size() == 0)
 	    p = _factory->getPacket("gameended", c, 0);
@@ -88,7 +88,7 @@ bool          GameManager::gamesUpdate()
 		}
 	      p = _factory->getPacket("gameended", c, _gameList[i]->getRoom()->getScore());
 	    }
-	  _tcp->pushTo(_gameList[i]->getAllName(), p->getPacketUnknown());
+	  _tcp->pushTo(list, p->getPacketUnknown());
 	  delete p;
 	  _gameList[i]->end();
 	  _gameList.erase(_gameList.begin() + i);

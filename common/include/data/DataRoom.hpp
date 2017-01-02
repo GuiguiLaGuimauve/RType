@@ -41,6 +41,15 @@ public:
   void setLevel(const uint8_t & level) { if (_level != level) { _isUpdate = true; _level = level; } };
   void setStarted(const bool & started) { _started = started; };  
   void setScore(const uint32_t &s) { _score = s; }
+
+  void kickAll()
+  {
+    while (_players.size() != 0)
+      _players.erase(_players.begin());
+    while (_watchers.size() != 0)
+      _watchers.erase(_watchers.begin());
+    _isUpdate = true;
+  }
 private:
   std::string			_name;
   std::vector<DataPlayer *>	_players;

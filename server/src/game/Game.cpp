@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 15:45:57 2016 Maxime Lecoq
-// Last update Mon Jan  2 18:03:10 2017 Lecoq Maxime
+// Last update Mon Jan  2 19:11:53 2017 Lecoq Maxime
 //
 
 #include	"Game.hh"
@@ -34,7 +34,7 @@ Game::Game(DataRoom *p) : _room(p), _timeline(0)
   d->setSpeed(-2);
   _background.push_back(d); 
   _lvl = 1;
-  _ptrM[1] = &Game::boss;
+  _ptrM[1] = &Game::lvl1;
   _ptrM[2] = &Game::lvl2;
   _ptrM[3] = &Game::lvl2;
   _ptrM[4] = &Game::boss;
@@ -180,6 +180,7 @@ void		Game::run()
 void		Game::end()
 {
   _room->setStarted(false);
+  _room->kickAll();
 }
 
 void		Game::checkShootCollisions()
@@ -509,6 +510,9 @@ void		Game::boss()
       _ennemy.push_back(_boss);
       _bossMod = true;	
     }
+  else
+    if (_bossSet == false && _lvl >= 5)
+      _win = true;
 }
 
 void		Game::monster()
@@ -529,6 +533,9 @@ void		Game::monster()
 	  i = clo.getTimeMilli() / 7000;
 	  if (_ptrM.find(_lvl) != _ptrM.end())
 	    (this->*_ptrM[_lvl])();
+	  else
+	    if (_lvl >= 5)
+	      boss();
 	}
       if (shoot != (uint64_t)clo.getTimeMilli() / 1000)
 	{
