@@ -1271,5 +1271,5 @@ void	GUI::setStagePopup(uint8_t nStage)
 	_levelWidget->showPopup(ss.str(), 3);
 
 	// Define position
-	_levelWidget->move((_win->getWidth() - _fadedWidget->getTextWidth()) / 2, 200);
+	_levelWidget->move((_win->getWidth() - _levelWidget->getTextWidth()) / 2, 200);
 }
