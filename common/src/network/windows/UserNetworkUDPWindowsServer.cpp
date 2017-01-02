@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 //
 // Started on  Thu Dec 15 15:33:48 2016 julien dufrene
-// Last update Fri Dec 23 09:43:42 2016 La Guimauve
+// Last update Mon Jan  2 10:27:48 2017 julien dufrene
 //
 
 #include "UserNetworkUDPWindowsServer.hh"
@@ -56,7 +56,8 @@ IUserNetwork		*UserNetworkUDPWindowsServer::readSocket(ISocket *net)
       std::cout << "Modif Sender: " << getIp() << ":" << getPort() << std::endl;
     }
   else
-    if (WSAGetLastError() != 10035 && WSAGetLastError() != 10060 && WSAGetLastError() != 10054)
+    if (WSAGetLastError() != 10035 && WSAGetLastError() != 10060 // && WSAGetLastError() != 10054
+	)
       {
 		std::cout << "NB error from WSARecvFrom: " << WSAGetLastError() << std::endl;
 		closeFd();

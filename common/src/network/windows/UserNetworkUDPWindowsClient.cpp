@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Thu Dec 15 15:33:48 2016 julien dufrene
-// Last update Fri Dec 23 07:42:07 2016 julien dufrene
+// Last update Mon Jan  2 10:35:10 2017 julien dufrene
 //
 
 #include "UserNetworkUDPWindowsClient.hh"
@@ -31,9 +31,8 @@ IUserNetwork		*UserNetworkUDPWindowsClient::readSocket(ISocket *net)
   s_in.sin_family = AF_INET;
   if (WSAHtons(_fd, _port, &(s_in.sin_port)) == SOCKET_ERROR)
   {
-	  std::cerr << "UNUWC Error on WSAHtons: " << WSAGetLastError() << std::endl;
-	  IUserNetwork		*u = new UserNetworkUDPWindowsClient(*this);
-	  return (u);
+  	  std::cerr << "UNUWC Error on WSAHtons: " << WSAGetLastError() << std::endl;
+	  return (this);
   }
   DataBuf.len = 16384;
   DataBuf.buf = buffer;
@@ -50,13 +49,10 @@ IUserNetwork		*UserNetworkUDPWindowsClient::readSocket(ISocket *net)
       res[i] = 0;
       PacketUnknown pkt((uint8_t *)res, RecvBytes);
       buff_r.push(pkt);
-      if (WSANtohs(_fd, s_in.sin_port, &port) == SOCKET_ERROR)
-	std::cerr << "Error from Wsatohs(): " << WSAGetLastError() << std::endl;
-      /*else
-	std::cout << "Sender: " << inet_ntoa(s_in.sin_addr) << ":" << port << std::endl;*/
     }
   else
-    if (WSAGetLastError() != 10035 && WSAGetLastError() != 10060 && WSAGetLastError() != 10022)
+    if (WSAGetLastError() != 10035 && WSAGetLastError() != 10060 // && WSAGetLastError() != 10022
+	)
       {
 	std::cout << "error from WSARecvFrom: " << WSAGetLastError() << std::endl;
 	closeFd();
