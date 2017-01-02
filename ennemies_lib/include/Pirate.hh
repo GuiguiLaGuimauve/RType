@@ -27,7 +27,7 @@ private:
 
 public:
   Pirate();
-  DataShoot *getShoot();
+  std::vector<DataShoot *> getShoot();
   DataEnnemy *getNewEnnemy();
 };
 
