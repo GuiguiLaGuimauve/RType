@@ -179,7 +179,7 @@ void		GUI::callback()
 	  }
 	  case EventPart::Event::BUTTON_SCROLL_UP:
 	  {
-		  if (_menuWidgets->itScroll < NB_GAME_SCROLL)
+		  if (_menuWidgets->itScroll < NB_GAME_SCROLL  && _menuWidgets->itScroll + NB_GAME_SCROLL < _menuInfos.size())
 			  _menuWidgets->itScroll++;
 		  updateGameInfo();
 		  break;
@@ -774,7 +774,7 @@ void		GUI::updateGameInfo(/*const GameInfo &*/)
   if (!_menuWidgets)
     return;
   cleanGames();
-  if (_menuInfos.size() < NB_GAME_SCROLL)
+  if (_menuInfos.size() <= NB_GAME_SCROLL)
 	  _menuWidgets->itScroll = 0;
   if (_menuWidgets->itScroll >= _menuInfos.size())
 	  _menuWidgets->itScroll = (unsigned int) _menuInfos.size() - 1;
