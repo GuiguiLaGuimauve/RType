@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 15:45:57 2016 Maxime Lecoq
-// Last update Mon Jan  2 04:01:14 2017 Lecoq Maxime
+// Last update Mon Jan  2 04:22:53 2017 Lecoq Maxime
 //
 
 #include	"Game.hh"
@@ -219,7 +219,7 @@ void		Game::movements()
 		{
 		  if (_background[i]->getX() > 1920 || _background[i]->getX() < 0
 		      || _background[i]->getY() < 0 || _background[i]->getY() > 1080)
-		    _background.erase(_background.begin());
+		    _background.erase(_background.begin() + i);
 		  else
 		    i++;
 		}

@@ -1,4 +1,3 @@
-paquet cli
 backgrond y != 0
 
 depop monstre a recheck

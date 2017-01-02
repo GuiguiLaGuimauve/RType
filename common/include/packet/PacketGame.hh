@@ -5,7 +5,7 @@
 // Login   <lecoq@lecoq-epitechHP>
 // 
 // Started on  Mon Jan  2 00:03:18 2017 Lecoq Maxime
-// Last update Mon Jan  2 00:35:01 2017 Lecoq Maxime
+// Last update Mon Jan  2 04:14:29 2017 Lecoq Maxime
 //
 
 #ifndef PACKETGAME_HH_
@@ -25,7 +25,6 @@ namespace Packet
   {
   public:
     PacketGame(const std::vector<DataPlayer *> &, const std::vector<DataShoot *> &, const std::vector<DataEnnemy *> &, const std::vector<DataBackground *> &);
-    PacketGame(const std::vector<DataPlayer *> &, const std::vector<DataShoot *> &, const std::vector<DataEnnemy *> &);
     PacketGame(const uint8_t *);
     ~PacketGame();
     bool isTcp() const;
