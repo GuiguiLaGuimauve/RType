@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 15:45:57 2016 Maxime Lecoq
-// Last update Mon Jan  2 14:44:22 2017 Lecoq Maxime
+// Last update Mon Jan  2 15:04:22 2017 Lecoq Maxime
 //
 
 #include	"Game.hh"
@@ -253,6 +253,56 @@ void		Game::checkShootCollisions()
 	}
       if (_shootsEn[i]->getHealth() <= 0)
 	_shootsEn.erase(_shootsEn.begin() + i);
+      else
+	i++;
+    }
+  i = 0;
+  while (_room->getPlayers().size())
+    {
+      x = 2;
+      while (x < _background.size() && _room->getPlayers()[i]->getHealth() > 0)
+	{
+	  if (_room->getPlayers()[i]->collisionWith(_background[x]) == true)
+	    _room->getPlayers()[i]->setHealth(_room->getPlayers()[i]->getHealth() - 100);
+	  x++;
+	}
+      x = 0;
+      while (x < _ennemy.size() && _room->getPlayers()[i]->getHealth() > 0)
+	{
+	  if (_room->getPlayers()[i]->collisionWith(_ennemy[x]) == true)
+	    {
+	      _room->getPlayers()[i]->setHealth(_room->getPlayers()[i]->getHealth() - 100);
+	      _ennemy[x]->setHealth(_ennemy[x]->getHealth() - 100);
+	    }
+	  if (_ennemy[x]->getHealth() <= 0)
+	    {
+	      if (_ennemy[x]->isBoss() == true)
+		_win = true;
+	      _ennemy.erase(_ennemy.begin() + x);
+	    }
+	  else
+	    x++;
+	}
+      if (_room->getPlayers()[i]->getHealth() <= 0)
+	_room->getPlayers()[i]->setHealth(0);
+      i++;
+    }
+  i = 0;
+  while (i < _ennemy.size())
+    {
+      x = 2;
+      while (x < _background.size() && _ennemy[i]->getHealth() > 0)
+	{
+	  if (_ennemy[i]->collisionWith(_background[x]) == true && _ennemy[i]->isBoss() == false)
+	    _ennemy[i]->setHealth(_ennemy[i]->getHealth() - 100);
+	  x++;
+	}
+      if (_ennemy[i]->getHealth() <= 0)
+	{
+	  if (_ennemy[i]->isBoss() == true)
+	    _win = true;
+	  _ennemy.erase(_ennemy.begin() + i);
+	}
       else
 	i++;
     }
