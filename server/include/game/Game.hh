@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 11:54:48 2016 Maxime Lecoq
-// Last update Mon Jan  2 03:57:58 2017 Lecoq Maxime
+// Last update Mon Jan  2 06:27:55 2017 Lecoq Maxime
 //
 
 #ifndef GAME_HH_
@@ -67,6 +67,7 @@ private:
   uint64_t			_timeline;
   std::map<IPacket::PacketType, ptr>	_ptr;
   std::vector<DataShoot *>	_shoots;
+  std::vector<DataShoot *>	_shootsEn;
   EnnemyGenerator		*_ennemyGenerator;
   std::vector<DataEnnemy *>	_ennemyList;
   std::vector<DataEnnemy *>	_ennemy;

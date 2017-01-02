@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Mon Jan  2 04:48:42 2017 Lecoq Maxime
+// Last update Mon Jan  2 06:01:58 2017 Lecoq Maxime
 //
 
 #include	"CoreClient.hh"
@@ -460,6 +460,7 @@ void		CoreClient::timeLine()
   Clock		clo;
   std::vector<std::string> empty;
   
+  _tickIdServ = 0;
   while (_gameData->gameIsEnded() == false)
     {
       if (_game == "player" && _gameData->getTick() != (uint32_t)(clo.getTimeMilli() / 50))
@@ -498,7 +499,6 @@ bool		CoreClient::positionPlayer(const IPacket *pa, IUserNetwork *u)
   PacketPositionPlayer *p = (PacketPositionPlayer *)pa;
 
   (void)u;
-  (void)p;
   _gui->setPosX(p->getX());
   _gui->setPosY(p->getY());
   return (true);
@@ -508,10 +508,11 @@ bool		CoreClient::players(const IPacket *pa, IUserNetwork *u)
 {
   PacketPlayers	*p = (PacketPlayers *)pa;
   (void)u;
-  (void)p;
-  //  _gameData->setMarge(pa->getTickId() - _gameData->getTick());
-  //if (pa->getTickId() == _gameData->getTick() || pa->getTickId() - _gameData->getTick() == 1)
-  _gui->setPlayersPositions(p->getPlayers());
+  if (_tickIdServ < pa->getTickId())
+    {
+      _tickIdServ = pa->getTickId();
+      _gui->setPlayersPositions(p->getPlayers());
+    }
   return (true);
 }
 
@@ -519,10 +520,11 @@ bool		CoreClient::shoots(const IPacket *pa, IUserNetwork *u)
 {
   PacketShoots	*p = (PacketShoots *)pa;
   (void)u;
-  (void)p;
-  //_gameData->setMarge(pa->getTickId() - _gameData->getTick());
-  //  if (pa->getTickId() == _gameData->getTick() || pa->getTickId() - _gameData->getTick() == 1)
-  _gui->setShootsPositions(p->getShoots());
+  if (_tickIdServ < pa->getTickId())
+    {
+      _tickIdServ = pa->getTickId();
+      _gui->setShootsPositions(p->getShoots());
+    }
   return (true);
 }
 
@@ -530,10 +532,12 @@ bool		CoreClient::background(const IPacket *pa, IUserNetwork *u)
 {
   PacketBackgrounds	*p = (PacketBackgrounds *)pa;
   (void)u;
-  (void)p;
-  //_gameData->setMarge(pa->getTickId() - _gameData->getTick());
-  //  if (pa->getTickId() == _gameData->getTick() || pa->getTickId() - _gameData->getTick() == 1)
-  _gui->setEnvsPositions(p->getBackgrounds());
+  
+  if (_tickIdServ < pa->getTickId())
+    {
+      _tickIdServ = pa->getTickId();
+      _gui->setEnvsPositions(p->getBackgrounds());
+    }
   return (true);
 }
 
@@ -541,10 +545,12 @@ bool		CoreClient::ennemies(const IPacket *pa, IUserNetwork *u)
 {
   PacketEnnemies	*p = (PacketEnnemies *)pa;
   (void)u;
-  (void)p;
-  //_gameData->setMarge(pa->getTickId() - _gameData->getTick());
-  //  if (pa->getTickId() == _gameData->getTick() || pa->getTickId() - _gameData->getTick() == 1)
-  _gui->setEnemyPositions(p->getEnnemies());
+  
+  if (_tickIdServ < pa->getTickId())
+    {
+      _tickIdServ = pa->getTickId();
+      _gui->setEnemyPositions(p->getEnnemies());
+    }
   return (true);
 }
 
@@ -552,13 +558,15 @@ bool		CoreClient::gameData(const IPacket *pa, IUserNetwork *u)
 {
   PacketGame	*p = (PacketGame *)pa;
   (void)u;
-  (void)p;
-  //_gameData->setMarge(pa->getTickId() - _gameData->getTick());
-  //  if (pa->getTickId() == _gameData->getTick() || pa->getTickId() - _gameData->getTick() == 1)
-  _gui->setPlayersPositions(p->getPlayers());
-  _gui->setShootsPositions(p->getShoots());
-  _gui->setEnemyPositions(p->getEnnemies());
-  _gui->setEnvsPositions(p->getBackgrounds());
+  
+  if (_tickIdServ < pa->getTickId())
+    {
+      _tickIdServ = pa->getTickId();
+      _gui->setPlayersPositions(p->getPlayers());
+      _gui->setShootsPositions(p->getShoots());
+      _gui->setEnemyPositions(p->getEnnemies());
+      _gui->setEnvsPositions(p->getBackgrounds());
+    }
   return (true);
 }
 

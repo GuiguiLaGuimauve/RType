@@ -24,7 +24,7 @@ namespace Data
 	uint16_t getHitBoxSizeY() const;
 	int16_t getHitBoxX() const;
 	int16_t getHitBoxY() const;
-	void setSpriteName(const std::string &);
+    virtual void setSpriteName(const std::string &);
 	void setHitBoxSizeX(const uint16_t &);
 	void setHitBoxSizeY(const uint16_t &);
 	void setDeltaHitBoxX(const int16_t &);

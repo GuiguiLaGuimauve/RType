@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 15:45:57 2016 Maxime Lecoq
-// Last update Mon Jan  2 05:32:32 2017 Lecoq Maxime
+// Last update Mon Jan  2 06:46:27 2017 Lecoq Maxime
 //
 
 #include	"Game.hh"
@@ -192,7 +192,7 @@ void		Game::movements()
 	    {
 	      _ennemy[i]->move();
 	      if (_ennemy[i]->getX() > 1920 || _ennemy[i]->getX() + _ennemy[i]->getSizeX() < 0
-		  || _ennemy[i]->getY()  + _ennemy[i]->getSizeY() < 0 || _ennemy[i]->getY() > 1080)
+		  || _ennemy[i]->getY()  + _ennemy[i]->getSizeY() < 100 || _ennemy[i]->getY() > 1080)
 		_ennemy.erase(_ennemy.begin() + i);
 	      else
 		i++;
@@ -214,7 +214,7 @@ void		Game::movements()
 	      else
 		{
 		  if (_background[i]->getX() > 1920 || _background[i]->getX() + _background[i]->getSizeX() < 0
-		      || _background[i]->getY() + _background[i]->getSizeY() < 0 || _background[i]->getY() > 1080)
+		      || _background[i]->getY() + _background[i]->getSizeY() < 100 || _background[i]->getY() > 1080)
 		    _background.erase(_background.begin() + i);
 		  else
 		    i++;
@@ -240,17 +240,23 @@ void		Game::timeLine()
 	  _lvl++;
 	  if (_lvl < 5)
 	    _room->setLevel(_lvl);
+	  refreshEnnemy();
 	}
-      if (_timeline != (uint64_t)clo.getTimeMilli() / 10)
-	{	  
+      if (_timeline != (uint64_t)clo.getTimeMilli() / 15)
+	{
 	  std::vector<std::string> list = getAllName();
-	  _timeline = clo.getTimeMilli() / 10;
-	  pa = _factory->getPacket("gamedata", _room->getPlayers(), _shoots, _ennemy, _background);
+	  _timeline = clo.getTimeMilli() / 15;
+	  std::vector<DataShoot *> shoot;
+	  for (uint64_t i = 0; i < _shoots.size(); i++)
+	    shoot.push_back(_shoots[i]);
+	  for (uint64_t i = 0; i < _shootsEn.size(); i++)
+	    shoot.push_back(_shootsEn[i]);
+	  pa = _factory->getPacket("gamedata", _room->getPlayers(), shoot, _ennemy, _background);
 	  pa->setTickId(_timeline);
 	  _udp->pushTo(list, pa->getPacketUnknown());
 	  delete pa;
 	}
-      std::this_thread::sleep_for(std::chrono::milliseconds(25));
+      std::this_thread::sleep_for(std::chrono::milliseconds(5));
     }
 }
 
@@ -264,7 +270,7 @@ void		Game::lvl1()
 	{
 	  en = _ennemyList[std::rand() % _ennemyList.size()]->getNewEnnemy();
 	  en->setX(1920);
-	  en->setY((std::rand() % 900) + 50);
+	  en->setY((std::rand() % 900) + 100);
 	  _ennemy.push_back(en);
 	  i++;
 	}
@@ -275,6 +281,27 @@ void		Game::lvl2()
 {
   if (_ennemyList.size() != 0)
     {
+      uint64_t i = 0;
+      DataEnnemy	*en;
+      bool		go = true;
+      while (i < _room->getPlayers().size())
+	{
+	  en = _ennemyList[std::rand() % _ennemyList.size()]->getNewEnnemy();
+	  en->setX(1920);
+	  en->setY((std::rand() % 900) + 100);
+	  _ennemy.push_back(en);
+	  if (go == true)
+	    {
+	      go = false;
+	      en = _ennemyList[std::rand() % _ennemyList.size()]->getNewEnnemy();
+	      en->setX(1920);
+	      en->setY((std::rand() % 900) + 100);
+	      _ennemy.push_back(en);
+	    }
+	  else
+	    go = true;
+	  i++;
+	}
     }
 }
 
@@ -282,6 +309,18 @@ void		Game::lvl3()
 {
   if (_ennemyList.size() != 0)
     {
+      uint64_t i = 0;
+      DataEnnemy	*en;
+
+      while (i < _room->getPlayers().size() * 2)
+	{
+	  en = _ennemyList[std::rand() % _ennemyList.size()]->getNewEnnemy();
+	  en->setX(1920);
+	  en->setY((std::rand() % 900) + 100);
+	  _ennemy.push_back(en);
+	  i++;
+	}
+
     }
 }
 
@@ -298,19 +337,33 @@ void		Game::monster()
   Clock         clo;
   IPacket	*pa;
   uint64_t	i;
+  uint64_t	shoot;
   
   (void)pa;
   i = 0;
+  shoot = 0;
   while (_room->getStarted() == true && _room->getPlayers().size() != 0)
     {
-      if (i != (uint64_t)clo.getTimeMilli() / 5000)
+      if (i != (uint64_t)clo.getTimeMilli() / 7000)
 	{
-	  std::srand(std::time(0));
-	  i = clo.getTimeMilli() / 5000;
+	  std::srand(std::time(NULL));
+	  i = clo.getTimeMilli() / 7000;
 	  if (_ptrM.find(_lvl) != _ptrM.end())
 	    (this->*_ptrM[_lvl])();
 	}
-      std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+      if (shoot != (uint64_t)clo.getTimeMilli() / 1000)
+	{
+	  uint64_t x;
+	  shoot = clo.getTimeMilli() / 1000;
+	  x = 0;
+	  while (x < _ennemy.size())
+	    {
+	      DataShoot *d = _ennemy[x]->getShoot();
+	      _shootsEn.push_back(d);
+	      x++;
+	    }
+	}
+	std::this_thread::sleep_for(std::chrono::milliseconds(500));
     }
 }
 
@@ -322,15 +375,14 @@ void		Game::background()
 
   i = 0;
   (void)pa;
-  while (_room->getStarted() == true && _room->getPlayers().size() != 0)
+  while (_room->getStarted() == true && _room->getPlayers().size() != 0 && _lvl < 4)
     {
       if (i != (uint64_t)clo.getTimeMilli() / 50000)
 	{
-	  refreshEnnemy();
 	  i = clo.getTimeMilli() / 50000;
 	  DataBackground *d = new DataBackground;
 	  d->setX(1920);
-	  uint16_t y = (std::rand() % 800) + 200;
+	  uint16_t y = (std::rand() % 800) + 100;
 	  d->setY(y);
 	  d->setSpeed(-2);
 	  if (y % 2== 0)
@@ -358,9 +410,14 @@ bool		Game::playerPresent(const std::string &pl)
 
 void		Game::execPacket(const IPacket *pa, const std::string &m)
 {
+  DataPlayer	*packetFrom = _room->getPlayer(m);
+  
   if (_ptr.find(pa->getType()) != _ptr.end()
-      /*&& ((int64_t)(pa->getTickId() - _timeline) == -1 || (uint64_t)pa->getTickId() - _timeline == 0)*/)
-    (this->*_ptr[pa->getType()])(pa, m);
+      && packetFrom != NULL && packetFrom->getTick() < pa->getTickId())
+    {
+      packetFrom->setTick(pa->getTickId());
+      (this->*_ptr[pa->getType()])(pa, m);
+    }
 }
 
 void		Game::updatePosPlayer(const IPacket *pa, const std::string &m)

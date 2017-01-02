@@ -20,7 +20,10 @@ namespace Data {
 	  int8_t getSpeed() const { return (_speed); };
 	  
 	  void setSpeed(const int8_t &s) { _speed = s; }
-
+	  void setSpriteName(const std::string &s)
+	  {
+	    _spriteFileName = s;
+	  }
 	private:
 	  int8_t _speed;
 	};

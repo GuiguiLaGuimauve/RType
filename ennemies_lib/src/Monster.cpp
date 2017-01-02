@@ -5,7 +5,7 @@
 // Login   <rembur_g@epitech.eu>
 //
 // Started on  Tue Dec 27 13:34:43 2016 La Guimauve
-// Last update Mon Jan  2 03:26:12 2017 Lecoq Maxime
+// Last update Mon Jan  2 06:32:14 2017 Lecoq Maxime
 //
 
 #include <utility>
@@ -42,7 +42,11 @@ Monster::Monster()
 
 DataShoot *Monster::getShoot()
 {
-	return (new MonsterShoot());
+  DataShoot *d = new MonsterShoot;
+
+  d->setX(_x);
+  d->setY(_y + 42);
+  return (d);
 }
 
 DataEnnemy *Monster::getNewEnnemy()

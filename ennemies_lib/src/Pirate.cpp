@@ -5,7 +5,7 @@
 // Login   <rembur_g@epitech.eu>
 //
 // Started on  Tue Dec 27 13:34:43 2016 La Guimauve
-// Last update Mon Jan  2 04:52:20 2017 Lecoq Maxime
+// Last update Mon Jan  2 06:33:10 2017 Lecoq Maxime
 //
 
 #include <utility>
@@ -75,7 +75,10 @@ Pirate::Pirate()
 
 DataShoot *Pirate::getShoot()
 {
-	return (new PirateShoot());
+  DataShoot *d = new PirateShoot;
+  d->setX(_x);
+  d->setY(_y + 36);
+  return (d);
 }
 
 

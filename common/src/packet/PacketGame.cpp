@@ -5,7 +5,7 @@
 // Login   <lecoq@lecoq-epitechHP>
 // 
 // Started on  Mon Jan  2 00:03:04 2017 Lecoq Maxime
-// Last update Mon Jan  2 04:27:23 2017 Lecoq Maxime
+// Last update Mon Jan  2 05:52:34 2017 Lecoq Maxime
 //
 
 #include "PacketGame.hh"
@@ -56,6 +56,10 @@ PacketGame::PacketGame(const std::vector<DataPlayer *> &p, const std::vector<Dat
 
       ps.add(_shoots[i]->getDamage());
       dataPacketSize += 1;
+
+      ps.add((uint16_t)_shoots[i]->getSpriteName().size());
+      ps.add(_shoots[i]->getSpriteName());
+      dataPacketSize += 2 + (uint32_t)_shoots[i]->getSpriteName().size();
     }
 
   ps.add((uint16_t)_ennemies.size());
@@ -140,6 +144,9 @@ PacketGame::PacketGame(const uint8_t *data)
 
       shootsTemp->setDamage(pd.get8(posInPacket));
       posInPacket += 1;
+
+      shootsTemp->setSpriteName(pd.getString(posInPacket + 2, pd.get16(posInPacket)));
+      posInPacket += 2 + (uint32_t)pd.get16(posInPacket);
       _shoots.push_back(shootsTemp);
     }
 

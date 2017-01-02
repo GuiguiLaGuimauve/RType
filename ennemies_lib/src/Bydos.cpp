@@ -40,7 +40,10 @@ void Bydos::move()
 
 DataShoot *Bydos::getShoot()
 {
-	return (new BydosShoot);
+  DataShoot *d = new BydosShoot;
+  d->setX(_x);
+  d->setY(_y + 306);
+  return (d);
 }
 
 bool	Bydos::isBoss() const
