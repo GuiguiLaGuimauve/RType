@@ -125,7 +125,7 @@ PacketRooms::PacketRooms(const uint8_t *data)
 		roomsTemp->setStarted(((pd.get8(posInPacket)) ? true : false));
 		posInPacket += 1;
 
-		roomsTemp->setScore(pd.get16(posInPacket));
+		roomsTemp->setScore(pd.get32(posInPacket));
 		posInPacket += 4;
 		_rooms.push_back(roomsTemp);
 	}

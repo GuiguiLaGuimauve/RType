@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 15:45:57 2016 Maxime Lecoq
-// Last update Mon Jan  2 17:32:06 2017 Lecoq Maxime
+// Last update Mon Jan  2 17:47:55 2017 Lecoq Maxime
 //
 
 #include	"Game.hh"
@@ -226,7 +226,7 @@ void		Game::checkShootCollisions()
 	      else
 		{
 		  _ennemy.erase(_ennemy.begin() + x);
-		  _room->setScore(_room->getScore() + 100);
+		  _room->setScore(_room->getScore() + 50);
 		}
 	    }
 	  else
