@@ -721,7 +721,7 @@ void		GUI::updateGameInfo(/*const GameInfo &*/)
       temp->setStyle(sgame);
       temp->setText(elem->getName() + "\t" + std::to_string(elem->getPlayers().size())
 		    + "/" + std::to_string(elem->getMaxPlayers())
-		    + "\tStage " + std::to_string(elem->getLevel() + 1));
+		    + "\tStage " + std::to_string(elem->getLevel()));
       temp->setOnClick([](IWidget *w, CLICK)
 		       {
 					w->getEventQueue()->push(EventPart::Event(EventPart::Event::CLICK_SELECT_GAME, "X", w->getX(), "Y", w->getY()));
