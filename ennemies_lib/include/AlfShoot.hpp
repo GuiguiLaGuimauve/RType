@@ -5,7 +5,7 @@
 // Login   <rembur_g@epitech.eu>
 //
 // Started on  Sun Jan  1 18:57:24 2017 La Guimauve
-// Last update Sun Jan  1 22:57:46 2017 La Guimauve
+// Last update Mon Jan  2 02:43:02 2017 Lecoq Maxime
 //
 
 #ifndef _ALFSHOOT_HPP_
@@ -25,10 +25,13 @@ public:
 		this->setHitBoxSizeY(8 * 2);
 		
 		this->_damage = 5;
-	};
-  ~AlfShoot() {};
+		
+		_pattern.clear();
+		std::pair<int8_t, int8_t> a(-3, 0);
+		_pattern.push_back(a);
+  };
 
-  void move() { this->_x -= 3; };
+  ~AlfShoot() {};
 };
 
 #endif //_ALFSHOOT_HPP_

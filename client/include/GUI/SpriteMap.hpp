@@ -5,7 +5,7 @@
 // Login   <oger_a@epitech.net>
 // 
 // Started on  Fri Dec  2 15:23:46 2016 Antonin Oger
-// Last update Sun Jan  1 23:32:12 2017 root
+// Last update Mon Jan  2 03:39:57 2017 root
 //
 
 #ifndef _SPRITEMAP_HPP_
@@ -33,7 +33,7 @@ public:
     LoadTexture(PICTURE_BYDOS, "Bydos");
     LoadTexture(PICTURE_ENEMY7, "Enemy7");
     LoadTexture(PICTURE_ENEMY8, "Enemy8");
-    LoadTexture(PICTURE_ENEMY8, "Enemy1");
+    LoadTexture(PICTURE_ENEMY1, "Enemy1");
     LoadTexture(PICTURE_BOSS2, "Boss2");
     LoadTexture(PICTURE_SUPBOSS1, "SupBoss1");
     LoadTexture(PICTURE_LOGO, "Logo");
@@ -54,13 +54,19 @@ public:
     LoadSpriteFromTexture("Shots", "Shot-1", 218, 133, 47, 18, 2, 2);
     /* Misc Sprites */
     LoadSpriteFromTexture("PowerUp1", "SpherePowerUp", 0, 0, 34, 20, 3, 3);
-    LoadSpriteFromTexture("Bydos", "Bydos", 20, 0, 160, 210, 3, 3);
-    LoadSpriteFromTexture("Enemy7", "Enemy7", 0, 0, 34, 20, 3, 3);
-    LoadSpriteFromTexture("Enemy8", "Enemy8", 103, 39, 24, 20, 3, 3);
+    /* Enemy Sprites*/
+    LoadSpriteFromTexture("Bydos", "Bydos", 27, 217, 155, 204, 3, 3);
+    LoadSpriteFromTexture("Enemy1", "Enemy1", 5, 6, 21, 24, 3, 3);/* Multiples de 33 pour les anims */
+    LoadSpriteFromTexture("Enemy7", "Enemy7", 18, 3, 31, 28, 3, 3);
+    LoadSpriteFromTexture("Enemy8", "Enemy8", 103, 38, 24, 21, 3, 3);
+    /* Enemy Shots */
+    LoadSpriteFromTexture("Enemy8", "Shot-Enemy1", 91, 88, 8, 8, 2, 2);
+    LoadSpriteFromTexture("Enemy8", "Shot-Enemy7", 101, 88, 8, 8, 2, 2);
     LoadSpriteFromTexture("Enemy8", "Shot-Enemy8", 111, 88, 8, 8, 2, 2);
-    LoadSpriteFromTexture("Enemy1", "Enemy1", 0, 0, 33, 36, 3, 3);/* Multiples de 33 pour les anims */
-    LoadSpriteFromTexture("Boss2", "Boss2", 0, 0, 34, 20, 3, 3);
+    LoadSpriteFromTexture("Enemy8", "Shot-Bydos", 121, 88, 8, 8, 2, 2);
+
     LoadSpriteFromTexture("SupBoss1", "SupBoss1", 0, 0, 34, 20, 3, 3);
+    LoadSpriteFromTexture("Boss2", "Boss2", 0, 0, 34, 20, 3, 3);
     /* Env Sprites */
     LoadSpriteFromTexture("Env1", "Env-1", 0, 0, 128, 128, 2, 2);
     LoadSpriteFromTexture("Env1", "Env-1-2", 128, 0, 128, 128, 2, 2);

@@ -5,7 +5,7 @@
 // Login   <rembur_g@epitech.eu>
 //
 // Started on  Tue Dec 27 13:34:43 2016 La Guimauve
-// Last update Mon Jan  2 02:01:50 2017 Lecoq Maxime
+// Last update Mon Jan  2 02:59:05 2017 Lecoq Maxime
 //
 
 #include <utility>
@@ -29,7 +29,7 @@ Alf::Alf()
 
 void Alf::move()
 {
-	this->_x -= 1;
+	this->_x -= 4;
 }
 
 DataShoot *Alf::getShoot()
