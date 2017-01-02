@@ -1079,6 +1079,22 @@ void	GUI::setEnvsPositions(const std::vector<Data::DataBackground *> &de)
 
 	      /* Ajout du Widget d'ennemi */
 	      s.image = elem->getSpriteName();
+	      if (s.image == "Env-1")
+		{
+		  s.anims["NORMAL"].push_back("Env-1");
+		  s.anims["NORMAL"].push_back("Env-1-2");
+		  s.anims["NORMAL"].push_back("Env-1-3");
+		  s.anims["NORMAL"].push_back("Env-1-4");
+		  s.frequency = 250;
+		}
+	      else if (s.image == "Env-2")
+		{
+		  s.anims["NORMAL"].push_back("Env-2");
+		  s.anims["NORMAL"].push_back("Env-2-2");
+		  s.anims["NORMAL"].push_back("Env-2-3");
+		  s.anims["NORMAL"].push_back("Env-2-4");
+		  s.frequency = 250;		  
+		}
 	      temp->setStyle(s);
 	      _envsPos.push_back(temp);
 	    }
