@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 15:45:57 2016 Maxime Lecoq
-// Last update Mon Jan  2 05:16:10 2017 Lecoq Maxime
+// Last update Mon Jan  2 05:32:32 2017 Lecoq Maxime
 //
 
 #include	"Game.hh"
@@ -239,7 +239,7 @@ void		Game::timeLine()
 	  ckLvl = clo.getTimeMilli() / 50000;
 	  _lvl++;
 	  if (_lvl < 5)
-	    _room->setLvl(_lvl);
+	    _room->setLevel(_lvl);
 	}
       if (_timeline != (uint64_t)clo.getTimeMilli() / 10)
 	{	  
