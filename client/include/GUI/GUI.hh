@@ -162,6 +162,7 @@ namespace Gui
     Game			*_gameWidgets = NULL;
     // popup
     IWidget			*_fadedWidget = NULL;
+	IWidget			*_levelWidget = NULL;
     /* Widgets de games */
     std::vector<IWidget *>	_playersPos;
     std::vector<IWidget *>	_shotsPos;
