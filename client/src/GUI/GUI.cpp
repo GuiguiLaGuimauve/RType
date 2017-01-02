@@ -967,7 +967,7 @@ void	GUI::setPlayersPositions(const std::vector<DataPlayer *> &dp)
 	Style	s;
 
 	/* Ajout du nom */
-	temp = _win->addWidget((_win->getWidth() / 4) * (int)(elem->getId()) + 133, 10, 0, 0);
+	temp = _win->addWidget((_win->getWidth() / 4) * (int)(elem->getId()) + 133, 8, 0, 0);
 	temp->setText(elem->getName());
 	s = temp->getStyle();
 	s.textColor = Color(red[elem->getId()], green[elem->getId()], blue[elem->getId()]);
