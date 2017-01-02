@@ -109,6 +109,13 @@ namespace Gui
       uint16_t			_x = 0;
       uint16_t			_y = 0;
     };
+
+    struct End
+    {
+      IWidget	*score = NULL;
+      IWidget	*win = NULL;      
+    };
+
   public:
     GUI();
     virtual ~GUI();
@@ -118,6 +125,7 @@ namespace Gui
     void        displayStart();
     void        displayMenu();
     void	displayLogin();
+    void	displayEnd(bool, uint64_t);
     void        updateGameInfo(/*const GameInfo &*/);
     void	setEventQueue(EventPart::IEventQueue *);
     void	setSoundManager(Audio::ISoundManager *);
@@ -160,9 +168,10 @@ namespace Gui
     Login			*_loginWidgets = NULL;
     Menu			*_menuWidgets = NULL;
     Game			*_gameWidgets = NULL;
+    End				*_endWidgets = NULL;
     // popup
     IWidget			*_fadedWidget = NULL;
-	IWidget			*_levelWidget = NULL;
+    IWidget			*_levelWidget = NULL;
     /* Widgets de games */
     std::vector<IWidget *>	_playersPos;
     std::vector<IWidget *>	_shotsPos;
