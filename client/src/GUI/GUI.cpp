@@ -1094,8 +1094,8 @@ void	GUI::setEnvsPositions(const std::vector<Data::DataBackground *> &de)
 		{
 		  s.anims["NORMAL"].push_back("Env-2");
 		  s.anims["NORMAL"].push_back("Env-2-2");
-		  s.anims["NORMAL"].push_back("Env-2-3");
-		  s.anims["NORMAL"].push_back("Env-2-4");
+		  //s.anims["NORMAL"].push_back("Env-2-3");
+		  //s.anims["NORMAL"].push_back("Env-2-4");
 		  s.frequency = 250;		  
 		}
 	      temp->setStyle(s);
