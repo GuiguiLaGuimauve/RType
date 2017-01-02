@@ -5,7 +5,7 @@
 // Login   <oger_a@epitech.net>
 // 
 // Started on  Fri Dec  2 15:23:46 2016 Antonin Oger
-// Last update Mon Jan  2 03:39:57 2017 root
+// Last update Mon Jan  2 14:08:36 2017 root
 //
 
 #ifndef _SPRITEMAP_HPP_
@@ -40,8 +40,7 @@ public:
     LoadTexture(PICTURE_HEARTS, "Hearts");
     LoadTexture(PICTURE_ENV1, "Env1");
     LoadTexture(PICTURE_ENV2, "Env2");
-	
-    
+
     /********************************************/
     /*		LOAD	THE	SPRITES		*/
     /********************************************/
@@ -51,7 +50,7 @@ public:
     LoadSpriteFromTexture("Ships", "Ship3", 0, 34, 34, 20, 3, 3);
     LoadSpriteFromTexture("Ships", "Ship4", 0, 51, 34, 20, 3, 3);
     LoadSpriteFromTexture("Ships", "Ship5", 0, 68, 34, 20, 3, 3);
-    LoadSpriteFromTexture("Shots", "Shot-1", 218, 133, 47, 18, 2, 2);
+    LoadSpriteFromTexture("Shots", "Shot-1", 217, 136, 48, 14, 2, 2);
     /* Misc Sprites */
     LoadSpriteFromTexture("PowerUp1", "SpherePowerUp", 0, 0, 34, 20, 3, 3);
     /* Enemy Sprites*/
@@ -60,10 +59,10 @@ public:
     LoadSpriteFromTexture("Enemy7", "Enemy7", 18, 3, 31, 28, 3, 3);
     LoadSpriteFromTexture("Enemy8", "Enemy8", 103, 38, 24, 21, 3, 3);
     /* Enemy Shots */
-    LoadSpriteFromTexture("Enemy8", "Shot-Enemy1", 91, 88, 8, 8, 2, 2);
-    LoadSpriteFromTexture("Enemy8", "Shot-Enemy7", 101, 88, 8, 8, 2, 2);
-    LoadSpriteFromTexture("Enemy8", "Shot-Enemy8", 111, 88, 8, 8, 2, 2);
-    LoadSpriteFromTexture("Enemy8", "Shot-Bydos", 121, 88, 8, 8, 2, 2);
+    LoadSpriteFromTexture("Enemy8", "Shot-Enemy1", 91, 88, 8, 8, 3, 3);
+    LoadSpriteFromTexture("Enemy8", "Shot-Enemy7", 101, 88, 8, 8, 3, 3);
+    LoadSpriteFromTexture("Enemy8", "Shot-Enemy8", 111, 88, 8, 8, 3, 3);
+    LoadSpriteFromTexture("Enemy8", "Shot-Bydos", 121, 88, 8, 8, 3, 3);
 
     LoadSpriteFromTexture("SupBoss1", "SupBoss1", 0, 0, 34, 20, 3, 3);
     LoadSpriteFromTexture("Boss2", "Boss2", 0, 0, 34, 20, 3, 3);
