@@ -24,7 +24,7 @@
 #include "DataEnnemy.hpp"
 #include "DataBackground.hpp"
 
-#define FPS_MAX 40
+#define FPS_MAX 65
 
 #define GUI_WIDTH 1920
 #define GUI_HEIGHT 1080
