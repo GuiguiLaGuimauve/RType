@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Mon Dec 19 23:24:16 2016 Maxime Lecoq
-// Last update Mon Jan  2 18:03:41 2017 Lecoq Maxime
+// Last update Mon Jan  2 18:08:36 2017 Lecoq Maxime
 */
 
 #include	"ServerData.hh"
@@ -175,8 +175,8 @@ bool	ServerData::createRoom(const std::string &name, const uint8_t &mPlayer, con
   room->setName(name);
   room->setMaxPlayers(nbPlayer);
   room->setPlayers(playerList);
+  room->setScore(0);
   _room.push_back(room);
-  _room->setScore(0);
   _isUpdate = true;
   std::cout << "room : [" << name << "] create by : [" << player << "]" <<  std::endl;
   return (true);
