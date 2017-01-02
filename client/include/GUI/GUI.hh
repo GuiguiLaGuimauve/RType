@@ -172,6 +172,7 @@ namespace Gui
 	Clock					timerFps;
 	int						fps = 0;
 	Clock					timerLastCallback;
+	IWidget	*showFps = NULL;
   };
 }
 
