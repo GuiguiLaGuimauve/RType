@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 11:46:33 2016 Maxime Lecoq
-// Last update Sun Jan  1 19:24:57 2017 Lecoq Maxime
+// Last update Mon Jan  2 19:53:19 2017 Lecoq Maxime
 //
 
 #ifndef IGAMEMANAGER_HH_
@@ -15,6 +15,7 @@
 # include	"PacketFactory.hh"
 # include       "IManageNetwork.hh"
 # include	"ThreadPool.hpp"
+# include	"ServerData.hh"
 
 using namespace Network;
 
@@ -34,6 +35,7 @@ public:
   virtual bool		execPacket(const IPacket *, const std::string &) = 0;
   virtual void          popMonster(IGame *) = 0;
   virtual void          popBackground(IGame *) = 0;
+  virtual void		setData(ServerData *) = 0;
 };
 
 #endif /* !IGAMEMANAGER_HH_ */

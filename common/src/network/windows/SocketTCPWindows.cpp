@@ -48,7 +48,7 @@ bool				SocketTCPWindows::bindIt(const uint32_t &port)
 	}
 	if (bind(_sock, (SOCKADDR *)&s_in, sizeof(s_in)) == SOCKET_ERROR)
 	  {
-		  std::cerr << "Error on Bind: " << WSAGetLastError() << std::endl;
+		  std::cerr << "Error on Bind(): " << WSAGetLastError() << std::endl;
 		  closeIt();
 		  return (false);
 	  }
@@ -59,7 +59,7 @@ bool			SocketTCPWindows::listenIt(const uint32_t &nbClient)
 {
 	if (listen(_sock, nbClient) == -1)
 	{
-		std::cerr << "Error on Listen: " << WSAGetLastError() << std::endl;
+		std::cerr << "Error on Listen(): " << WSAGetLastError() << std::endl;
 		closeIt();
 		return (false);
 	}
@@ -76,12 +76,12 @@ bool			SocketTCPWindows::acceptClient(DataClient &data)
 	fd = WSAAccept(_sock, (SOCKADDR *)&saClient, &iClientSize, NULL, NULL);
 	if (fd == INVALID_SOCKET)
 	{
-		std::cerr << "Error on WSAAccept: " << WSAGetLastError() << std::endl;
+		std::cerr << "Error on WSAAccept(): " << WSAGetLastError() << std::endl;
 		return (false);
 	}
 	data.setFd(static_cast<int32_t>(fd));
 	std::string ip = inet_ntoa(saClient.sin_addr);
-	std::cout << "Accept client ip:" << ip << std::endl;
+	std::cout << "Client accepted:" << ip << std::endl;
 	data.setIp(ip);
 	return (true);
 }

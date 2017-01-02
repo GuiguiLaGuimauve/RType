@@ -57,7 +57,6 @@ void		GuiEventManager::callback()
 	  break;
 	case sf::Event::MouseButtonPressed :
 	  {
-	    std::cout << "sfml click" << std::endl;
 	    int click = 0;
 	    switch (event.mouseButton.button)
 	      {
