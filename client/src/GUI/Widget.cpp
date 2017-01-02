@@ -231,7 +231,7 @@ void                Widget::setStyle(const Style &s)
   _style = s;
   _sfmlText.setFont(_font);
   setText(_text);
-  _sfmlText.setFillColor(sf::Color(_style.textColor.red,
+  _sfmlText.setColor(sf::Color(_style.textColor.red,
 			       _style.textColor.green,
 			       _style.textColor.blue));
   _sfmlText.setCharacterSize(_style.policeSize);
