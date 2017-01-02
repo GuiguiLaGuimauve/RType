@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 15:45:57 2016 Maxime Lecoq
-// Last update Mon Jan  2 10:41:49 2017 Lecoq Maxime
+// Last update Mon Jan  2 11:00:16 2017 Lecoq Maxime
 //
 
 #include	"Game.hh"
@@ -33,9 +33,11 @@ Game::Game(DataRoom *p) : _room(p), _timeline(0)
   _background.push_back(d); 
   _lvl = 1;
   _ptrM[1] = &Game::lvl1;
-  _ptrM[2] = &Game::lvl2;
-  _ptrM[3] = &Game::lvl3;
-  _ptrM[4] = &Game::boss;
+  _ptrM[2] = &Game::lvl1;
+  _ptrM[3] = &Game::lvl2;
+  _ptrM[4] = &Game::lvl2;
+  _ptrM[5] = &Game::lvl3;
+  _ptrM[6] = &Game::boss;
   _bossMod = false;
   _boss = NULL;
 }
@@ -258,7 +260,7 @@ void		Game::timeLine()
 	{
 	  ckLvl = clo.getTimeMilli() / 50000;
 	  _lvl++;
-	  if (_lvl < 5)
+	  if (_lvl < 7)
 	    _room->setLevel(_lvl);
 	  refreshEnnemy();
 	}
@@ -397,7 +399,7 @@ void		Game::background()
 
   i = 0;
   (void)pa;
-  while (_room->getStarted() == true && _room->getPlayers().size() != 0 && _lvl < 4)
+  while (_room->getStarted() == true && _room->getPlayers().size() != 0 && _lvl < 7)
     {
       if (i != (uint64_t)clo.getTimeMilli() / 50000)
 	{

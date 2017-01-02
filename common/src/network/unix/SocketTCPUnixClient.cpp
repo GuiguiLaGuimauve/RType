@@ -5,7 +5,7 @@
 // Login   <dufren_b@epitech.net>
 // 
 // Started on  Fri Oct 14 15:52:42 2016 julien dufrene
-// Last update Mon Jan  2 04:02:45 2017 julien dufrene
+// Last update Mon Jan  2 10:59:58 2017 Lecoq Maxime
 //
 
 #include "SocketTCPUnixClient.hh"
@@ -31,7 +31,7 @@ bool			SocketTCPUnixClient::connectIt(const std::string &ip, const uint32_t &por
   s_in.sin_family = AF_INET;
   s_in.sin_addr.s_addr = inet_addr(ip.c_str());
   s_in.sin_port = htons(port);
-  tv.tv_sec = 10;
+  tv.tv_sec = 4;
   tv.tv_usec = 0;
   if ((connect(_sock, (struct sockaddr *)&s_in, sizeof (s_in))) == -1)
     {
@@ -47,7 +47,7 @@ bool			SocketTCPUnixClient::connectIt(const std::string &ip, const uint32_t &por
 	      else
 		{
 		  std::cout << "timeout: " << c.getTimeMilli() << "ms" << std::endl;
-		  if (c.getTimeMilli() < 100)
+		  if (c.getTimeMilli() < 4000)
 		    return (true);
 		}
 	    }
