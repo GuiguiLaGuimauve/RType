@@ -46,8 +46,14 @@ void		GUI::callback()
 {
 	std::stringstream ss;
 	static Clock c;
-	logFile << "TEMPS entre chaque callback = " << c.getTimeMilli() << std::endl;
-	c.reset();
+	static int	fps = 0;
+	fps++;
+	if (c.getTimeMilli() >= 1000)
+	{
+		logFile << "FPS = " << fps << std::endl;
+		fps = 0;
+		c.reset();
+	}
   _userEvents->callback();
   _win->drawAll();
   while (!_guiQueue->empty())
