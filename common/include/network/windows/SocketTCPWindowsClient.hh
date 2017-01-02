@@ -23,6 +23,8 @@ namespace Network
 		virtual ~SocketTCPWindowsClient();
 		/* La méthode connectIt(const std::string &, const uint32_t &) permet de se connecter sur une socket TCP. */
 		bool		connectIt(const std::string &ip, const uint32_t &port);
+	private:
+		bool		createIt();
 	};
 };
 
