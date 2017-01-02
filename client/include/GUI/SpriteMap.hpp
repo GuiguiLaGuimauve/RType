@@ -5,7 +5,7 @@
 // Login   <oger_a@epitech.net>
 // 
 // Started on  Fri Dec  2 15:23:46 2016 Antonin Oger
-// Last update Mon Jan  2 14:08:36 2017 root
+// Last update Mon Jan  2 14:20:50 2017 root
 //
 
 #ifndef _SPRITEMAP_HPP_
@@ -45,11 +45,11 @@ public:
     /*		LOAD	THE	SPRITES		*/
     /********************************************/
     /* Spaceships Sprites */ 
-    LoadSpriteFromTexture("Ships", "Ship1", 0, 0, 34, 20, 3, 3);
-    LoadSpriteFromTexture("Ships", "Ship2", 0, 17, 34, 20, 3, 3);
-    LoadSpriteFromTexture("Ships", "Ship3", 0, 34, 34, 20, 3, 3);
-    LoadSpriteFromTexture("Ships", "Ship4", 0, 51, 34, 20, 3, 3);
-    LoadSpriteFromTexture("Ships", "Ship5", 0, 68, 34, 20, 3, 3);
+    LoadSpriteFromTexture("Ships", "Ship1", 1, 3, 32, 14, 3, 3);
+    LoadSpriteFromTexture("Ships", "Ship2", 1, 20, 32, 14, 3, 3);
+    LoadSpriteFromTexture("Ships", "Ship3", 1, 37, 32, 14, 3, 3);
+    LoadSpriteFromTexture("Ships", "Ship4", 1, 54, 32, 14, 3, 3);
+    LoadSpriteFromTexture("Ships", "Ship5", 1, 71, 32, 14, 3, 3);
     LoadSpriteFromTexture("Shots", "Shot-1", 217, 136, 48, 14, 2, 2);
     /* Misc Sprites */
     LoadSpriteFromTexture("PowerUp1", "SpherePowerUp", 0, 0, 34, 20, 3, 3);
