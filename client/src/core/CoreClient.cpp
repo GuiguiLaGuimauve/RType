@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Mon Jan  2 04:04:49 2017 Lecoq Maxime
+// Last update Mon Jan  2 04:48:42 2017 Lecoq Maxime
 //
 
 #include	"CoreClient.hh"
@@ -188,7 +188,13 @@ bool	CoreClient::exitClient()
 bool	CoreClient::goConnect()
 {
   _gui->displayStart();
-  _tcp->run(4242);
+  delete _tcp;
+  _tcp = new ManageNetworkTCPClient();
+  if (_tcp->run(4242) == false)
+    exit(0);
+  _tcp->setPacketQueueRead(_read);
+  _tcp->setPacketQueueWrite(_write);
+  _tcp->setPacketFactory(_factory);
   _status = "connect";
   _gameData->endGame();
   if (_th->joinable())

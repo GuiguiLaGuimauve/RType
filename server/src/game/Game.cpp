@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 15:45:57 2016 Maxime Lecoq
-// Last update Mon Jan  2 04:24:23 2017 Lecoq Maxime
+// Last update Mon Jan  2 04:28:48 2017 Lecoq Maxime
 //
 
 #include	"Game.hh"
@@ -196,7 +196,6 @@ void		Game::movements()
 		_ennemy.erase(_ennemy.begin() + i);
 	      else
 		i++;
-	      i++;
 	    }
 	}
       if (z != (uint64_t)clo.getTimeMilli() / 100)
