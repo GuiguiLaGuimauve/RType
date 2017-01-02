@@ -471,10 +471,15 @@ void		GUI::displayMenu()
 	_menuWidgets->profileInfo = _win->addWidget(3 * (_win->getWidth() / 4), 3 * (_win->getHeight() / 4) + 60, _win->getHeight() / 4, 300);
 	if (_profile != NULL)
 	{
-	  _menuWidgets->profileInfo->setText("Name :\t" + _profile->getName()
-					     + "\n\nSuccess :\t" + std::to_string(_profile->getStageSucceed())
-					     + "/" + std::to_string(_profile->getGamePlayed()));
-	  if (_menuWidgets->chooseRoomName)
+	  if (_profile->getName().size() > 10)
+	    _menuWidgets->profileInfo->setText("Name : " + _profile->getName().substr(0, 10) + "..." +
+					       + "\n\nSuccess : " + std::to_string(_profile->getStageSucceed())
+					       + "/" + std::to_string(_profile->getGamePlayed()));
+	  else
+	    _menuWidgets->profileInfo->setText("Name :\t" + _profile->getName()
+					       + "\n\nSuccess :\t" + std::to_string(_profile->getStageSucceed())
+					       + "/" + std::to_string(_profile->getGamePlayed()));
+	    if (_menuWidgets->chooseRoomName)
 	    if (_menuWidgets->chooseRoomName->getText() == "")
 	      _menuWidgets->chooseRoomName->setText(_profile->getName());
 	}
@@ -849,7 +854,10 @@ void		GUI::updateCurrentGame()
 		for (unsigned int i = 0; i < _currentGame->getPlayers().size(); i++)
 		  {
 		    ss << "\n - ";
-		    ss << _currentGame->getPlayers()[i]->getName() << "\t";
+		    if (_currentGame->getPlayers()[i]->getName().size() > 10)
+		      ss << _currentGame->getPlayers()[i]->getName().substr(0, 10) + "...  ";
+		    else
+		      ss << _currentGame->getPlayers()[i]->getName() << "  ";
 		    ss << _currentGame->getPlayers()[i]->getStageSucceed() << "/";
 		    ss << _currentGame->getPlayers()[i]->getGamePlayed();
 		  }
@@ -971,7 +979,10 @@ void	GUI::setPlayersPositions(const std::vector<DataPlayer *> &dp)
 
 	/* Ajout du nom */
 	temp = _win->addWidget((_win->getWidth() / 4) * (int)(elem->getId()) + 110, 8, 0, 0);
-	temp->setText(elem->getName());
+	if (elem->getName().size() > 10)
+	  temp->setText(elem->getName().substr(0, 10) + "...");
+	else
+	  temp->setText(elem->getName());
 	s = temp->getStyle();
 	s.textColor = Color(red[elem->getId()], green[elem->getId()], blue[elem->getId()]);
 	s.policeSize = 30;
