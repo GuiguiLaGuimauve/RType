@@ -38,12 +38,14 @@ void Bydos::move()
 	}
 }
 
-DataShoot *Bydos::getShoot()
+std::vector<DataShoot *> Bydos::getShoot()
 {
+	std::vector<DataShoot *> tmp;
   DataShoot *d = new BydosShoot;
   d->setX(_x);
   d->setY(_y + 306);
-  return (d);
+  tmp.push_back(d);
+  return (tmp);
 }
 
 bool	Bydos::isBoss() const

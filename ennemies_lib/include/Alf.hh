@@ -27,7 +27,7 @@ private:
 public:
   Alf();
   void move();
-  DataShoot *getShoot();
+  std::vector<DataShoot *> getShoot();
   DataEnnemy *getNewEnnemy();
 };
 

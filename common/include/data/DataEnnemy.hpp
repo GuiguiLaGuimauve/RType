@@ -27,7 +27,10 @@ namespace Data {
 	    if (_patternPos >= _pattern.size())
 	      _patternPos = 0;
 	  };
-	  virtual DataShoot *getShoot() { return (new DataShoot); };
+	  virtual std::vector<DataShoot *> getShoot() {
+			std::vector<DataShoot *> tmp;
+			return (tmp); 
+	  };
 	  virtual bool isBoss() const { return (false); };
 	  virtual DataEnnemy *getNewEnnemy() { return (new DataEnnemy); }
 	protected:

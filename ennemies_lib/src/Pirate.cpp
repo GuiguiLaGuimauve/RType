@@ -73,12 +73,14 @@ Pirate::Pirate()
 	    }
 }
 
-DataShoot *Pirate::getShoot()
+std::vector<DataShoot *> Pirate::getShoot()
 {
+	std::vector<DataShoot *> tmp;
   DataShoot *d = new PirateShoot;
   d->setX(_x);
   d->setY(_y + 36);
-  return (d);
+  tmp.push_back(d);
+  return (tmp);
 }
 
 

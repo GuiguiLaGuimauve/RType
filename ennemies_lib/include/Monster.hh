@@ -26,7 +26,7 @@ private:
 
 public:
   Monster();
-  DataShoot *getShoot();
+  std::vector<DataShoot *> getShoot();
   DataEnnemy *getNewEnnemy();
 };
 
