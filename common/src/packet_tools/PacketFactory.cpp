@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 11:43:18 2016 Maxime Lecoq
-// Last update Sat Dec 31 20:30:58 2016 Lecoq Maxime
+// Last update Mon Jan  2 01:13:39 2017 Lecoq Maxime
 //
 
 #include	"PacketFactory.hh"
@@ -26,6 +26,8 @@ PacketFactory::PacketFactory()
   _pkt12 = new PacketContener<const std::vector<DataBackground *> &>(this);
   _pkt13 = new PacketContener<const std::vector<DataPlayer *> &>(this);
   _pkt14 = new PacketContener<const DataPlayer *>(this);
+  _pkt15 = new PacketContener<const std::vector<DataPlayer *> &, const std::vector<DataShoot *> &,
+			      const std::vector<DataEnnemy *> &, const std::vector<DataBackground *> &>(this);
   _pktDeserialiser = new PacketContener<const uint8_t *>(this);
 }
 
@@ -45,6 +47,7 @@ PacketFactory::~PacketFactory()
   delete _pkt12;
   delete _pkt13;
   delete _pkt14;
+  delete _pkt15;
   delete _pktDeserialiser;
 }
 
@@ -53,7 +56,8 @@ bool		PacketFactory::isEnableSerialise(const std::string &s)
   if (_pkt1->isEnable(s) == true || _pkt2->isEnable(s) == true || _pkt3->isEnable(s) == true
       || _pkt4->isEnable(s) == true || _pkt5->isEnable(s) == true || _pkt6->isEnable(s) == true
       || _pkt7->isEnable(s) == true || _pkt8->isEnable(s) == true || _pkt9->isEnable(s) == true
-      || _pkt10->isEnable(s) == true || _pkt11->isEnable(s) == true || _pkt12->isEnable(s) == true || _pkt13->isEnable(s) == true)
+      || _pkt10->isEnable(s) == true || _pkt11->isEnable(s) == true || _pkt12->isEnable(s) == true
+      || _pkt13->isEnable(s) == true || _pkt14->isEnable(s) == true || _pkt15->isEnable(s) == true)
     return (true);
   else
     return (false);
@@ -204,6 +208,16 @@ IPacket		*PacketFactory::getPacket(const IPacket::PacketType &p, const DataPlaye
   return (_pkt14->getPacket(p, m));
 }
 
+IPacket		*PacketFactory::getPacket(const IPacket::PacketType &p, const std::vector<DataPlayer *> &pl, const std::vector<DataShoot *> &s, const std::vector<DataEnnemy *> &e, const std::vector<DataBackground *> &b) 
+{
+  return (_pkt15->getPacket(p, pl, s, e, b));
+}
+
+IPacket		*PacketFactory::getPacket(const std::string &p, const std::vector<DataPlayer *> &pl, const std::vector<DataShoot *> &s, const std::vector<DataEnnemy *> &e, const std::vector<DataBackground *> &b) 
+{
+  return (_pkt15->getPacket(p, pl, s, e, b));
+}
+
 IPacket		*PacketFactory::getPacket(const uint8_t *p) const
 {
   return (_pktDeserialiser->getPacket(p));
@@ -225,6 +239,7 @@ void		PacketFactory::enableSerialiser(const std::string &packet)
   _pkt12->enable(packet);
   _pkt13->enable(packet);
   _pkt14->enable(packet);
+  _pkt15->enable(packet);
 }
 
 void		PacketFactory::enableDeserialiser(const std::string &packet)
@@ -470,6 +485,12 @@ IPacket		*PacketFactory::getProfile(const DataPlayer *m)
   return (ret);  
 }
 
+IPacket		*PacketFactory::getGameData(const std::vector<DataPlayer *> &p, const std::vector<DataShoot *> &s, const std::vector<DataEnnemy *> &e, const std::vector<DataBackground *> &b)
+{
+  IPacket	*ret= new PacketGame(p, s, e, b);
+
+  return (ret);  
+}
 
 IPacket		*PacketFactory::revErrorPacket(const uint8_t *p)
 {
@@ -675,5 +696,11 @@ IPacket		*PacketFactory::revAskRooms(const uint8_t *p)
 IPacket		*PacketFactory::revShootsClient(const uint8_t *p)
 {
   IPacket *pa = new PacketShootsClient(p);
+  return (pa);
+}
+
+IPacket		*PacketFactory::revGameData(const uint8_t *p)
+{
+  IPacket *pa = new PacketGame(p);
   return (pa);
 }

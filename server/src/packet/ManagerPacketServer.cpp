@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 10:58:37 2016 Maxime Lecoq
-// Last update Sat Dec 31 20:27:55 2016 Lecoq Maxime
+// Last update Mon Jan  2 00:48:55 2017 Lecoq Maxime
 //
 
 #include "ManagePacketServer.hh"
@@ -32,6 +32,7 @@ ManagePacketServer::ManagePacketServer()
   _factory->enableSerialiser("profile");
   _factory->enableSerialiser("gameended");
   _factory->enableSerialiser("positionplayer");
+  _factory->enableSerialiser("gamedata");
   _factory->enableDeserialiser("error");
   _factory->enableDeserialiser("connect");
   _factory->enableDeserialiser("createroom");

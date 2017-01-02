@@ -63,6 +63,7 @@ namespace Packet
 		PONG			= 0x88,
 		ASK_ROOMS		= 0x89,
 		GAMEENDED		= 0x90,
+	  GAMEDATA	= 0x91,
 		SHOOTS_CLIENT	= 0x99
     };
 

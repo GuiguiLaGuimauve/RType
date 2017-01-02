@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 10:58:37 2016 Maxime Lecoq
-// Last update Sat Dec 31 20:27:44 2016 Lecoq Maxime
+// Last update Mon Jan  2 00:49:14 2017 Lecoq Maxime
 //
 
 #include "ManagerPacketClient.hh"
@@ -50,6 +50,7 @@ ManagerPacketClient::ManagerPacketClient()
   _factory->enableDeserialiser("profile");
   _factory->enableDeserialiser("gameended"); 
   _factory->enableDeserialiser("positionplayer");
+  _factory->enableDeserialiser("gamedata");
 }
 
 ManagerPacketClient::~ManagerPacketClient()

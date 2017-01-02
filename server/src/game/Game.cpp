@@ -5,13 +5,14 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 15:45:57 2016 Maxime Lecoq
-// Last update Sun Jan  1 23:57:44 2017 Lecoq Maxime
+// Last update Mon Jan  2 01:15:26 2017 Lecoq Maxime
 //
 
 #include	"Game.hh"
 
 Game::Game(DataRoom *p) : _room(p), _timeline(0)
 {
+  _bossSet = false;
   _ptr[IPacket::PacketType::POSITION_PLAYER] = &IGame::updatePosPlayer;
   _ptr[IPacket::PacketType::SHOOTS_CLIENT] = &IGame::updatePlayerShoots;
 
@@ -35,6 +36,7 @@ Game::Game(DataRoom *p) : _room(p), _timeline(0)
   _ptrM[3] = &Game::lvl3;
   _ptrM[4] = &Game::boss;
   _bossMod = false;
+  _boss = NULL;
 }
 
 Game::~Game()
@@ -74,8 +76,11 @@ void			Game::refreshEnnemy()
 	  if (_ennemyList[x]->getSpriteName() == en[i]->getSpriteName() && en[i]->isBoss() == false)
 	    find = true;
 	  else
-	    if (en[i]->isBoss() == true && _boss == NULL)
-	      _boss = en[i];
+	    if (en[i]->isBoss() == true && _bossSet == false)
+	      {
+		_bossSet = true;
+		_boss = en[i];
+	      }
 	  x++;
 	}
       if (find == false && en[i]->isBoss() == false)
@@ -155,7 +160,6 @@ void		Game::movements()
   uint64_t	x;
   uint64_t	m;
   uint64_t	z;
-  IPacket	*pa;
 
   m = 0;
   x = 0;
@@ -199,7 +203,6 @@ void		Game::movements()
 	}
       if (z != (uint64_t)clo.getTimeMilli() / 100)
 	{
-	  std::vector<std::string> list = getAllName();
 	  z = clo.getTimeMilli() / 100;
 	  i = 0;
 	  while (i < _background.size())
@@ -220,10 +223,6 @@ void		Game::movements()
 		    i++;
 		}
 	    }
-	  pa = _factory->getPacket("background", _background);
-	  pa->setTickId(_timeline);
-	  _udp->pushTo(list, pa->getPacketUnknown());
-	  delete pa;
 	}
     }
 }
@@ -247,15 +246,7 @@ void		Game::timeLine()
 	{	  
 	  std::vector<std::string> list = getAllName();
 	  _timeline = clo.getTimeMilli() / 50;
-	  pa = _factory->getPacket("players", _room->getPlayers());
-	  pa->setTickId(_timeline);
-	  _udp->pushTo(list, pa->getPacketUnknown());
-	  delete pa;
-	  pa = _factory->getPacket("shoots", _shoots);
-	  pa->setTickId(_timeline);
-	  _udp->pushTo(list, pa->getPacketUnknown());
-	  delete pa;
-	  pa = _factory->getPacket("ennemies", _ennemy);
+	  pa = _factory->getPacket("gamedata", _room->getPlayers(), _shoots, _ennemy, _background);
 	  pa->setTickId(_timeline);
 	  _udp->pushTo(list, pa->getPacketUnknown());
 	  delete pa;

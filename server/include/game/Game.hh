@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Thu Dec 15 11:54:48 2016 Maxime Lecoq
-// Last update Sun Jan  1 22:40:31 2017 Lecoq Maxime
+// Last update Mon Jan  2 01:02:22 2017 Lecoq Maxime
 //
 
 #ifndef GAME_HH_
@@ -73,6 +73,7 @@ private:
   std::vector<DataBackground *>	_background;
   std::map<uint8_t, fMonster>	_ptrM;
   bool				_bossMod;
+  bool				_bossSet;
 };
 
 #endif /* !GAME_HH_ */
