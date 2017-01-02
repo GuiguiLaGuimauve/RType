@@ -5,7 +5,7 @@
 // Login   <maxime.lecoq@epitech.eu>
 // 
 // Started on  Fri Dec  2 14:38:54 2016 Maxime Lecoq
-// Last update Mon Jan  2 11:20:09 2017 Lecoq Maxime
+// Last update Mon Jan  2 13:04:50 2017 Lecoq Maxime
 //
 
 #include	"CoreClient.hh"
@@ -561,7 +561,6 @@ bool		CoreClient::gameData(const IPacket *pa, IUserNetwork *u)
   
   if (_tickIdServ < pa->getTickId())
     {
-      std::cout << (int)p->getLevel() << std::endl;
       _tickIdServ = pa->getTickId();
       _gui->setPlayersPositions(p->getPlayers());
       _gui->setShootsPositions(p->getShoots());
